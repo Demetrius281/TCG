@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCG — Twins Consulting Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0C0C0C;
+  --bg-section: #111111;
+  --bg-card: #1A1A1A;
+  --text: #E8E4DF;
+  --text-dim: #8A8580;
+  --accent: #C9A96E;
+  --accent-light: #E0C68A;
+  --border: #2A2725;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'DM Sans', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 8vw;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%; right: -20%;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(201,169,110,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-logo {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 60px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  max-width: 900px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  max-width: 600px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+
+/* GEO STRIP */
+.hero-geo-wrapper {
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.7s forwards;
+}
+.hero-geo-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+.hero-geo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.hero-geo span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(201,169,110,0.06);
+  border: 1px solid rgba(201,169,110,0.15);
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--text-dim);
+  letter-spacing: 0.03em;
+  transition: border-color 0.3s, color 0.3s;
+}
+.hero-geo span:hover {
+  border-color: rgba(201,169,110,0.4);
+  color: var(--text);
+}
+.geo-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 36px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: all 0.3s;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+  width: fit-content;
+  max-width: max-content;
+  white-space: nowrap;
+}
+.hero-cta:hover { background: var(--accent); color: var(--bg); }
+.hero-cta svg { width: 16px; height: 16px; transition: transform 0.3s; }
+.hero-cta:hover svg { transform: translateX(4px); }
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 0.8s 1.2s forwards;
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: -100%; left: 0;
+  width: 100%; height: 100%;
+  background: var(--accent);
+  animation: scrollPulse 2s infinite;
+}
+
+/* ===== SECTIONS ===== */
+section { padding: 120px 8vw; position: relative; }
+section + section { border-top: 1px solid var(--border); }
+.section-label {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.section-number {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-right: 12px;
+}
+section h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+section h2 em { font-style: italic; color: var(--accent); }
+.section-text {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+/* ===== VALUE GRID ===== */
+.essence-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-top: 60px;
+}
+.essence-point {
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+}
+.essence-point h3 {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.essence-point p { color: var(--text-dim); font-size: 0.95rem; }
+
+/* ===== SERVICES ===== */
+.services-list { display: flex; flex-direction: column; margin-top: 40px; }
+.service-item {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  align-items: start;
+  gap: 24px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+}
+.service-num {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--accent);
+  opacity: 0.5;
+}
+.service-item h3 {
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.service-item p { color: var(--text-dim); font-size: 0.9rem; max-width: 500px; }
+.service-tag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 6px 14px;
+  border: 1px solid rgba(201,169,110,0.3);
+  white-space: nowrap;
+  align-self: center;
+  width: 160px;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+}
+a.service-tag:hover {
+  background: rgba(201,169,110,0.12);
+  color: var(--accent-light);
+}
+
+/* ===== OUTCOME ===== */
+.result-visual {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-top: 60px;
+  padding: 60px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+.result-before, .result-after { flex: 1; text-align: center; }
+.result-arrow {
+  font-size: 2rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.result-label {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+.result-title { font-family: var(--serif); font-size: 1.6rem; }
+.result-before .result-title { color: var(--text-dim); }
+.result-after .result-title { color: var(--accent); }
+.result-points {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+.result-point { padding: 32px; border: 1px solid var(--border); }
+.result-point h4 {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.result-point p { font-size: 0.85rem; color: var(--text-dim); }
+
+/* ===== MODEL ===== */
+.model-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+.model-card {
+  padding: 40px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+.model-card:hover { border-color: var(--accent); }
+.model-card h4 {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: var(--accent-light);
+}
+.model-card p { font-size: 0.9rem; color: var(--text-dim); }
+
+/* ===== CTA ===== */
+.final-cta {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--bg-section);
+}
+.final-cta h2 { max-width: 700px; margin-bottom: 24px; }
+.final-cta .section-text {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 48px;
+}
+.final-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 48px;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.final-cta-btn:hover { background: var(--accent-light); transform: translateY(-2px); }
+.final-phrase {
+  margin-top: 80px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--text-dim);
+  max-width: 550px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 8vw 32px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: start;
+  gap: 60px;
+  margin-bottom: 40px;
+}
+.footer-brand {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.footer-contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.footer-contact-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #5A5550;
+}
+.footer-contact-link {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+.footer-contact-link:hover { color: var(--text); }
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  color: #4A4540;
+}
+.footer-bottom a {
+  color: #4A4540;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-bottom a:hover { color: var(--text-dim); }
+.footer-legal { display: flex; gap: 20px; }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollPulse {
+  0% { top: -100%; }
+  50% { top: 100%; }
+  100% { top: 100%; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  section { padding: 80px 6vw; }
+  .essence-grid, .result-points, .model-cards { grid-template-columns: 1fr; }
+  .service-item { grid-template-columns: 40px 1fr; }
+  .service-tag { display: none; }
+  .result-visual { flex-direction: column; padding: 40px 24px; }
+  .result-arrow { transform: rotate(90deg); }
+  .footer-top { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  .footer-legal { flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-logo">Twins Consulting Group</div>
+  <h1>Your land is worth more than you think. <em>We prove it.</em></h1>
+  <p class="hero-sub">We turn raw land into investment-ready assets through <span style="white-space:nowrap">pre-development</span> strategy, regulatory clarity,<br> and investor-grade packaging.</p>
+  <div class="hero-geo-wrapper">
+    <div class="hero-geo-label">Operating across</div>
+    <div class="hero-geo">
+      <span>🇮🇩 Indonesia</span>
+      <span>🇻🇳 Vietnam</span>
+      <span>🇸🇦 Saudi Arabia</span>
+      <span>🇴🇲 Oman</span>
+      <span>🇹🇭 Thailand</span>
+    </div>
+  </div>
+  <a href="https://wa.me/6281337973097" target="_blank" class="hero-cta">
+    Start a conversation
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+  </a>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== VALUE ===== -->
+<section>
+  <div class="section-label"><span class="section-number">01</span> Land Value Creation</div>
+  <h2>We enter before the money does. We create the conditions that <em>make capital possible</em>.</h2>
+  <p class="section-text">Most land sits undervalued because no one has done the strategic work. We close that gap — turning plots into assets that regulators approve, investors understand, and the market wants.</p>
+  <div class="essence-grid">
+    <div class="essence-point">
+      <h3>Clarity before capital</h3>
+      <p>Know exactly what your land can become — and what it can't — before spending a single dollar on architects, permits, or partners.</p>
+    </div>
+    <div class="essence-point">
+      <h3>Regulatory certainty</h3>
+      <p>No surprises at the approval stage. We map every authority, every bottleneck, every risk — so your project moves forward, not sideways.</p>
+    </div>
+    <div class="essence-point">
+      <h3>Investor-ready positioning</h3>
+      <p>Your land speaks the language of capital: clear thesis, validated concept, structured upside. The kind of asset investors actually fund.</p>
+    </div>
+    <div class="essence-point">
+      <h3>Maximum value extraction</h3>
+      <p>Sell, develop, subdivide, joint-venture, or build yourself — we model every path and show you which one puts the most money in your pocket.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section>
+  <div class="section-label"><span class="section-number">02</span> What you get</div>
+  <h2>Every engagement delivers a <em>decision</em>, not a document</h2>
+  <p class="section-text">Each service ends with a clear answer you can act on — not a report that collects dust.</p>
+  <div class="services-list">
+    <div class="service-item">
+      <div class="service-num">01</div>
+      <div>
+        <h3>Highest & Best Use Strategy</h3>
+        <p>Multiple development scenarios ranked by return, liquidity, and risk. You'll know the smartest move for your site — and why.</p>
+      </div>
+      <a href="https://wa.me/6281337973097" target="_blank" class="service-tag">Strategy</a>
+    </div>
+    <div class="service-item">
+      <div class="service-num">02</div>
+      <div>
+        <h3>Development Concept</h3>
+        <p>A positioning and concept that makes your project legible to the market and attractive to investors — before you hire an architect.</p>
+      </div>
+      <a href="https://wa.me/6281337973097" target="_blank" class="service-tag">Concept</a>
+    </div>
+    <div class="service-item">
+      <div class="service-num">03</div>
+      <div>
+        <h3>Monetization Strategy</h3>
+        <p>Side-by-side comparison of every way to extract value from your land, with the strategic consequences of each path laid bare.</p>
+      </div>
+      <a href="https://wa.me/6281337973097" target="_blank" class="service-tag">Monetization</a>
+    </div>
+    <div class="service-item">
+      <div class="service-num">04</div>
+      <div>
+        <h3>Investment Packaging</h3>
+        <p>Your land, translated into a product investors can evaluate: investment thesis, risk profile, projected returns, and a clear ask.</p>
+      </div>
+      <a href="https://wa.me/6281337973097" target="_blank" class="service-tag">Packaging</a>
+    </div>
+    <div class="service-item">
+      <div class="service-num">05</div>
+      <div>
+        <h3>Go / No-Go Analysis</h3>
+        <p>A fast, honest assessment. Should you invest in this site — or walk away before it costs you time and money?</p>
+      </div>
+      <a href="https://wa.me/6281337973097" target="_blank" class="service-tag">Analysis</a>
+    </div>
+    <div class="service-item">
+      <div class="service-num">06</div>
+      <div>
+        <h3>Site Preparation Roadmap</h3>
+        <p>The exact sequence of actions to take your land from raw potential to a deal-ready asset — with every risk flagged in advance.</p>
+      </div>
+      <a href="https://wa.me/6281337973097" target="_blank" class="service-tag">Roadmap</a>
+    </div>
+    <div class="service-item">
+      <div class="service-num">07</div>
+      <div>
+        <h3>Strategic Audit & Second Opinion</h3>
+        <p>Already have a concept or a plan? We stress-test it, find the weak points, and tell you what your current advisors won't.</p>
+      </div>
+      <a href="https://wa.me/6281337973097" target="_blank" class="service-tag">Audit</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OUTCOME ===== -->
+<section>
+  <div class="section-label"><span class="section-number">03</span> The outcome</div>
+  <h2>Land is not an asset. An asset is land with <em>a strategy and a story</em>.</h2>
+  <div class="result-visual">
+    <div class="result-before">
+      <div class="result-label">Before TCG</div>
+      <div class="result-title">A plot of land</div>
+    </div>
+    <div class="result-arrow">&rarr;</div>
+    <div class="result-after">
+      <div class="result-label">With TCG</div>
+      <div class="result-title">An investment asset</div>
+    </div>
+  </div>
+  <div class="result-points">
+    <div class="result-point">
+      <h4>Strategic clarity</h4>
+      <p>You know exactly what to do, what to skip, and why. No wasted capital. No false starts.</p>
+    </div>
+    <div class="result-point">
+      <h4>Regulatory confidence</h4>
+      <p>Approvals path is mapped. Constraints are documented. Risks are surfaced before a single commitment is made.</p>
+    </div>
+    <div class="result-point">
+      <h4>Capital-ready asset</h4>
+      <p>Investors, operators, and funds see a product — not a dream. The story, the numbers, and the logic are in place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODEL ===== -->
+<section>
+  <div class="section-label"><span class="section-number">04</span> How we work</div>
+  <h2>We sit on <em>your side</em> of the table</h2>
+  <p class="section-text">We structure each engagement to fit the project. Three models — choose the one that aligns with your goals.</p>
+  <div class="model-cards">
+    <div class="model-card">
+      <h4>Project-based</h4>
+      <p>Fixed fee for a defined scope with a clear deliverable. You get the strategy, then decide your next move.</p>
+    </div>
+    <div class="model-card">
+      <h4>Performance-linked</h4>
+      <p>Additional compensation tied to measurable project milestones. Our upside is linked to yours.</p>
+    </div>
+    <div class="model-card">
+      <h4>Strategic partnership</h4>
+      <p>We join as a pre-development partner with equity participation or a share in the SPV. Full alignment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="final-cta" id="contact">
+  <div class="section-label">Let's talk</div>
+  <h2>You own the land. We know how to <em>unlock its full value</em>.</h2>
+  <p class="section-text">Tell us about your site or project. We'll give you an honest assessment of the opportunity — and show you what's possible.</p>
+  <a href="https://wa.me/6281337973097" target="_blank" class="final-cta-btn">
+    Get in touch
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+  </a>
+  <p class="final-phrase">We create the conditions under which your land is valued far higher than it is today.</p>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">Twins Consulting Group</div>
+    <div class="footer-contact-block">
+      <div class="footer-contact-label">WhatsApp</div>
+      <a class="footer-contact-link" href="https://wa.me/6281337973097" target="_blank">+62 813 3797 3097</a>
+    </div>
+    <div class="footer-contact-block">
+      <div class="footer-contact-label">Email</div>
+      <a class="footer-contact-link" href="/cdn-cgi/l/email-protection#f6929393b682819f988595999885839a829f9891d89184998386"><span class="__cf_email__" data-cfemail="4f2b2a2a0f3b3826213c2c20213c3a233b26212861283d203a3f">[email&#160;protected]</span></a>
+    </div>
+  </div>
+  <hr class="footer-divider">
+  <div class="footer-bottom">
+    <span>&copy; 2025 Pt. Twins Cons
