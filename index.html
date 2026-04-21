@@ -348,9 +348,9 @@ section h2 em { font-style: italic; color: var(--accent); }
 .services-list { display: flex; flex-direction: column; margin-top: 40px; }
 .service-item {
   display: grid;
-  grid-template-columns: 60px 1fr;
+  grid-template-columns: 1fr;
   align-items: start;
-  gap: 24px;
+  gap: 0;
   padding: 40px 0;
   border-bottom: 1px solid var(--border);
 }
@@ -520,6 +520,14 @@ a.service-tag:hover {
   color: #D0CCC7;
   max-width: 550px;
   line-height: 1.8;
+}
+.final-geo {
+  margin-top: 48px;
+  animation: none;
+  opacity: 1;
+}
+.final-geo .hero-geo {
+  justify-content: center;
 }
 
 
@@ -779,6 +787,7 @@ footer {
     font-size: 1rem;
     line-height: 1.35;
     margin-bottom: 2px;
+    max-width: 45%;
   }
   #numbers .numbers-cell {
     min-width: 0;
@@ -803,6 +812,7 @@ footer {
   }
   #numbers .numbers-row .numbers-cell:nth-child(3)::before {
     content: "With TCG";
+    color: var(--accent);
   }
   #numbers .numbers-cell.value-large {
     font-size: 1.25rem;
@@ -814,8 +824,16 @@ footer {
     line-height: 1.55;
   }
   .hero {
-    background-position: 65% 90%;
+    background-position: center center;
     background-size: cover;
+    min-height: 100svh;
+    justify-content: flex-start;
+    padding-top: 80px;
+    padding-bottom: 40px;
+  }
+  .hero-cta {
+    margin-top: auto;
+    margin-bottom: 24px;
   }
   .hero::before {
     background: linear-gradient(
@@ -827,7 +845,6 @@ footer {
   }
   section { padding: 80px 6vw; }
   .essence-grid, .result-points, .model-cards { grid-template-columns: 1fr; }
-  .service-item { grid-template-columns: 40px 1fr; }
   .service-tag { display: none; }
   .result-visual { flex-direction: column; padding: 40px 24px; }
   .result-arrow { transform: rotate(90deg); }
@@ -839,6 +856,33 @@ footer {
     gap: 40px;
   }
   .outcome-divider { display: none; }
+
+  /* Fix plane position on mobile — keep within bounds */
+  #outcome::before {
+    background-position: 50% 55%;
+    background-size: 120% auto;
+  }
+
+  /* Deliverables: all same width as widest */
+  .outcome-tags-row {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .outcome-tags-row h3 {
+    letter-spacing: 0;
+    box-sizing: border-box;
+  }
+
+  /* Geo block on final CTA */
+  .final-geo {
+    margin-top: 40px;
+    animation: none;
+    opacity: 1;
+  }
+  .final-geo .hero-geo {
+    justify-content: center;
+  }
 }
 
 /* Pulse animation for $3X — 10X */
@@ -889,15 +933,7 @@ footer {
   <div class="hero-logo">Twins Consulting Group</div>
   <h1>TCG turns land holdings into assets you can sell, develop or bring to <em>investors.</em></h1>
   <p class="hero-sub">We assess the site, identify the best path forward,<br class="desktop-br"> and prepare it for the market.</p>
-  <div class="hero-geo-wrapper">
-    <div class="hero-geo-label">Operating across</div>
-    <div class="hero-geo">
-      <span>🇮🇩 Indonesia</span>
-      <span>🇻🇳 Vietnam</span>
-      <span>🇴🇲 Oman</span>
-      <span>🇹🇭 Thailand</span>
-    </div>
-  </div>
+
   <a href="https://wa.me/6281337973097" target="_blank" class="hero-cta">
     Start a conversation
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
@@ -968,28 +1004,24 @@ footer {
   
   <div class="services-list">
     <div class="service-item">
-      <div class="service-num">01</div>
       <div>
         <h3>A clear view of how the site can be monetised</h3>
         <p>Every realistic path — subdivision, access, repositioning, development, sale — assessed by return, risk, and market demand.</p>
       </div>
     </div>
     <div class="service-item">
-      <div class="service-num">02</div>
       <div>
         <h3>Aligned exclusively with the landowner</h3>
         <p>Every decision is made in the owner's interest, with full transparency and a clear understanding of how the market will respond.</p>
       </div>
     </div>
     <div class="service-item">
-      <div class="service-num">03</div>
       <div>
         <h3>Prepared for investor engagement</h3>
         <p>Once the strategy is defined, the asset is structured and positioned to be presented to investors and carried through to a transaction.</p>
       </div>
     </div>
     <div class="service-item">
-      <div class="service-num">04</div>
       <div>
         <h3>Already have a plan or an offer?</h3>
         <p>If something feels off, it usually is. Every proposal is broken down, pressure-tested, and reviewed from the owner's side before you commit.</p>
@@ -1056,6 +1088,15 @@ footer {
     Start a conversation →
   </a>
   <p class="final-phrase">Every landholding carries hidden optionality.<br>The right structure makes it visible — to the right capital.</p>
+  <div class="hero-geo-wrapper final-geo">
+    <div class="hero-geo-label">Operating across</div>
+    <div class="hero-geo">
+      <span>🇮🇩 Indonesia</span>
+      <span>🇻🇳 Vietnam</span>
+      <span>🇴🇲 Oman</span>
+      <span>🇹🇭 Thailand</span>
+    </div>
+  </div>
   </div>
 </section>
 
