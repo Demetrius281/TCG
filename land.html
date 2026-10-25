@@ -185,12 +185,17 @@ a{color:#0E5A55}
 }
 
 /* Deliverables */
-.dv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1px;background:#D9D6CE;border:1px solid #D9D6CE}
-.dv-grid h3{margin:0;background:#FFFFFF;padding:24px;font-size:18px;font-weight:500;letter-spacing:-0.01em;min-height:96px;box-sizing:border-box;display:flex;align-items:flex-end}
+.dv-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;background:transparent;border:0}
+.dv-grid h3{margin:0;background:#FFFFFF;border:1px solid #E2E0D9;border-top:2px solid #0E5A55;padding:24px;font-size:18px;font-weight:500;letter-spacing:-0.01em;line-height:1.35;min-height:116px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;text-align:center;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+@media (hover:hover){.dv-grid h3:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(15,20,19,.1);border-color:#0E5A55}}
+@media (max-width:900px){.dv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.dv-grid{grid-template-columns:1fr}}
 @media (max-width:720px){.dv-grid h3{justify-content:center;text-align:center;min-height:0;align-items:center}}
 
+@media (min-width:900px){.land-cta-line{display:block;white-space:nowrap}}
 /* Engagement models */
-.mcard{background:#FFFFFF;border:1px solid #E2E0D9;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:16px}
+.mcard{background:#FFFFFF;border:1px solid #E2E0D9;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:16px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+@media (hover:hover){.mcard:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(15,20,19,.1);border-color:#0E5A55}}
 .mcard.feat{border-top:2px solid #0E5A55}
 @media (max-width:720px){.mcard,.side{text-align:center;align-items:center}}
 
@@ -555,7 +560,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.track:focus-visible{
       <div class="m-center" style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px">
         <a href="https://wa.me/6281337973097" data-cta="land_contact" target="_blank" rel="noopener" class="btn-light" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #F6F5F1; color: #0F1413; text-decoration: none; font-size: 16px; font-weight: 500">Start a Conversation</a>
       </div>
-      <p class="m-txt" style="margin: 0; font-size: 18px; line-height: 1.6; color: #B9C0BD">Every landholding carries hidden optionality. The right structure makes it visible to the right capital.</p>
+      <p class="m-txt" style="margin: 0; font-size: 18px; line-height: 1.6; color: #B9C0BD"><span class="land-cta-line">Every landholding carries hidden optionality.</span> <span class="land-cta-line">The right structure makes it visible to the right capital.</span></p>
     </div>
   </div>
 </section>
