@@ -7,8 +7,9 @@
 <link rel="preload" href="/assets/fonts/geist-mono-cd5b2578.woff2" as="font" type="font/woff2" crossorigin>
 <title>Land Monetization Strategy in Indonesia | Twins Consulting Group</title>
 <meta name="description" content="Independent land monetization strategy in Indonesia. We assess the site, identify the strongest monetization path and prepare the land for buyers, developers or investors.">
-<link rel="icon" type="image/png" href="/favicon.png?v=2">
-<link rel="apple-touch-icon" href="/favicon.png?v=2">
+<link rel="icon" href="/assets/brand/2_icons/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/brand/2_icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/brand/2_icons/apple-touch-icon.png">
 <link rel="canonical" href="https://twinsconsulting.group/land">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#F6F5F1">
@@ -74,6 +75,10 @@
 }
 </script>
 <style>
+.logo-full{display:block;height:22px;width:auto}
+.logo-short{display:none;height:24px;width:auto}
+@media (max-width:480px){.logo-full{display:none}.logo-short{display:block}}
+
 @font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/geist-f4634c3b.woff2) format('woff2')}
 @font-face{font-family:'Geist Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/geist-mono-cd5b2578.woff2) format('woff2')}
 </style>
@@ -289,9 +294,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.track:focus-visible{
 <!-- HEADER -->
 <header style="border-bottom: 1px solid #E2E0D9; position: relative; z-index: 10">
   <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); box-sizing: border-box; min-height: 76px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px">
-    <a href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #0F1413">
-      <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid #0F1413; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.04em">TCG</span>
-      <span style="font-size: 15px; font-weight: 500; letter-spacing: -0.01em">Twins Consulting Group</span>
+    <a href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #0F1413" aria-label="Twins Consulting Group, home">
+      <img class="logo-full" src="/assets/brand/1_logos/horizontal-full/tcg-horizontal-full-color.svg" alt="Twins Consulting Group" width="293" height="22"><img class="logo-short" src="/assets/brand/1_logos/horizontal-short/tcg-horizontal-short-color.svg" alt="Twins Consulting Group" width="96" height="24">
     </a>
     <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px">
       <a href="/platform" class="navlink" style="font-size: 14px; color: #3E4744; text-decoration: none; padding: 12px 0">Platform</a>
@@ -563,8 +567,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.track:focus-visible{
     <div class="ft-grid" style="border-top: 1px solid #2A3331">
       <div style="display: flex; flex-direction: column; gap: 14px">
         <a href="/" aria-label="Twins Consulting Group, home" style="display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: #F6F5F1; align-self: flex-start">
-          <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid #F6F5F1; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.04em">TCG</span>
-          <span style="font-size: 15px; font-weight: 500; letter-spacing: -0.01em">Twins Consulting Group</span>
+          <img src="/assets/brand/1_logos/horizontal-full/tcg-horizontal-full-reverse.svg" alt="Twins Consulting Group" width="240" height="18" style="display:block;height:18px;width:auto">
         </a>
       </div>
       <nav aria-labelledby="ft-services">
