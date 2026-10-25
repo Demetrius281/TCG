@@ -655,6 +655,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible,.track:focus-visible{
 h1 > span:first-child{font-size:36px !important;letter-spacing:-0.035em !important}
 @media (min-width:1024px){h1 > span:first-child{font-size:60px !important}}
 </style>
+
+<style id="tcg-desktop-consistency">
+/* Desktop-only shared Hero spacing; preserve mobile layouts */
+@media (min-width:1024px){
+main > section[aria-labelledby="page-title"]{padding-top:96px !important}
+
+main > section[aria-labelledby="page-title"] h1 > span:first-child{line-height:1.04 !important}
+}
+</style>
 </head>
 <body>
 <div class="page" id="top">
