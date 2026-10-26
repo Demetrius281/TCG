@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preload" href="/assets/fonts/geist-f4634c3b.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/geist-mono-cd5b2578.woff2" as="font" type="font/woff2" crossorigin>
+<title>Property Intelligence Platform (In Development) | PT Twins Consulting Group</title>
+<meta name="description" content="PT Twins Consulting Group is developing a property intelligence platform for Bali that brings land data, regulatory information and property documentation into one structured system. In development, target launch Q2 2027.">
+<link rel="icon" href="/assets/brand/2_icons/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/brand/2_icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/brand/2_icons/apple-touch-icon.png">
+<link rel="canonical" href="https://twinsconsulting.group/platform">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Twins Consulting Group">
+<meta property="og:title" content="Property Intelligence Platform (In Development) | PT Twins Consulting Group">
+<meta property="og:description" content="PT Twins Consulting Group is developing a property intelligence platform for Bali that brings land data, regulatory information and property documentation into one structured system. In development, target launch Q2 2027.">
+<meta property="og:url" content="https://twinsconsulting.group/platform">
+<meta property="og:image" content="https://twinsconsulting.group/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://twinsconsulting.group/og-image.jpg">
+<style>
+.logo-full{display:block;height:22px;width:auto}
+.logo-short{display:none;height:24px;width:auto}
+@media (max-width:480px){.logo-full{display:none}.logo-short{display:block}}
+
+@font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/geist-f4634c3b.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/geist-mono-cd5b2578.woff2) format('woff2')}
+</style>
+<style>
+body{margin:0;background:#F6F5F1}
+a{color:#0E5A55}
+.btn{transition:background-color .2s ease,transform .2s ease,box-shadow .2s ease}
+.btn:hover{background:#0F1413 !important;color:#FFFFFF !important;transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(15,20,19,.6)}
+.btn:active{transform:translateY(0);box-shadow:none}
+.btn-light{transition:background-color .2s ease,color .2s ease,transform .2s ease}
+.btn-light:hover{background:#0E5A55 !important;color:#FFFFFF !important;transform:translateY(-2px)}
+.ulink{min-height:44px;text-decoration-line:underline !important;text-decoration-thickness:1px !important;text-underline-offset:6px;transition:color .2s ease}
+.ulink:hover{color:#0E5A55 !important;text-decoration-thickness:2px !important}
+
+/* Header and footer navigation */
+.navlink,.footlink{position:relative;display:inline-flex;flex-direction:column;align-items:flex-start;transition:color .2s ease}
+.navlink::before,.footlink::before{content:attr(data-text);font-weight:600;height:0;overflow:hidden;visibility:hidden}
+.navlink::after,.footlink::after{content:"";position:absolute;left:0;right:0;bottom:8px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.footlink::after{bottom:10px}
+.navlink:hover,.navlink:focus-visible,.navlink[aria-current="page"]{color:#0F1413 !important;font-weight:600}
+.footlink:hover,.footlink:focus-visible{color:#FFFFFF !important;font-weight:600}
+.navlink:hover::after,.navlink:focus-visible::after,.footlink:hover::after,.footlink:focus-visible::after{transform:scaleX(1)}
+
+
+/* Services dropdown (same pattern as inner pages) */
+.dd{position:relative}
+.dd-btn{font:inherit;font-size:14px;color:#3E4744;background:none;border:0;padding:12px 0;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:44px;transition:color .2s ease}
+.dd-btn:hover,.dd.open .dd-btn{color:#0F1413}
+.dd-btn .chev{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;transition:transform .2s ease}
+.dd-menu{position:absolute;top:100%;left:-20px;z-index:20;min-width:260px;background:#FFFFFF;border:1px solid #E2E0D9;box-shadow:0 18px 40px -24px rgba(15,20,19,.45);display:none;flex-direction:column}
+.dd-menu a{display:flex;flex-direction:column;gap:2px;padding:12px 18px;text-decoration:none;color:#0F1413;border-bottom:1px solid #ECEAE4;transition:background-color .2s ease}
+.dd-menu a:last-child{border-bottom:0}
+.dd-menu a:hover,.dd-menu a:focus-visible{background:#F6F5F1;outline-offset:-2px}
+.dd-menu .t{font-size:14px;font-weight:500}
+.dd-menu .s{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#5B6461}
+@media (min-width:721px){.dd-menu .t{white-space:nowrap}}
+@media (hover:hover){.dd:hover .dd-menu{display:flex}.dd:hover .chev{transform:rotate(180deg)}}
+.dd.open .dd-menu,.dd:focus-within .dd-menu{display:flex}
+.dd.open .chev{transform:rotate(180deg)}
+.dd.esc:not(.open) .dd-menu{display:none}
+.dd.esc:not(.open) .chev{transform:none}
+@media (max-width:720px){
+  .dd{position:static}
+  .dd-menu{left:16px;right:16px;top:calc(100% - 6px);min-width:0}
+}
+
+
+
+/* Header CTA on desktop only */
+@media (max-width:720px){header .btn{display:none !important}}
+
+/* ===== Platform page ===== */
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,40px);box-sizing:border-box}
+.eyebrow{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5B6461}
+.h2{margin:0;font-size:clamp(32px,4vw,52px);line-height:1.05;font-weight:500;letter-spacing:-.025em}
+.lead{margin:0;font-size:17px;line-height:1.6;color:#3E4744}
+.sec{padding:clamp(72px,9vw,120px) 0}
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:48px;align-items:center}
+@media (min-width:1024px){.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px}}
+.txt{display:flex;flex-direction:column;gap:18px}
+.caps{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid #0F1413;display:grid;grid-template-columns:1fr}
+@media (min-width:560px){.caps{grid-template-columns:1fr 1fr;column-gap:32px}}
+.caps li{padding:13px 0 13px 22px;border-bottom:1px solid #E2E0D9;font-size:15px;line-height:1.45;position:relative}
+.caps li::before{content:"";position:absolute;left:0;top:calc(13px + .72em);width:10px;height:1px;background:#0E5A55}
+.note{margin:0;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;line-height:1.6;color:#5B6461}
+
+/* Concept preview frames */
+.ui-fig{margin:0;background:#FFFFFF;border:1px solid #E2E0D9;display:flex;flex-direction:column;min-width:0}
+.ui-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid #E2E0D9;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5B6461}
+.cp{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px dashed #9BA3A0;color:#3E4744;white-space:nowrap}
+.ui-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 20px;border-bottom:1px solid #ECEAE4;font-size:14px}
+.ui-row:last-of-type{border-bottom:0}
+.ui-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;padding:12px 20px;border-top:1px solid #E2E0D9;background:#FBFAF7;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#5B6461}
+.st{display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;white-space:nowrap}
+.st i{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none;box-sizing:border-box}
+.st.ok{color:#1F6B5A}.st.ok i{background:#1F6B5A}
+.st.rev{color:#8A5D0B}.st.rev i{background:#B07A14}
+.st.unr{color:#A23B2A}.st.unr i{background:#A23B2A}
+.st.scr{color:#5B6461}.st.scr i{background:transparent;border:1.5px dashed #5B6461}
+@media (max-width:420px){.ui-row{flex-direction:column;align-items:flex-start;gap:4px}}
+
+/* Hero */
+.hero{padding:clamp(40px,5.5vw,76px) 0 clamp(48px,6vw,84px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:44px;align-items:center}
+@media (min-width:1024px){.hero-grid{grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:48px}}
+.hero-txt{display:flex;flex-direction:column;gap:0}
+.hero h1{margin:16px 0 0;font-size:clamp(36px,6.4vw,54px);line-height:1.03;font-weight:500;letter-spacing:-.035em;max-width:15ch}
+@media (min-width:1024px){.hero h1{font-size:clamp(48px,4.4vw,62px)}}
+.hero .desc{margin:22px 0 0;font-size:16px;line-height:1.62;color:#3E4744}
+@media (max-width:1023px){.hero .desc{font-size:17px;max-width:62ch}}
+.hero-cta{margin-top:30px;align-self:flex-start}
+
+/* Hero: Property Intelligence Snapshot (static concept preview) */
+.snap{container-type:inline-size}
+.snap-body{display:grid;grid-template-columns:minmax(0,1fr)}
+.snap-map{margin:0;padding:14px 16px 12px;background:#FBFAF7;border-bottom:1px solid #E2E0D9;display:flex;flex-direction:column;gap:10px}
+.snap-map svg{width:100%;height:auto;display:block}
+.snap-map figcaption{font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#5B6461}
+.snap-find{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.snap-find li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 12px;padding:12px 16px;border-bottom:1px solid #ECEAE4;font-size:14px;line-height:1.35}
+.snap-find li:last-child{border-bottom:0}
+.snap .ui-top,.snap .ui-foot{padding-left:16px;padding-right:16px}
+@container (min-width:520px){
+  .snap-body{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr)}
+  .snap-map{border-bottom:0;border-right:1px solid #E2E0D9}
+  .snap-find{justify-content:center}
+  .snap-find li{flex-direction:column;align-items:flex-start;padding:16px 18px}
+}
+
+/* Dossier status legend */
+.legend{display:grid;grid-template-columns:1fr;gap:1px;background:#D9D6CE;border:1px solid #D9D6CE}
+@media (min-width:640px){.legend{grid-template-columns:1fr 1fr}}
+@media (min-width:1024px){.legend{grid-template-columns:repeat(4,1fr)}}
+.lg{background:#F6F5F1;padding:24px;display:flex;flex-direction:column;gap:12px}
+.lg p{margin:0;font-size:14px;line-height:1.55;color:#3E4744}
+.how{align-self:flex-start;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px}
+.how.auto{color:#5B6461;border:1px dashed #9BA3A0}
+.how.open{color:#3E4744;border:1px solid #9BA3A0}
+.how.spec{color:#FFFFFF;background:#0E5A55;border:1px solid #0E5A55}
+.rec{width:100%;border-collapse:collapse;font-size:14px}
+.rec th{text-align:left;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:#5B6461;padding:12px 16px;border-bottom:1px solid #E2E0D9;white-space:nowrap}
+.rec td{padding:12px 16px;border-bottom:1px solid #ECEAE4;vertical-align:middle}
+.rec tr:last-child td{border-bottom:0}
+.rec .src{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#5B6461}
+.tscroll{overflow-x:auto}
+.tscroll table{min-width:640px}
+.swipe{display:none;padding:8px 20px 0;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#5B6461}
+@media (max-width:700px){.swipe{display:block}}
+
+/* Monitoring table */
+.mon .rec{min-width:520px}
+
+/* Architecture */
+.arch-sec{background:#0F1413;color:#E8E6E0;padding:clamp(80px,10vw,128px) 0}
+.arch-sec .eyebrow{color:#9BA3A0}
+.arch-sec .h2{color:#F6F5F1}
+.arch-sec .lead{color:#B9C0BD}
+.arch{margin-top:clamp(40px,5vw,64px);border:1px solid #2A3331;background:#121918}
+.arch-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;padding:14px 24px;border-bottom:1px solid #2A3331;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9BA3A0}
+.arch-head .cp{border-color:#5FD3B6;color:#5FD3B6}
+.arch-body{display:grid;grid-template-columns:minmax(0,1fr) 72px minmax(0,1.25fr) 72px minmax(0,1fr);grid-template-rows:auto repeat(3,minmax(64px,auto));column-gap:0;row-gap:14px;padding:clamp(24px,3vw,40px)}
+.col-h{grid-row:1;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9BA3A0;padding-bottom:4px}
+.col-h.in{grid-column:1}.col-h.pr{grid-column:3}.col-h.out{grid-column:5}
+.node{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:14px 16px;border:1px solid #2F3A38;background:#0F1413;font-size:15px;color:#F6F5F1}
+.node small{font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#8A9491}
+.node.i{grid-column:1}.node.o{grid-column:5;border-color:#2F5F57}
+.engine{grid-column:3;grid-row:2 / span 3;border:1px solid #5FD3B6;background:linear-gradient(180deg,rgba(95,211,182,.07),rgba(95,211,182,.02));display:flex;flex-direction:column;padding:18px;gap:12px}
+.engine .en-t{font-size:18px;font-weight:500;color:#F6F5F1;letter-spacing:-.01em}
+.engine .en-s{font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#8FD3C7;letter-spacing:.06em;text-transform:uppercase}
+.mods{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
+.mod{border:1px solid #2F3A38;background:#0F1413;padding:12px;font-size:14px;color:#E8E6E0;display:flex;flex-direction:column;gap:4px}
+.mod small{font-family:'Geist Mono',ui-monospace,monospace;font-size:10.5px;color:#8A9491}
+.link{position:relative;align-self:center;height:1px;background:#2F5F57;overflow:visible}
+.link.a{grid-column:2}.link.b{grid-column:4}
+.link::after{content:"";position:absolute;top:50%;left:0;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#5FD3B6;opacity:0;animation:flow 3.6s ease-in-out infinite}
+.link::before{content:"";position:absolute;right:-1px;top:50%;width:6px;height:6px;margin-top:-3px;border-top:1px solid #2F5F57;border-right:1px solid #2F5F57;transform:rotate(45deg)}
+.r1{grid-row:2}.r2{grid-row:3}.r3{grid-row:4}
+.link.r2::after{animation-delay:1.2s}.link.r3::after{animation-delay:2.4s}
+.link.b::after{animation-delay:.6s}.link.b.r2::after{animation-delay:1.8s}.link.b.r3::after{animation-delay:3s}
+@keyframes flow{0%{left:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:calc(100% - 6px);opacity:0}}
+.arch-foot{display:grid;grid-template-columns:1fr;border-top:1px solid #2A3331}
+@media (min-width:860px){.arch-foot{grid-template-columns:repeat(3,1fr)}}
+.af{padding:18px 24px;border-bottom:1px solid #2A3331;display:flex;flex-direction:column;gap:6px}
+@media (min-width:860px){.af{border-bottom:0;border-left:1px solid #2A3331}.af:first-child{border-left:0}}
+.af b{font-weight:500;font-size:15px;color:#F6F5F1}
+.af span{font-size:14px;line-height:1.55;color:#B9C0BD}
+@media (max-width:900px){
+  .arch-body{grid-template-columns:minmax(0,1fr);grid-template-rows:none;row-gap:10px}
+  .col-h,.node.i,.node.o,.engine,.link{grid-column:1 !important;grid-row:auto !important}
+  .engine{margin:6px 0}
+  .col-h.in{order:1}.node.i{order:2}.col-h.pr{order:3}.engine{order:4}.col-h.out{order:5}.node.o{order:6}
+  .link{display:none}
+  .col-h.pr,.col-h.out{margin-top:22px;position:relative;padding-top:26px}
+  .col-h.pr::before,.col-h.out::before{content:"\2193";position:absolute;top:0;left:0;color:#5FD3B6;font-size:14px}
+}
+@media (max-width:420px){.mods{grid-template-columns:1fr}}
+
+/* Early interest & strategic partnerships (dark, full-bleed) */
+.ei{background:#161D1C;color:#E8E6E0;border-top:1px solid #2A3331;padding:clamp(72px,9vw,120px) 0}
+.ei .eyebrow{color:#9BA3A0}
+.ei .h2{color:#F6F5F1;max-width:16ch}
+.ei .lead{color:#B9C0BD;max-width:52ch}
+.ei-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:48px;align-items:start}
+@media (min-width:1024px){.ei-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:64px}}
+.ei-copy{display:flex;flex-direction:column;gap:20px}
+.stage{margin:8px 0 0;padding:0;border-top:1px solid #2F3A38;display:flex;flex-direction:column}
+.stage p{margin:0;padding:12px 0;border-bottom:1px solid #2F3A38;font-size:15px;line-height:1.5;color:#E8E6E0}
+.stage span{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.04em;color:#9BA3A0;margin-right:6px}
+.ei-panel{background:#1C2523;border:1px solid #2F3A38;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:22px;container-type:inline-size}
+.ei-panel h3{margin:0;font-size:22px;line-height:1.2;font-weight:500;letter-spacing:-.015em;color:#F6F5F1}
+.ei-panel .ei-note{margin:8px 0 0;font-size:15px;line-height:1.55;color:#B9C0BD}
+.ei-form{display:grid;grid-template-columns:minmax(0,1fr);gap:18px 20px}
+@container (min-width:460px){.ei-form{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.ei-form .full{grid-column:1 / -1}}
+.fld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.fld-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.fld label{font-size:14px;font-weight:500;color:#E8E6E0}
+.fld .tag{font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#9BA3A0}
+.fld input,.fld select,.fld textarea{width:100%;box-sizing:border-box;font:inherit;font-size:16px;color:#F6F5F1;background:#0F1413;border:1px solid #3A4744;border-radius:0;padding:12px 14px;min-height:48px;transition:border-color .2s ease}
+.fld textarea{min-height:112px;resize:vertical;line-height:1.5}
+.fld select{appearance:none;-webkit-appearance:none;padding-right:40px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%239BA3A0' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.fld select:invalid,.fld select.empty{color:#9BA3A0}
+.fld select option{background:#0F1413;color:#F6F5F1}
+.fld ::placeholder{color:#8A9491;opacity:1}
+.fld input:hover,.fld select:hover,.fld textarea:hover{border-color:#5B6866}
+.fld input:focus-visible,.fld select:focus-visible,.fld textarea:focus-visible{outline:2px solid #5FD3B6;outline-offset:1px;border-color:#5FD3B6}
+.fld [aria-invalid="true"]{border-color:#E08A78}
+.err{margin:0;font-size:13px;line-height:1.4;color:#F0A898}
+.err:empty{display:none}
+.ei-submit{grid-column:1 / -1;display:flex;flex-direction:column;align-items:flex-start;gap:14px;margin-top:4px}
+.ei-btn{font:inherit;font-size:15px;font-weight:500;min-height:52px;padding:0 26px;background:#5FD3B6;color:#0F1413;border:0;cursor:pointer;transition:background-color .2s ease,transform .2s ease}
+.ei-btn:hover{background:#F6F5F1;transform:translateY(-2px)}
+.ei-btn:active{transform:translateY(0)}
+.ei-btn:focus-visible{outline:2px solid #F6F5F1;outline-offset:3px}
+.ei-status{margin:0;font-size:14px;line-height:1.5;color:#E8E6E0}
+.ei-status:empty{display:none}
+.ei-status a{color:#5FD3B6}
+.ei-disc{margin:0;padding-top:18px;border-top:1px solid #2F3A38;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;line-height:1.6;color:#9BA3A0}
+@media (max-width:560px){.ei-btn{width:100%}}
+
+a:focus-visible,button:focus-visible{outline:2px solid #0E5A55;outline-offset:3px}
+.arch-sec a:focus-visible,.ei a:focus-visible{outline-color:#5FD3B6}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none !important;scroll-behavior:auto !important}.link::after{animation:none;opacity:0}.btn:hover,.btn-light:hover{transform:none}}
+
+/* Footer */
+.ft-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:40px 48px;padding:clamp(48px,6vw,72px) 0 clamp(36px,5vw,56px)}
+@media (max-width:960px){.ft-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.ft-grid{grid-template-columns:1fr;gap:32px}}
+.ft-h{margin:0 0 10px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:#9BA3A0}
+.ft-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.ft-list a,.ft-list span{font-size:14px;color:#B9C0BD;text-decoration:none;min-height:40px;display:inline-flex;align-items:center}
+.ft-list a.footlink{align-items:flex-start;justify-content:center}
+.ft-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding:24px 0 calc(32px + env(safe-area-inset-bottom,0px));border-top:1px solid #2A3331;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#9BA3A0}
+.ft-list a.footlink{align-items:flex-start;justify-content:center}
+.ft-list .ft-static{pointer-events:none;align-items:flex-start;justify-content:center}
+.ft-list a.footlink{justify-content:center}
+</style>
+<style>
+/* hero animation */
+/* Hero illustration: Property Intelligence Platform (scoped to .ip) */
+.ip{margin:0;position:relative;height:max(497px,calc(300px + .4583 * (100vw - 2 * clamp(20px,4vw,40px))));min-width:0}
+@media (min-width:1024px){.ip{height:511px}}
+@media (min-width:1024px) and (max-width:1099px){.ip{height:512px}}
+.ip-svg{display:block;width:100%;height:100%;overflow:hidden}
+.ip-svg text{text-rendering:geometricPrecision}
+.ip-tag{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.08em;fill:#5B6461}
+.ip-co{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.04em;fill:#0F1413;font-variant-numeric:tabular-nums;animation:ip-fade .4s ease-out .2s both}
+.ip .sx,.ip .sx2{stroke:#0F1413;stroke-width:.6;stroke-linejoin:round}
+.ip .sx{fill:#E4E2DB}
+.ip .sx2{fill:#D7D4CC}
+.ip-base .sx,.ip-base .sx2{animation:ip-fade .6s ease-out .1s both}
+.ip .pl{fill:#FBFAF7;stroke:#0F1413;stroke-width:.85;stroke-linejoin:round;animation:ip-draw .83s cubic-bezier(.45,0,.2,1) 0s both,ip-fill .53s ease-out .47s both}
+.ip .ct{fill:none;stroke:#5B6461;stroke-width:.55;stroke-opacity:.55;animation:ip-draw 1.1s cubic-bezier(.45,0,.2,1) var(--d,0s) both}
+.ip .cl{fill:none;stroke:#0E5A55;stroke-width:.8;animation:ip-draw 1.1s cubic-bezier(.45,0,.2,1) var(--d,0s) both}
+.ip .sea{fill:none;stroke:#0E5A55;stroke-width:.5;stroke-opacity:.4;animation:ip-fade .6s ease-out .9s both}
+.ip .pc{fill:#0E5A55;fill-opacity:.07;stroke:#0F1413;stroke-width:1.1;stroke-linejoin:round;animation:ip-draw .8s cubic-bezier(.45,0,.2,1) .95s both,ip-fill .5s ease-out 1.5s both}
+.ip .ly{animation:ip-rise .95s cubic-bezier(.2,.7,.3,1) var(--d,0s) both}
+.ip .lp{fill:#FFFFFF;fill-opacity:.74;stroke:#0F1413;stroke-width:.7;stroke-linejoin:round}
+.ip .z1{fill:#D3E0DC;fill-opacity:.85}
+.ip .z2{fill:#E4E2DB}
+.ip .z3{fill:#F3F2EE}
+.ip .zs{fill:#0E5A55;fill-opacity:.08}
+.ip .z1,.ip .z2,.ip .z3,.ip .zs{stroke:#5B6461;stroke-width:.5}
+.ip .hb{fill:none;stroke:#B07A14;stroke-width:.5;stroke-opacity:.5}
+.ip .sb{fill:none;stroke:#B07A14;stroke-width:.8;stroke-dasharray:3 2}
+.ip .rf{fill:#5B6461;fill-opacity:.05;stroke:#5B6461;stroke-width:.6;stroke-dasharray:2 2}
+.ip .ov{fill:#B07A14;fill-opacity:.28;stroke:#B07A14;stroke-width:.9;stroke-linejoin:round;animation:ip-fade .5s ease-out 4.25s both}
+.ip .dc{fill:#FFFFFF;stroke:#0F1413;stroke-width:.6}
+.ip .dm{fill:none;stroke:#5B6461;stroke-width:.7;stroke-dasharray:2 2}
+.ip .dl{fill:none;stroke:#5B6461;stroke-width:.5}
+.ip .lk{fill:none;stroke:#5B6461;stroke-width:.5;stroke-dasharray:1.5 1.5}
+.ip .pd{fill:none;stroke:#0F1413;stroke-width:.7;stroke-dasharray:3 2}
+.ip .ln{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.08em;fill:#5B6461;animation:ip-fade .53s ease-out var(--d,0s) both}
+.ip-pin{transform-box:fill-box;transform-origin:50% 100%;animation:ip-drop .6s cubic-bezier(.2,.7,.3,1) 1.15s both}
+.ip-pin .pn{fill:#0E5A55}
+.ip-pin .pr{fill:none;stroke:#0E5A55;stroke-width:.9}
+.ip .bm{fill:#0E5A55;fill-opacity:.06;animation:ip-fade .4s ease-out 3.6s both,ip-beam 1.6s ease-out 3.6s both}
+.ip .bl{fill:none;stroke:#0E5A55;stroke-width:1;animation:ip-draw .9s cubic-bezier(.45,0,.2,1) 3.6s both}
+.ip .hit{transform-box:fill-box;transform-origin:center;animation:ip-pop .5s cubic-bezier(.2,.7,.3,1) var(--d,0s) both}
+.ip .hr{fill:#F6F5F1;fill-opacity:.85;stroke-width:1.1}
+.ip .ok .hr{stroke:#0E5A55}.ip .ok .hc{fill:#0E5A55}
+.ip .am .hr{stroke:#B07A14}.ip .am .hc{fill:#B07A14}
+.ip .gy .hr{stroke:#5B6461}.ip .gy .hc{fill:#5B6461}
+.ip .fl{fill:none;stroke:#5B6461;stroke-width:.7;animation:ip-draw .9s cubic-bezier(.45,0,.2,1) var(--d,0s) both}
+.ip .pk{fill:none;stroke:#0E5A55;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:2 14;animation:ip-fade .4s ease-out var(--d,0s) both,ip-flow 1.2s linear var(--d,0s) infinite}
+.ip-eng{transform-box:fill-box;transform-origin:center;animation:ip-pop .6s cubic-bezier(.2,.7,.3,1) 5.55s both}
+.ip-eng .hx{fill:#FFFFFF;stroke:#0F1413;stroke-width:.9;stroke-linejoin:round}
+.ip-eng .core{fill:#0E5A55}
+.ip-rot{transform-box:fill-box;transform-origin:center;fill:none;stroke:#0E5A55;stroke-width:.8;stroke-dasharray:2.5 2;animation:ip-fade .5s ease-out 5.6s both,ip-spin 6s linear 5.55s infinite}
+.ip .el{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.06em;fill:#0F1413;text-anchor:end;animation:ip-fade .53s ease-out 5.8s both}
+.ip .lnk{fill:none;stroke:#5B6461;stroke-width:.7;animation:ip-draw .6s cubic-bezier(.45,0,.2,1) 6.5s both}
+.ip .rule{fill:none;stroke:#0F1413;stroke-width:.7;animation:ip-draw .83s cubic-bezier(.45,0,.2,1) 6.8s both}
+.ip .lb,.ip .sl,.ip .hd{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.06em;fill:#0F1413}
+.ip .sl{letter-spacing:.02em;fill:#5B6461}
+.ip .hd{fill:#5B6461;letter-spacing:.08em;animation:ip-fade .53s ease-out 6.9s both}
+.ip .row{animation:ip-fade .53s ease-out var(--d,0s) both}
+.ip .tr{fill:none;stroke:#E2E0D9;stroke-width:2}
+.ip .cf{fill:none;stroke:#0E5A55;stroke-width:2;animation:ip-draw .8s cubic-bezier(.45,0,.2,1) calc(var(--d,0s) + .2s) both}
+.ip .nt{font-family:'Geist',system-ui,sans-serif;font-size:11px;fill:#5B6461;animation:ip-fade .71s ease-out 7.9s both}
+@keyframes ip-draw{from{stroke-dasharray:1 1;stroke-dashoffset:1}to{stroke-dasharray:1 1;stroke-dashoffset:0}}
+@keyframes ip-fill{from{fill-opacity:0}}
+@keyframes ip-fade{from{opacity:0}}
+@keyframes ip-rise{from{opacity:0;transform:translateY(var(--ty))}30%{opacity:1}}
+@keyframes ip-drop{from{opacity:0;transform:translateY(-14px)}}
+@keyframes ip-pop{from{opacity:0;transform:scale(.4)}}
+@keyframes ip-beam{0%{fill-opacity:.16}100%{fill-opacity:.06}}
+@keyframes ip-flow{to{stroke-dashoffset:-16}}
+@keyframes ip-spin{to{transform:rotate(360deg)}}
+@media (max-width:520px){
+.ip .lb,.ip .ln,.ip .el,.ip .hd,.ip-tag,.ip-co{font-size:12px}
+.ip .sl{font-size:11px}
+.ip .nt{font-size:12.5px}
+}
+.ip-anim{transition:opacity .45s ease}
+.ip.ip-out .ip-anim{opacity:0}
+@media (prefers-reduced-motion:reduce){.ip *{animation:none !important}.ip.ip-out .ip-anim{opacity:1}}
+</style>
+
+<style id="tcg-h1-type-scale">
+/* Unified H1 typography: mobile and desktop */
+h1{font-size:36px !important;letter-spacing:-0.035em !important}
+@media (min-width:1024px){h1{font-size:60px !important}}
+</style>
+
+<style id="tcg-desktop-consistency">
+/* Desktop-only shared Hero spacing; preserve mobile layouts */
+@media (min-width:1024px){
+main > section.hero{padding-top:96px !important}
+
+main > section.hero .desc{font-size:18px !important;line-height:1.6 !important;margin-top:22px !important}
+main > section.hero h1{line-height:1.04 !important}
+}
+</style>
+</head>
+<body>
+<div style="font-family: 'Geist', system-ui, sans-serif; color: #0F1413; background: #F6F5F1; -webkit-font-smoothing: antialiased">
+
+<!-- HEADER -->
+<header style="border-bottom: 1px solid #E2E0D9; position: relative; z-index: 10">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); box-sizing: border-box; min-height: 76px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px">
+    <a href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #0F1413" aria-label="Twins Consulting Group, home">
+      <img class="logo-full" src="/assets/brand/1_logos/horizontal-full/tcg-horizontal-full-color.svg" alt="Twins Consulting Group" width="293" height="22"><img class="logo-short" src="/assets/brand/1_logos/horizontal-short/tcg-horizontal-short-color.svg" alt="Twins Consulting Group" width="96" height="24">
+    </a>
+    <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px">
+      <a href="/platform" class="navlink" aria-current="page" style="font-size: 14px; color: #3E4744; text-decoration: none; padding: 12px 0">Platform</a>
+      <div class="dd">
+        <button type="button" class="dd-btn" aria-expanded="false" aria-controls="dd-services">Services <span class="chev" aria-hidden="true">&#9662;</span></button>
+        <div class="dd-menu" id="dd-services">
+          <a href="/services/property-legal-audit"><span class="t">Property Compliance Audit</span><span class="s">For Finished Properties</span></a>
+          <a href="/services/distressed-property"><span class="t">Distressed Property Audit</span><span class="s">For Unfinished Projects</span></a>
+          <a href="/land"><span class="t">Land Monetization Strategy</span><span class="s">For Land Owners</span></a>
+        </div>
+      </div>
+      <a href="/regulations" class="navlink" style="font-size: 14px; color: #3E4744; text-decoration: none; padding: 12px 0">Regulations</a>
+      <a class="btn" href="#express-interest" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500">Discuss the Project</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- 1 · VISION / HERO -->
+<section id="top" class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-txt">
+      <span class="eyebrow">Property Intelligence Platform &middot; In Development</span>
+      <h1>Smarter, Safer Property Investment in Indonesia.</h1>
+      <p class="desc">TCG is building a property intelligence platform that brings land ownership, zoning, legal requirements, and investment risks into one place. The goal is to simplify due diligence, reduce costly mistakes, and help investors make confident property decisions in Indonesia.</p>
+      <a class="btn hero-cta" href="https://wa.me/6281337973097?text=Hello%2C%20I%27m%20interested%20in%20learning%20more%20about%20TCG%27s%20Property%20Intelligence%20Platform%20and%20potential%20investment%20or%20strategic%20partnership%20opportunities." target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Discuss the Project via WhatsApp</a>
+    </div>
+    <!-- hero animation -->
+<figure class="ip">
+<svg class="ip-svg" viewBox="0 0 460 512" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="ip-t ip-d">
+<title id="ip-t">Concept preview of a property intelligence platform</title>
+<desc id="ip-d">A sample land parcel on a topographic base map near a coastline. Three data layers rise above it: zoning, constraints such as a coastal setback and protected rice fields, and property documents. A vertical beam passes through the stack at the parcel: zoning is marked as likely permitted, the coastal setback is marked as requiring review, and the document set is marked as incomplete. The findings flow into an intelligence engine, which produces a snapshot with land-use screening, document review and risk assessment statuses and confidence levels. Concept preview with sample data, not a legal verification or investment recommendation.</desc>
+<defs><clipPath id="ip-c0"><path d="M179.0 272.0 L344.6 322.4 L240.2 383.6 L74.6 333.2 Z"/></clipPath><clipPath id="ip-c1"><path d="M179.0 210.0 L344.6 260.4 L240.2 321.6 L74.6 271.2 Z"/></clipPath><clipPath id="ip-c2"><path d="M179.0 148.0 L344.6 198.4 L240.2 259.6 L74.6 209.2 Z"/></clipPath><clipPath id="ip-c3"><path d="M179.0 86.0 L344.6 136.4 L240.2 197.6 L74.6 147.2 Z"/></clipPath></defs>
+<text class="ip-tag" x="20" y="26">CONCEPT PREVIEW</text>
+<text class="ip-co" x="440" y="26" text-anchor="end"><tspan fill="#5B6461">SAMPLE </tspan><tspan id="ip-lat">-8.6491</tspan>  <tspan id="ip-lon">115.1386</tspan></text>
+<g class="ip-anim">
+<g class="ip-base"><path class="sx" d="M74.6 333.2 L240.2 383.6 L240.2 386.6 L74.6 336.2 Z"/><path class="sx2" d="M240.2 383.6 L344.6 322.4 L344.6 325.4 L240.2 386.6 Z"/><path class="pl" pathLength="1" d="M179.0 272.0 L344.6 322.4 L240.2 383.6 L74.6 333.2 Z"/><g clip-path="url(#ip-c0)"><path class="ct" pathLength="1" d="M262.4 330.8 L261.5 331.2 L260.3 331.5 L258.8 331.6 L257.1 331.6 L255.4 331.5 L253.7 331.3 L252.1 331.2 L250.6 331.0 L249.3 330.9 L248.1 330.9 L246.8 331.0 L245.5 331.0 L244.1 331.1 L242.5 331.1 L240.9 331.0 L239.2 330.8 L237.6 330.5 L236.0 330.0 L234.5 329.5 L233.2 329.0 L232.1 328.4 L231.0 327.8 L230.0 327.3 L229.1 326.7 L228.2 326.1 L227.4 325.5 L226.7 324.9 L226.2 324.3 L225.9 323.7 L226.0 323.2 L226.3 322.7 L226.9 322.3 L227.6 321.9 L228.5 321.6 L229.3 321.3 L230.0 321.0 L230.6 320.7 L231.0 320.3 L231.4 319.8 L231.9 319.3 L232.4 318.8 L233.2 318.4 L234.2 318.0 L235.5 317.8 L237.1 317.7 L238.8 317.8 L240.6 318.1 L242.4 318.4 L244.1 318.9 L245.7 319.4 L247.1 319.9 L248.5 320.4 L249.8 320.8 L251.1 321.2 L252.4 321.6 L253.7 322.0 L255.0 322.4 L256.3 322.9 L257.4 323.4 L258.3 323.9 L259.1 324.5 L259.7 325.1 L260.2 325.6 L260.7 326.2 L261.1 326.7 L261.5 327.3 L262.0 327.9 L262.5 328.5 L262.8 329.1 L263.0 329.7 L262.8 330.3 L262.4 330.8" style="--d:0.24s"/><path class="ct" pathLength="1" d="M277.3 335.4 L275.7 336.1 L274.0 336.8 L272.1 337.4 L270.2 338.0 L268.2 338.6 L265.9 339.1 L263.3 339.4 L260.4 339.6 L257.3 339.6 L253.9 339.2 L250.5 338.7 L247.2 337.9 L244.1 337.0 L241.2 336.1 L238.6 335.1 L236.1 334.3 L233.7 333.5 L231.1 332.9 L228.3 332.3 L225.2 331.7 L221.9 331.1 L218.4 330.3 L215.0 329.4 L212.0 328.3 L209.5 327.1 L207.7 325.8 L206.6 324.5 L206.2 323.2 L206.5 322.1 L207.1 321.0 L207.9 320.0 L208.9 319.1 L209.8 318.2 L210.6 317.4 L211.5 316.5 L212.6 315.7 L213.8 314.9 L215.4 314.3 L217.4 313.8 L219.7 313.4 L222.2 313.2 L224.9 313.1 L227.6 313.1 L230.2 313.1 L232.8 313.1 L235.4 313.0 L238.1 312.9 L241.0 312.8 L244.1 312.7 L247.4 312.7 L251.0 312.9 L254.6 313.4 L258.1 314.2 L261.3 315.2 L264.0 316.4 L266.2 317.7 L267.8 319.1 L268.9 320.4 L269.8 321.7 L270.5 322.8 L271.3 323.9 L272.4 324.9 L273.7 325.9 L275.2 327.0 L276.8 328.1 L278.2 329.2 L279.4 330.4 L280.0 331.6 L280.1 332.7 L279.6 333.7 L278.7 334.6 L277.3 335.4" style="--d:0.33s"/><path class="ct" pathLength="1" d="M294.1 340.5 L291.7 341.6 L289.0 342.5 L286.1 343.4 L283.1 344.3 L280.0 345.1 L276.6 345.8 L272.8 346.4 L268.6 346.7 L263.9 346.7 L259.0 346.3 L253.9 345.6 L248.9 344.5 L244.1 343.2 L239.7 341.7 L235.7 340.3 L232.0 338.9 L228.4 337.7 L224.7 336.6 L220.7 335.7 L216.2 334.8 L211.4 333.8 L206.3 332.7 L201.2 331.3 L196.5 329.7 L192.5 327.9 L189.5 326.0 L187.6 324.1 L186.8 322.2 L187.0 320.4 L188.0 318.8 L189.3 317.3 L190.9 316.0 L192.4 314.7 L193.9 313.4 L195.4 312.1 L197.0 310.9 L198.8 309.8 L201.2 308.8 L204.0 308.0 L207.3 307.4 L211.1 307.1 L215.1 306.9 L219.2 307.0 L223.2 307.0 L227.2 307.1 L231.2 307.0 L235.2 306.9 L239.5 306.8 L244.1 306.6 L249.0 306.7 L254.3 307.0 L259.7 307.6 L265.1 308.7 L270.0 310.1 L274.2 311.8 L277.7 313.8 L280.2 315.8 L282.0 317.9 L283.2 319.8 L284.2 321.5 L285.3 323.2 L286.6 324.7 L288.3 326.2 L290.3 327.8 L292.5 329.4 L294.7 331.1 L296.5 332.9 L297.6 334.7 L297.9 336.3 L297.4 337.9 L296.1 339.3 L294.1 340.5" style="--d:0.42s"/><path class="ct" pathLength="1" d="M312.9 346.2 L309.7 347.7 L305.5 348.8 L300.3 349.5 L294.4 349.8 L288.2 349.6 L281.9 349.2 L275.9 348.7 L270.3 348.3 L265.1 348.0 L260.1 348.0 L255.2 348.3 L249.9 348.7 L244.1 349.0 L237.7 349.2 L230.8 349.0 L223.6 348.4 L216.5 347.1 L209.8 345.4 L203.8 343.2 L198.8 340.7 L194.8 338.1 L191.7 335.5 L189.1 333.0 L186.9 330.6 L184.9 328.3 L182.7 326.1 L180.5 323.9 L178.4 321.7 L176.5 319.5 L175.3 317.3 L174.8 315.2 L175.2 313.2 L176.4 311.4 L178.4 309.7 L180.8 308.2 L183.4 306.8 L185.9 305.4 L188.4 303.9 L190.8 302.3 L193.4 300.6 L196.3 298.9 L199.9 297.4 L204.4 296.1 L209.9 295.3 L216.2 295.1 L223.1 295.6 L230.3 296.7 L237.4 298.3 L244.1 300.3 L250.1 302.5 L255.6 304.7 L260.6 306.7 L265.3 308.5 L270.1 310.0 L275.2 311.4 L280.7 312.8 L286.6 314.2 L292.7 315.8 L298.5 317.6 L304.0 319.7 L308.6 322.0 L312.2 324.4 L314.7 326.8 L316.4 329.2 L317.2 331.5 L317.6 333.8 L317.6 336.0 L317.5 338.1 L317.1 340.3 L316.4 342.4 L315.0 344.4 L312.9 346.2" style="--d:0.51s"/><path class="ct" pathLength="1" d="M324.1 349.6 L320.1 351.3 L316.0 352.9 L311.5 354.4 L306.5 355.6 L300.7 356.5 L294.3 357.0 L287.3 357.1 L280.0 356.7 L272.6 356.1 L265.3 355.3 L258.2 354.5 L251.2 353.9 L244.1 353.3 L236.7 352.9 L228.9 352.5 L220.4 352.0 L211.5 351.1 L202.3 349.8 L193.4 347.9 L185.3 345.4 L178.4 342.4 L173.2 339.2 L169.7 335.8 L167.8 332.4 L167.1 329.2 L167.1 326.3 L167.3 323.6 L167.2 321.1 L166.5 318.7 L165.1 316.2 L163.3 313.5 L161.5 310.8 L160.1 308.0 L159.6 305.3 L160.2 302.7 L162.2 300.4 L165.4 298.4 L169.7 296.7 L174.7 295.3 L180.2 294.2 L185.9 293.2 L191.8 292.2 L198.0 291.4 L204.5 290.6 L211.5 290.0 L219.0 289.8 L227.1 290.1 L235.6 290.9 L244.1 292.4 L252.3 294.5 L259.8 297.1 L266.6 299.9 L272.5 302.8 L277.7 305.6 L282.7 308.1 L287.7 310.4 L293.2 312.5 L299.4 314.5 L306.4 316.5 L314.0 318.7 L321.7 321.3 L328.9 324.1 L335.1 327.2 L339.7 330.4 L342.3 333.7 L343.0 336.7 L341.9 339.5 L339.4 342.0 L336.0 344.2 L332.1 346.1 L328.1 347.9 L324.1 349.6" style="--d:0.60s"/><path class="ct" pathLength="1" d="M345.7 356.2 L340.0 358.1 L334.0 359.8 L328.0 361.5 L321.7 363.0 L314.9 364.3 L307.5 365.4 L299.3 365.9 L290.5 365.9 L281.1 365.3 L271.4 364.0 L261.9 362.3 L252.8 360.2 L244.1 358.1 L235.9 356.1 L227.8 354.4 L219.6 352.9 L210.9 351.6 L201.4 350.3 L191.1 348.9 L180.4 347.1 L169.5 344.7 L159.3 341.9 L150.5 338.5 L143.5 334.7 L138.8 330.7 L136.4 326.7 L136.1 323.0 L137.3 319.5 L139.5 316.4 L141.9 313.5 L144.1 310.8 L145.9 308.1 L147.1 305.4 L148.2 302.6 L149.5 299.8 L151.4 297.1 L154.3 294.6 L158.5 292.4 L163.8 290.6 L170.1 289.3 L177.1 288.3 L184.5 287.6 L192.1 287.1 L199.8 286.5 L207.7 285.9 L215.9 285.4 L224.6 284.9 L234.0 284.7 L244.1 285.1 L254.5 286.1 L265.0 287.8 L275.0 290.4 L284.1 293.6 L291.9 297.2 L298.2 301.2 L303.2 305.1 L307.2 308.8 L310.8 312.2 L314.6 315.4 L319.0 318.3 L324.3 321.1 L330.6 324.1 L337.5 327.3 L344.3 330.7 L350.5 334.4 L355.4 338.1 L358.5 341.9 L359.4 345.5 L358.2 348.7 L355.2 351.6 L350.9 354.1 L345.7 356.2" style="--d:0.69s"/><path class="ct" pathLength="1" d="M356.8 359.6 L347.1 360.5 L337.4 361.1 L328.1 361.5 L319.8 362.1 L312.6 363.1 L306.1 364.5 L300.0 366.4 L293.5 368.5 L286.1 370.7 L277.4 372.5 L267.4 373.6 L256.1 373.8 L244.1 372.9 L231.9 371.1 L220.1 368.3 L209.0 364.9 L198.8 361.1 L189.6 357.2 L181.1 353.3 L173.2 349.5 L165.4 345.8 L157.8 342.2 L150.5 338.5 L143.6 334.7 L137.6 330.8 L132.9 326.8 L129.7 322.8 L128.1 319.0 L127.9 315.4 L128.5 311.9 L129.6 308.6 L130.6 305.4 L131.1 302.1 L131.0 298.5 L130.5 294.7 L130.2 290.6 L130.6 286.4 L132.5 282.4 L136.6 278.9 L143.0 276.1 L151.8 274.4 L162.7 273.8 L174.9 274.4 L187.7 275.9 L200.5 278.1 L212.6 280.7 L223.9 283.3 L234.3 285.7 L244.1 287.7 L253.6 289.3 L263.4 290.7 L273.6 292.0 L284.3 293.5 L295.2 295.3 L306.1 297.7 L316.5 300.5 L326.1 303.9 L334.6 307.6 L341.9 311.5 L348.4 315.5 L354.1 319.6 L359.5 323.7 L364.7 327.8 L369.6 332.1 L374.1 336.4 L377.6 340.7 L379.7 345.0 L379.7 349.0 L377.3 352.7 L372.5 355.7 L365.5 358.0 L356.8 359.6" style="--d:0.78s"/><path class="ct" pathLength="1" d="M370.9 363.9 L370.4 368.5 L368.7 373.1 L364.9 377.4 L358.6 380.9 L349.5 383.4 L338.0 384.6 L324.6 384.5 L310.1 383.1 L295.4 380.8 L281.1 377.8 L267.8 374.6 L255.6 371.5 L244.1 368.8 L233.1 366.5 L222.2 364.6 L210.8 362.8 L198.9 361.0 L186.7 358.9 L174.3 356.4 L162.3 353.2 L151.2 349.5 L141.2 345.4 L132.5 341.0 L125.1 336.4 L118.7 331.7 L112.8 327.1 L107.2 322.4 L101.8 317.6 L96.8 312.7 L92.6 307.8 L89.7 302.8 L88.9 298.1 L90.6 293.7 L95.1 290.0 L102.4 287.1 L111.9 285.0 L122.9 283.8 L134.6 283.2 L146.0 282.9 L156.5 282.7 L165.8 282.1 L174.0 281.0 L181.6 279.3 L189.3 277.3 L197.6 275.0 L207.1 272.9 L218.1 271.4 L230.6 270.8 L244.0 271.3 L258.0 273.0 L271.7 275.8 L284.7 279.5 L296.6 283.7 L307.4 288.2 L317.1 292.8 L326.1 297.2 L334.8 301.6 L343.2 305.9 L351.4 310.2 L359.1 314.5 L366.1 319.0 L371.7 323.5 L375.7 328.1 L377.8 332.5 L378.2 336.7 L377.2 340.7 L375.4 344.4 L373.5 348.0 L372.0 351.6 L371.1 355.4 L370.9 359.5 L370.9 363.9" style="--d:0.87s"/><path class="cl" pathLength="1" d="M88.2 325.2 L91.5 327.0 L94.9 328.7 L98.4 330.3 L102.2 331.8 L106.3 333.1 L110.6 334.2 L115.2 335.2 L119.9 336.1 L124.9 336.9 L129.9 337.7 L134.8 338.5 L139.6 339.3 L144.3 340.3 L148.7 341.4 L152.8 342.6 L156.7 344.1 L160.3 345.6 L163.8 347.3 L167.1 349.0 L170.4 350.8 L173.8 352.5 L177.3 354.1 L181.0 355.6 L184.9 357.0 L189.2 358.2 L193.7 359.3 L198.4 360.2 L203.3 361.0 L208.2 361.8 L213.2 362.6 L218.1 363.4 L222.8 364.3 L227.3 365.3 L231.5 366.6 L235.5 367.9 L239.2 369.4 L242.7 371.1 L246.1 372.8 L249.3 374.5 L252.7 376.3" style="--d:.5s"/><path class="sea" d="M83.0 328.3 L86.4 330.0 L90.0 331.6 L93.6 333.1 L97.5 334.5 L101.6 335.8 L105.9 337.0 L110.3 338.1 L115.0 339.0 L119.8 339.9 L124.6 340.8 L129.4 341.6 L134.1 342.6 L138.6 343.6 L143.0 344.7 L147.1 346.0 L151.0 347.4 L154.8 348.9 L158.3 350.5 L161.8 352.1 L165.3 353.8 L168.8 355.4 L172.4 357.0 L176.2 358.4 L180.2 359.8 L184.4 361.0 L188.9 362.1 L193.5 363.1 L198.2 364.0 L203.0 364.8 L207.8 365.7 L212.6 366.6 L217.2 367.6 L221.6 368.7 L225.8 369.9 L229.8 371.3 L233.6 372.7 L237.2 374.3 L240.7 375.9 L244.2 377.6 L247.7 379.2"/><path class="sea" d="M77.0 331.8 L80.9 333.2 L85.0 334.5 L89.3 335.7 L93.8 336.7 L98.4 337.7 L103.2 338.5 L108.0 339.4 L112.8 340.3 L117.5 341.2 L122.0 342.3 L126.4 343.4 L130.5 344.7 L134.4 346.1 L138.1 347.6 L141.7 349.2 L145.2 350.8 L148.7 352.5 L152.2 354.1 L155.8 355.6 L159.6 357.1 L163.6 358.4 L167.9 359.6 L172.3 360.7 L176.9 361.7 L181.7 362.6 L186.5 363.5 L191.3 364.4 L196.0 365.3 L200.6 366.3 L205.0 367.4 L209.2 368.6 L213.2 369.9 L217.0 371.4 L220.6 373.0 L224.1 374.6 L227.5 376.3 L231.0 377.9 L234.6 379.5 L238.4 381.0 L242.3 382.4"/><path class="ct" pathLength="1" d="M177.1 276.1 L192.8 284.6 L215.8 288.8" style="--d:0.60s"/><path class="ct" pathLength="1" d="M169.7 282.2 L186.7 291.1 L208.1 294.8" style="--d:0.66s"/><path class="ct" pathLength="1" d="M162.3 288.3 L180.6 297.6 L200.3 300.8" style="--d:0.72s"/><path class="ct" pathLength="1" d="M154.9 294.4 L174.5 304.1 L192.6 306.8" style="--d:0.78s"/><path class="ct" pathLength="1" d="M147.5 300.5 L168.5 310.6 L184.8 312.8" style="--d:0.84s"/></g><path class="pc" pathLength="1" d="M200.7 306.5 L264.5 322.2 L238.9 346.0 L169.7 330.5 Z"/></g>
+<g class="ly" style="--ty:62px;--d:1.75s"><path class="sx" d="M74.6 271.2 L240.2 321.6 L240.2 324.6 L74.6 274.2 Z"/><path class="sx2" d="M240.2 321.6 L344.6 260.4 L344.6 263.4 L240.2 324.6 Z"/><path class="lp" d="M179.0 210.0 L344.6 260.4 L240.2 321.6 L74.6 271.2 Z"/><g clip-path="url(#ip-c1)"><path class="z1" d="M196.5 229.3 L309.3 259.0 L250.8 300.6 L139.0 270.3 Z"/><path class="z2" d="M172.9 198.8 L196.5 229.3 L139.0 270.3 L76.8 255.1 Z"/><path class="z3" d="M309.3 259.0 L371.6 259.3 L273.5 316.8 L250.8 300.6 Z"/><path class="z3" d="M172.9 198.8 L371.6 259.3 L309.3 259.0 L196.5 229.3 Z"/><path class="zs" d="M76.8 255.1 L139.0 270.3 L250.8 300.6 L273.5 316.8 L246.3 332.8 L47.6 272.3 Z"/></g><path class="pd" d="M200.7 244.5 L264.5 260.2 L238.9 284.0 L169.7 268.5 Z"/></g>
+<g class="ly" style="--ty:124px;--d:2.05s"><path class="sx" d="M74.6 209.2 L240.2 259.6 L240.2 262.6 L74.6 212.2 Z"/><path class="sx2" d="M240.2 259.6 L344.6 198.4 L344.6 201.4 L240.2 262.6 Z"/><path class="lp" d="M179.0 148.0 L344.6 198.4 L240.2 259.6 L74.6 209.2 Z"/><g clip-path="url(#ip-c2)"><path class="hb" d="M-6.0 150.3 L16.6 191.6M3.9 153.3 L26.6 194.6M13.9 156.3 L36.5 197.6M23.8 159.3 L46.4 200.6M33.7 162.4 L56.4 203.7M43.7 165.4 L66.3 206.7M53.6 168.4 L76.3 209.7M63.5 171.4 L86.2 212.7M73.5 174.5 L96.1 215.8M83.4 177.5 L106.1 218.8M93.4 180.5 L116.0 221.8M103.3 183.5 L125.9 224.8M113.2 186.6 L135.9 227.8M123.2 189.6 L145.8 230.9M133.1 192.6 L155.7 233.9M143.0 195.6 L165.7 236.9M153.0 198.7 L175.6 239.9M162.9 201.7 L185.6 243.0M172.8 204.7 L195.5 246.0M182.8 207.7 L205.4 249.0M192.7 210.7 L215.4 252.0M202.7 213.8 L225.3 255.1M212.6 216.8 L235.2 258.1M222.5 219.8 L245.2 261.1M232.5 222.8 L255.1 264.1M242.4 225.9 L265.0 267.2M252.3 228.9 L275.0 270.2M262.3 231.9 L284.9 273.2M272.2 234.9 L294.8 276.2M282.1 238.0 L304.8 279.3M292.1 241.0 L314.7 282.3M302.0 244.0 L324.7 285.3M311.9 247.0 L334.6 288.3M321.9 250.1 L344.5 291.4M331.8 253.1 L354.5 294.4M341.8 256.1 L364.4 297.4"/><path class="sb" d="M96.7 181.5 L295.4 242.0"/><path class="rf" d="M179.0 148.0 L225.4 162.1 L178.6 192.5 L124.7 179.8 Z"/><path class="ov" d="M172.3 204.5 L204.3 214.3 L169.7 206.5 Z"/></g><path class="pd" d="M200.7 182.5 L264.5 198.2 L238.9 222.0 L169.7 206.5 Z"/></g>
+<g class="ly" style="--ty:186px;--d:2.35s"><path class="sx" d="M74.6 147.2 L240.2 197.6 L240.2 200.6 L74.6 150.2 Z"/><path class="sx2" d="M240.2 197.6 L344.6 136.4 L344.6 139.4 L240.2 200.6 Z"/><path class="lp" d="M179.0 86.0 L344.6 136.4 L240.2 197.6 L74.6 147.2 Z"/><g clip-path="url(#ip-c3)"><path class="dc" d="M183.5 96.7 L211.6 105.2 L199.1 112.6 L170.9 104.0 Z"/><path class="dl" d="M184.8 100.3 L203.0 105.9"/><path class="dl" d="M181.6 102.1 L199.9 107.7"/><path class="dl" d="M179.0 103.7 L197.3 109.2"/><path class="dc" d="M290.2 132.9 L318.4 141.4 L305.9 148.8 L277.7 140.2 Z"/><path class="dl" d="M291.6 136.5 L309.8 142.1"/><path class="dl" d="M288.4 138.4 L306.6 143.9"/><path class="dl" d="M285.8 139.9 L304.0 145.4"/><path class="dc" d="M130.8 129.0 L159.0 137.6 L146.5 144.9 L118.3 136.3 Z"/><path class="dl" d="M132.1 132.6 L150.4 138.2"/><path class="dl" d="M129.0 134.5 L147.2 140.0"/><path class="dl" d="M126.4 136.0 L144.6 141.5"/><path class="dm" d="M243.0 165.0 L271.2 173.6 L258.6 180.9 L230.5 172.3 Z"/><path class="lk" d="M199.1 112.6 L200.7 120.5M277.7 140.2 L264.5 136.2M152.7 141.2 L169.7 144.5M240.9 166.2 L238.9 160.0"/></g><path class="pd" d="M200.7 120.5 L264.5 136.2 L238.9 160.0 L169.7 144.5 Z"/></g>
+<text class="ln" x="20" y="306" style="--d:1.3s">PARCEL</text><text class="ln" x="20" y="244" style="--d:2.50s">ZONING</text><text class="ln" x="20" y="182" style="--d:2.65s">CONSTRAINTS</text><text class="ln" x="20" y="120" style="--d:2.80s">DOCUMENTS</text>
+<rect class="bm" x="218.7" y="126.9" width="10" height="200.0" transform="translate(-5 0)"/>
+<path class="bl" pathLength="1" d="M218.7 326.9V126.9"/>
+<g class="ip-pin"><circle class="pr" cx="218.7" cy="326.9" r="6"/><circle class="pn" cx="218.7" cy="326.9" r="2.6"/></g>
+<g class="hit ok" style="--d:3.95s"><circle class="hr" cx="218.7" cy="264.9" r="6"/><circle class="hc" cx="218.7" cy="264.9" r="2.6"/></g><g class="hit am" style="--d:4.20s"><circle class="hr" cx="218.7" cy="202.9" r="6"/><circle class="hc" cx="218.7" cy="202.9" r="2.6"/></g><g class="hit gy" style="--d:4.45s"><circle class="hr" cx="218.7" cy="140.9" r="6"/><circle class="hc" cx="218.7" cy="140.9" r="2.6"/></g>
+<path class="fl" pathLength="1" d="M218.7 264.9 C288.7 264.9 362 236 412 236" style="--d:5.00s"/><path class="pk" d="M218.7 264.9 C288.7 264.9 362 236 412 236" style="--d:6.10s"/><path class="fl" pathLength="1" d="M218.7 202.9 C288.7 202.9 362 236 412 236" style="--d:5.15s"/><path class="pk" d="M218.7 202.9 C288.7 202.9 362 236 412 236" style="--d:6.20s"/><path class="fl" pathLength="1" d="M218.7 140.9 C288.7 140.9 362 236 412 236" style="--d:5.30s"/><path class="pk" d="M218.7 140.9 C288.7 140.9 362 236 412 236" style="--d:6.30s"/>
+<text class="el" x="440" y="202">INTELLIGENCE</text>
+<text class="el" x="440" y="215">ENGINE</text>
+<g class="ip-eng"><path class="hx" d="M421.5 241.5 L412.0 247.0 L402.5 241.5 L402.5 230.5 L412.0 225.0 L421.5 230.5 Z"/><circle class="core" cx="412" cy="236" r="2.6"/></g>
+<circle class="ip-rot" cx="412" cy="236" r="16"/>
+<path class="lnk" pathLength="1" d="M412 254V398"/>
+<text class="hd" x="20" y="391">INTELLIGENCE SNAPSHOT</text>
+<text class="hd" x="175" y="391" style="display:none">CONFIDENCE</text>
+<path class="rule" pathLength="1" d="M20 398H440"/>
+<g class="row" style="--d:7.1s"><text class="lb" x="20" y="420">LAND-USE SCREENING</text><path class="tr" d="M188 416H275"/><path class="cf" pathLength="1" d="M188 416H236"/><circle cx="318" cy="416" r="3" fill="#B07A14"/><text class="sl" x="440" y="420" text-anchor="end">Review required</text></g>
+<g class="row" style="--d:7.3s"><text class="lb" x="20" y="441">DOCUMENT REVIEW</text><path class="tr" d="M188 437H275"/><path class="cf" pathLength="1" d="M188 437H220"/><circle cx="318" cy="437" r="2.6" fill="none" stroke="#5B6461" stroke-width="1.1"/><text class="sl" x="440" y="441" text-anchor="end">Incomplete</text></g>
+<g class="row" style="--d:7.5s"><text class="lb" x="20" y="462">RISK ASSESSMENT</text><path class="tr" d="M188 458H275"/><path class="cf" pathLength="1" d="M188 458H208"/><circle cx="318" cy="458" r="2.6" fill="none" stroke="#0E5A55" stroke-width="1.1"/><text class="sl" x="440" y="462" text-anchor="end">Preliminary</text></g>
+<text class="nt" x="20" y="490">Sample data. Bars show confidence. Not a legal verification.</text>
+</g>
+</svg>
+</figure>
+<script>
+(function(){
+  var fig=document.querySelector('figure.ip');
+  if(!fig||!fig.getAnimations)return;
+  var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var lat=document.getElementById('ip-lat'),lon=document.getElementById('ip-lon');
+  var LAT='-8.6491',LON='115.1386',tick=null;
+  function r(n){var s='';for(var i=0;i<n;i++)s+=Math.floor(Math.random()*10);return s;}
+  function coords(){
+    clearInterval(tick);var t0=Date.now();
+    tick=setInterval(function(){
+      if(Date.now()-t0>1300){clearInterval(tick);lat.textContent=LAT;lon.textContent=LON;return;}
+      lat.textContent='-8.'+r(4);lon.textContent='115.'+r(4);
+    },60);
+  }
+  function restart(){
+    fig.getAnimations({subtree:true}).forEach(function(a){a.currentTime=0;a.play();});
+  }
+  function cycle(){
+    fig.classList.remove('ip-out');
+    if(!mq.matches){restart();coords();}
+    setTimeout(function(){if(!mq.matches)fig.classList.add('ip-out');},9550);
+    setTimeout(cycle,10000);
+  }
+  cycle();
+})();
+</script>
+
+  </div>
+</section>
+
+<!-- 2 · LAND & ZONING INTELLIGENCE -->
+<section id="land-zoning" class="sec" style="border-top: 1px solid #E2E0D9">
+  <div class="wrap split">
+    <div class="txt">
+      <span class="eyebrow">01 / Land &amp; Zoning Intelligence</span>
+      <h2 class="h2">Check Land-Use Constraints Before Investing.</h2>
+      <p class="lead">A location-based screening system designed to identify zoning classifications, land-use restrictions and potential development constraints.</p>
+      <p class="lead">Enter property coordinates to explore available regulatory information and highlight issues that may require further verification.</p>
+      <ul class="caps">
+        <li>Zoning and land-use screening</li>
+        <li>Development restriction identification</li>
+        <li>Regulatory source references</li>
+        <li>Preliminary investment risk indicators</li>
+      </ul>
+    </div>
+    <figure class="ui-fig" aria-label="Concept preview of parcel screening with sample map layers">
+      <div class="ui-top"><span>Parcel Screening &middot; Sample location</span><span class="cp">Concept Preview</span></div>
+      <div style="padding: 16px 20px; background: #FBFAF7; border-bottom: 1px solid #E2E0D9">
+        <svg viewBox="0 0 480 210" style="width: 100%; height: auto; display: block" role="img" aria-label="Illustrative map: a selected parcel between a rice field layer, a tourism zone and a coastal setback line">
+          <path d="M0 160 C 80 150, 140 180, 220 170 S 380 140, 480 160 L480 210 L0 210 Z" fill="#E4EEF0"/>
+          <g stroke="#ECEAE4"><line x1="60" y1="0" x2="60" y2="210"/><line x1="120" y1="0" x2="120" y2="210"/><line x1="180" y1="0" x2="180" y2="210"/><line x1="240" y1="0" x2="240" y2="210"/><line x1="300" y1="0" x2="300" y2="210"/><line x1="360" y1="0" x2="360" y2="210"/><line x1="420" y1="0" x2="420" y2="210"/><line x1="0" y1="42" x2="480" y2="42"/><line x1="0" y1="84" x2="480" y2="84"/><line x1="0" y1="126" x2="480" y2="126"/><line x1="0" y1="168" x2="480" y2="168"/></g>
+          <rect x="34" y="34" width="134" height="84" fill="#B07A14" fill-opacity="0.10" stroke="#B07A14" stroke-dasharray="4 4"/>
+          <rect x="300" y="28" width="150" height="74" fill="#1F6B5A" fill-opacity="0.08" stroke="#1F6B5A"/>
+          <line x1="0" y1="138" x2="480" y2="126" stroke="#A23B2A" stroke-dasharray="6 4"/>
+          <polygon points="200,62 272,56 282,108 208,114" fill="#0E5A55" fill-opacity="0.12" stroke="#0F1413" stroke-width="1.5"/>
+          <circle cx="241" cy="85" r="5" fill="#0E5A55"/><circle cx="241" cy="85" r="13" fill="none" stroke="#0E5A55"/>
+          <g font-family="Geist Mono, monospace" font-size="10" fill="#5B6461"><text x="38" y="27">RICE FIELD LAYER</text><text x="304" y="21">TOURISM ZONE</text><text x="8" y="154" fill="#A23B2A">COASTAL SETBACK</text><text x="204" y="130">SAMPLE PARCEL</text></g>
+        </svg>
+      </div>
+      <div class="ui-row"><span>Accommodation in zoning plan</span><span class="st scr"><i></i>Likely permitted</span></div>
+      <div class="ui-row"><span>Coastal setback</span><span class="st unr"><i></i>Potential constraint</span></div>
+      <div class="ui-row"><span>Protected rice field layer</span><span class="st scr"><i></i>No overlap shown</span></div>
+      <div class="ui-row"><span>Short-term rental conditions</span><span class="st rev"><i></i>Requires verification</span></div>
+      <div class="ui-foot"><span>Preliminary screening &middot; sample data</span><span>Not a government approval or legal certification</span></div>
+    </figure>
+  </div>
+</section>
+
+<!-- 3 · DOCUMENT INTELLIGENCE -->
+<section id="property-dossier" class="sec" style="background: #EFEDE7">
+  <div class="wrap" style="display: flex; flex-direction: column; gap: 44px">
+    <div class="split" style="align-items: start">
+      <div class="txt">
+        <span class="eyebrow">02 / Document Intelligence</span>
+        <h2 class="h2">Keep Property Documents Organised and Traceable.</h2>
+      </div>
+      <div class="txt">
+        <p class="lead">A digital property record designed to organize legal documents, extract key information and identify inconsistencies across available records.</p>
+        <p class="lead">Each finding is linked to its source, verification status and review date, helping investors understand what is documented, what requires confirmation and what remains unresolved.</p>
+        <ul class="caps">
+          <li>Document extraction and classification</li>
+          <li>Cross-document consistency checks</li>
+          <li>Source-linked property records</li>
+          <li>Specialist verification workflows</li>
+        </ul>
+      </div>
+    </div>
+    <div class="legend" role="list" aria-label="Planned status categories">
+      <div class="lg" role="listitem"><span class="how auto">Automated check</span><span class="st scr"><i></i>Screening</span><p>Preliminary result produced by automated document checks, awaiting confirmation.</p></div>
+      <div class="lg" role="listitem"><span class="how spec">Specialist verification</span><span class="st ok"><i></i>Verified</span><p>Confirmed by a qualified specialist against the documents provided, with the review date recorded.</p></div>
+      <div class="lg" role="listitem"><span class="how open">Open point</span><span class="st rev"><i></i>Review Required</span><p>An inconsistency or open point that needs further checking.</p></div>
+      <div class="lg" role="listitem"><span class="how open">Open point</span><span class="st unr"><i></i>Unresolved</span><p>Insufficient information to reach a conclusion.</p></div>
+    </div>
+    <figure class="ui-fig" aria-label="Concept preview of a source-linked property record with sample data">
+      <div class="ui-top"><span>Source-Linked Record &middot; Sample property</span><span class="cp">Concept Preview</span></div>
+      <span class="swipe" aria-hidden="true">Swipe to see all columns &rarr;</span>
+      <div class="tscroll">
+        <table class="rec">
+          <thead><tr><th scope="col">Finding</th><th scope="col">Source document</th><th scope="col">Method</th><th scope="col">Status</th><th scope="col">Review date</th></tr></thead>
+          <tbody>
+            <tr><td>Land area matches lease schedule</td><td class="src">Certificate copy &middot; Lease agreement</td><td><span class="how auto">Automated</span></td><td><span class="st scr"><i></i>Screening</span></td><td class="src">Sample date</td></tr>
+            <tr><td>Lessor named on certificate</td><td class="src">Certificate copy</td><td><span class="how spec">Specialist</span></td><td><span class="st ok"><i></i>Verified</span></td><td class="src">Sample date</td></tr>
+            <tr><td>Building area differs from PBG</td><td class="src">PBG document &middot; Site measurement</td><td><span class="how spec">Specialist</span></td><td><span class="st rev"><i></i>Review Required</span></td><td class="src">Sample date</td></tr>
+            <tr><td>SLF status</td><td class="src">No document provided</td><td><span class="how spec">Specialist</span></td><td><span class="st unr"><i></i>Unresolved</span></td><td class="src">&mdash;</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ui-foot"><span>Illustrative findings &middot; based on documents supplied by the owner</span><span>No connection to government registries is implied</span></div>
+    </figure>
+  </div>
+</section>
+
+<!-- 4 · CONTINUOUS PROPERTY INTELLIGENCE -->
+<section id="portfolio-monitoring" class="sec">
+  <div class="wrap split">
+    <div class="txt">
+      <span class="eyebrow">03 / Continuous Property Intelligence</span>
+      <h2 class="h2">Track Documents and Compliance Issues After Acquisition.</h2>
+      <p class="lead">A monitoring system designed to track important document deadlines, property-specific compliance requirements and relevant regulatory developments.</p>
+      <p class="lead">Portfolio owners will be able to review identified issues, prioritize follow-up actions and maintain a clearer overview of their property records over time.</p>
+      <ul class="caps">
+        <li>Lease and permit deadline tracking</li>
+        <li>Portfolio compliance overview</li>
+        <li>Relevant regulatory change alerts</li>
+        <li>Risk-based issue prioritization</li>
+      </ul>
+    </div>
+    <figure class="ui-fig mon" aria-label="Concept preview of a portfolio monitoring dashboard with sample data">
+      <div class="ui-top"><span>Portfolio Overview &middot; Sample portfolio</span><span class="cp">Concept Preview</span></div>
+      <span class="swipe" aria-hidden="true">Swipe to see all columns &rarr;</span>
+      <div class="tscroll">
+        <table class="rec">
+          <thead><tr><th scope="col">Property</th><th scope="col">Next deadline</th><th scope="col">Documents</th><th scope="col">Risk</th></tr></thead>
+          <tbody>
+            <tr><td>Sample Villa A</td><td class="src">Lease renewal &middot; 11 mo</td><td><span class="st ok"><i></i>Complete</span></td><td><span class="st rev"><i></i>Medium</span></td></tr>
+            <tr><td>Sample Villa B</td><td class="src">SLF renewal &middot; 4 mo</td><td><span class="st rev"><i></i>1 missing</span></td><td><span class="st rev"><i></i>Medium</span></td></tr>
+            <tr><td>Sample Hotel C</td><td class="src">Rule update to review</td><td><span class="st scr"><i></i>Screening</span></td><td><span class="st unr"><i></i>High</span></td></tr>
+            <tr><td>Sample Villa D</td><td class="src">No deadline &lt; 12 mo</td><td><span class="st ok"><i></i>Complete</span></td><td><span class="st ok"><i></i>Low</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ui-foot"><span>Illustrative alerts and metrics</span><span>Coverage of regulatory changes is not exhaustive</span></div>
+    </figure>
+  </div>
+</section>
+
+<!-- 5 · TECHNOLOGY DEVELOPMENT -->
+<section id="technology" class="arch-sec">
+  <div class="wrap">
+    <div class="split" style="align-items: end">
+      <div class="txt">
+        <span class="eyebrow">04 / Technology Development</span>
+        <h2 class="h2">Infrastructure Behind Property Intelligence.</h2>
+      </div>
+    </div>
+    <figure class="arch" style="margin-left: 0; margin-right: 0; margin-bottom: 0" aria-label="Proposed system architecture: three input layers feed a property intelligence engine, which produces three outputs">
+      <div class="arch-head"><span>Data flow &middot; Input &rarr; Processing &rarr; Output</span><span class="cp">Proposed System Architecture</span></div>
+      <div class="arch-body">
+        <span class="col-h in">Input layer</span>
+        <span class="col-h pr">Processing layer</span>
+        <span class="col-h out">Output layer</span>
+
+        <div class="node i r1">Geospatial Data<small>Locations &middot; parcel boundaries &middot; zoning layers</small></div>
+        <div class="node i r2">Property Documents<small>Certificates &middot; leases &middot; permits</small></div>
+        <div class="node i r3">Regulatory Information<small>Regulations &middot; spatial plans &middot; updates</small></div>
+
+        <span class="link a r1" aria-hidden="true"></span><span class="link a r2" aria-hidden="true"></span><span class="link a r3" aria-hidden="true"></span>
+
+        <div class="engine">
+          <span class="en-s">Core</span>
+          <span class="en-t">Property Intelligence Engine</span>
+          <div class="mods">
+            <div class="mod">Data Matching<small>Links records to a location</small></div>
+            <div class="mod">Risk Classification<small>Flags issues by severity</small></div>
+            <div class="mod" style="grid-column: 1 / -1">Verification Workflows<small>Routes open points to specialist review</small></div>
+          </div>
+        </div>
+
+        <span class="link b r1" aria-hidden="true"></span><span class="link b r2" aria-hidden="true"></span><span class="link b r3" aria-hidden="true"></span>
+
+        <div class="node o r1">Parcel Screening<small>Section 01</small></div>
+        <div class="node o r2">Digital Property Dossier<small>Section 02</small></div>
+        <div class="node o r3">Portfolio Monitoring<small>Section 03</small></div>
+      </div>
+      <div class="arch-foot">
+        <div class="af"><b>Traceable sources</b><span>Each finding is designed to reference the document or dataset it comes from.</span></div>
+        <div class="af"><b>Transparent confidence levels</b><span>Results are intended to show how certain they are and what still needs confirmation.</span></div>
+        <div class="af"><b>Screening vs verification</b><span>Automated screening is kept separate from professional verification.</span></div>
+      </div>
+    </figure>
+    <p class="note" style="margin-top: 20px; color: #8A9491">Proposed architecture under development. It does not describe a deployed system, operational APIs or integrations with government systems.</p>
+  </div>
+</section>
+
+<!-- 6 · EARLY INTEREST & STRATEGIC PARTNERSHIPS -->
+<section id="express-interest" class="ei" aria-labelledby="ei-title">
+  <div class="wrap ei-grid">
+    <div class="ei-copy">
+      <span class="eyebrow">05 / Early Interest &amp; Strategic Partnerships</span>
+      <h2 class="h2" id="ei-title">Discuss the Property Intelligence Platform.</h2>
+      <p class="lead">TCG is developing a property intelligence platform for Bali, with a longer-term ambition to expand across Indonesia. We welcome interest from potential investors, technology partners and future users who want to explore the project at an early stage.</p>
+      <div class="stage">
+        <p><span>Current stage:</span>In development</p>
+        <p><span>Target initial launch:</span>Q2 2027</p>
+      </div>
+    </div>
+    <div class="ei-panel">
+      <div>
+        <h3 id="ei-form-title">Express Your Interest</h3>
+        <p class="ei-note" id="ei-form-note">Tell us how you would like to be involved. Your message will be prepared in WhatsApp for you to review and send.</p>
+      </div>
+      <form class="ei-form" id="ei-form" novalidate aria-labelledby="ei-form-title" aria-describedby="ei-form-note">
+        <div class="fld">
+          <div class="fld-h"><label for="ei-name">Full Name</label><span class="tag" aria-hidden="true">Required</span></div>
+          <input id="ei-name" name="name" type="text" autocomplete="name" required aria-required="true" aria-describedby="ei-name-err">
+          <p class="err" id="ei-name-err"></p>
+        </div>
+        <div class="fld">
+          <div class="fld-h"><label for="ei-org">Company / Organisation</label><span class="tag" aria-hidden="true">Optional</span></div>
+          <input id="ei-org" name="organisation" type="text" autocomplete="organization">
+        </div>
+        <div class="fld">
+          <div class="fld-h"><label for="ei-role">Role</label><span class="tag" aria-hidden="true">Optional</span></div>
+          <input id="ei-role" name="role" type="text" autocomplete="organization-title">
+        </div>
+        <div class="fld">
+          <div class="fld-h"><label for="ei-interest">I'm Interested In</label><span class="tag" aria-hidden="true">Required</span></div>
+          <select id="ei-interest" name="interest" required aria-required="true" aria-describedby="ei-interest-err">
+            <option value="">Select an area of interest</option>
+            <option>Strategic Investment</option>
+            <option>Technology Partnership</option>
+            <option>Early Access / Pilot</option>
+            <option>Portfolio Use</option>
+            <option>Other</option>
+          </select>
+          <p class="err" id="ei-interest-err"></p>
+        </div>
+        <div class="fld full">
+          <div class="fld-h"><label for="ei-contact">WhatsApp or Email</label><span class="tag" aria-hidden="true">Required</span></div>
+          <input id="ei-contact" name="contact" type="text" autocomplete="off" inputmode="text" required aria-required="true" aria-describedby="ei-contact-err">
+          <p class="err" id="ei-contact-err"></p>
+        </div>
+        <div class="fld full">
+          <div class="fld-h"><label for="ei-msg">Message</label><span class="tag" aria-hidden="true">Optional</span></div>
+          <textarea id="ei-msg" name="message" rows="4" placeholder="Briefly describe your interest in the platform."></textarea>
+        </div>
+        <div class="ei-submit">
+          <button type="submit" class="ei-btn">Continue to WhatsApp &rarr;</button>
+          <p class="ei-status" id="ei-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+      <p class="ei-disc">Platform concepts and previews are illustrative. Participation, partnerships and investment terms have not been agreed or offered through this form.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer style="background: #0F1413; color: #B9C0BD">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); box-sizing: border-box">
+    <div class="ft-grid" style="border-top: 1px solid #2A3331">
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <a href="/" aria-label="Twins Consulting Group, home" style="display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: #F6F5F1; align-self: flex-start">
+          <img src="/assets/brand/1_logos/horizontal-full/tcg-horizontal-full-reverse.svg" alt="Twins Consulting Group" width="240" height="18" style="display:block;height:18px;width:auto">
+        </a>
+      </div>
+      <nav aria-labelledby="ft-services">
+        <h2 class="ft-h" id="ft-services">Services</h2>
+        <ul class="ft-list">
+          <li><a href="/services/property-legal-audit" class="footlink">Property Compliance Audit</a></li>
+          <li><a href="/services/distressed-property" class="footlink">Distressed Property Audit</a></li>
+          <li><a href="/land" class="footlink">For Land Owners</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="ft-resources">
+        <h2 class="ft-h" id="ft-resources">Resources</h2>
+        <ul class="ft-list">
+          <li><a href="/platform" class="footlink" aria-current="page">Property Intelligence Platform</a></li>
+          <li><a href="/regulations" class="footlink">Bali Property Regulations</a></li>
+          <li><a href="/privacy-policy" class="footlink">Privacy Policy</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="ft-h">Contact</h2>
+        <ul class="ft-list">
+          <li><span class="footlink ft-static">Bali, Indonesia</span></li>
+          <li><a href="https://wa.me/6281337973097" target="_blank" rel="noopener" class="footlink" aria-label="WhatsApp +62 813-3797-3097">WhatsApp: +62&nbsp;813-3797-3097</a></li>
+          <li><a href="mailto:dee@twinsconsulting.group" class="footlink">Email: dee@twinsconsulting.group</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span>&copy; 2026 PT Twins Consulting Group. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<script>
+document.querySelectorAll('.navlink,.footlink').forEach(function(a){a.setAttribute('data-text',a.textContent.trim());});
+document.querySelectorAll('.dd').forEach(function(d){
+  var b=d.querySelector('.dd-btn');
+  function close(){d.classList.remove('open');b.setAttribute('aria-expanded','false');}
+  b.addEventListener('click',function(e){e.stopPropagation();var o=d.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
+  document.addEventListener('click',function(e){if(!d.contains(e.target))close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&(d.classList.contains('open')||d.matches(':focus-within'))){close();d.classList.add('esc');b.focus();}});
+  d.addEventListener('focusout',function(e){if(!d.contains(e.relatedTarget)){close();d.classList.remove('esc');}});
+  d.addEventListener('mouseleave',function(){d.classList.remove('esc');});
+  b.addEventListener('mousedown',function(){d.classList.remove('esc');});
+});
+(function(){
+  var form=document.getElementById('ei-form'); if(!form) return;
+  var WA='https://wa.me/6281337973097?text=';
+  var sel=document.getElementById('ei-interest');
+  var status=document.getElementById('ei-status');
+  function syncSel(){sel.classList.toggle('empty',!sel.value);}
+  sel.addEventListener('change',syncSel); syncSel();
+  var rules=[
+    {el:document.getElementById('ei-name'),err:document.getElementById('ei-name-err'),msg:'Enter your full name.'},
+    {el:sel,err:document.getElementById('ei-interest-err'),msg:'Select an area of interest.'},
+    {el:document.getElementById('ei-contact'),err:document.getElementById('ei-contact-err'),msg:'Enter a WhatsApp number or an email address.',test:function(v){if(v.indexOf('@')>-1)return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);return /^\+?[0-9]{7,15}$/.test(v.replace(/[\s().-]/g,''));}}
+  ];
+  function setErr(r,on){r.err.textContent=on?r.msg:'';if(on){r.el.setAttribute('aria-invalid','true');}else{r.el.removeAttribute('aria-invalid');}}
+  rules.forEach(function(r){
+    var ev=r.el.tagName==='SELECT'?'change':'input';
+    r.el.addEventListener(ev,function(){if(r.el.getAttribute('aria-invalid')==='true'&&r.el.value.trim())setErr(r,false);});
+  });
+  function val(id){return document.getElementById(id).value.trim();}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    status.textContent='';
+    var first=null;
+    rules.forEach(function(r){var v=r.el.value.trim(),bad=!v||(r.test&&!r.test(v));setErr(r,bad);if(bad&&!first)first=r.el;});
+    if(first){first.focus();return;}
+    var lines=['Property Intelligence Platform \u2014 Expression of Interest',''];
+    [['Full Name','ei-name'],['Company / Organisation','ei-org'],['Role','ei-role'],["I'm Interested In",'ei-interest'],['WhatsApp or Email','ei-contact'],['Message','ei-msg']].forEach(function(f){
+      var v=val(f[1]); if(v) lines.push(f[0]+': '+v);
+    });
+    var url=WA+encodeURIComponent(lines.join('\n'));
+    var w=window.open(url,'_blank');
+    if(w){try{w.opener=null;}catch(_){}}else{window.location.href=url;return;}
+    status.innerHTML='';
+    status.appendChild(document.createTextNode('WhatsApp opens with your prepared message. It reaches TCG only after you press send in WhatsApp. '));
+    var a=document.createElement('a'); a.href=url; a.target='_blank'; a.rel='noopener'; a.textContent='Open WhatsApp again';
+    status.appendChild(a);
+  });
+})();
+</script>
+</body>
+</html>
