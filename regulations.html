@@ -1660,5 +1660,38 @@ document.documentElement.className+=' js';
 </script>
 <!-- END reversible Regulations mobile experiment -->
 
+
+<!-- BEGIN Regulations mobile polish 5 fixes; reversible -->
+<style>
+@media (max-width:767px){
+  /* 1: compact conversion, never inherit the oversized decorative SVG */
+  .regulations-page .kbli-shift{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:10px!important;width:100%;max-width:100%;margin-bottom:22px}
+  .regulations-page .kbli-shift .code{box-sizing:border-box;width:100%;min-width:0;padding:18px 20px!important}
+  .regulations-page .kbli-shift .code b{font-size:38px!important;line-height:1.05!important}
+  .regulations-page .kbli-shift .arr{display:flex!important;flex-direction:row!important;justify-content:center!important;align-items:center!important;gap:10px!important;height:42px!important;font-size:12px!important;line-height:1!important}
+  .regulations-page .kbli-shift .arr svg{position:static!important;display:block!important;width:35px!important;height:18px!important;min-width:35px!important;max-width:35px!important;max-height:18px!important;transform:none!important;overflow:visible!important}
+  /* 2: stacked KBLI rows have identical edges, including highlighted row */
+  .regulations-page #nib-kbli table.t.stack{width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+  .regulations-page #nib-kbli table.t.stack tr{box-sizing:border-box!important;width:100%!important;margin:0!important;padding:18px 0!important}
+  .regulations-page #nib-kbli table.t.stack tr.hl{padding:18px 0!important;background:#E7F1EE!important}
+  .regulations-page #nib-kbli table.t.stack tr.hl>*{padding-left:0!important;padding-right:0!important}
+  .regulations-page #nib-kbli table.t.stack tr.hl{background:linear-gradient(#E7F1EE,#E7F1EE)!important}
+  /* 3: secondary action centered */
+  .regulations-page #review a[href="/services/property-legal-audit"]{align-self:center!important;justify-content:center!important;text-align:center!important;width:auto!important;max-width:100%!important}
+  /* 4: hide only the optional documents column within the CTA */
+  .regulations-page #cta>div>div:nth-child(2){display:none!important}
+  .regulations-page #cta>div{grid-template-columns:minmax(0,1fr)!important;gap:0!important}
+}
+</style>
+<script>
+(function(){
+  if(!window.matchMedia('(max-width:767px)').matches)return;
+  var p=document.querySelector('.regulations-page');if(!p)return;
+  var faq=p.querySelector('#faq-h');
+  if(faq&&faq.textContent.trim()==='Quick answers')faq.textContent='What Bali Property Owners Ask Most Often';
+})();
+</script>
+<!-- END Regulations mobile polish 5 fixes -->
+
 </body>
 </html>
