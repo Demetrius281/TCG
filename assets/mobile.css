@@ -1,4 +1,4 @@
-.track-title-mobile,.distressed-eyebrow-mobile,.distressed-copy-mobile,.compliance-title-mobile,.land-eyebrow-mobile{display:none}
+.track-title-mobile,.distressed-copy-mobile,.compliance-title-mobile{display:none}
 /* Shared mobile presentation; this stylesheet is loaded only up to 767px. */
 @media (max-width:767px){
   html{scroll-padding-top:60px}
@@ -14,8 +14,8 @@
   a:is(.btn,.btn-light)[href^="https://wa.me/"]{display:inline-flex;box-sizing:border-box;width:100% !important;max-width:none;height:52px;min-height:52px !important;padding:0 24px !important;flex-shrink:0;justify-content:center;align-items:center;text-align:center;background:#0E5A55 !important;color:#FFFFFF !important;font-family:'Geist',system-ui,sans-serif;font-size:15px !important;font-weight:500 !important;line-height:1.3;text-decoration:none;border:0}
   a:is(.btn,.btn-light)[href^="https://wa.me/"]:hover{background:#0F1413 !important}
   .hero:has(.pcx),.hero:has(.dp),#top:has(.lm){padding:40px 0 32px !important}
-  .distressed-eyebrow-desktop,.distressed-copy-desktop,.compliance-title-desktop{display:none}
-  .distressed-eyebrow-mobile,.distressed-copy-mobile,.compliance-title-mobile{display:inline}
+  .distressed-copy-desktop,.compliance-title-desktop{display:none}
+  .distressed-copy-mobile,.compliance-title-mobile{display:inline}
   .pcx,.dp,.lm,.rg{display:none !important}
   :is(.pcx,.dp,.lm,.rg) *{animation:none !important}
   .hero-grid:has(.pcx),.hero-grid:has(.dp),#top:has(.lm)>div,#top:has(.lm)>div>div{gap:0 !important}
@@ -38,8 +38,6 @@
   .land-page>section>div{gap:var(--mobile-gap) !important}
   .land-page :is(.cell,.side,.mcard,.dv-grid h3){padding:var(--mobile-card) !important}
   .land-page :is(.cell,.side,.mcard) p{font-size:16px !important;line-height:1.6 !important}
-  .land-page .land-eyebrow-desktop{display:none}
-  .land-page .land-eyebrow-mobile{display:inline}
   .land-page .mcard.feat{border-top:1px solid #E2E0D9}
   .land-page .dv-grid{grid-template-columns:1fr;gap:16px}
   .land-page .dv-grid h3{justify-content:flex-start;text-align:left;min-height:0}
