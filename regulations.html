@@ -234,17 +234,7 @@ a{color:#0E5A55}
 /* Header CTA on desktop only */
 @media (max-width:720px){header .btn{display:none !important}}
 
-/* Centered mobile layout */
-@media (max-width:720px){
-  .m-center{text-align:center;align-items:center !important}
-  .m-center p{margin-left:auto !important;margin-right:auto !important}
-  .m-self{align-self:center !important}
-  .m-center{justify-content:center}
-  .res-row,.cell,.why,.slide{text-align:center}
-  .cell,.why{align-items:center}
-  .slide figcaption{justify-content:center}
-  .m-txt,ol li{text-align:center}
-}
+/* Mobile editorial layout is shared in assets/mobile.css. */
 
 /* ===== Guide tokens ===== */
 :root{--ink:#0F1413;--paper:#F6F5F1;--sand:#EFEDE7;--white:#FFFFFF;--line:#E2E0D9;--line2:#ECEAE4;--seam:#D9D6CE;--muted:#5B6461;--body:#3E4744;--teal:#0E5A55;--mint:#8FD3C7;--d-line:#2A3331;--d-muted:#9BA3A0;--d-body:#B9C0BD;--mono:'Geist Mono',ui-monospace,monospace}
@@ -568,19 +558,7 @@ table.t .code-cell{font-family:var(--mono);font-size:14px}
 .to-top.show{opacity:1;visibility:visible}
 .to-top svg{width:18px;height:18px}
 
-/* Mobile centering for headings only (guide body stays left for readability) */
-@media (max-width:720px){
-  .sec-head,.topics-head,.faq-panel>.stack-y{text-align:center;align-items:center}
-  .eyebrow-row{justify-content:center}
-  .lead{text-align:center;margin-left:auto;margin-right:auto}
-  .h3,.base-h{text-align:center}
-}
-@media (max-width:720px){
-  .crumbs ol{justify-content:center}
-  .topics li,.path li,.tl li,.feas li,.jump-panel li{text-align:left}
-  .steps4 li{align-items:center}
-  .law-row{text-align:left}
-}
+/* Mobile editorial rhythm is defined in assets/mobile.css. */
 
 a:focus-visible,button:focus-visible,summary:focus-visible,.track:focus-visible{outline:2px solid #0E5A55;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none !important;scroll-behavior:auto !important}.btn:hover,.btn-light:hover{transform:none}}
@@ -664,6 +642,8 @@ main > section[aria-labelledby="page-title"]{padding-top:96px !important}
 main > section[aria-labelledby="page-title"] h1 > span:first-child{line-height:1.04 !important}
 }
 </style>
+<style>.mobile-home{display:none}</style>
+<link rel="stylesheet" href="/assets/mobile.css" media="(max-width:767px)">
 </head>
 <body>
 <div class="page" id="top">
@@ -675,6 +655,7 @@ main > section[aria-labelledby="page-title"] h1 > span:first-child{line-height:1
       <img class="logo-full" src="/assets/brand/1_logos/horizontal-full/tcg-horizontal-full-color.svg" alt="Twins Consulting Group" width="293" height="22"><img class="logo-short" src="/assets/brand/1_logos/horizontal-short/tcg-horizontal-short-color.svg" alt="Twins Consulting Group" width="96" height="24">
     </a>
     <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px">
+      <a href="/" class="navlink mobile-home" style="font-size:14px;color:#3E4744;text-decoration:none;padding:12px 0">Home</a>
       <a href="/platform" class="navlink" style="font-size: 14px; color: #3E4744; text-decoration: none; padding: 12px 0">Platform</a>
       <div class="dd">
         <button type="button" class="dd-btn" aria-expanded="false" aria-controls="dd-services">Services <span class="chev" aria-hidden="true">&#9662;</span></button>
@@ -690,7 +671,7 @@ main > section[aria-labelledby="page-title"] h1 > span:first-child{line-height:1
   </div>
 </header>
 
-<main>
+<main class="mobile-editorial regulations-page">
 <!-- HERO -->
 <section aria-labelledby="page-title" style="padding: clamp(48px, 7vw, 96px) 0 clamp(64px, 8vw, 112px)">
   <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); box-sizing: border-box; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 64px; align-items: center">

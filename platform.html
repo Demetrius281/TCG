@@ -356,6 +356,8 @@ main > section.hero .desc{font-size:18px !important;line-height:1.6 !important;m
 main > section.hero h1{line-height:1.04 !important}
 }
 </style>
+<style>.mobile-home,.platform-how-intro{display:none}.platform-how{display:contents}</style>
+<link rel="stylesheet" href="/assets/mobile.css" media="(max-width:767px)">
 </head>
 <body>
 <div style="font-family: 'Geist', system-ui, sans-serif; color: #0F1413; background: #F6F5F1; -webkit-font-smoothing: antialiased">
@@ -367,6 +369,7 @@ main > section.hero h1{line-height:1.04 !important}
       <img class="logo-full" src="/assets/brand/1_logos/horizontal-full/tcg-horizontal-full-color.svg" alt="Twins Consulting Group" width="293" height="22"><img class="logo-short" src="/assets/brand/1_logos/horizontal-short/tcg-horizontal-short-color.svg" alt="Twins Consulting Group" width="96" height="24">
     </a>
     <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px">
+      <a href="/" class="navlink mobile-home" style="font-size:14px;color:#3E4744;text-decoration:none;padding:12px 0">Home</a>
       <a href="/platform" class="navlink" aria-current="page" style="font-size: 14px; color: #3E4744; text-decoration: none; padding: 12px 0">Platform</a>
       <div class="dd">
         <button type="button" class="dd-btn" aria-expanded="false" aria-controls="dd-services">Services <span class="chev" aria-hidden="true">&#9662;</span></button>
@@ -389,10 +392,15 @@ main > section.hero h1{line-height:1.04 !important}
     <div class="hero-txt">
       <span class="eyebrow">Property Intelligence Platform &middot; In Development</span>
       <h1>Smarter, Safer Property Investment in Indonesia.</h1>
-      <p class="desc">TCG is building a property intelligence platform that brings land ownership, zoning, legal requirements, and investment risks into one place. The goal is to simplify due diligence, reduce costly mistakes, and help investors make confident property decisions in Indonesia.</p>
+      <p class="desc">TCG is building a property intelligence platform that brings land ownership, zoning, legal requirements, and investment risks into one place. The goal is to simplify due diligence, reduce costly mistakes, and help investors make confident property decisions.</p>
       <a class="btn hero-cta" href="https://wa.me/6281337973097?text=Hello%2C%20I%27m%20interested%20in%20learning%20more%20about%20TCG%27s%20Property%20Intelligence%20Platform%20and%20potential%20investment%20or%20strategic%20partnership%20opportunities." target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Discuss the Project via WhatsApp</a>
     </div>
-    <!-- hero animation -->
+    <section class="platform-how" aria-labelledby="platform-how-title">
+      <div class="platform-how-intro">
+        <h2 class="h2" id="platform-how-title">How It Works</h2>
+        <p>We connect four essential layers of property intelligence — parcel, zoning, constraints, and documents — to reveal risks, identify opportunities, and determine the next steps for your property.</p>
+      </div>
+    <!-- Original animation shared by mobile and desktop. -->
 <figure class="ip">
 <svg class="ip-svg" viewBox="0 0 460 512" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="ip-t ip-d">
 <title id="ip-t">Concept preview of a property intelligence platform</title>
@@ -426,6 +434,7 @@ main > section.hero h1{line-height:1.04 !important}
 </g>
 </svg>
 </figure>
+    </section>
 <script>
 (function(){
   var fig=document.querySelector('figure.ip');

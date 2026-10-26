@@ -441,6 +441,40 @@ section#top{padding-top:96px !important}
 section#top .hero-h1{line-height:1.04 !important}
 }
 </style>
+<style id="tcg-mobile-header-hero">
+.mobile-home,.px-mobile-verification,.hero-description-mobile{display:none}
+@media (max-width:767px){
+  html{scroll-padding-top:60px}
+  /* The logo scrolls away naturally; only the 44px navigation row remains sticky. */
+  header{position:sticky !important;top:-36px;background:#F6F5F1}
+  header>div{flex-direction:column;justify-content:center !important;gap:0 !important;padding-top:8px !important;padding-bottom:0 !important;min-height:80px !important}
+  header>div>a{height:28px;flex:none}
+  header nav{width:100%;height:44px;flex-wrap:nowrap !important;justify-content:space-between;gap:0 !important;background:#F6F5F1}
+  header .mobile-home{display:inline-flex}
+  header .btn{display:none !important}
+  header .dd{position:static}
+  header .dd-menu{left:20px;right:20px;top:100%;min-width:0}
+  header .dd-menu .t{white-space:normal}
+  #top{padding:20px 0 20px !important;scroll-margin-top:24px}
+  #top .hero-grid{gap:8px}
+  #top .hero-h1{margin-bottom:4px}
+  #top .hero-grid>div{display:contents !important}
+  #top .hero-grid>div>div{grid-row:4;flex-direction:column;gap:4px !important;margin-top:0 !important}
+  #top .btn{width:100%;box-sizing:border-box;justify-content:center}
+  #top .ulink{min-height:44px !important;text-decoration:none !important;position:relative}
+  #top .ulink::after{content:"";position:absolute;left:0;right:0;bottom:7px;height:1px;background:currentColor}
+  #top .hero-arrow{display:inline-block !important;transform:rotate(90deg)}
+  #top .hero-description-desktop,#top .px-leg{display:none}
+  #top .hero-description-mobile{display:inline}
+  #top .px{grid-row:3;height:auto;aspect-ratio:460 / 360;overflow:hidden}
+  /* Keep the top crop and scale; end at y=390, just below the side annotation. */
+  #top .px-svg{height:auto;aspect-ratio:460 / 512;transform:translateY(-5.859375%)}
+  #top .px-tag,#top .px .nt,#top .px-desktop-verification{display:none}
+  #top .px-mobile-verification{display:block}
+  #top .px-permitted{transform:translateY(-16px)}
+}
+</style>
+<link rel="stylesheet" href="/assets/mobile.css" media="(max-width:767px)">
 </head>
 <body>
 <div style="font-family: 'Geist', system-ui, sans-serif; color: #0F1413; background: #F6F5F1; -webkit-font-smoothing: antialiased" data-canvas-width="1440" data-canvas-height="8000">
@@ -452,6 +486,7 @@ section#top .hero-h1{line-height:1.04 !important}
       <img class="logo-full" src="/assets/brand/1_logos/horizontal-full/tcg-horizontal-full-color.svg" alt="Twins Consulting Group" width="293" height="22"><img class="logo-short" src="/assets/brand/1_logos/horizontal-short/tcg-horizontal-short-color.svg" alt="Twins Consulting Group" width="96" height="24">
     </a>
     <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px">
+      <a href="#top" class="navlink mobile-home" aria-current="page" style="font-size: 14px; color: #3E4744; text-decoration: none; padding: 12px 0">Home</a>
       <a href="/platform" class="navlink" style="font-size: 14px; color: #3E4744; text-decoration: none; padding: 12px 0">Platform</a>
       <div class="dd">
         <button type="button" class="dd-btn" aria-expanded="false" aria-controls="dd-services">Services <span class="chev" aria-hidden="true">&#9662;</span></button>
@@ -472,10 +507,10 @@ section#top .hero-h1{line-height:1.04 !important}
   <div class="hero-grid">
     <div style="display: flex; flex-direction: column; gap: 28px">
       <h1 class="hero-h1">Solve the Problems Holding Back Your Bali Property.</h1>
-      <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3E4744; max-width: 560px">From rental restrictions and legal complications to stalled construction, TCG identifies what’s wrong, determines what it takes to fix it, then delivers practical, cost-effective solutions.</p>
+      <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3E4744; max-width: 560px"><span class="hero-description-desktop">From rental restrictions and legal complications to stalled construction, TCG identifies what’s wrong, determines what it takes to fix it, then delivers practical, cost-effective solutions.</span><span class="hero-description-mobile">From rental restrictions and stalled construction to legal issues, TCG identifies problems, resolves complications, and delivers cost-effective results.</span></p>
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 8px">
         <a class="btn" href="https://wa.me/6281337973097?text=Hi%2C%20I%E2%80%99d%20like%20a%20property%20review.%0ALocation%3A%20%5BGoogle%20Maps%20link%5D%0ACurrent%20status%3A%20%5Bfinished%20%2F%20under%20construction%20%2F%20stalled%20%2F%20renting%5D%0AIssue%20to%20resolve%3A%20" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Request a Property Review</a>
-        <a class="ulink" href="#find-your-service" style="display: inline-flex; align-items: center; min-height: 52px; font-size: 15px; font-weight: 500; color: #0F1413; text-decoration: none">Explore Our Services&nbsp;&rarr;</a>
+        <a class="ulink" href="#find-your-service" style="display: inline-flex; align-items: center; min-height: 52px; font-size: 15px; font-weight: 500; color: #0F1413; text-decoration: none">Explore Our Services&nbsp;<span class="hero-arrow" aria-hidden="true" style="display: contents">&rarr;</span></a>
       </div>
     </div>
     <figure class="px">
@@ -559,7 +594,7 @@ section#top .hero-h1{line-height:1.04 !important}
 <g class="px-l" style="--d:2.9s">
 <path class="ld" pathLength="1" d="M165.7 144.7L110 88H20"/>
 <circle class="dot" cx="165.7" cy="144.7" r="2.6"/>
-<text class="lb" x="20" y="62">PERMITTED USE</text>
+<text class="lb px-permitted" x="20" y="62">PERMITTED USE</text>
 </g>
 
 <g class="px-red">
@@ -575,7 +610,8 @@ section#top .hero-h1{line-height:1.04 !important}
 <circle class="ring" cx="165.7" cy="144.7" r="7.5"/>
 <circle class="core" cx="165.7" cy="144.7" r="2.6"/>
 </g>
-<text class="lb am px-f2" x="20" y="78">VERIFICATION REQUIRED</text>
+<text class="lb am px-f2 px-desktop-verification" x="20" y="78">VERIFICATION REQUIRED</text>
+<text class="lb am px-f2 px-mobile-verification" x="20" y="62"><tspan x="20">VERIFICATION</tspan><tspan x="20" dy="16">REQUIRED</tspan></text>
 
 <g class="px-leg">
 <path class="rule" pathLength="1" d="M20 420H440"/>
@@ -743,7 +779,7 @@ section#top .hero-h1{line-height:1.04 !important}
     <div style="display: flex; flex-direction: column; gap: 20px">
       <h2 style="margin: 0; font-size: clamp(32px, 4vw, 52px); line-height: 1.05; font-weight: 500; letter-spacing: -0.025em">Experience You Can Rely On.</h2>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); border-top: 1px solid #0F1413">
+    <div class="company-metrics" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); border-top: 1px solid #0F1413">
       <div style="padding: 28px 24px 28px 0; border-bottom: 1px solid #E2E0D9; display: flex; flex-direction: column; gap: 8px"><span style="font-size: clamp(48px, 6vw, 80px); font-weight: 300; letter-spacing: -0.04em; line-height: 1">5+</span><span style="font-size: 15px; color: #3E4744">Years in Bali Property</span></div>
       <div style="padding: 28px 24px 28px 0; border-bottom: 1px solid #E2E0D9; display: flex; flex-direction: column; gap: 8px"><span style="font-size: clamp(48px, 6vw, 80px); font-weight: 300; letter-spacing: -0.04em; line-height: 1">50+</span><span style="font-size: 15px; color: #3E4744">Properties Assessed</span></div>
       <div style="padding: 28px 24px 28px 0; border-bottom: 1px solid #E2E0D9; display: flex; flex-direction: column; gap: 8px"><span style="font-size: clamp(48px, 6vw, 80px); font-weight: 300; letter-spacing: -0.04em; line-height: 1">150+</span><span style="font-size: 15px; color: #3E4744">Hectares of Land Assessed</span></div>
@@ -789,7 +825,7 @@ section#top .hero-h1{line-height:1.04 !important}
 
     <div style="display: flex; flex-direction: column; gap: 16px">
       <h3 style="margin: 0; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: #5B6461">Government Authorities &amp; Regulatory Bodies</h3>
-      <ul class="logo-grid">
+      <ul class="logo-grid" tabindex="0" aria-label="Government authorities and regulatory bodies; scroll horizontally on mobile">
         <li class="logo-cell"><img src="/assets/img/logos/logo-d7a21937e0.webp" alt="Provincial Government of Bali" title="Provincial Government of Bali" width="67" height="64" style="--h:64" decoding="async"></li>
         <li class="logo-cell"><img src="/assets/img/logos/logo-8e18101765.webp" alt="Badung Regency Government" title="Badung Regency Government" width="68" height="64" style="--h:64" decoding="async"></li>
         <li class="logo-cell"><img src="/assets/img/logos/logo-b5b9a1a914.webp" alt="Ministry of Agrarian Affairs and Spatial Planning / National Land Agency (ATR/BPN)" title="Ministry of Agrarian Affairs and Spatial Planning / National Land Agency (ATR/BPN)" width="73" height="72" style="--h:72" decoding="async"></li>

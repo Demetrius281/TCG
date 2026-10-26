@@ -148,17 +148,7 @@ a{color:#0E5A55}
 /* Header CTA on desktop only */
 @media (max-width:720px){header .btn{display:none !important}}
 
-/* Centered mobile layout */
-@media (max-width:720px){
-  .m-center{text-align:center;align-items:center !important}
-  .m-center p{margin-left:auto !important;margin-right:auto !important}
-  .m-self{align-self:center !important}
-  .m-center{justify-content:center}
-  .res-row,.cell,.why,.slide{text-align:center}
-  .cell,.why{align-items:center}
-  .slide figcaption{justify-content:center}
-  .m-txt,ol li{text-align:center}
-}
+/* Mobile editorial layout is shared in assets/mobile.css. */
 
 /* Site assessment rows */
 .path-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid #ECEAE4;font-size:14px}
@@ -179,7 +169,7 @@ a{color:#0E5A55}
 .cmp-lab{display:none;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6F7875;margin-bottom:4px}
 @media (max-width:720px){
   .cmp-head{display:none}
-  .cmp-row{grid-template-columns:1fr;gap:14px;text-align:center}
+  .cmp-row{grid-template-columns:1fr;gap:14px}
   .cmp-lab{display:block}
   .cmp-key{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#9BA3A0}
 }
@@ -197,7 +187,7 @@ a{color:#0E5A55}
 .mcard{background:#FFFFFF;border:1px solid #E2E0D9;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:16px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
 @media (hover:hover){.mcard:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(15,20,19,.1);border-color:#0E5A55}}
 .mcard.feat{border-top:2px solid #0E5A55}
-@media (max-width:720px){.mcard,.side{text-align:center;align-items:center}}
+/* Mobile card alignment is shared in assets/mobile.css. */
 
 .offer-cta{display:flex;justify-content:flex-end}
 @media (max-width:720px){.offer-cta{justify-content:center}}
@@ -307,6 +297,8 @@ main > section#top{padding-top:96px !important}
 main > section#top h1{line-height:1.04 !important}
 }
 </style>
+<style>.mobile-home{display:none}</style>
+<link rel="stylesheet" href="/assets/mobile.css" media="(max-width:767px)">
 </head>
 <body>
 <div style="font-family: 'Geist', system-ui, sans-serif; color: #0F1413; background: #F6F5F1; -webkit-font-smoothing: antialiased">
@@ -318,6 +310,7 @@ main > section#top h1{line-height:1.04 !important}
       <img class="logo-full" src="/assets/brand/1_logos/horizontal-full/tcg-horizontal-full-color.svg" alt="Twins Consulting Group" width="293" height="22"><img class="logo-short" src="/assets/brand/1_logos/horizontal-short/tcg-horizontal-short-color.svg" alt="Twins Consulting Group" width="96" height="24">
     </a>
     <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px">
+      <a href="/" class="navlink mobile-home" style="font-size:14px;color:#3E4744;text-decoration:none;padding:12px 0">Home</a>
       <a href="/platform" class="navlink" style="font-size: 14px; color: #3E4744; text-decoration: none; padding: 12px 0">Platform</a>
       <div class="dd">
         <button type="button" class="dd-btn" aria-expanded="false" aria-controls="dd-services" style="color: #0F1413; font-weight: 600">Services <span class="chev" aria-hidden="true">&#9662;</span></button>
@@ -333,7 +326,7 @@ main > section#top h1{line-height:1.04 !important}
   </div>
 </header>
 
-<main>
+<main class="mobile-editorial land-page">
 <!-- 01 HERO -->
 <section id="top" style="padding: clamp(64px, 9vw, 120px) 0 clamp(64px, 8vw, 112px)">
   <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); box-sizing: border-box; display: flex; flex-direction: column; gap: 56px">
