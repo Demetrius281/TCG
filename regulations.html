@@ -1545,5 +1545,120 @@ document.documentElement.className+=' js';
   window.addEventListener('resize',check);check();
 })();
 </script>
+
+<!-- BEGIN reversible Regulations mobile experiment; desktop remains unchanged -->
+<style>
+@media (max-width:767px){
+  /* All selectors deliberately scoped to Regulations. */
+  .regulations-page #guide-index{scroll-margin-top:106px}
+  .regulations-page .topics a{padding:15px 14px!important;min-height:0;gap:10px!important}
+  .regulations-page .topics .q{gap:3px}
+  .regulations-page .topics .q strong{font-size:16px;line-height:1.28}
+  .regulations-page .topics .q span{font-size:11px}
+  .regulations-page .topics-head{margin-bottom:22px}
+  .regulations-page .sec{padding-block:44px!important}
+  .regulations-page .sec-head{margin-bottom:18px}
+  .regulations-page .lead{margin-bottom:22px}
+  .regulations-page .answer{margin-bottom:20px;padding-block:12px}
+  .regulations-page .h3{margin-top:30px!important}
+  .regulations-page .defs>div,.regulations-page .coef>div,.regulations-page .rules>div,
+  .regulations-page .plan-vs>div{padding:18px!important}
+  .regulations-page .itbx{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .regulations-page .itbx li{padding:14px!important;min-width:0}
+  .regulations-page .itbx .L{font-size:25px}
+  .regulations-page .itbx b{font-size:15px}
+  .regulations-page .itbx p{font-size:13px;line-height:1.45}
+  .regulations-page .coef{grid-template-columns:repeat(2,minmax(0,1fr));gap:1px}
+  .regulations-page .chain{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 10px}
+  .regulations-page .chain li{padding:12px 6px 0 0;gap:6px}
+  .regulations-page .chain p{font-size:13px;line-height:1.45}
+  .regulations-page .path{display:grid;grid-auto-flow:column;grid-auto-columns:min(83%,300px);gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;padding-bottom:14px}
+  .regulations-page .path>li{display:grid;grid-template-columns:38px minmax(0,1fr);gap:10px;align-content:start;scroll-snap-align:start;border:1px solid var(--line);padding:18px;min-width:0}
+  .regulations-page .path>li h4{font-size:17px}
+  .regulations-page .path>li p{font-size:14px;line-height:1.5}
+  .regulations-page .mobile-reg-hint{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--muted);margin:8px 0 0}
+  .regulations-page .mobile-reg-disclosure{border-bottom:1px solid var(--line)}
+  .regulations-page .mobile-reg-disclosure summary{list-style:none;cursor:pointer;padding:15px 28px 15px 0;position:relative;font-size:16px;font-weight:500;line-height:1.4}
+  .regulations-page .mobile-reg-disclosure summary::-webkit-details-marker{display:none}
+  .regulations-page .mobile-reg-disclosure summary::after{content:'+';position:absolute;right:2px;top:14px;color:var(--teal);font-size:22px;font-weight:400}
+  .regulations-page .mobile-reg-disclosure[open] summary::after{content:'−'}
+  .regulations-page .mobile-reg-disclosure .mobile-reg-body{padding:0 0 16px;font-size:14px;line-height:1.55;color:var(--body)}
+  .regulations-page .mobile-reg-disclosure .mobile-reg-body p{margin:6px 0}
+  .regulations-page .mobile-reg-disclosure .mobile-reg-body a{color:var(--teal)}
+  .regulations-page.reg-mobile-enhanced #scenarios + .tbl-wrap,
+  .regulations-page.reg-mobile-enhanced #changes-2026 .tl,
+  .regulations-page.reg-mobile-enhanced #audit .audit-t{display:none}
+  .regulations-page .reg-mobile-group{border-top:1px solid var(--ink)}
+  .regulations-page .reg-mobile-group .mobile-reg-disclosure summary{padding-left:2px}
+  .regulations-page .reg-mobile-group .tag{margin:0 0 8px}
+  .regulations-page .mobile-reg-topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
+  .regulations-page .mobile-reg-topics span{border:1px solid var(--line);padding:12px 8px;font-size:13px}
+  .regulations-page .reg-hero-arrow{display:inline-flex!important;justify-content:center;align-items:center;gap:8px;min-height:44px;font-size:15px;font-weight:500;color:var(--ink);text-decoration:underline;text-underline-offset:6px}
+  .regulations-page .reg-hero-arrow svg{width:17px;height:17px}
+  .regulations-page .reg-hero-arrow{align-self:center}
+}
+@media (min-width:768px){.regulations-page .reg-hero-arrow{display:none!important}}
+</style>
+<script>
+(function(){
+  var page=document.querySelector('.regulations-page');
+  if(!page||!window.matchMedia('(max-width:767px)').matches)return;
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt)e.textContent=txt;return e}
+  function details(title,body){
+    var d=el('details','mobile-reg-disclosure'),s=el('summary','',title),b=el('div','mobile-reg-body');
+    b.appendChild(body);d.append(s,b);return d;
+  }
+  function mobileOnly(node){node.classList.add('reg-mobile-only');return node}
+  // A single mobile-only link, matching the existing hero's question anchor.
+  var original=document.querySelector('section[aria-labelledby="page-title"] a[href="#guide-index"]');
+  if(original){original.classList.add('reg-hero-arrow');original.innerHTML='Choose Your Question <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v17m-7-7 7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>';}
+  // Common scenarios: keep the problem visible, reveal the two detailed columns.
+  var sc=document.querySelector('#scenarios + .tbl-wrap');
+  if(sc){
+    var group=mobileOnly(el('div','reg-mobile-group'));
+    sc.querySelectorAll('tbody tr').forEach(function(tr){
+      var cells=tr.querySelectorAll('th,td');
+      if(cells.length<3)return;
+      var b=el('div');
+      [1,2].forEach(function(i){var p=el('p');var label=el('strong','',cells[i].getAttribute('data-label')+': ');p.append(label,document.createTextNode(cells[i].textContent.trim()));b.append(p)});
+      group.appendChild(details(cells[0].textContent.trim(),b));
+    });
+    sc.after(group);
+  }
+  // 2026 updates: titles and legal statuses remain visible; explanation on demand.
+  var updates=document.querySelector('#changes-2026 .tl');
+  if(updates){
+    var u=mobileOnly(el('div','reg-mobile-group'));
+    updates.querySelectorAll(':scope > li').forEach(function(li){
+      var title=li.querySelector('h3'),body=el('div');
+      var meta=li.querySelector('.meta'),p=li.querySelector('p');
+      if(meta)body.appendChild(meta.cloneNode(true));
+      if(p)body.appendChild(p.cloneNode(true));
+      if(title)u.appendChild(details(title.textContent.trim(),body));
+    });
+    updates.after(u);
+  }
+  // Audit: show all groups in an overview and reveal each group's original checks.
+  var audit=document.querySelector('#audit .audit-t');
+  if(audit){
+    var a=mobileOnly(el('div','reg-mobile-group'));
+    audit.querySelectorAll('tbody').forEach(function(tb){
+      var name=tb.querySelector('.grp th');if(!name)return;
+      var b=el('div');
+      tb.querySelectorAll('tr:not(.grp)').forEach(function(tr){
+        var th=tr.querySelector('th'),td=tr.querySelector('td');if(!th||!td)return;
+        var p=el('p');p.append(el('strong','',th.textContent.trim()+': '),document.createTextNode(td.textContent.trim()));b.appendChild(p);
+      });
+      a.appendChild(details(name.textContent.trim(),b));
+    });
+    audit.after(a);
+  }
+  var path=document.querySelector('#legalization-steps + .path');
+  if(path){var hint=mobileOnly(el('p','mobile-reg-hint','Swipe sideways to follow all 6 steps →'));path.after(hint)}
+  if(sc&&updates&&audit)page.classList.add('reg-mobile-enhanced');
+})();
+</script>
+<!-- END reversible Regulations mobile experiment -->
+
 </body>
 </html>
