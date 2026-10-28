@@ -261,7 +261,15 @@ html{scroll-padding-top:24px}
 .t-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;border-radius:50%;display:block}
 .t-name{font-size:15px;font-weight:500}
 .t-meta{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#5B6461}
-@media (max-width:680px){.track{grid-auto-columns:100%}}
+@media (max-width:680px){
+  /* Allow the tallest review to determine carousel height on mobile. */
+  .track{grid-auto-columns:100%;grid-auto-rows:max-content;align-items:stretch}
+  .tcard{height:auto;min-height:0}
+  .tcard blockquote{flex:0 0 auto}
+  .tcard figcaption{flex-shrink:0;min-width:0}
+  .tcard figcaption > span:last-child{min-width:0}
+  .t-meta{overflow-wrap:anywhere}
+}
 
 /* Partners & government authorities */
 .logo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#E2E0D9;border:1px solid #E2E0D9;margin:0;padding:0;list-style:none}
