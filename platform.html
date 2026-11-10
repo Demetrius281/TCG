@@ -443,6 +443,108 @@ main > section.hero h1{line-height:1.04 !important}
 </style>
 <style>.mobile-home,.platform-how-intro{display:none}.platform-how{display:contents}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
+
+<style>
+/* Platform: shared desktop and mobile metric rhythm, without changing type size */
+#top .hero-metrics{display:grid;gap:16px;margin-top:24px}
+#top .hero-metric{display:flex;flex-direction:column;gap:2px;font-size:18px;line-height:1.5;color:#3E4744}
+#top .hero-metric strong{font-weight:650}
+#top .hero-cta{margin-top:26px}
+@media (min-width:768px) and (max-width:1023px){
+  #portfolio-monitoring .investment-showcase-layout{grid-template-columns:minmax(0,1fr);gap:36px}
+  #portfolio-monitoring .investment-showcase-copy h2{max-width:19ch}
+  #portfolio-monitoring .investment-case{max-width:720px}
+  #property-dossier .dd-layout{grid-template-columns:minmax(0,1fr);gap:36px}
+}
+/* Mobile TCG editorial pattern: platform-only, common mobile.css remains unchanged. */
+@media (max-width:767px){
+  .platform-page{min-width:0}
+  .platform-page .wrap{padding-left:20px!important;padding-right:20px!important;min-width:0}
+  .platform-page :is(.split,.hero-grid,.dd-layout,.investment-showcase-layout,.ei-grid){min-width:0}
+  .platform-page :is(.sec,.arch-sec,.ei){padding-top:56px!important;padding-bottom:56px!important}
+  .platform-page :is(.sec .h2,.arch-sec .h2,.ei .h2){font-size:30px!important;line-height:1.08;letter-spacing:-.025em;text-wrap:balance}
+  .platform-page .lead{margin:0;font-size:16px;line-height:1.6}
+  .platform-page .txt{gap:18px}
+  .platform-page .eyebrow{font-size:11px;line-height:1.5}
+  .platform-page section[id]{scroll-margin-top:64px}
+  /* No decorative motion or oversized diagram in mobile Hero. */
+  .platform-page *, .platform-page *::before, .platform-page *::after{animation:none!important}
+  #top.hero{padding:32px 0 48px!important}
+  #top .hero-grid{display:block}
+  #top .hero-txt{min-width:0}
+  #top h1{font-size:36px!important;line-height:1.06;max-width:none;text-wrap:balance;margin-top:0}
+  #top .desc{margin-top:22px;max-width:none;font-size:17px;line-height:1.6}
+  #top .platform-how{display:none!important}
+  #top .hero-metrics{margin-top:26px;gap:17px}
+  #top .hero-metric{font-size:17px;line-height:1.5;gap:3px}
+  #top .hero-cta{width:100%!important;min-height:52px;box-sizing:border-box;align-self:stretch;justify-content:center;text-align:center;padding:0 12px!important;margin-top:27px}
+  /* Futures: copy first, then responsive feature cards. */
+  #land-zoning .split{grid-template-columns:minmax(0,1fr);gap:26px}
+  #land-zoning .intelligence-grid{width:100%;margin:0;gap:12px}
+  #land-zoning .intelligence-card{padding:18px 17px;gap:8px;transition:none}
+  #land-zoning .intelligence-card:hover{transform:none}
+  #land-zoning .intelligence-card strong{font-size:15px;line-height:1.35}
+  #land-zoning .intelligence-card>span:last-child{font-size:14px;line-height:1.5}
+  /* Due diligence: compact vertical presentation and an accessible full-width CTA. */
+  #property-dossier .dd-layout{grid-template-columns:minmax(0,1fr);gap:30px}
+  #property-dossier .dd-copy{gap:17px}
+  #property-dossier .dd-copy .h2{max-width:none}
+  #property-dossier .dd-copy .lead{font-size:16px;line-height:1.6}
+  #property-dossier .dd-performance{padding-top:15px}
+  #property-dossier .dd-time{margin-top:8px}
+  #property-dossier .dd-time strong{font-size:clamp(78px,22vw,104px)}
+  #property-dossier .dd-comparison{margin:19px 0 18px;gap:10px}
+  #property-dossier .dd-cta{width:100%;box-sizing:border-box;justify-content:space-between;padding-inline:18px}
+  /* Investments: full-width photographic case; avoid narrow price columns. */
+  #portfolio-monitoring .investment-showcase-layout{grid-template-columns:minmax(0,1fr);gap:30px}
+  #portfolio-monitoring .investment-showcase-copy{gap:18px}
+  #portfolio-monitoring .investment-showcase-copy h2{max-width:none;font-size:30px!important;line-height:1.08}
+  #portfolio-monitoring .investment-showcase-copy .lead{font-size:16px;line-height:1.6}
+  #portfolio-monitoring .investment-profit{margin-top:1px;padding-top:18px}
+  #portfolio-monitoring .investment-case{padding:16px}
+  #portfolio-monitoring .investment-case-top{flex-wrap:wrap;gap:8px}
+  #portfolio-monitoring .investment-case-top>span:first-child{font-size:11px}
+  #portfolio-monitoring .investment-case-photo{height:clamp(185px,52vw,280px)}
+  #portfolio-monitoring .investment-case-prices{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 10px;margin-top:17px}
+  #portfolio-monitoring .investment-case-prices>div{gap:6px}
+  #portfolio-monitoring .investment-case-prices>div+div{padding-left:10px}
+  #portfolio-monitoring .investment-case-prices strong{font-size:clamp(17px,4.7vw,24px);white-space:nowrap}
+  #portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:12px;margin:0;padding:12px 14px}
+  #portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:36px}
+  #portfolio-monitoring .investment-case-facts>div{flex-direction:column;align-items:flex-start;gap:6px;padding:12px 0}
+  #portfolio-monitoring .investment-case-facts>div>span:last-child{text-align:left;padding-left:29px}
+  /* Architecture: static, vertically ordered and fully readable. */
+  #technology .arch{margin-top:26px;min-width:0}
+  #technology .arch-head{display:flex;flex-direction:column;align-items:flex-start;padding:14px 16px;gap:8px;font-size:10px;line-height:1.5}
+  #technology .arch-body{grid-template-columns:minmax(0,1fr);padding:18px 16px;gap:10px}
+  #technology .node{min-width:0;padding:13px 14px;font-size:15px}
+  #technology .node small{font-size:11px;line-height:1.5}
+  #technology .engine{min-width:0;padding:16px;gap:12px}
+  #technology .mods{grid-template-columns:minmax(0,1fr);gap:8px}
+  #technology .mod{min-width:0}
+  #technology .af{padding:16px}
+  #technology .note{font-size:13px;line-height:1.55}
+  /* Investment form: one column, readable labels and full-width submit. */
+  #express-interest .ei-grid{grid-template-columns:minmax(0,1fr);gap:30px}
+  #express-interest .ei-copy{gap:18px}
+  #express-interest .ei-panel{padding:20px;gap:20px}
+  #express-interest .ei-form{grid-template-columns:minmax(0,1fr);gap:16px}
+  #express-interest .ei-form .full{grid-column:1/-1}
+  #express-interest .ei-btn{width:100%;min-height:52px}
+  #express-interest .ei-submit{align-items:stretch}
+}
+@media (max-width:359px){
+  #top h1{font-size:34px!important}
+  #portfolio-monitoring .investment-case{padding:13px}
+  #portfolio-monitoring .investment-case-prices strong{font-size:16px}
+  #portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:34px}
+  #express-interest .ei-panel{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  #portfolio-monitoring .investment-case:hover,#land-zoning .intelligence-card:hover{transform:none}
+}
+</style>
+
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -474,14 +576,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </header>
 
-<main>
+<main class="platform-page">
 <!-- 1 · VISION / HERO -->
 <section id="top" class="hero">
   <div class="wrap hero-grid">
     <div class="hero-txt">
       <span class="eyebrow">FROM MARKET DATA TO ACQUISITIONS</span>
       <h1>Bali's Real Estate Intelligence Platform</h1>
-      <p class="desc">We combine proprietary market research with Indonesian government records to identify investment opportunities others overlook.<br><br><strong>1,000+ Properties Tracked</strong><br>A proprietary database covering Bali's property market.<br><br><strong>55 Undervalued Assets &middot; 37% Average Discount</strong><br>Identified and available for acquisition.<br><br><strong>2 Revenue Streams</strong><br>Verification services and strategic investments.</p>
+      <p class="desc">We combine proprietary market research with Indonesian government records to identify investment opportunities others overlook.</p>
+      <div class="hero-metrics" aria-label="Platform at a glance">
+        <div class="hero-metric"><strong>1,000+ Properties Tracked</strong><span>A proprietary database covering Bali's property market.</span></div>
+        <div class="hero-metric"><strong>55 Undervalued Assets &middot; 37% Average Discount</strong><span>Identified and available for acquisition.</span></div>
+        <div class="hero-metric"><strong>2 Revenue Streams</strong><span>Verification services and strategic investments.</span></div>
+      </div>
       <a class="btn hero-cta" href="#ei-form" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Explore Investment Opportunities</a>
     </div>
     <section class="platform-how" aria-labelledby="platform-how-title">
