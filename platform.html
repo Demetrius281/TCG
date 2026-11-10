@@ -380,6 +380,28 @@ main > section.hero h1{line-height:1.04 !important}
 @media (max-width:559px){#land-zoning .intelligence-grid{grid-template-columns:1fr;gap:10px}#land-zoning .intelligence-card{padding:16px 18px;gap:8px}}
 @media (prefers-reduced-motion:reduce){#land-zoning .intelligence-card{transition:none}#land-zoning .intelligence-card:hover{transform:none}}
 </style>
+<style>
+/* Section 02 — concise online due diligence spotlight */
+#property-dossier.dd-spotlight{padding:clamp(60px,7vw,96px) 0}
+#property-dossier .dd-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(42px,6vw,90px);align-items:center}
+#property-dossier .dd-copy{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+#property-dossier .dd-copy .h2{max-width:14ch}
+#property-dossier .dd-copy .lead{max-width:54ch;font-size:18px;line-height:1.6}
+#property-dossier .dd-performance{min-width:0;border-top:2px solid #0E5A55;padding-top:19px;display:flex;flex-direction:column;align-items:flex-start}
+#property-dossier .dd-kicker{font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;color:#5B6461}
+#property-dossier .dd-time{display:flex;align-items:baseline;gap:16px;margin-top:9px;color:#0E5A55}
+#property-dossier .dd-time strong{font-size:clamp(76px,9vw,128px);font-weight:300;letter-spacing:-.065em;line-height:1}
+#property-dossier .dd-time span{font-family:'Geist Mono',ui-monospace,monospace;font-size:14px;letter-spacing:.08em}
+#property-dossier .dd-result{margin:0;color:#3E4744;font-size:16px;line-height:1.5}
+#property-dossier .dd-comparison{margin:23px 0 20px;padding-top:16px;border-top:1px solid #C9C5BB;width:100%;display:flex;align-items:baseline;justify-content:space-between;gap:12px 20px;color:#5B6461;font-size:14px}
+#property-dossier .dd-comparison strong{color:#0F1413;font-size:19px;font-weight:500;white-space:nowrap}
+#property-dossier .dd-cta{display:inline-flex;align-items:center;justify-content:space-between;gap:20px;background:#0E5A55;color:#fff;text-decoration:none;min-height:52px;padding:0 22px;font-size:15px;font-weight:500;transition:background-color .2s ease,transform .2s ease}
+#property-dossier .dd-cta:hover{background:#0F1413;transform:translateY(-2px)}
+#property-dossier .dd-cta:focus-visible{outline:2px solid #0E5A55;outline-offset:3px}
+#property-dossier .dd-note{margin:14px 0 0;max-width:48ch;color:#5B6461;font-size:12px;line-height:1.55}
+@media (max-width:767px){#property-dossier .dd-layout{grid-template-columns:1fr;gap:32px}#property-dossier .dd-copy{gap:18px}#property-dossier .dd-copy .lead{font-size:16px}#property-dossier .dd-time strong{font-size:84px}#property-dossier .dd-cta{width:100%;box-sizing:border-box}#property-dossier.dd-spotlight{padding:56px 0}}
+@media (prefers-reduced-motion:reduce){#property-dossier .dd-cta{transition:none}#property-dossier .dd-cta:hover{transform:none}}
+</style>
 <style>.mobile-home,.platform-how-intro{display:none}.platform-how{display:contents}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
 </head>
@@ -529,46 +551,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- 3 · DOCUMENT INTELLIGENCE -->
-<section id="property-dossier" class="sec" style="background: #EFEDE7">
-  <div class="wrap" style="display: flex; flex-direction: column; gap: 44px">
-    <div class="split" style="align-items: start">
-      <div class="txt">
-        <span class="eyebrow">02 / Property Verification Platform</span>
-        <h2 class="h2">Property Due Diligence, Simplified.</h2>
-      </div>
-      <div class="txt">
-        <p class="lead">Our online verification service helps international investors assess land, villas and development projects before committing capital.</p>
-        <p class="lead">We review zoning, land certificates, PBG / SLF, company registrations, business licenses and developer history. Service currently in development.</p>
-        <ul class="caps">
-          <li>Land use and development restrictions</li>
-          <li>PBG / SLF document verification</li>
-          <li>Land certificate and company checks</li>
-          <li>Developer background and risk assessment</li>
-        </ul>
-      </div>
+<section id="property-dossier" class="sec dd-spotlight" style="background:#EFEDE7" aria-labelledby="dd-title">
+  <div class="wrap dd-layout">
+    <div class="dd-copy">
+      <span class="eyebrow">02 / ONLINE DUE DILIGENCE</span>
+      <h2 class="h2" id="dd-title">Online Property Due Diligence</h2>
+      <p class="lead">Why wait a week to uncover the first red flags? Our online property screening delivers a source-linked risk report in as little as 12 hours — before you pay a deposit or commission a full legal review.</p>
     </div>
-    <div class="legend" role="list" aria-label="Property verification categories">
-      <div class="lg" role="listitem"><span class="how auto">Land use</span><span class="st scr"><i></i>Screening</span><p>Development and rental restrictions require location-specific review.</p></div>
-      <div class="lg" role="listitem"><span class="how spec">PBG / SLF</span><span class="st ok"><i></i>Document checks</span><p>Building approval and occupancy documentation are checked against available evidence.</p></div>
-      <div class="lg" role="listitem"><span class="how open">Land and company</span><span class="st rev"><i></i>Review Required</span><p>Land certificates, company records and business registrations.</p></div>
-      <div class="lg" role="listitem"><span class="how open">Developer risk</span><span class="st unr"><i></i>Unresolved</span><p>Background, track record and risks require supporting evidence.</p></div>
+    <div class="dd-performance" aria-label="Online property check turnaround">
+      <span class="dd-kicker">TCG PROPERTY CHECK</span>
+      <div class="dd-time"><strong>12</strong><span>HOURS</span></div>
+      <p class="dd-result">Initial screening report delivered by email</p>
+      <div class="dd-comparison"><span>Traditional legal due diligence</span><strong>1 week+</strong></div>
+      <a class="btn dd-cta" href="/due-diligence">Explore Due Diligence <span aria-hidden="true">&rarr;</span></a>
+      <p class="dd-note">From US$90. Advanced reports take 24–48 hours. Online screening does not replace formal legal due diligence.</p>
     </div>
-    <figure class="ui-fig" aria-label="Illustrative verification packages and pricing">
-      <div class="ui-top"><span>Verification Packages &middot; Proposed pricing</span><span class="cp">Concept Preview</span></div>
-      <span class="swipe" aria-hidden="true">Swipe to see all columns &rarr;</span>
-      <div class="tscroll">
-        <table class="rec">
-          <thead><tr><th scope="col">Package</th><th scope="col">Price</th><th scope="col">Coverage</th><th scope="col">Availability</th><th scope="col">Status</th></tr></thead>
-          <tbody>
-            <tr><td>Basic</td><td class="src">$90</td><td><span class="how auto">Essential screening</span></td><td><span class="st scr"><i></i>Planned</span></td><td class="src">In development</td></tr>
-            <tr><td>Standard</td><td class="src">$150</td><td><span class="how spec">Property + company checks</span></td><td><span class="st ok"><i></i>Planned</span></td><td class="src">In development</td></tr>
-            <tr><td>Comprehensive</td><td class="src">$250</td><td><span class="how spec">Extended developer + risk review</span></td><td><span class="st rev"><i></i>Planned</span></td><td class="src">In development</td></tr>
-            <tr><td>Subscriptions (future)</td><td class="src">TBD</td><td><span class="how spec">Professional access</span></td><td><span class="st unr"><i></i>Future</span></td><td class="src">&mdash;</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="ui-foot"><span>Revenue model: paid reports &middot; future professional subscriptions</span><span>Service in development &middot; no live integrations implied</span></div>
-    </figure>
   </div>
 </section>
 
