@@ -445,6 +445,23 @@ main > section.hero h1{line-height:1.04 !important}
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
 
 <style>
+/* Approved hero final pass: decisive statement and branded diamond metric markers. */
+.platform-page #top.hero .desc.hero-statement{font-size:20px!important;line-height:1.48!important;font-weight:600;color:#0F1413;letter-spacing:-.018em;margin-top:21px}
+.platform-page #top .hero-metrics{margin-top:18px;gap:11px}
+.platform-page #top .hero-metric{position:relative;padding-left:22px}
+.platform-page #top .hero-metric::before{content:"";position:absolute;left:2px;top:10px;width:9px;height:9px;background:#0E5A55;transform:rotate(45deg);border-radius:1px}
+.platform-page #top .hero-cta{margin-top:23px}
+@media (max-width:767px){
+  .platform-page #top.hero .desc.hero-statement{font-size:20px!important;line-height:1.46!important;margin-top:20px}
+  .platform-page #top .hero-metrics{margin-top:23px;gap:17px}
+  .platform-page #top .hero-metric{padding-left:21px}
+  .platform-page #top .hero-metric::before{top:10px}
+  .platform-page #top .hero-cta{margin-top:26px}
+}
+</style>
+
+
+<style>
 /* Platform: shared desktop and mobile metric rhythm, without changing type size */
 #top .hero-metrics{display:grid;gap:16px;margin-top:24px}
 #top .hero-metric{display:flex;flex-direction:column;gap:2px;font-size:18px;line-height:1.5;color:#3E4744}
@@ -583,7 +600,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-txt">
       <span class="eyebrow">FROM MARKET DATA TO ACQUISITIONS</span>
       <h1>Bali's Real Estate Intelligence Platform</h1>
-      <p class="desc">We combine proprietary market research with Indonesian government records to identify investment opportunities others overlook.</p>
+      <p class="desc hero-statement">We see what other investors miss. By combining proprietary market intelligence with official Indonesian records, we uncover undervalued assets and gain a decisive advantage in every negotiation.</p>
       <div class="hero-metrics" aria-label="Platform at a glance">
         <div class="hero-metric"><strong>1,000+ Properties Tracked</strong><span>A proprietary database covering Bali's property market.</span></div>
         <div class="hero-metric"><strong>55 Undervalued Assets &middot; 37% Average Discount</strong><span>Identified and available for acquisition.</span></div>
