@@ -402,6 +402,45 @@ main > section.hero h1{line-height:1.04 !important}
 @media (max-width:767px){#property-dossier .dd-layout{grid-template-columns:1fr;gap:32px}#property-dossier .dd-copy{gap:18px}#property-dossier .dd-copy .lead{font-size:16px}#property-dossier .dd-time strong{font-size:84px}#property-dossier .dd-cta{width:100%;box-sizing:border-box}#property-dossier.dd-spotlight{padding:56px 0}}
 @media (prefers-reduced-motion:reduce){#property-dossier .dd-cta{transition:none}#property-dossier .dd-cta:hover{transform:none}}
 </style>
+<style>
+/* Section 03: investor acquisition showcase */
+#portfolio-monitoring.investment-showcase{padding:clamp(56px,6.5vw,88px) 0;background:#F6F5F1}
+#portfolio-monitoring .investment-showcase-layout{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1.08fr);column-gap:clamp(36px,5vw,72px);align-items:center}
+#portfolio-monitoring .investment-showcase-copy{min-width:0;display:flex;flex-direction:column;gap:22px}
+#portfolio-monitoring .investment-showcase-copy h2{font-size:clamp(35px,3.35vw,48px);max-width:13.2ch}
+#portfolio-monitoring .investment-showcase-copy .lead{font-size:16px;line-height:1.56}
+#portfolio-monitoring .investment-showcase-copy .investment-intro{font-weight:500;color:#0F1413;font-size:17px}
+#portfolio-monitoring .investment-profit{display:flex;align-items:flex-start;gap:17px;padding-top:22px;margin-top:5px;border-top:1px solid #8E9692}
+#portfolio-monitoring .investment-profit-icon{flex:0 0 39px;height:39px;display:flex;align-items:center;justify-content:center;background:#0E5A55;color:#fff;border-radius:5px}
+#portfolio-monitoring .investment-profit-icon svg{width:25px;height:25px}
+#portfolio-monitoring .investment-profit div{display:flex;flex-direction:column;gap:5px}
+#portfolio-monitoring .investment-profit strong{font-weight:600;font-size:14px;letter-spacing:.045em}
+#portfolio-monitoring .investment-profit span:last-child{font-size:14px;color:#3E4744;line-height:1.5}
+#portfolio-monitoring .investment-case{min-width:0;display:flex;flex-direction:column;gap:0;background:#fff;border:1px solid #DDDCD6;box-shadow:0 14px 38px -30px rgba(15,20,19,.32);padding:22px 22px 18px}
+#portfolio-monitoring .investment-case-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+#portfolio-monitoring .investment-case-top>span:first-child{font-family:'Geist Mono',ui-monospace,monospace;font-weight:600;letter-spacing:.065em;font-size:12px}
+#portfolio-monitoring .investment-case-label{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.04em;color:#0E5A55;background:#E7F0EC;padding:7px 8px;white-space:nowrap}
+#portfolio-monitoring .investment-case-photo{width:100%;height:clamp(170px,16.5vw,222px);overflow:hidden;background:#E4E2DB}
+#portfolio-monitoring .investment-case-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+#portfolio-monitoring .investment-case-prices{display:grid;grid-template-columns:1fr 1fr .78fr;gap:10px;margin-top:19px;padding-bottom:18px;border-bottom:1px solid #ECEAE4}
+#portfolio-monitoring .investment-case-prices>div{display:flex;flex-direction:column;gap:10px;min-width:0}
+#portfolio-monitoring .investment-case-prices>div+div{border-left:1px solid #ECEAE4;padding-left:12px}
+#portfolio-monitoring .investment-label{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;line-height:1.45;color:#5B6461;letter-spacing:.025em}
+#portfolio-monitoring .investment-case-prices strong{font-size:clamp(19px,2.1vw,27px);font-weight:500;letter-spacing:-.045em;white-space:nowrap}
+#portfolio-monitoring .investment-case-prices .investment-discount{border-left:0;padding:10px 9px 7px;background:#E7F0EC;align-self:stretch;margin:-10px 0 -5px}
+#portfolio-monitoring .investment-discount .investment-label{color:#0E5A55}
+#portfolio-monitoring .investment-discount strong{font-size:clamp(29px,3.5vw,43px);line-height:1;color:#0E5A55}
+#portfolio-monitoring .investment-case-facts{display:flex;flex-direction:column}
+#portfolio-monitoring .investment-case-facts>div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #ECEAE4}
+#portfolio-monitoring .investment-case-facts>div:last-child{border-bottom:0}
+#portfolio-monitoring .investment-fact-name{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;white-space:nowrap}
+#portfolio-monitoring .investment-fact-name svg{width:20px;height:20px;flex:none;color:#0E5A55}
+#portfolio-monitoring .investment-case-facts>div>span:last-child{font-size:12px;line-height:1.45;text-align:right;color:#5B6461}
+#portfolio-monitoring .investment-case-disclaimer{margin:5px 0 0;padding-top:13px;border-top:1px solid #ECEAE4;color:#6B7470;font-size:10px;line-height:1.5}
+@media (max-width:1100px) and (min-width:768px){#portfolio-monitoring .investment-case-prices{grid-template-columns:1fr 1fr;row-gap:12px}#portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;margin:0;flex-direction:row;align-items:center;justify-content:space-between}#portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:34px}}
+@media (max-width:767px){#portfolio-monitoring .investment-showcase-layout{grid-template-columns:1fr;gap:32px}#portfolio-monitoring .investment-showcase-copy{gap:18px}#portfolio-monitoring .investment-showcase-copy h2{max-width:none;font-size:clamp(34px,8.5vw,44px)}#portfolio-monitoring .investment-case{padding:16px}#portfolio-monitoring .investment-case-photo{height:clamp(180px,50vw,260px)}}
+@media (max-width:400px){#portfolio-monitoring .investment-case-prices{grid-template-columns:1fr 1fr;row-gap:15px}#portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between;margin:0}#portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:35px}#portfolio-monitoring .investment-case-facts>div{align-items:flex-start;flex-direction:column;gap:7px}#portfolio-monitoring .investment-case-facts>div>span:last-child{text-align:left}}
+</style>
 <style>.mobile-home,.platform-how-intro{display:none}.platform-how{display:contents}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
 </head>
@@ -570,36 +609,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <!-- 4 · CONTINUOUS PROPERTY INTELLIGENCE -->
-<section id="portfolio-monitoring" class="sec">
-  <div class="wrap split">
-    <div class="txt">
-      <span class="eyebrow">03 / Distressed Property Investments</span>
-      <h2 class="h2">Acquire Below Market. Unlock Value.</h2>
-      <p class="lead">We target unfinished developments, distressed villas and undervalued land, seeking acquisitions at discounts of up to 50% against assessed market value.</p>
-      <p class="lead">Our intelligence and legal screening support investment decisions. 55+ potential targets have been identified; discounts remain preliminary estimates subject to independent valuation.</p>
-      <ul class="caps">
-        <li>IDENTIFY + VERIFY — Source assets and assess risks</li>
-        <li>ACQUIRE — Negotiate discounted purchases</li>
-        <li>REPOSITION — Resolve issues and complete projects</li>
-        <li>MONETIZE — Rental operations or resale</li>
-      </ul>
-    </div>
-    <figure class="ui-fig mon" aria-label="Illustrative distressed property investment pipeline">
-      <div class="ui-top"><span>Investment Pipeline &middot; Asset categories</span><span class="cp">Concept Preview</span></div>
-      <span class="swipe" aria-hidden="true">Swipe to see all columns &rarr;</span>
-      <div class="tscroll">
-        <table class="rec">
-          <thead><tr><th scope="col">Asset type</th><th scope="col">Investment strategy</th><th scope="col">Stage</th><th scope="col">Risk review</th></tr></thead>
-          <tbody>
-            <tr><td>Unfinished Developments</td><td class="src">Complete and resell</td><td><span class="st ok"><i></i>Screening</span></td><td><span class="st rev"><i></i>Required</span></td></tr>
-            <tr><td>Distressed Villas</td><td class="src">Reposition and operate</td><td><span class="st rev"><i></i>Screening</span></td><td><span class="st rev"><i></i>Required</span></td></tr>
-            <tr><td>Undervalued Land</td><td class="src">Develop or resell</td><td><span class="st scr"><i></i>Screening</span></td><td><span class="st unr"><i></i>Required</span></td></tr>
-            <tr><td>Non-Performing Assets</td><td class="src">Restructure</td><td><span class="st ok"><i></i>Screening</span></td><td><span class="st ok"><i></i>Required</span></td></tr>
-          </tbody>
-        </table>
+<section id="portfolio-monitoring" class="sec investment-showcase" aria-labelledby="investment-showcase-title">
+  <div class="wrap investment-showcase-layout">
+    <div class="investment-showcase-copy">
+      <span class="eyebrow">03 / DISTRESSED PROPERTY INVESTMENTS</span>
+      <h2 class="h2" id="investment-showcase-title">An Unmatched Advantage in Every Negotiation</h2>
+      <p class="lead investment-intro">We don't just find undervalued properties. We know what other buyers don't.</p>
+      <p class="lead">By cross-referencing government records, ownership structures, development histories, regulatory restrictions and market intelligence, we uncover the facts behind every asset.</p>
+      <p class="lead">This gives us an exceptional negotiating advantage: direct access to owners, a clear understanding of their property's challenges, and the intelligence to identify opportunities others overlook.</p>
+      <div class="investment-profit">
+        <span class="investment-profit-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24l8-8 6 5 10-12"/><path d="M20 9h8v8"/></svg>
+        </span>
+        <div><strong>FROM INFORMATION TO PROFIT</strong><span>Acquire undervalued assets. Unlock hidden potential. Maximize returns.</span></div>
       </div>
-      <div class="ui-foot"><span>55+ potential acquisition targets identified</span><span>Discounts preliminary &middot; independent valuation required</span></div>
-    </figure>
+    </div>
+    <article class="investment-case" aria-label="Illustrative investment acquisition scenario">
+      <div class="investment-case-top">
+        <span>ACQUISITION INTELLIGENCE</span>
+        <span class="investment-case-label">ILLUSTRATIVE CASE</span>
+      </div>
+      <div class="investment-case-photo">
+        <img src="/assets/img/distressed-villa-illustrative.webp" alt="AI-generated illustration of a partially constructed modern tropical villa in Bali" width="688" height="295" loading="lazy" decoding="async">
+      </div>
+      <div class="investment-case-prices">
+        <div><span class="investment-label">ASSESSED MARKET VALUE</span><strong>US$620,000</strong></div>
+        <div><span class="investment-label">TARGET ACQUISITION</span><strong>US$395,000</strong></div>
+        <div class="investment-discount"><span class="investment-label">ACQUISITION DISCOUNT</span><strong>36%</strong></div>
+      </div>
+      <div class="investment-case-facts">
+        <div><span class="investment-fact-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20v-2c0-3.2 3-5 7-5s7 1.8 7 5v2"/></svg>Direct Owner Outreach</span><span>Owner contact verification</span></div>
+        <div><span class="investment-fact-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5zM3 14l9 5 9-5M3 18l9 5 9-5"/></svg>Value Creation Strategy</span><span>Complete, reposition, operate or resell</span></div>
+      </div>
+      <p class="investment-case-disclaimer">Hypothetical figures and AI-generated property illustration. No actual asset, seller contact, valuation or purchase offer is represented. Investment outcomes are not guaranteed.</p>
+    </article>
   </div>
 </section>
 
