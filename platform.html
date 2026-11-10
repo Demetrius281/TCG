@@ -368,8 +368,200 @@ main > section.hero .desc{font-size:18px !important;line-height:1.6 !important;m
 main > section.hero h1{line-height:1.04 !important}
 }
 </style>
+<style>
+/* Section 01: individual property-intelligence feature cards */
+#land-zoning .intelligence-grid{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:8px 0 0;padding:0}
+#land-zoning .intelligence-card{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:11px;padding:19px 18px 20px;background:#FBFAF7;border:1px solid #DEDCD4;border-top:2px solid #0E5A55;transition:background-color .2s ease,border-color .2s ease,transform .2s ease}
+#land-zoning .intelligence-icon{display:flex;align-items:center;justify-content:center;color:#0E5A55;width:32px;height:32px}
+#land-zoning .intelligence-icon svg{display:block;width:30px;height:30px}
+#land-zoning .intelligence-card strong{display:block;font-size:15px;line-height:1.33;font-weight:600;letter-spacing:-.01em;color:#0F1413}
+#land-zoning .intelligence-card > span:last-child{display:block;font-size:13px;line-height:1.52;color:#5B6461}
+@media (hover:hover){#land-zoning .intelligence-card:hover{background:#fff;border-color:#9AB5AE;transform:translateY(-2px)}}
+@media (max-width:559px){#land-zoning .intelligence-grid{grid-template-columns:1fr;gap:10px}#land-zoning .intelligence-card{padding:16px 18px;gap:8px}}
+@media (prefers-reduced-motion:reduce){#land-zoning .intelligence-card{transition:none}#land-zoning .intelligence-card:hover{transform:none}}
+</style>
+<style>
+/* Section 02 — concise online due diligence spotlight */
+#property-dossier.dd-spotlight{padding:clamp(60px,7vw,96px) 0}
+#property-dossier .dd-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(42px,6vw,90px);align-items:center}
+#property-dossier .dd-copy{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+#property-dossier .dd-copy .h2{max-width:14ch}
+#property-dossier .dd-copy .lead{max-width:54ch;font-size:18px;line-height:1.6}
+#property-dossier .dd-performance{min-width:0;border-top:2px solid #0E5A55;padding-top:19px;display:flex;flex-direction:column;align-items:flex-start}
+#property-dossier .dd-kicker{font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;color:#5B6461}
+#property-dossier .dd-time{display:flex;align-items:baseline;gap:16px;margin-top:9px;color:#0E5A55}
+#property-dossier .dd-time strong{font-size:clamp(76px,9vw,128px);font-weight:300;letter-spacing:-.065em;line-height:1}
+#property-dossier .dd-time span{font-family:'Geist Mono',ui-monospace,monospace;font-size:14px;letter-spacing:.08em}
+#property-dossier .dd-result{margin:0;color:#3E4744;font-size:16px;line-height:1.5}
+#property-dossier .dd-comparison{margin:23px 0 20px;padding-top:16px;border-top:1px solid #C9C5BB;width:100%;display:flex;align-items:baseline;justify-content:space-between;gap:12px 20px;color:#5B6461;font-size:14px}
+#property-dossier .dd-comparison strong{color:#0F1413;font-size:19px;font-weight:500;white-space:nowrap}
+#property-dossier .dd-cta{display:inline-flex;align-items:center;justify-content:space-between;gap:20px;background:#0E5A55;color:#fff;text-decoration:none;min-height:52px;padding:0 22px;font-size:15px;font-weight:500;transition:background-color .2s ease,transform .2s ease}
+#property-dossier .dd-cta:hover{background:#0F1413;transform:translateY(-2px)}
+#property-dossier .dd-cta:focus-visible{outline:2px solid #0E5A55;outline-offset:3px}
+#property-dossier .dd-note{margin:14px 0 0;max-width:48ch;color:#5B6461;font-size:12px;line-height:1.55}
+@media (max-width:767px){#property-dossier .dd-layout{grid-template-columns:1fr;gap:32px}#property-dossier .dd-copy{gap:18px}#property-dossier .dd-copy .lead{font-size:16px}#property-dossier .dd-time strong{font-size:84px}#property-dossier .dd-cta{width:100%;box-sizing:border-box}#property-dossier.dd-spotlight{padding:56px 0}}
+@media (prefers-reduced-motion:reduce){#property-dossier .dd-cta{transition:none}#property-dossier .dd-cta:hover{transform:none}}
+</style>
+<style>
+/* Section 03: investor acquisition showcase */
+#portfolio-monitoring.investment-showcase{padding:clamp(56px,6.5vw,88px) 0;background:#F6F5F1}
+#portfolio-monitoring .investment-showcase-layout{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1.08fr);column-gap:clamp(36px,5vw,72px);align-items:center}
+#portfolio-monitoring .investment-showcase-copy{min-width:0;display:flex;flex-direction:column;gap:22px}
+#portfolio-monitoring .investment-showcase-copy h2{font-size:clamp(35px,3.35vw,48px);max-width:13.2ch}
+#portfolio-monitoring .investment-showcase-copy .lead{font-size:16px;line-height:1.56}
+#portfolio-monitoring .investment-showcase-copy .investment-intro{font-weight:500;color:#0F1413;font-size:17px}
+#portfolio-monitoring .investment-profit{display:flex;align-items:flex-start;gap:17px;padding-top:22px;margin-top:5px;border-top:1px solid #8E9692}
+#portfolio-monitoring .investment-profit-icon{flex:0 0 39px;height:39px;display:flex;align-items:center;justify-content:center;background:#0E5A55;color:#fff;border-radius:5px}
+#portfolio-monitoring .investment-profit-icon svg{width:25px;height:25px}
+#portfolio-monitoring .investment-profit div{display:flex;flex-direction:column;gap:5px}
+#portfolio-monitoring .investment-profit strong{font-weight:600;font-size:14px;letter-spacing:.045em}
+#portfolio-monitoring .investment-profit span:last-child{font-size:14px;color:#3E4744;line-height:1.5}
+#portfolio-monitoring .investment-case{min-width:0;display:flex;flex-direction:column;gap:0;background:#fff;border:1px solid #DDDCD6;box-shadow:0 14px 38px -30px rgba(15,20,19,.32);padding:22px 22px 18px}
+#portfolio-monitoring .investment-case-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+#portfolio-monitoring .investment-case-top>span:first-child{font-family:'Geist Mono',ui-monospace,monospace;font-weight:600;letter-spacing:.065em;font-size:12px}
+#portfolio-monitoring .investment-case-label{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.04em;color:#0E5A55;background:#E7F0EC;padding:7px 8px;white-space:nowrap}
+#portfolio-monitoring .investment-case-photo{width:100%;height:clamp(170px,16.5vw,222px);overflow:hidden;background:#E4E2DB}
+#portfolio-monitoring .investment-case-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+#portfolio-monitoring .investment-case-prices{display:grid;grid-template-columns:1fr 1fr .78fr;gap:10px;margin-top:19px;padding-bottom:18px;border-bottom:1px solid #ECEAE4}
+#portfolio-monitoring .investment-case-prices>div{display:flex;flex-direction:column;gap:10px;min-width:0}
+#portfolio-monitoring .investment-case-prices>div+div{border-left:1px solid #ECEAE4;padding-left:12px}
+#portfolio-monitoring .investment-label{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;line-height:1.45;color:#5B6461;letter-spacing:.025em}
+#portfolio-monitoring .investment-case-prices strong{font-size:clamp(19px,2.1vw,27px);font-weight:500;letter-spacing:-.045em;white-space:nowrap}
+#portfolio-monitoring .investment-case-prices .investment-discount{border-left:0;padding:10px 9px 7px;background:#E7F0EC;align-self:stretch;margin:-10px 0 -5px}
+#portfolio-monitoring .investment-discount .investment-label{color:#0E5A55}
+#portfolio-monitoring .investment-discount strong{font-size:clamp(29px,3.5vw,43px);line-height:1;color:#0E5A55}
+#portfolio-monitoring .investment-case-facts{display:flex;flex-direction:column}
+#portfolio-monitoring .investment-case-facts>div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #ECEAE4}
+#portfolio-monitoring .investment-case-facts>div:last-child{border-bottom:0}
+#portfolio-monitoring .investment-fact-name{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;white-space:nowrap}
+#portfolio-monitoring .investment-fact-name svg{width:20px;height:20px;flex:none;color:#0E5A55}
+#portfolio-monitoring .investment-case-facts>div>span:last-child{font-size:12px;line-height:1.45;text-align:right;color:#5B6461}
+#portfolio-monitoring .investment-case-disclaimer{margin:5px 0 0;padding-top:13px;border-top:1px solid #ECEAE4;color:#6B7470;font-size:10px;line-height:1.5}
+@media (max-width:1100px) and (min-width:768px){#portfolio-monitoring .investment-case-prices{grid-template-columns:1fr 1fr;row-gap:12px}#portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;margin:0;flex-direction:row;align-items:center;justify-content:space-between}#portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:34px}}
+@media (max-width:767px){#portfolio-monitoring .investment-showcase-layout{grid-template-columns:1fr;gap:32px}#portfolio-monitoring .investment-showcase-copy{gap:18px}#portfolio-monitoring .investment-showcase-copy h2{max-width:none;font-size:clamp(34px,8.5vw,44px)}#portfolio-monitoring .investment-case{padding:16px}#portfolio-monitoring .investment-case-photo{height:clamp(180px,50vw,260px)}}
+@media (max-width:400px){#portfolio-monitoring .investment-case-prices{grid-template-columns:1fr 1fr;row-gap:15px}#portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between;margin:0}#portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:35px}#portfolio-monitoring .investment-case-facts>div{align-items:flex-start;flex-direction:column;gap:7px}#portfolio-monitoring .investment-case-facts>div>span:last-child{text-align:left}}
+</style>
 <style>.mobile-home,.platform-how-intro{display:none}.platform-how{display:contents}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
+
+<style>
+/* Approved hero final pass: decisive statement and branded diamond metric markers. */
+.platform-page #top.hero .desc.hero-statement{font-size:20px!important;line-height:1.48!important;font-weight:600;color:#0F1413;letter-spacing:-.018em;margin-top:21px}
+.platform-page #top .hero-metrics{margin-top:18px;gap:11px}
+.platform-page #top .hero-metric{position:relative;padding-left:22px}
+.platform-page #top .hero-metric::before{content:"";position:absolute;left:2px;top:10px;width:9px;height:9px;background:#0E5A55;transform:rotate(45deg);border-radius:1px}
+.platform-page #top .hero-cta{margin-top:23px}
+@media (max-width:767px){
+  .platform-page #top.hero .desc.hero-statement{font-size:20px!important;line-height:1.46!important;margin-top:20px}
+  .platform-page #top .hero-metrics{margin-top:23px;gap:17px}
+  .platform-page #top .hero-metric{padding-left:21px}
+  .platform-page #top .hero-metric::before{top:10px}
+  .platform-page #top .hero-cta{margin-top:26px}
+}
+</style>
+
+
+<style>
+/* Platform: shared desktop and mobile metric rhythm, without changing type size */
+#top .hero-metrics{display:grid;gap:16px;margin-top:24px}
+#top .hero-metric{display:flex;flex-direction:column;gap:2px;font-size:18px;line-height:1.5;color:#3E4744}
+#top .hero-metric strong{font-weight:650}
+#top .hero-cta{margin-top:26px}
+@media (min-width:768px) and (max-width:1023px){
+  #portfolio-monitoring .investment-showcase-layout{grid-template-columns:minmax(0,1fr);gap:36px}
+  #portfolio-monitoring .investment-showcase-copy h2{max-width:19ch}
+  #portfolio-monitoring .investment-case{max-width:720px}
+  #property-dossier .dd-layout{grid-template-columns:minmax(0,1fr);gap:36px}
+}
+/* Mobile TCG editorial pattern: platform-only, common mobile.css remains unchanged. */
+@media (max-width:767px){
+  .platform-page{min-width:0}
+  .platform-page .wrap{padding-left:20px!important;padding-right:20px!important;min-width:0}
+  .platform-page :is(.split,.hero-grid,.dd-layout,.investment-showcase-layout,.ei-grid){min-width:0}
+  .platform-page :is(.sec,.arch-sec,.ei){padding-top:56px!important;padding-bottom:56px!important}
+  .platform-page :is(.sec .h2,.arch-sec .h2,.ei .h2){font-size:30px!important;line-height:1.08;letter-spacing:-.025em;text-wrap:balance}
+  .platform-page .lead{margin:0;font-size:16px;line-height:1.6}
+  .platform-page .txt{gap:18px}
+  .platform-page .eyebrow{font-size:11px;line-height:1.5}
+  .platform-page section[id]{scroll-margin-top:64px}
+  /* No decorative motion or oversized diagram in mobile Hero. */
+  .platform-page *, .platform-page *::before, .platform-page *::after{animation:none!important}
+  #top.hero{padding:32px 0 48px!important}
+  #top .hero-grid{display:block}
+  #top .hero-txt{min-width:0}
+  #top h1{font-size:36px!important;line-height:1.06;max-width:none;text-wrap:balance;margin-top:0}
+  #top .desc{margin-top:22px;max-width:none;font-size:17px;line-height:1.6}
+  #top .platform-how{display:none!important}
+  #top .hero-metrics{margin-top:26px;gap:17px}
+  #top .hero-metric{font-size:17px;line-height:1.5;gap:3px}
+  #top .hero-cta{width:100%!important;min-height:52px;box-sizing:border-box;align-self:stretch;justify-content:center;text-align:center;padding:0 12px!important;margin-top:27px}
+  /* Futures: copy first, then responsive feature cards. */
+  #land-zoning .split{grid-template-columns:minmax(0,1fr);gap:26px}
+  #land-zoning .intelligence-grid{width:100%;margin:0;gap:12px}
+  #land-zoning .intelligence-card{padding:18px 17px;gap:8px;transition:none}
+  #land-zoning .intelligence-card:hover{transform:none}
+  #land-zoning .intelligence-card strong{font-size:15px;line-height:1.35}
+  #land-zoning .intelligence-card>span:last-child{font-size:14px;line-height:1.5}
+  /* Due diligence: compact vertical presentation and an accessible full-width CTA. */
+  #property-dossier .dd-layout{grid-template-columns:minmax(0,1fr);gap:30px}
+  #property-dossier .dd-copy{gap:17px}
+  #property-dossier .dd-copy .h2{max-width:none}
+  #property-dossier .dd-copy .lead{font-size:16px;line-height:1.6}
+  #property-dossier .dd-performance{padding-top:15px}
+  #property-dossier .dd-time{margin-top:8px}
+  #property-dossier .dd-time strong{font-size:clamp(78px,22vw,104px)}
+  #property-dossier .dd-comparison{margin:19px 0 18px;gap:10px}
+  #property-dossier .dd-cta{width:100%;box-sizing:border-box;justify-content:space-between;padding-inline:18px}
+  /* Investments: full-width photographic case; avoid narrow price columns. */
+  #portfolio-monitoring .investment-showcase-layout{grid-template-columns:minmax(0,1fr);gap:30px}
+  #portfolio-monitoring .investment-showcase-copy{gap:18px}
+  #portfolio-monitoring .investment-showcase-copy h2{max-width:none;font-size:30px!important;line-height:1.08}
+  #portfolio-monitoring .investment-showcase-copy .lead{font-size:16px;line-height:1.6}
+  #portfolio-monitoring .investment-profit{margin-top:1px;padding-top:18px}
+  #portfolio-monitoring .investment-case{padding:16px}
+  #portfolio-monitoring .investment-case-top{flex-wrap:wrap;gap:8px}
+  #portfolio-monitoring .investment-case-top>span:first-child{font-size:11px}
+  #portfolio-monitoring .investment-case-photo{height:clamp(185px,52vw,280px)}
+  #portfolio-monitoring .investment-case-prices{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 10px;margin-top:17px}
+  #portfolio-monitoring .investment-case-prices>div{gap:6px}
+  #portfolio-monitoring .investment-case-prices>div+div{padding-left:10px}
+  #portfolio-monitoring .investment-case-prices strong{font-size:clamp(17px,4.7vw,24px);white-space:nowrap}
+  #portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:12px;margin:0;padding:12px 14px}
+  #portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:36px}
+  #portfolio-monitoring .investment-case-facts>div{flex-direction:column;align-items:flex-start;gap:6px;padding:12px 0}
+  #portfolio-monitoring .investment-case-facts>div>span:last-child{text-align:left;padding-left:29px}
+  /* Architecture: static, vertically ordered and fully readable. */
+  #technology .arch{margin-top:26px;min-width:0}
+  #technology .arch-head{display:flex;flex-direction:column;align-items:flex-start;padding:14px 16px;gap:8px;font-size:10px;line-height:1.5}
+  #technology .arch-body{grid-template-columns:minmax(0,1fr);padding:18px 16px;gap:10px}
+  #technology .node{min-width:0;padding:13px 14px;font-size:15px}
+  #technology .node small{font-size:11px;line-height:1.5}
+  #technology .engine{min-width:0;padding:16px;gap:12px}
+  #technology .mods{grid-template-columns:minmax(0,1fr);gap:8px}
+  #technology .mod{min-width:0}
+  #technology .af{padding:16px}
+  #technology .note{font-size:13px;line-height:1.55}
+  /* Investment form: one column, readable labels and full-width submit. */
+  #express-interest .ei-grid{grid-template-columns:minmax(0,1fr);gap:30px}
+  #express-interest .ei-copy{gap:18px}
+  #express-interest .ei-panel{padding:20px;gap:20px}
+  #express-interest .ei-form{grid-template-columns:minmax(0,1fr);gap:16px}
+  #express-interest .ei-form .full{grid-column:1/-1}
+  #express-interest .ei-btn{width:100%;min-height:52px}
+  #express-interest .ei-submit{align-items:stretch}
+}
+@media (max-width:359px){
+  #top h1{font-size:34px!important}
+  #portfolio-monitoring .investment-case{padding:13px}
+  #portfolio-monitoring .investment-case-prices strong{font-size:16px}
+  #portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:34px}
+  #express-interest .ei-panel{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  #portfolio-monitoring .investment-case:hover,#land-zoning .intelligence-card:hover{transform:none}
+}
+</style>
+
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -401,25 +593,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </header>
 
-<main>
+<main class="platform-page">
 <!-- 1 · VISION / HERO -->
 <section id="top" class="hero">
   <div class="wrap hero-grid">
     <div class="hero-txt">
-      <span class="eyebrow">Property Intelligence Platform &middot; In Development</span>
-      <h1>Making Property Investment in Indonesia Smarter, Safer, and More Transparent.</h1>
-      <p class="desc">TCG is building a property intelligence platform that brings land ownership, zoning, legal requirements, and investment risks into one place. The goal is to simplify due diligence, reduce costly mistakes, and help investors make confident property decisions.</p>
-      <a class="btn hero-cta" href="https://wa.me/6281337973097?text=Hello%2C%20I%27m%20interested%20in%20learning%20more%20about%20TCG%27s%20Property%20Intelligence%20Platform%20and%20potential%20investment%20or%20strategic%20partnership%20opportunities." target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Discuss the Project via WhatsApp</a>
+      <span class="eyebrow">FROM MARKET DATA TO ACQUISITIONS</span>
+      <h1>Bali's Real Estate Intelligence Platform</h1>
+      <p class="desc hero-statement">We see what other investors miss. By combining proprietary market intelligence with official Indonesian records, we uncover undervalued assets and gain a decisive advantage in every negotiation.</p>
+      <div class="hero-metrics" aria-label="Platform at a glance">
+        <div class="hero-metric"><strong>1,000+ Properties Tracked</strong><span>A proprietary database covering Bali's property market.</span></div>
+        <div class="hero-metric"><strong>55 Undervalued Assets &middot; 37% Average Discount</strong><span>Identified and available for acquisition.</span></div>
+        <div class="hero-metric"><strong>2 Revenue Streams</strong><span>Verification services and strategic investments.</span></div>
+      </div>
+      <a class="btn hero-cta" href="#ei-form" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Explore Investment Opportunities</a>
     </div>
     <section class="platform-how" aria-labelledby="platform-how-title">
       <div class="platform-how-intro">
-        <h2 class="h2" id="platform-how-title">How It Works</h2>
-        <p>We connect four essential layers of property intelligence — parcel, zoning, constraints, and documents — to reveal risks, identify opportunities, and determine the next steps for your property.</p>
+        <h2 class="h2" id="platform-how-title">One Platform. Complete Market Intelligence.</h2>
+        <p>TCG brings together government information systems and proprietary property research. One intelligence database supports paid verification reports, risk assessments and distressed-asset investment opportunities.</p>
       </div>
     <!-- Original animation shared by mobile and desktop. -->
 <figure class="ip">
 <svg class="ip-svg" viewBox="0 0 460 512" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="ip-t ip-d">
-<title id="ip-t">Concept preview of a property intelligence platform</title>
+<title id="ip-t">Concept preview of the TCG property intelligence system</title>
 <desc id="ip-d">A sample land parcel on a topographic base map near a coastline. Three data layers rise above it: zoning, constraints such as a coastal setback and protected rice fields, and property documents. A vertical beam passes through the stack at the parcel: zoning is marked as likely permitted, the coastal setback is marked as requiring review, and the document set is marked as incomplete. The findings flow into an intelligence engine, which produces a snapshot with land-use screening, document review and risk assessment statuses and confidence levels. Concept preview with sample data, not a legal verification or investment recommendation.</desc>
 <defs><clipPath id="ip-c0"><path d="M179.0 272.0 L344.6 322.4 L240.2 383.6 L74.6 333.2 Z"/></clipPath><clipPath id="ip-c1"><path d="M179.0 210.0 L344.6 260.4 L240.2 321.6 L74.6 271.2 Z"/></clipPath><clipPath id="ip-c2"><path d="M179.0 148.0 L344.6 198.4 L240.2 259.6 L74.6 209.2 Z"/></clipPath><clipPath id="ip-c3"><path d="M179.0 86.0 L344.6 136.4 L240.2 197.6 L74.6 147.2 Z"/></clipPath></defs>
 <text class="ip-tag" x="20" y="26">CONCEPT PREVIEW</text>
@@ -486,115 +683,90 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="land-zoning" class="sec" style="border-top: 1px solid #E2E0D9">
   <div class="wrap split">
     <div class="txt">
-      <span class="eyebrow">01 / Land &amp; Zoning Intelligence</span>
-      <h2 class="h2">Check Land-Use Constraints Before Investing.</h2>
-      <p class="lead">A location-based screening system designed to identify zoning classifications, land-use restrictions and potential development constraints.</p>
-      <p class="lead">Enter property coordinates to explore available regulatory information and highlight issues that may require further verification.</p>
-      <ul class="caps">
-        <li>Zoning and land-use screening</li>
-        <li>Development restriction identification</li>
-        <li>Regulatory source references</li>
-        <li>Preliminary investment risk indicators</li>
-      </ul>
+      <span class="eyebrow">01 / FUTURES</span>
+      <h2 class="h2">Bali's Entire Property Market in the Palm of Your Hand</h2>
+      <p class="lead">A continuously evolving intelligence system combining government records, property histories, developer activity and market data into one powerful platform.</p>
+      <p class="lead">See who owns what, when properties were built, which projects are stalled, what can legally be developed or rented, and where the biggest investment opportunities are hiding.</p>
     </div>
-    <figure class="ui-fig" aria-label="Concept preview of parcel screening with sample map layers">
-      <div class="ui-top"><span>Parcel Screening &middot; Sample location</span><span class="cp">Concept Preview</span></div>
-      <div style="padding: 16px 20px; background: #FBFAF7; border-bottom: 1px solid #E2E0D9">
-        <svg viewBox="0 0 480 210" style="width: 100%; height: auto; display: block" role="img" aria-label="Illustrative map: a selected parcel between a rice field layer, a tourism zone and a coastal setback line">
-          <path d="M0 160 C 80 150, 140 180, 220 170 S 380 140, 480 160 L480 210 L0 210 Z" fill="#E4EEF0"/>
-          <g stroke="#ECEAE4"><line x1="60" y1="0" x2="60" y2="210"/><line x1="120" y1="0" x2="120" y2="210"/><line x1="180" y1="0" x2="180" y2="210"/><line x1="240" y1="0" x2="240" y2="210"/><line x1="300" y1="0" x2="300" y2="210"/><line x1="360" y1="0" x2="360" y2="210"/><line x1="420" y1="0" x2="420" y2="210"/><line x1="0" y1="42" x2="480" y2="42"/><line x1="0" y1="84" x2="480" y2="84"/><line x1="0" y1="126" x2="480" y2="126"/><line x1="0" y1="168" x2="480" y2="168"/></g>
-          <rect x="34" y="34" width="134" height="84" fill="#B07A14" fill-opacity="0.10" stroke="#B07A14" stroke-dasharray="4 4"/>
-          <rect x="300" y="28" width="150" height="74" fill="#1F6B5A" fill-opacity="0.08" stroke="#1F6B5A"/>
-          <line x1="0" y1="138" x2="480" y2="126" stroke="#A23B2A" stroke-dasharray="6 4"/>
-          <polygon points="200,62 272,56 282,108 208,114" fill="#0E5A55" fill-opacity="0.12" stroke="#0F1413" stroke-width="1.5"/>
-          <circle cx="241" cy="85" r="5" fill="#0E5A55"/><circle cx="241" cy="85" r="13" fill="none" stroke="#0E5A55"/>
-          <g font-family="Geist Mono, monospace" font-size="10" fill="#5B6461"><text x="38" y="27">RICE FIELD LAYER</text><text x="304" y="21">TOURISM ZONE</text><text x="8" y="154" fill="#A23B2A">COASTAL SETBACK</text><text x="204" y="130">SAMPLE PARCEL</text></g>
-        </svg>
-      </div>
-      <div class="ui-row"><span>Accommodation in zoning plan</span><span class="st scr"><i></i>Likely permitted</span></div>
-      <div class="ui-row"><span>Coastal setback</span><span class="st unr"><i></i>Potential constraint</span></div>
-      <div class="ui-row"><span>Protected rice field layer</span><span class="st scr"><i></i>No overlap shown</span></div>
-      <div class="ui-row"><span>Short-term rental conditions</span><span class="st rev"><i></i>Requires verification</span></div>
-      <div class="ui-foot"><span>Preliminary screening &middot; sample data</span><span>Not a government approval or legal certification</span></div>
-    </figure>
+    <ul class="intelligence-grid">
+      <li class="intelligence-card">
+        <span class="intelligence-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="16" r="3"/><circle cx="26" cy="7" r="3"/><circle cx="26" cy="25" r="3"/><path d="M9 15l14-7M9 17l14 7"/></svg></span>
+        <strong>Government API Integration</strong>
+        <span>Direct connections to official data systems (in development)</span>
+      </li>
+      <li class="intelligence-card">
+        <span class="intelligence-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3l2.9 9.1L28 15l-9.1 2.9L16 27l-2.9-9.1L4 15l9.1-2.9L16 3z"/><path d="M26 23l1.2 2.8L30 27l-2.8 1.2L26 31l-1.2-2.8L22 27l2.8-1.2L26 23z"/></svg></span>
+        <strong>AI-Powered Intelligence</strong>
+        <span>Automated analysis, cross-referencing and continuous updates (in development)</span>
+      </li>
+      <li class="intelligence-card">
+        <span class="intelligence-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l12-7 12 7-12 7-12-7z"/><path d="M4 18l12 7 12-7M4 24l12 7 12-7"/></svg></span>
+        <strong>Complete Property Visibility</strong>
+        <span>Ownership, zoning, permits, developers and construction history</span>
+      </li>
+      <li class="intelligence-card">
+        <span class="intelligence-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="17" r="11"/><circle cx="15" cy="17" r="5"/><path d="M15 17l13-13m-7 0h7v7"/></svg></span>
+        <strong>Investment Opportunity Detection</strong>
+        <span>Identify distressed assets, pricing gaps and acquisition targets</span>
+      </li>
+    </ul>
   </div>
 </section>
 
 <!-- 3 · DOCUMENT INTELLIGENCE -->
-<section id="property-dossier" class="sec" style="background: #EFEDE7">
-  <div class="wrap" style="display: flex; flex-direction: column; gap: 44px">
-    <div class="split" style="align-items: start">
-      <div class="txt">
-        <span class="eyebrow">02 / Document Intelligence</span>
-        <h2 class="h2">Keep Property Documents Organised and Traceable.</h2>
-      </div>
-      <div class="txt">
-        <p class="lead">A digital property record designed to organize legal documents, extract key information and identify inconsistencies across available records.</p>
-        <p class="lead">Each finding is linked to its source, verification status and review date, helping investors understand what is documented, what requires confirmation and what remains unresolved.</p>
-        <ul class="caps">
-          <li>Document extraction and classification</li>
-          <li>Cross-document consistency checks</li>
-          <li>Source-linked property records</li>
-          <li>Specialist verification workflows</li>
-        </ul>
-      </div>
+<section id="property-dossier" class="sec dd-spotlight" style="background:#EFEDE7" aria-labelledby="dd-title">
+  <div class="wrap dd-layout">
+    <div class="dd-copy">
+      <span class="eyebrow">02 / ONLINE DUE DILIGENCE</span>
+      <h2 class="h2" id="dd-title">Online Property Due Diligence</h2>
+      <p class="lead">Why wait a week to uncover the first red flags? Our online property screening delivers a source-linked risk report in as little as 12 hours — before you pay a deposit or commission a full legal review.</p>
     </div>
-    <div class="legend" role="list" aria-label="Planned status categories">
-      <div class="lg" role="listitem"><span class="how auto">Automated check</span><span class="st scr"><i></i>Screening</span><p>Preliminary result produced by automated document checks, awaiting confirmation.</p></div>
-      <div class="lg" role="listitem"><span class="how spec">Specialist verification</span><span class="st ok"><i></i>Verified</span><p>Confirmed by a qualified specialist against the documents provided, with the review date recorded.</p></div>
-      <div class="lg" role="listitem"><span class="how open">Open point</span><span class="st rev"><i></i>Review Required</span><p>An inconsistency or open point that needs further checking.</p></div>
-      <div class="lg" role="listitem"><span class="how open">Open point</span><span class="st unr"><i></i>Unresolved</span><p>Insufficient information to reach a conclusion.</p></div>
+    <div class="dd-performance" aria-label="Online property check turnaround">
+      <span class="dd-kicker">TCG PROPERTY CHECK</span>
+      <div class="dd-time"><strong>12</strong><span>HOURS</span></div>
+      <p class="dd-result">Initial screening report delivered by email</p>
+      <div class="dd-comparison"><span>Traditional legal due diligence</span><strong>1 week+</strong></div>
+      <a class="btn dd-cta" href="/due-diligence">Explore Due Diligence <span aria-hidden="true">&rarr;</span></a>
+      <p class="dd-note">From US$90. Advanced reports take 24–48 hours. Online screening does not replace formal legal due diligence.</p>
     </div>
-    <figure class="ui-fig" aria-label="Concept preview of a source-linked property record with sample data">
-      <div class="ui-top"><span>Source-Linked Record &middot; Sample property</span><span class="cp">Concept Preview</span></div>
-      <span class="swipe" aria-hidden="true">Swipe to see all columns &rarr;</span>
-      <div class="tscroll">
-        <table class="rec">
-          <thead><tr><th scope="col">Finding</th><th scope="col">Source document</th><th scope="col">Method</th><th scope="col">Status</th><th scope="col">Review date</th></tr></thead>
-          <tbody>
-            <tr><td>Land area matches lease schedule</td><td class="src">Certificate copy &middot; Lease agreement</td><td><span class="how auto">Automated</span></td><td><span class="st scr"><i></i>Screening</span></td><td class="src">Sample date</td></tr>
-            <tr><td>Lessor named on certificate</td><td class="src">Certificate copy</td><td><span class="how spec">Specialist</span></td><td><span class="st ok"><i></i>Verified</span></td><td class="src">Sample date</td></tr>
-            <tr><td>Building area differs from PBG</td><td class="src">PBG document &middot; Site measurement</td><td><span class="how spec">Specialist</span></td><td><span class="st rev"><i></i>Review Required</span></td><td class="src">Sample date</td></tr>
-            <tr><td>SLF status</td><td class="src">No document provided</td><td><span class="how spec">Specialist</span></td><td><span class="st unr"><i></i>Unresolved</span></td><td class="src">&mdash;</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="ui-foot"><span>Illustrative findings &middot; based on documents supplied by the owner</span><span>No connection to government registries is implied</span></div>
-    </figure>
   </div>
 </section>
 
 <!-- 4 · CONTINUOUS PROPERTY INTELLIGENCE -->
-<section id="portfolio-monitoring" class="sec">
-  <div class="wrap split">
-    <div class="txt">
-      <span class="eyebrow">03 / Continuous Property Intelligence</span>
-      <h2 class="h2">Track Documents and Compliance Issues After Acquisition.</h2>
-      <p class="lead">A monitoring system designed to track important document deadlines, property-specific compliance requirements and relevant regulatory developments.</p>
-      <p class="lead">Portfolio owners will be able to review identified issues, prioritize follow-up actions and maintain a clearer overview of their property records over time.</p>
-      <ul class="caps">
-        <li>Lease and permit deadline tracking</li>
-        <li>Portfolio compliance overview</li>
-        <li>Relevant regulatory change alerts</li>
-        <li>Risk-based issue prioritization</li>
-      </ul>
-    </div>
-    <figure class="ui-fig mon" aria-label="Concept preview of a portfolio monitoring dashboard with sample data">
-      <div class="ui-top"><span>Portfolio Overview &middot; Sample portfolio</span><span class="cp">Concept Preview</span></div>
-      <span class="swipe" aria-hidden="true">Swipe to see all columns &rarr;</span>
-      <div class="tscroll">
-        <table class="rec">
-          <thead><tr><th scope="col">Property</th><th scope="col">Next deadline</th><th scope="col">Documents</th><th scope="col">Risk</th></tr></thead>
-          <tbody>
-            <tr><td>Sample Villa A</td><td class="src">Lease renewal &middot; 11 mo</td><td><span class="st ok"><i></i>Complete</span></td><td><span class="st rev"><i></i>Medium</span></td></tr>
-            <tr><td>Sample Villa B</td><td class="src">SLF renewal &middot; 4 mo</td><td><span class="st rev"><i></i>1 missing</span></td><td><span class="st rev"><i></i>Medium</span></td></tr>
-            <tr><td>Sample Hotel C</td><td class="src">Rule update to review</td><td><span class="st scr"><i></i>Screening</span></td><td><span class="st unr"><i></i>High</span></td></tr>
-            <tr><td>Sample Villa D</td><td class="src">No deadline &lt; 12 mo</td><td><span class="st ok"><i></i>Complete</span></td><td><span class="st ok"><i></i>Low</span></td></tr>
-          </tbody>
-        </table>
+<section id="portfolio-monitoring" class="sec investment-showcase" aria-labelledby="investment-showcase-title">
+  <div class="wrap investment-showcase-layout">
+    <div class="investment-showcase-copy">
+      <span class="eyebrow">03 / DISTRESSED PROPERTY INVESTMENTS</span>
+      <h2 class="h2" id="investment-showcase-title">An Unmatched Advantage in Every Negotiation</h2>
+      <p class="lead investment-intro">We don't just find undervalued properties. We know what other buyers don't.</p>
+      <p class="lead">By cross-referencing government records, ownership structures, development histories, regulatory restrictions and market intelligence, we uncover the facts behind every asset.</p>
+      <p class="lead">This gives us an exceptional negotiating advantage: direct access to owners, a clear understanding of their property's challenges, and the intelligence to identify opportunities others overlook.</p>
+      <div class="investment-profit">
+        <span class="investment-profit-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24l8-8 6 5 10-12"/><path d="M20 9h8v8"/></svg>
+        </span>
+        <div><strong>FROM INFORMATION TO PROFIT</strong><span>Acquire undervalued assets. Unlock hidden potential. Maximize returns.</span></div>
       </div>
-      <div class="ui-foot"><span>Illustrative alerts and metrics</span><span>Coverage of regulatory changes is not exhaustive</span></div>
-    </figure>
+    </div>
+    <article class="investment-case" aria-label="Illustrative investment acquisition scenario">
+      <div class="investment-case-top">
+        <span>ACQUISITION INTELLIGENCE</span>
+        <span class="investment-case-label">ILLUSTRATIVE CASE</span>
+      </div>
+      <div class="investment-case-photo">
+        <img src="/assets/img/distressed-villa-illustrative.webp" alt="AI-generated illustration of a partially constructed modern tropical villa in Bali" width="688" height="295" loading="lazy" decoding="async">
+      </div>
+      <div class="investment-case-prices">
+        <div><span class="investment-label">ASSESSED MARKET VALUE</span><strong>US$620,000</strong></div>
+        <div><span class="investment-label">TARGET ACQUISITION</span><strong>US$395,000</strong></div>
+        <div class="investment-discount"><span class="investment-label">ACQUISITION DISCOUNT</span><strong>36%</strong></div>
+      </div>
+      <div class="investment-case-facts">
+        <div><span class="investment-fact-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20v-2c0-3.2 3-5 7-5s7 1.8 7 5v2"/></svg>Direct Owner Outreach</span><span>Owner contact verification</span></div>
+        <div><span class="investment-fact-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5zM3 14l9 5 9-5M3 18l9 5 9-5"/></svg>Value Creation Strategy</span><span>Complete, reposition, operate or resell</span></div>
+      </div>
+      <p class="investment-case-disclaimer">Hypothetical figures and AI-generated property illustration. No actual asset, seller contact, valuation or purchase offer is represented. Investment outcomes are not guaranteed.</p>
+    </article>
   </div>
 </section>
 
@@ -603,20 +775,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap">
     <div class="split" style="align-items: end">
       <div class="txt">
-        <span class="eyebrow">04 / Technology Development</span>
+        <span class="eyebrow">04 / Business Model &amp; Technology</span>
         <h2 class="h2">Infrastructure Behind Property Intelligence.</h2>
       </div>
     </div>
-    <figure class="arch" style="margin-left: 0; margin-right: 0; margin-bottom: 0" aria-label="Proposed system architecture: three input layers feed a property intelligence engine, which produces three outputs">
-      <div class="arch-head"><span>Data flow &middot; Input &rarr; Processing &rarr; Output</span><span class="cp">Proposed System Architecture</span></div>
+    <figure class="arch" style="margin-left: 0; margin-right: 0; margin-bottom: 0" aria-label="Property intelligence architecture: three input groups feed the core engine, which produces three outputs">
+      <div class="arch-head"><span>Data flow &middot; Input &rarr; Processing &rarr; Output</span><span class="cp">Proprietary Intelligence Architecture</span></div>
       <div class="arch-body">
         <span class="col-h in">Input layer</span>
         <span class="col-h pr">Processing layer</span>
         <span class="col-h out">Output layer</span>
 
-        <div class="node i r1">Geospatial Data<small>Locations &middot; parcel boundaries &middot; zoning layers</small></div>
-        <div class="node i r2">Property Documents<small>Certificates &middot; leases &middot; permits</small></div>
-        <div class="node i r3">Regulatory Information<small>Regulations &middot; spatial plans &middot; updates</small></div>
+        <div class="node i r1">BATARA + BPN / SIMBG<small>Zoning &middot; certificates &middot; PBG / SLF</small></div>
+        <div class="node i r2">AHU + OSS<small>Company records &middot; registrations &middot; licenses</small></div>
+        <div class="node i r3">TCG Market Data<small>Developers &middot; pricing &middot; construction history</small></div>
 
         <span class="link a r1" aria-hidden="true"></span><span class="link a r2" aria-hidden="true"></span><span class="link a r3" aria-hidden="true"></span>
 
@@ -624,25 +796,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="en-s">Core</span>
           <span class="en-t">Property Intelligence Engine</span>
           <div class="mods">
-            <div class="mod">Data Matching<small>Links records to a location</small></div>
-            <div class="mod">Risk Classification<small>Flags issues by severity</small></div>
-            <div class="mod" style="grid-column: 1 / -1">Verification Workflows<small>Routes open points to specialist review</small></div>
+            <div class="mod">Data Integration<small>Connects property, company and regulatory records</small></div>
+            <div class="mod">Risk Intelligence<small>Identifies legal, development and commercial risks</small></div>
+            <div class="mod" style="grid-column: 1 / -1">Investment Screening<small>Detects distressed and undervalued assets</small></div>
           </div>
         </div>
 
         <span class="link b r1" aria-hidden="true"></span><span class="link b r2" aria-hidden="true"></span><span class="link b r3" aria-hidden="true"></span>
 
-        <div class="node o r1">Parcel Screening<small>Section 01</small></div>
-        <div class="node o r2">Digital Property Dossier<small>Section 02</small></div>
-        <div class="node o r3">Portfolio Monitoring<small>Section 03</small></div>
+        <div class="node o r1">Property Verification Reports<small>Paid screening and risk review</small></div>
+        <div class="node o r2">Investment Opportunities<small>Qualified acquisition candidates</small></div>
+        <div class="node o r3">Distressed Asset Pipeline<small>Further investment analysis</small></div>
       </div>
       <div class="arch-foot">
-        <div class="af"><b>Traceable sources</b><span>Each finding is designed to reference the document or dataset it comes from.</span></div>
-        <div class="af"><b>Transparent confidence levels</b><span>Results are intended to show how certain they are and what still needs confirmation.</span></div>
-        <div class="af"><b>Screening vs verification</b><span>Automated screening is kept separate from professional verification.</span></div>
+        <div class="af"><b>Traceable Intelligence</b><span>Each finding is linked to available records and supporting evidence.</span></div>
+        <div class="af"><b>Risk Transparency</b><span>Verified facts, potential risks and unresolved issues are distinguished.</span></div>
+        <div class="af"><b>Investment Advantage</b><span>Property intelligence supports faster screening and capital allocation.</span></div>
       </div>
     </figure>
-    <p class="note" style="margin-top: 20px; color: #8A9491">Proposed architecture under development. It does not describe a deployed system, operational APIs or integrations with government systems.</p>
+    <p class="note" style="margin-top: 20px; color: #8A9491">One intelligence infrastructure supports two revenue streams: paid verification and property investments. Research and verification are human-assisted; automated government integrations require development and authorized access.</p>
   </div>
 </section>
 
@@ -650,18 +822,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="express-interest" class="ei" aria-labelledby="ei-title">
   <div class="wrap ei-grid">
     <div class="ei-copy">
-      <span class="eyebrow">05 / Early Interest &amp; Strategic Partnerships</span>
-      <h2 class="h2" id="ei-title">Discuss the Property Intelligence Platform.</h2>
-      <p class="lead">TCG is developing a property intelligence platform for Bali, with a longer-term ambition to expand across Indonesia. We welcome interest from potential investors, technology partners and future users who want to explore the project at an early stage.</p>
+      <span class="eyebrow">05 / Strategic Investment Opportunity</span>
+      <h2 class="h2" id="ei-title">Invest in Bali's Property Intelligence.</h2>
+      <p class="lead">TCG combines proprietary data, legal expertise and distressed-asset sourcing to identify opportunities across Bali. We seek strategic investors to expand our intelligence infrastructure and pursue selected acquisitions through dedicated investment structures.</p>
       <div class="stage">
-        <p><span>Current stage:</span>In development</p>
-        <p><span>Target initial launch:</span>Q2 2027</p>
+        <p><span>Market intelligence:</span>1,000+ tracked properties</p>
+        <p><span>Investment pipeline:</span>55+ potential targets &middot; 37%+ preliminary discounts</p>
       </div>
     </div>
     <div class="ei-panel">
       <div>
-        <h3 id="ei-form-title">Express Your Interest</h3>
-        <p class="ei-note" id="ei-form-note">Tell us how you would like to be involved. Your message will be prepared in WhatsApp for you to review and send.</p>
+        <h3 id="ei-form-title">Investment Inquiry</h3>
+        <p class="ei-note" id="ei-form-note">Tell us how you would like to participate. Your message will open in WhatsApp for review before sending.</p>
       </div>
       <form class="ei-form" id="ei-form" novalidate aria-labelledby="ei-form-title" aria-describedby="ei-form-note">
         <div class="fld">
@@ -674,17 +846,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <input id="ei-org" name="organisation" type="text" autocomplete="organization">
         </div>
         <div class="fld">
-          <div class="fld-h"><label for="ei-role">Role</label><span class="tag" aria-hidden="true">Optional</span></div>
+          <div class="fld-h"><label for="ei-role">Investor Type</label><span class="tag" aria-hidden="true">Optional</span></div>
           <input id="ei-role" name="role" type="text" autocomplete="organization-title">
         </div>
         <div class="fld">
-          <div class="fld-h"><label for="ei-interest">I'm Interested In</label><span class="tag" aria-hidden="true">Required</span></div>
+          <div class="fld-h"><label for="ei-interest">Investment Interest</label><span class="tag" aria-hidden="true">Required</span></div>
           <select id="ei-interest" name="interest" required aria-required="true" aria-describedby="ei-interest-err">
-            <option value="">Select an area of interest</option>
+            <option value="">Select an investment interest</option>
             <option>Strategic Investment</option>
-            <option>Technology Partnership</option>
-            <option>Early Access / Pilot</option>
-            <option>Portfolio Use</option>
+            <option>Asset Co-investment</option>
+            <option>Distressed Property Acquisitions</option>
+            <option>Property Intelligence Partnership</option>
             <option>Other</option>
           </select>
           <p class="err" id="ei-interest-err"></p>
@@ -696,14 +868,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="fld full">
           <div class="fld-h"><label for="ei-msg">Message</label><span class="tag" aria-hidden="true">Optional</span></div>
-          <textarea id="ei-msg" name="message" rows="4" placeholder="Briefly describe your interest in the platform."></textarea>
+          <textarea id="ei-msg" name="message" rows="4" placeholder="Briefly describe your investment interest."></textarea>
         </div>
         <div class="ei-submit">
           <button type="submit" class="ei-btn">Continue to WhatsApp &rarr;</button>
           <p class="ei-status" id="ei-status" role="status" aria-live="polite"></p>
         </div>
       </form>
-      <p class="ei-disc">Platform concepts and previews are illustrative. Participation, partnerships and investment terms have not been agreed or offered through this form.</p>
+      <p class="ei-disc">Acquisitions, valuations, regulatory approvals and investment returns are subject to independent due diligence and are not guaranteed.</p>
     </div>
   </div>
 </section>
@@ -786,8 +958,8 @@ document.querySelectorAll('.dd').forEach(function(d){
     var first=null;
     rules.forEach(function(r){var v=r.el.value.trim(),bad=!v||(r.test&&!r.test(v));setErr(r,bad);if(bad&&!first)first=r.el;});
     if(first){first.focus();return;}
-    var lines=['Property Intelligence Platform \u2014 Expression of Interest',''];
-    [['Full Name','ei-name'],['Company / Organisation','ei-org'],['Role','ei-role'],["I'm Interested In",'ei-interest'],['WhatsApp or Email','ei-contact'],['Message','ei-msg']].forEach(function(f){
+    var lines=['TCG Property Intelligence & Investments \u2014 Investment Inquiry',''];
+    [['Full Name','ei-name'],['Company / Organisation','ei-org'],['Investor Type','ei-role'],['Investment Interest','ei-interest'],['WhatsApp or Email','ei-contact'],['Message','ei-msg']].forEach(function(f){
       var v=val(f[1]); if(v) lines.push(f[0]+': '+v);
     });
     var url=WA+encodeURIComponent(lines.join('\n'));
