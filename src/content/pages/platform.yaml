@@ -1,0 +1,193 @@
+seo:
+  title: Indonesia Property Intelligence Platform | TCG
+  og_title: Building the Future of Property Intelligence in Indonesia.
+  description: Bringing fragmented land records, zoning information and regulatory requirements into a structured system designed to make property research more transparent. In development.
+  og_description: A new infrastructure layer for property intelligence, connecting land information, legal requirements and investment risk analysis. In development, targeting Q2 2027.
+  og_image: /tcg-bali-social-20261027.jpg
+page_class: platform-page
+blocks:
+  - type: hero
+    variant: display
+    id: top
+    label: FROM MARKET DATA TO ACQUISITIONS
+    title: Bali's Real Estate Intelligence Platform
+    lead: By combining proprietary market intelligence with official Indonesian records, we uncover undervalued assets and gain a decisive advantage in every negotiation.
+    metrics:
+      - value: 1,000+ Properties Tracked
+        label: A proprietary database covering Bali's property market.
+      - value: 55 Undervalued Assets · 37% Average Discount
+        label: Identified and available for acquisition.
+      - value: 2 Revenue Streams
+        label: Verification services and strategic investments.
+    actions:
+      - label: Explore Investment Opportunities
+        href: "#ei-form"
+    intro:
+      title: One Platform. Complete Market Intelligence.
+      text: TCG brings together government information systems and proprietary property research. One intelligence database supports paid verification reports, risk assessments and distressed-asset investment opportunities.
+    illustration: platform
+  - type: features
+    id: land-zoning
+    label: 01 / FUTURES
+    title: Bali's Entire Property Market in the Palm of Your Hand
+    paragraphs:
+      - A continuously evolving intelligence system combining government records, property histories, developer activity and market data into one powerful platform.
+      - See who owns what, when properties were built, which projects are stalled, what can legally be developed or rented, and where the biggest investment opportunities are hiding.
+    items:
+      - icon: network
+        title: Government API Integration
+        text: Direct connections to official data systems (in development)
+      - icon: spark
+        title: AI-Powered Intelligence
+        text: Automated analysis, cross-referencing and continuous updates (in development)
+      - icon: layers
+        title: Complete Property Visibility
+        text: Ownership, zoning, permits, developers and construction history
+      - icon: target
+        title: Investment Opportunity Detection
+        text: Identify distressed assets, pricing gaps and acquisition targets
+  - type: spotlight
+    id: property-dossier
+    tone: sunken
+    label: 02 / ONLINE DUE DILIGENCE
+    title: Online Property Due Diligence
+    lead: Why wait a week to uncover the first red flags? Our online property screening delivers a source-linked risk report in as little as 12 hours — before you pay a deposit or commission a full legal review.
+    panel:
+      kicker: TCG PROPERTY CHECK
+      time:
+        value: "12"
+        unit: HOURS
+      result: Initial screening report delivered by email
+      comparison:
+        label: Traditional legal due diligence
+        value: 1 week+
+      cta:
+        label: Explore Due Diligence
+        arrow: →
+        href: /services/due-diligence
+      note: From US$90. Advanced reports take 24–48 hours. Online screening does not replace formal legal due diligence.
+  - type: acquisition_case
+    id: portfolio-monitoring
+    label: 03 / DISTRESSED PROPERTY INVESTMENTS
+    title: An Unmatched Advantage in Every Negotiation
+    paragraphs:
+      - We don't just find undervalued properties. We know what other buyers don't.
+      - By cross-referencing government records, ownership structures, development histories, regulatory restrictions and market intelligence, we uncover the facts behind every asset.
+      - "This gives us an exceptional negotiating advantage: direct access to owners, a clear understanding of their property's challenges, and the intelligence to identify opportunities others overlook."
+    profit:
+      title: FROM INFORMATION TO PROFIT
+      text: Acquire undervalued assets. Unlock hidden potential. Maximize returns.
+    case:
+      top:
+        - ACQUISITION INTELLIGENCE
+        - ILLUSTRATIVE CASE
+      photo:
+        src: /assets/img/distressed-villa-illustrative.webp
+        alt: AI-generated illustration of a partially constructed modern tropical villa in Bali
+        width: 688
+        height: 295
+      prices:
+        - label: ASSESSED MARKET VALUE
+          value: US$620,000
+        - label: TARGET ACQUISITION
+          value: US$395,000
+        - label: ACQUISITION DISCOUNT
+          value: 36%
+          discount: true
+      facts:
+        - title: Direct Owner Outreach
+          text: Owner contact verification
+        - title: Value Creation Strategy
+          text: Complete, reposition, operate or resell
+      disclaimer: Hypothetical figures and AI-generated property illustration. No actual asset, seller contact, valuation or purchase offer is represented. Investment outcomes are not guaranteed.
+  - type: architecture
+    id: technology
+    label: 04 / Business Model & Technology
+    title: Infrastructure Behind Property Intelligence.
+    head:
+      - Data flow · Input → Processing → Output
+      - Proprietary Intelligence Architecture
+    columns:
+      - Input layer
+      - Processing layer
+      - Output layer
+    inputs:
+      - title: BATARA + BPN / SIMBG
+        text: Zoning · certificates · PBG / SLF
+      - title: AHU + OSS
+        text: Company records · registrations · licenses
+      - title: TCG Market Data
+        text: Developers · pricing · construction history
+    engine:
+      kicker: Core
+      title: Property Intelligence Engine
+      modules:
+        - title: Data Integration
+          text: Connects property, company and regulatory records
+        - title: Risk Intelligence
+          text: Identifies legal, development and commercial risks
+        - title: Investment Screening
+          text: Detects distressed and undervalued assets
+    outputs:
+      - title: Property Verification Reports
+        text: Paid screening and risk review
+      - title: Investment Opportunities
+        text: Qualified acquisition candidates
+      - title: Distressed Asset Pipeline
+        text: Further investment analysis
+    foot:
+      - title: Traceable Intelligence
+        text: Each finding is linked to available records and supporting evidence.
+      - title: Risk Transparency
+        text: Verified facts, potential risks and unresolved issues are distinguished.
+      - title: Investment Advantage
+        text: Property intelligence supports faster screening and capital allocation.
+    note: "One intelligence infrastructure supports two revenue streams: paid verification and property investments. Research and verification are human-assisted; automated government integrations require development and authorized access."
+  - type: inquiry
+    id: express-interest
+    label: 05 / Strategic Investment Opportunity
+    title: Invest in Bali's Property Intelligence.
+    lead: TCG combines proprietary data, legal expertise and distressed-asset sourcing to identify opportunities across Bali. We seek strategic investors to expand our intelligence infrastructure and pursue selected acquisitions through dedicated investment structures.
+    stage:
+      - label: "Market intelligence:"
+        text: 1,000+ tracked properties
+      - label: "Investment pipeline:"
+        text: 55+ potential targets · 37%+ preliminary discounts
+    panel:
+      title: Investment Inquiry
+      note: Tell us how you would like to participate. Your message will open in WhatsApp for review before sending.
+    fields:
+      name:
+        label: Full Name
+        tag: Required
+      organisation:
+        label: Company / Organisation
+        tag: Optional
+      role:
+        label: Investor Type
+        tag: Optional
+      interest:
+        label: Investment Interest
+        tag: Required
+      contact:
+        label: WhatsApp or Email
+        tag: Required
+      message:
+        label: Message
+        tag: Optional
+    interest_options:
+      - value: ""
+        label: Select an investment interest
+      - value: Strategic Investment
+        label: Strategic Investment
+      - value: Asset Co-investment
+        label: Asset Co-investment
+      - value: Distressed Property Acquisitions
+        label: Distressed Property Acquisitions
+      - value: Property Intelligence Partnership
+        label: Property Intelligence Partnership
+      - value: Other
+        label: Other
+    message_placeholder: Briefly describe your investment interest.
+    submit: Continue to WhatsApp →
+    disclaimer: Acquisitions, valuations, regulatory approvals and investment returns are subject to independent due diligence and are not guaranteed.

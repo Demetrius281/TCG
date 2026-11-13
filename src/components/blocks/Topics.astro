@@ -1,0 +1,54 @@
+---
+import Section from '../ui/Section.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'topics'>, 'type'>;
+const { title, items, tone, id, nav } = Astro.props;
+---
+<Section id={id} nav={nav} tone={tone} labelledby="idx-h">
+  <h2 id="idx-h" class="head">{title}</h2>
+  <ol class="topics">
+    {
+      items.map((t) => (
+        <li>
+          <a href={t.href}>
+            <span class="t-label n">{t.number}</span>
+            <span class="q">
+              <strong>{t.question}</strong>
+              <span class="t-caption hint">{t.hint}</span>
+            </span>
+            <svg class="go" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 5v17M7 15l7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</Section>
+
+<style>
+  .head { margin-bottom: var(--space-8); }
+  .topics { display: grid; gap: var(--bw-1); background: var(--c-border-strong); border: var(--bw-1) solid var(--c-border-strong); }
+  .topics a {
+    display: grid;
+    grid-template-columns: var(--space-6) minmax(0, 1fr) var(--space-5);
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    background: var(--c-bg);
+    color: var(--c-text);
+    text-decoration: none;
+    transition: background-color var(--ease);
+  }
+  .topics a:hover { background: var(--c-surface); }
+  .n { color: var(--c-accent); }
+  .q { display: grid; gap: var(--space-1); }
+  .q strong { font-size: var(--fs-body); font-weight: 500; line-height: var(--lh-small); }
+  .hint { font-family: var(--font-mono); color: var(--c-text-3); }
+  .go { width: var(--space-5); height: var(--space-5); color: var(--c-accent); transition: transform var(--ease); }
+  .topics a:hover .go { transform: translateY(var(--space-1)); }
+
+  @media (min-width: 768px) {
+    .topics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .topics a { padding: var(--space-6); }
+  }
+</style>

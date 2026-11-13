@@ -1,0 +1,81 @@
+---
+import Section from '../ui/Section.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'sources'>, 'type'>;
+const { title, intro, review, items, new_tab, notice, tone, id, nav } = Astro.props;
+---
+<Section id={id} nav={nav} tone={tone} labelledby="src-h">
+  <div class="src-intro">
+    <h2 id="src-h">{title}</h2>
+    <div>
+      <p class="t-body">{intro.lead}</p>
+      <ul class="intro-list">
+        {intro.items.map((i) => <li class="t-body">{i}</li>)}
+      </ul>
+    </div>
+  </div>
+  <div class="review-meta">
+    <p class="t-small"><strong>{review.strong}<time>{review.date}</time>.</strong> {review.text}</p>
+    <div class="legend">
+      {review.legend.map((t) => <span class={`t-label tag tag-${t.kind}`}>{t.label}</span>)}
+    </div>
+  </div>
+  <ul class="src">
+    {
+      items.map((s) => (
+        <li>
+          <a href={s.href} target="_blank" rel="noopener">
+            <span class="t-label auth">{s.authority}</span>
+            <span class="t-small doc">{s.document}</span>
+            <span class={`t-label tag tag-${s.tag.kind}`}>{s.tag.label}</span>
+            <svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 2h5v5M14 2L7 9" fill="none" stroke="currentColor" stroke-width="1.4"></path></svg>
+            <span class="sr-only"> {new_tab}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  {notice && <p class="t-small notice"><strong>{notice.strong}</strong> {notice.text}</p>}
+</Section>
+
+<style>
+  .src-intro { display: grid; gap: var(--space-6); margin-bottom: var(--space-8); }
+  .intro-list { display: grid; gap: var(--space-2); margin-top: var(--space-3); padding-left: var(--space-5); list-style: disc; color: var(--c-text-2); }
+  .review-meta { display: grid; gap: var(--space-4); padding: var(--space-5); margin-bottom: var(--space-8); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); }
+  .review-meta p { color: var(--c-text-2); }
+  .legend { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .tag { display: inline-flex; align-items: center; padding: var(--space-1) var(--space-3); border: var(--bw-1) solid currentColor; }
+  .tag-law { color: var(--color-accent); }
+  .tag-impl { color: var(--c-text-2); }
+  .tag-draft { color: var(--c-text-3); border-style: dashed; }
+  .tag-future { color: var(--c-text-3); }
+  .tag-enf { color: var(--color-warn); }
+  .src { display: grid; border-top: var(--bw-1) solid var(--c-border-strong); }
+  .src a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-1) var(--space-4);
+    padding: var(--space-4) 0;
+    border-bottom: var(--bw-1) solid var(--c-border);
+    color: var(--c-text);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .src a:hover .doc { color: var(--c-accent); }
+  .notice { margin-top: var(--space-6); max-width: var(--container-prose); color: var(--c-text-2); }
+  .notice strong { color: var(--c-text); font-weight: 500; }
+  .auth { grid-column: 1 / -1; color: var(--c-text-3); }
+  .doc { color: var(--c-text); font-weight: 500; }
+  .ext { grid-row: 2; grid-column: 2; width: var(--space-4); height: var(--space-4); color: var(--c-text-3); }
+  .src .tag { grid-column: 1; justify-self: start; }
+
+  @media (min-width: 1024px) {
+    .src-intro { grid-template-columns: 1fr 2fr; gap: var(--space-16); }
+    .review-meta { grid-template-columns: 2fr 1fr; align-items: start; }
+    .src a { grid-template-columns: calc(var(--space-16) * 3.5) minmax(0, 1fr) auto auto; align-items: center; }
+    .auth { grid-column: auto; }
+    .ext { grid-row: auto; grid-column: auto; }
+    .src .tag { grid-column: auto; }
+  }
+</style>

@@ -2,11 +2,12 @@
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import JsonLd from '../seo/JsonLd.astro';
+import { inline } from '../../lib/inline';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'faq'>, 'type'>;
-const { label, json_ld, title, items, tone, id } = Astro.props;
-const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+const { label, json_ld, heading_id, title, items, tone, id, nav } = Astro.props;
+const headId = heading_id ?? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 // Placeholder entries stay out of structured data.
 const published = items.filter((i) => !i.question.includes('[TEXT]') && !i.answer.includes('[TEXT]'));
 const jsonLd = {
@@ -19,7 +20,7 @@ const jsonLd = {
   })),
 };
 ---
-<Section id={id} tone={tone} labelledby={headId}>
+<Section id={id} nav={nav} tone={tone} labelledby={headId}>
   <SectionHead label={label} title={title} id={headId} />
   <ul class="faq">
     {
@@ -32,7 +33,7 @@ const jsonLd = {
             </button>
           </h3>
           <div class="panel" id={`faq-${i}`} hidden>
-            <p class="t-body a">{item.answer}</p>
+            <p class="t-body a" set:html={inline(item.answer)} />
             {item.href && item.linkText && <a class="more t-small" href={item.href}>{item.linkText} →</a>}
           </div>
         </li>

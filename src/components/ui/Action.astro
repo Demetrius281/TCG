@@ -12,8 +12,8 @@ const variant = action.variant ?? fallbackVariant;
 ---
 {
   action.message ? (
-    <WhatsAppLink message={action.message} variant={variant}>{action.label}</WhatsAppLink>
+    <WhatsAppLink message={action.message} variant={variant} data-cta={action.data_cta}>{action.label}</WhatsAppLink>
   ) : (
-    <Button href={action.href} variant={variant}>{action.label}</Button>
+    <Button href={action.href} variant={variant} data-cta={action.data_cta}>{action.label}</Button>
   )
 }

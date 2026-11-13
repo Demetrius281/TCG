@@ -1,0 +1,18 @@
+---
+interface Props {
+  name: 'regulations' | 'platform';
+}
+const { name } = Astro.props;
+---
+<div class="host" data-illustration={name}></div>
+
+<style>
+  .host { display: none; min-width: 0; }
+  @media (min-width: 768px) {
+    .host { display: block; }
+  }
+</style>
+
+<script>
+  import '../../scripts/illustrations/index.ts';
+</script>

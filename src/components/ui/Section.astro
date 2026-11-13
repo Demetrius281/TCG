@@ -3,10 +3,11 @@ interface Props {
   tone?: 'default' | 'sunken' | 'inverse';
   id?: string;
   labelledby?: string;
+  nav?: string;
 }
-const { tone = 'default', id, labelledby } = Astro.props;
+const { tone = 'default', id, labelledby, nav } = Astro.props;
 ---
-<section class:list={['section', `tone-${tone}`, tone === 'inverse' && 'on-inverse']} id={id} aria-labelledby={labelledby}>
+<section class:list={['section', `tone-${tone}`, tone === 'inverse' && 'on-inverse']} id={id} data-nav={nav} aria-labelledby={labelledby}>
   <div class="inner"><slot /></div>
 </section>
 

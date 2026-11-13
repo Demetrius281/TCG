@@ -15,14 +15,34 @@ import Report from '../components/blocks/Report.astro';
 import Comparison from '../components/blocks/Comparison.astro';
 import Pricing from '../components/blocks/Pricing.astro';
 import Order from '../components/blocks/Order.astro';
-import type { Block } from '../content.config';
+import Features from '../components/blocks/Features.astro';
+import Spotlight from '../components/blocks/Spotlight.astro';
+import AcquisitionCase from '../components/blocks/AcquisitionCase.astro';
+import Architecture from '../components/blocks/Architecture.astro';
+import Inquiry from '../components/blocks/Inquiry.astro';
+import GuideNav from '../components/blocks/GuideNav.astro';
+import Topics from '../components/blocks/Topics.astro';
+import Guide from '../components/blocks/Guide.astro';
+import Sources from '../components/blocks/Sources.astro';
+import type { Action, Block } from '../content.config';
 
 interface Props {
-  seo: { title: string; description: string; og_title?: string; robots?: string; og_image?: string };
+  seo: {
+    title: string;
+    description: string;
+    og_title?: string;
+    robots?: string;
+    og_image?: string;
+    og_type?: string;
+    og_description?: string;
+    meta?: { key: string; value: string; attr: 'name' | 'property' }[];
+    json_ld?: unknown;
+  };
   blocks: Block[];
-  headerCta?: { label: string; href: string };
+  headerCta?: Action;
+  pageClass?: string;
 }
-const { seo, blocks, headerCta } = Astro.props;
+const { seo, blocks, headerCta, pageClass } = Astro.props;
 
 const registry = {
   hero: Hero,
@@ -40,6 +60,15 @@ const registry = {
   comparison: Comparison,
   pricing: Pricing,
   order: Order,
+  features: Features,
+  spotlight: Spotlight,
+  acquisition_case: AcquisitionCase,
+  architecture: Architecture,
+  inquiry: Inquiry,
+  guide_nav: GuideNav,
+  topics: Topics,
+  guide: Guide,
+  sources: Sources,
 } as const;
 ---
 <Base
@@ -49,6 +78,11 @@ const registry = {
   robots={seo.robots}
   ogImage={seo.og_image}
   headerCta={headerCta}
+  mainClass={pageClass}
+  ogType={seo.og_type}
+  ogDescription={seo.og_description}
+  extra={seo.meta}
+  jsonLd={seo.json_ld}
 >
   {
     blocks.map(({ type, ...props }) => {

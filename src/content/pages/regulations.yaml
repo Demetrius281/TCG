@@ -1,0 +1,1192 @@
+seo:
+  title: "Bali Villa Regulations 2026: Zoning, PBG, SLF & Licensing"
+  og_title: Bali Property Regulations 2026. What Owners Need to Know.
+  og_type: article
+  description: Can your villa legally operate as a rental? Understand which permits, business registrations and land-use restrictions apply, and what to check before investing.
+  og_description: Property ownership does not automatically authorize rental operations. Understand the regulatory framework governing villa licensing, zoning and building compliance in Bali.
+  robots: index, follow
+  og_image: /tcg-bali-social-20261027.jpg
+  meta:
+    - key: theme-color
+      value: "#F6F5F1"
+    - key: og:locale
+      value: en_US
+      attr: property
+    - key: article:modified_time
+      value: "2026-10-28"
+      attr: property
+    - key: twitter:title
+      value: "Bali Villa Legality in 2026: What Owners Need to Check"
+    - key: twitter:description
+      value: A source-based guide to Bali zoning, PBG, SLF, NIB, KBLI, OSS and the compliance path for existing villas.
+  json_ld:
+    "@context": https://schema.org
+    "@graph":
+      - "@type": ProfessionalService
+        "@id": https://twinsconsulting.group/#organization
+        name: Twins Consulting Group
+        alternateName: TCG
+        url: https://twinsconsulting.group/
+        email: dee@twinsconsulting.group
+        telephone: +62 813-3797-3097
+        address:
+          "@type": PostalAddress
+          streetAddress: Sunset Road 819, Ruko Sunset Indah II No. 10
+          addressLocality: Kuta
+          addressRegion: Bali
+          postalCode: "80361"
+          addressCountry: ID
+        areaServed:
+          "@type": Country
+          name: Indonesia
+        founder:
+          "@id": https://twinsconsulting.group/#demetrius
+      - "@type": Person
+        "@id": https://twinsconsulting.group/#demetrius
+        name: Demetrius
+        jobTitle: CEO
+        worksFor:
+          "@id": https://twinsconsulting.group/#organization
+      - "@type": Article
+        "@id": https://twinsconsulting.group/regulations#article
+        url: https://twinsconsulting.group/regulations
+        headline: "Bali Villa Regulations 2026: Everything You Need to Know About Legal Property Rental in Bali"
+        description: A source-based guide to Bali villa legality covering zoning, RDTR, PBG, SLF, NIB, KBLI, OSS, operator structures and existing-villa compliance.
+        dateModified: "2026-10-28"
+        inLanguage: en
+        mainEntityOfPage:
+          "@type": WebPage
+          "@id": https://twinsconsulting.group/regulations
+        author:
+          "@id": https://twinsconsulting.group/#demetrius
+        publisher:
+          "@id": https://twinsconsulting.group/#organization
+        isPartOf:
+          "@id": https://twinsconsulting.group/#website
+      - "@type": BreadcrumbList
+        itemListElement:
+          - "@type": ListItem
+            position: 1
+            name: Home
+            item: https://twinsconsulting.group/
+          - "@type": ListItem
+            position: 2
+            name: Bali Villa Regulations
+            item: https://twinsconsulting.group/regulations
+      - "@type": FAQPage
+        "@id": https://twinsconsulting.group/regulations#faq
+        mainEntity:
+          - "@type": Question
+            name: What does an NIB cover?
+            acceptedAnswer:
+              "@type": Answer
+              text: NIB is the business identity issued through OSS. Legal rental also requires zoning, building and activity-specific licensing — see the compliance chain.
+          - "@type": Question
+            name: Is my old IMB still valid?
+            acceptedAnswer:
+              "@type": Answer
+              text: Potentially. An IMB issued before PP No. 16 of 2021 can remain relevant for a completed building in its original configuration.
+          - "@type": Question
+            name: What is the current KBLI code for a villa?
+            acceptedAnswer:
+              "@type": Answer
+              text: 55203 Aktivitas Vila under KBLI 2025, converted 1:1 from legacy code 55193.
+          - "@type": Question
+            name: Can a PT PMA still register a business in Bali?
+            acceptedAnswer:
+              "@type": Answer
+              text: Yes, for activities outside the 18 categories closed in OSS since May 2026. Each activity is confirmed live in OSS before setup.
+          - "@type": Question
+            name: Which Kuta Selatan plan applies today?
+            acceptedAnswer:
+              "@type": Answer
+              text: Perbup Badung No. 59/2021, the RDTR for 2021–2041. The 2026–2046 replacement applies from its formal adoption.
+          - "@type": Question
+            name: Do Airbnb and Booking.com verify licences?
+            acceptedAnswer:
+              "@type": Answer
+              text: The Ministry of Tourism is building an OSS-linked verification API with OTA partners, with launch targeted for June 2027. Enforcement cooperation with OTA partners already runs.
+page_class: regulations-page
+header_cta:
+  label: Book a Consultation
+  message: consultation
+  data_cta: guide_header
+blocks:
+  - type: hero
+    variant: page
+    heading_id: page-title
+    title: "Bali Villa Regulations 2026: Protect Your Investment."
+    subtitle: Zoning, PBG, SLF & Rental Licensing
+    lead: Incorrect NIB/KBLI registration or missing approvals can expose your villa to fines, rental restrictions and closure. Identify legal risks before they threaten your investment.
+    illustration: regulations
+    actions:
+      - label: Request a Property Review
+        message: consultation
+        data_cta: guide_hero
+      - label: Choose Your Question
+        href: "#guide-index"
+        variant: text
+  - type: guide_nav
+    brand: Twins Consulting Group
+    title:
+      label: Bali Property Legal Guide
+      href: "#guide-index"
+    links:
+      - label: Overview
+        href: "#short-answer"
+      - label: Zoning
+        href: "#zoning"
+      - label: Building
+        href: "#building"
+      - label: Existing properties
+        href: "#existing"
+      - label: NIB & KBLI
+        href: "#nib-kbli"
+      - label: PT PMA
+        href: "#foreign-owners"
+      - label: 2026 updates
+        href: "#changes-2026"
+      - label: Audit
+        href: "#audit"
+      - label: FAQ
+        href: "#faq"
+    jump:
+      label: Jump to
+      fallback: Sections
+      links:
+        - label: All questions
+          href: "#guide-index"
+        - label: Overview
+          href: "#short-answer"
+        - label: Zoning
+          href: "#zoning"
+        - label: Building
+          href: "#building"
+        - label: Existing properties
+          href: "#existing"
+        - label: NIB & KBLI
+          href: "#nib-kbli"
+        - label: PT PMA
+          href: "#foreign-owners"
+        - label: 2026 updates
+          href: "#changes-2026"
+        - label: Audit
+          href: "#audit"
+        - label: FAQ
+          href: "#faq"
+        - label: Sources
+          href: "#sources"
+    to_top: Back to top
+  - type: topics
+    id: guide-index
+    title: What do you need to know?
+    items:
+      - number: "01"
+        question: Can I legally rent my property short‑term?
+        hint: Overview
+        href: "#short-term-legal"
+      - number: "02"
+        question: What makes a Bali property legal?
+        hint: Six compliance layers
+        href: "#short-answer"
+      - number: "03"
+        question: Is my zoning suitable?
+        hint: RTRW, RDTR, KKPR, ITBX
+        href: "#zoning"
+      - number: "04"
+        question: Which building documents do I need?
+        hint: PBG, SLF, legacy IMB
+        href: "#building"
+      - number: "05"
+        question: How is an existing property legalized?
+        hint: Existing-building route
+        href: "#existing"
+      - number: "06"
+        question: Which KBLI code does a villa need?
+        hint: OSS and KBLI 2025
+        href: "#nib-kbli"
+      - number: "07"
+        question: What can a PT PMA register in Bali in 2026?
+        hint: 18 closed categories
+        href: "#foreign-owners"
+      - number: "08"
+        question: What does a management company cover?
+        hint: Operator and local tax
+        href: "#operator"
+      - number: "09"
+        question: What changed in 2026?
+        hint: New rules and enforcement
+        href: "#changes-2026"
+      - number: "10"
+        question: How do I audit my property?
+        hint: Audit method
+        href: "#audit"
+  - type: guide
+    nav: short-answer
+    tone: inverse
+    label: 01 / The Compliance Chain
+    title: "Bali Property Legality: The Short Answer"
+    heading_id: sa-h
+    lead: A Bali property is assessed through six connected layers. Each document confirms one layer, and legal rental requires all six.
+    parts:
+      - part: chain
+        items:
+          - title: LAND
+            text: Lawful control of the property for the intended arrangement.
+          - title: ZONING
+            text: The intended accommodation activity is permitted on this parcel.
+          - title: BUILDING
+            text: PBG or qualifying legacy IMB, and SLF for fitness of use.
+          - title: BUSINESS
+            text: The legal operator of the accommodation and its role.
+          - title: LICENSING
+            text: NIB, current KBLI, risk-based licensing and supporting approvals.
+          - title: OPERATION
+            text: Tourism standards, local tax and other ongoing obligations.
+    id: short-answer
+  - type: guide
+    nav: short-answer
+    parts:
+      - part: heading
+        text: Each layer, its documents and what they confirm
+        id: layers-h
+      - part: table
+        variant: layers
+        columns:
+          - Layer
+          - Documents
+          - What they confirm
+        groups:
+          - rows:
+              - cells:
+                  - 1 — Land
+                  - Land certificate, lease or other control document
+                  - The owner or operator lawfully controls the property for the intended arrangement.
+              - cells:
+                  - 2 — Zoning
+                  - RTRW, RDTR, ITBX activity rules, special provisions, KKPR where applicable
+                  - The intended accommodation activity is spatially supportable on this parcel.
+              - cells:
+                  - 3 — Building
+                  - PBG or qualifying legacy IMB with approved plans; SLF
+                  - The building is approved for its function and the completed building is fit for use.
+              - cells:
+                  - 4 — Business
+                  - Operator entity (individual, PT or PT PMA) and its contracts with the owner
+                  - The legal operator of the accommodation and its role.
+              - cells:
+                  - 5 — Licensing
+                  - NIB, current KBLI 2025 code, risk-based licensing, supporting approvals
+                  - The operator is licensed for the activity it actually runs.
+              - cells:
+                  - 6 — Operation
+                  - Tourism business standards, local tax registration and reporting
+                  - The business stays compliant while it operates.
+      - part: note
+        variant: pull
+        text: "The working question: can this parcel, this building and this operator lawfully perform this specific short‑term accommodation activity?"
+  - type: guide
+    id: short-term-legal
+    nav: short-answer
+    label: 02 / Overview
+    title: Is short‑term rental legal in Bali?
+    heading_id: stl-h
+    answer: Yes. Short‑term accommodation is a regulated business activity in Indonesia.
+    parts:
+      - part: prose
+        paragraphs:
+          - "Indonesian business and tourism frameworks recognize accommodation activities, including villa activity. Each property is assessed individually: the intended use must fit the spatial rules, the building must comply with the building regime, and the operator must hold the licensing for the business it actually runs."
+          - An OTA listing, an NIB or a zoning map each confirms one part of that picture. Legal status comes from the complete compliance chain above.
+  - type: guide
+    id: zoning
+    nav: zoning
+    label: 03 / Zoning
+    chain:
+      - 2
+    title: Zoning, RDTR, RTRW and KKPR
+    heading_id: zon-h
+    answer: Zoning confirms whether your intended activity is permitted on your specific parcel under the plan currently in force.
+    parts:
+      - part: prose
+        paragraphs:
+          - A zoning review identifies the legally applicable spatial plan, then checks the parcel’s subzone, the activity rules, development intensity and any special provisions affecting the site.
+      - part: terms
+        variant: defs
+        items:
+          - abbr: RTRW
+            full: Rencana Tata Ruang Wilayah
+            text: The broader regional spatial plan.
+          - abbr: RDTR
+            full: Rencana Detail Tata Ruang
+            text: The detailed spatial plan and zoning instrument.
+          - abbr: KKPR
+            full: Kesesuaian Kegiatan Pemanfaatan Ruang
+            text: Confirms that a proposed spatial-use activity conforms to the applicable spatial plan.
+      - part: heading
+        text: How ITBX classifies each activity
+        id: itbx
+      - part: prose
+        paragraphs:
+          - "Bali’s official spatial-planning guidance assigns every activity in every zone one of four codes:"
+      - part: codes
+        items:
+          - kind: i
+            letter: I
+            title: I — Permitted
+            text: The activity is compatible with the zone.
+          - kind: t
+            letter: T
+            title: T — Limited
+            text: The activity is allowed within defined limits.
+          - kind: b
+            letter: B
+            title: B — Conditional
+            text: The activity is allowed once specified conditions are met.
+          - kind: x
+            letter: X
+            title: X — Prohibited
+            text: The activity is excluded from that zone.
+      - part: note
+        variant: callout
+        strong: Each activity is checked against the zone rules.
+        text: The map colour shows the zone; the ITBX table for that zone shows which activities it allows.
+      - part: heading
+        text: "Development intensity: KDB, KLB, KDH, KTB"
+        id: intensity
+      - part: prose
+        paragraphs:
+          - Each subzone sets its own limits on footprint, floor area, green space and basement coverage, together with building lines, setbacks, height and access. The values come from the plan in force for the parcel.
+      - part: terms
+        variant: coef
+        items:
+          - abbr: KDB
+            full: Koefisien Dasar Bangunan
+            text: Building footprint and site coverage.
+          - abbr: KLB
+            full: Koefisien Lantai Bangunan
+            text: Total floor area relative to the parcel.
+          - abbr: KDH
+            full: Koefisien Dasar Hijau
+            text: Green and open-space share.
+          - abbr: KTB
+            full: Koefisien Tapak Basement
+            text: Basement site coverage where applicable.
+      - part: heading
+        text: Special spatial restrictions
+        id: special-restrictions
+      - part: prose
+        paragraphs:
+          - "Depending on the coordinates and local plan, a screening covers issues such as:"
+      - part: list
+        variant: restr
+        items:
+          - Coastal and shoreline controls
+          - River setbacks
+          - Flood, tsunami, landslide and other hazard layers
+          - Protected agricultural land and protected rice fields
+          - Protected forest
+          - Heritage and sacred-area provisions
+          - Aviation / KKOP restrictions
+          - Road reservations and planned infrastructure
+          - Water-catchment and other special planning provisions
+      - part: note
+        variant: sub-lead
+        text: "Three regulations issued in 2026 tighten these controls:"
+      - part: cards
+        variant: rules
+        items:
+          - tag:
+              label: In force
+              kind: law
+            kicker: Productive land and nominee ownership · in force since 23 February 2026
+            title: Perda Bali No. 4/2026
+            text: Controls conversion of productive agricultural land to commercial use, including villas, and prohibits nominee land ownership. Violations carry criminal sanctions.
+          - tag:
+              label: In force
+              kind: law
+            kicker: Beaches and coastal setbacks
+            title: Perda Bali No. 3/2026
+            text: Protects beaches and coastal setback zones (sempadan pantai). Every coastal property is checked against it.
+          - tag:
+              label: In force
+              kind: law
+            kicker: Protected rice fields · issued 4 February 2026
+            title: Perpres No. 4/2026
+            text: National regulation that accelerates mapping of protected rice fields (LSD) and controls their conversion. It replaces Perpres No. 59/2019.
+      - part: heading
+        text: Parcels in more than one zone
+        id: multiple-zones
+      - part: prose
+        paragraphs:
+          - Each zone on the parcel is assessed separately. The analysis starts from the building footprint, the proposed use and the boundary of each zoning or special-provision area.
+      - part: heading
+        text: How to check Bali zoning online
+        id: check-zoning-online
+      - part: prose
+        paragraphs:
+          - "Official portals give a reliable first screening:"
+      - part: list
+        variant: tools
+        items:
+          - title: BHUMI ATR/BPN
+            text: National ATR/BPN mapping with parcel and spatial context.
+          - title: BATARA Badung
+            text: Badung spatial tools, including land-field, RDTR/RTRW and KKPR-related functions.
+          - title: TARUBALI
+            text: Bali spatial-planning information, plan status and zoning material.
+          - title: Satu Data Bali
+            text: Provincial datasets and spatial layers.
+      - part: screen
+        columns:
+          - title: Online screening shows
+            items:
+              - The zone and subzone of the parcel
+              - The status of the applicable plan
+              - Hazard and special-provision layers
+          - title: Confirmed through documents and specialists
+            items:
+              - Certificate boundaries against the actual site — BPN measurement
+              - Whether the lease permits the business model — notarial / PPAT review
+              - Validity of an old IMB after alterations — SIMBG
+              - Building conformity with approved plans and SLF eligibility — technical review
+              - Eligibility of a foreign-investment structure — live OSS check
+      - part: heading
+        text: "Kuta Selatan: the plan in force and the draft"
+        id: kuta-selatan
+      - part: prose
+        paragraphs:
+          - "As of 28 October 2026, **Perbup Badung No. 59 of 2021** is the published detailed spatial plan for Kuta Selatan 2021–2041. Its replacement, **RDTR WP Kuta Selatan 2026–2046**, is in preparation: first-stage public consultation took place in late September 2026 and was published by Kuta Selatan authorities on 1 October 2026."
+      - part: cards
+        variant: plan
+        items:
+          - tag:
+              label: In force
+              kind: law
+            kicker: Current enacted plan
+            title: Perbup Badung No. 59/2021 — RDTR Kuta Selatan 2021–2041
+            text: Properties are audited against this plan today.
+          - tag:
+              label: Draft
+              kind: draft
+            kicker: Replacement in preparation
+            title: RDTR WP Kuta Selatan 2026–2046
+            text: Applies from formal adoption; monitored now as future regulatory risk.
+            draft: true
+  - type: guide
+    id: building
+    nav: building
+    label: 04 / Building
+    chain:
+      - 3
+    title: PBG, SLF and legacy IMB
+    heading_id: pbg-h
+    answer: PBG approves the building. SLF confirms the completed building is fit for its approved function.
+    parts:
+      - part: prose
+        paragraphs:
+          - "**PBG — Persetujuan Bangunan Gedung** is the approval used under Indonesia’s post-2021 building regime for construction and building works that follow approved technical requirements."
+          - "For an existing property, the audit compares the approval with the building as it stands today:"
+      - part: list
+        variant: checks
+        items:
+          - Approved function
+          - Footprint
+          - Floor area
+          - Number of floors
+          - Configuration
+          - Extensions
+          - Major alterations
+          - Approved drawings and as-built condition
+      - part: compare
+        items:
+          - kind: pbg
+            abbr: PBG
+            full: Persetujuan Bangunan Gedung
+            rows:
+              - label: Confirms
+                value: Approval of the building and its technical plan
+              - label: Focus
+                value: "What is approved: function, design and configuration"
+          - kind: slf
+            abbr: SLF
+            full: Sertifikat Laik Fungsi
+            rows:
+              - label: Confirms
+                value: Fitness of the completed building for use
+              - label: Focus
+                value: The completed building and its approved function
+      - part: heading
+        text: Legacy IMB
+        id: imb
+      - part: prose
+        paragraphs:
+          - "IMB was the building permit used before PP No. 16 of 2021 introduced PBG. Official SIMBG guidance sets out two situations:"
+      - part: cards
+        variant: imb
+        items:
+          - kicker: IMB issued before PP No. 16/2021 · building completed · original configuration kept
+            title: IMB may remain valid
+            text: The IMB continues to cover the building as originally approved and built.
+          - kicker: IMB issued · construction started under the new regime
+            title: Apply for PBG
+            text: SIMBG guidance directs these projects to PBG.
+  - type: guide
+    id: existing
+    nav: existing
+    tone: sunken
+    label: 05 / Existing Properties
+    chain:
+      - 2
+      - 3
+    title: How an existing property is legalized
+    heading_id: ex-h
+    answer: Official SIMBG guidance provides an existing-building route that can issue PBG and SLF together once the building meets the applicable requirements.
+    parts:
+      - part: prose
+        paragraphs:
+          - "Feasibility depends on whether:"
+      - part: list
+        variant: feas
+        items:
+          - the intended use is spatially supportable;
+          - the building position complies with applicable restrictions;
+          - the built form can satisfy intensity and technical requirements;
+          - structural and technical compliance can be demonstrated;
+          - deviations from required or approved conditions can be corrected;
+          - the intended function can lawfully be recognized.
+      - part: heading
+        text: Common scenarios
+        id: scenarios
+      - part: table
+        variant: scenarios
+        columns:
+          - Scenario
+          - What it means
+          - Audit response
+        groups:
+          - rows:
+              - cells:
+                  - Building completed, PBG and IMB missing
+                  - Documentation gap; the existing-building route may apply
+                  - Spatial and technical feasibility first
+              - cells:
+                  - Old IMB on file
+                  - May remain relevant
+                  - Verify date, construction status, function, changes and drawings
+              - cells:
+                  - PBG function differs from the intended use
+                  - Function mismatch
+                  - Determine the lawful amendment or change route
+              - cells:
+                  - Building differs from approved drawings
+                  - As-built mismatch
+                  - Architectural and technical review before the SLF application
+              - cells:
+                  - SLF missing
+                  - Fitness-for-use evidence incomplete
+                  - Determine the applicable SLF process
+              - cells:
+                  - Zone excludes accommodation activity
+                  - Potential fundamental spatial blocker
+                  - Resolve the formal spatial position before licensing
+              - cells:
+                  - Parcel crosses zones or overlays
+                  - Boundary-specific risk
+                  - Parcel-level spatial analysis and formal confirmation where required
+              - cells:
+                  - Coastal, river, sacred, aviation or productive-land restriction
+                  - Additional planning control
+                  - Analyse the exact provision, including Perda Bali No. 3/2026 and No. 4/2026
+      - part: heading
+        text: The legalization sequence
+        id: legalization-steps
+      - part: path
+        items:
+          - step_label: STEP
+            step: A
+            title: Identify the parcel and legal control
+            text: Confirm coordinates, land documents, certificate or lease references and the relationship between the property controller and the future operator.
+            zone: LAND
+          - step_label: STEP
+            step: B
+            title: Establish the current spatial position
+            text: Identify the effective RTRW/RDTR, subzone, ITBX treatment for the intended activity, development intensity and special provisions.
+            zone: ZONING
+          - step_label: STEP
+            step: C
+            title: Compare building documents with the building
+            text: Review PBG or qualifying legacy IMB, approved plans and the as-built property.
+            zone: BUILDING
+          - step_label: STEP
+            step: D
+            title: Determine the SLF route
+            text: Establish whether the completed building can satisfy the existing-building or standard SLF process.
+            zone: BUILDING
+          - step_label: STEP
+            step: E
+            title: Establish the legal operator
+            text: Once the property pathway is clear, finalize the operating entity, current KBLI and OSS licensing structure.
+            zone: BUSINESS / LICENSING
+          - step_label: STEP
+            step: F
+            title: Complete sector, tax and operating compliance
+            text: Resolve applicable tourism standards, supporting approvals, local tax and live operating obligations.
+            zone: OPERATION
+  - type: guide
+    id: nib-kbli
+    nav: nib-kbli
+    label: 06 / Business Licensing
+    chain:
+      - 4
+      - 5
+    title: NIB, OSS and the current villa KBLI
+    heading_id: nib-h
+    answer: NIB is the business identity issued through OSS. The KBLI code attached to it matches the activity the business actually runs.
+    parts:
+      - part: heading
+        text: The current villa code
+        id: kbli-2026
+      - part: kbli_shift
+        old:
+          code: "55193"
+          title: Vila — KBLI 2020
+          note: Legacy code
+        arrow: 1:1
+        current:
+          code: "55203"
+          title: Aktivitas Vila — KBLI 2025
+          note: Current code
+      - part: prose
+        paragraphs:
+          - "Official OSS converts legacy villa code **55193 1:1 to 55203**. Accommodation codes under KBLI 2025:"
+      - part: table
+        variant: kbli
+        columns:
+          - KBLI 2025
+          - Activity
+          - KBLI 2020 reference
+          - Used for
+        groups:
+          - rows:
+              - cells:
+                  - "55203"
+                  - "**Aktivitas Vila**"
+                  - ~~55193~~
+                  - Villa accommodation run as a villa business
+                highlight: true
+              - cells:
+                  - "55201"
+                  - "**Aktivitas Rumah Tinggal Sewa (Homestay)**"
+                  - ~~55130~~^^Pondok Wisata^^
+                  - Homestay-type short stays
+              - cells:
+                  - "55901"
+                  - "**Aktivitas Jasa Manajemen Akomodasi**"
+                  - ~~55900~~^^split into several codes^^
+                  - Third-party management of accommodation owned by others
+      - part: split
+        items:
+          - title: The code follows the activity
+            paragraphs:
+              - Indonesian licensing classifies a property by the activity the business runs day to day, whatever label the OTA listing uses.
+            id: activity-rule
+          - title: Tourism business standards
+            paragraphs:
+              - "**Permenpar No. 6 of 2025** sets the current risk-based standards for tourism businesses."
+            id: tourism-standards
+      - part: note
+        variant: sub-lead
+        text: "The licensing sequence:"
+      - part: list
+        variant: steps4
+        items:
+          - Identify the actual activity
+          - Select the current KBLI 2025 code
+          - Check the live OSS obligations for that activity and operator
+          - Meet the applicable sector and supporting requirements
+  - type: guide
+    id: foreign-owners
+    nav: foreign-owners
+    label: 07 / PT PMA and Foreign Owners
+    chain:
+      - 4
+    title: What a PT PMA can register in Bali in 2026
+    heading_id: fo-h
+    answer: Since the third week of May 2026, OSS in Bali is closed to new PT PMA registrations in 18 low and medium-low risk business categories.
+    parts:
+      - part: prose
+        paragraphs:
+          - The Bali Provincial Government announced the measure on 22 July 2026, after approval from the Minister of Investment and Downstreaming / BKPM. It applies across the province until further policy is issued. PT PMA companies already licensed in these categories keep their licences and continue to file LKPM investment reports.
+      - part: heading
+        text: The 18 closed categories
+        id: closed-categories
+      - part: table
+        variant: pma
+        columns:
+          - KBLI
+          - Category
+        groups:
+          - rows:
+              - cells:
+                  - "55110"
+                  - Star hotels with building area under 6,000 m²
+                highlight: true
+              - cells:
+                  - Confirm in OSS
+                  - Melati hotels
+                highlight: true
+              - cells:
+                  - Confirm in OSS
+                  - Real estate, owned or leased
+                highlight: true
+              - cells:
+                  - "55900"
+                  - Other accommodation (penyediaan akomodasi lainnya)
+                highlight: true
+            name: Accommodation and property
+          - rows:
+              - cells:
+                  - "70209"
+                  - Management consulting
+              - cells:
+                  - "70204"
+                  - Industrial management consulting
+            name: Consulting
+          - rows:
+              - cells:
+                  - "77100"
+                  - Car, bus, truck and similar rental
+              - cells:
+                  - "77311"
+                  - Motorcycle rental
+            name: Vehicle rental
+          - rows:
+              - cells:
+                  - "47711"
+                  - Clothing retail
+              - cells:
+                  - "47511"
+                  - Textile retail
+              - cells:
+                  - "47249"
+                  - Food retail
+              - cells:
+                  - Confirm in OSS
+                  - Mobile retail of agricultural produce
+            name: Retail
+          - rows:
+              - cells:
+                  - "56303"
+                  - Cafés and drinking houses
+              - cells:
+                  - "56305"
+                  - Traditional medicine houses
+              - cells:
+                  - "14120"
+                  - Tailoring and made-to-order clothing
+            name: Food, wellness and services
+          - rows:
+              - cells:
+                  - "93111"
+                  - Stadium facilities
+              - cells:
+                  - "93116"
+                  - Fitness centres
+              - cells:
+                  - "93191"
+                  - Sports event promoters
+            name: Sport
+      - part: note
+        variant: tbl-note
+        text: Category names follow the official Bali Provincial Government release. KBLI codes follow Indonesian media reports of the same list; each code is confirmed in OSS before filing.
+      - part: heading
+        text: What this means for property structures
+        id: pma-structures
+      - part: list
+        variant: facts
+        items:
+          - title: Hotels, real estate and other accommodation
+            text: New PT PMA registrations in these categories are closed in Bali.
+          - title: Villa activity — KBLI 55203
+            text: Listed separately in KBLI 2025. Its availability for a new PT PMA is confirmed live in OSS before a structure is set up.
+          - title: Accommodation management — KBLI 55901
+            text: KBLI 2020 code 55900 was split into several KBLI 2025 codes, including 55901. Its current status for a new PT PMA is confirmed live in OSS.
+          - title: Existing PT PMA companies
+            text: Licensed companies continue operating and file LKPM reports.
+          - title: Land titles
+            text: Perda Bali No. 4/2026 prohibits nominee land ownership. Every structure rests on a title or lease held in the investor’s or company’s own name.
+  - type: guide
+    id: operator
+    nav: foreign-owners
+    tone: sunken
+    label: 08 / Operator and Tax
+    chain:
+      - 4
+      - 6
+    title: Management companies and local tax
+    heading_id: mg-h
+    answer: A licensed management company covers the operator layer. The property itself carries its own zoning and building compliance.
+    parts:
+      - part: prose
+        paragraphs:
+          - "KBLI 2025 recognizes third-party accommodation management under **55901 Aktivitas Jasa Manajemen Akomodasi**. Operational compliance combines both halves:"
+      - part: formula
+        items:
+          - Property and building compliance
+          - +
+          - Operator and business compliance
+          - =
+          - Operational compliance
+      - part: taxbox
+        label: Operation
+        title: Local tax registration
+        paragraphs:
+          - Local tax registration and reporting form their own compliance layer, alongside the national NIB.
+          - The exact obligations depend on location and operating model. For Badung properties, the operator confirms registration, collection and reporting with the competent local authority.
+        id: local-tax
+  - type: guide
+    id: changes-2026
+    nav: changes-2026
+    tone: inverse
+    label: 09 / 2026 Updates
+    title: What changed in 2026
+    heading_id: chg-h
+    lead: New provincial and national rules, the PT PMA closure and active enforcement now shape every property audit.
+    parts:
+      - part: timeline
+        items:
+          - title: Perpres No. 4/2026 on protected rice fields
+            text: Accelerates mapping of protected rice fields (LSD) and controls their conversion. Replaces Perpres No. 59/2019.
+            tag:
+              label: In force
+              kind: law
+            when: 4 February 2026
+          - title: Perda Bali No. 4/2026 on productive land and nominee ownership
+            text: Controls conversion of productive land to commercial use, including villas, prohibits nominee land ownership and sets criminal sanctions. [Zoning section](#special-restrictions)
+            tag:
+              label: In force
+              kind: law
+            when: 23 February 2026
+          - title: Perda Bali No. 3/2026 on beaches and coastal setbacks
+            text: Protects beaches and coastal setback zones; coastal properties are checked against it.
+            tag:
+              label: In force
+              kind: law
+            when: "2026"
+          - title: Bali asks Airbnb to delist non-compliant businesses
+            text: The Bali Provincial Government called on Airbnb to remove tourism businesses operating outside licensing and tax rules.
+            tag:
+              label: Enforcement
+              kind: enf
+            when: February 2026
+          - title: Bali Kerthi Compliance Audit
+            text: The Bali Provincial Tourism Office collects licensing and quality-standard information from tourism accommodation businesses.
+            tag:
+              label: Enforcement
+              kind: enf
+            when: April 2026
+          - title: OSS closed to new PT PMA in 18 categories
+            text: Covers hotels, real estate, other accommodation, consulting, rentals, retail and more. [Full list](#foreign-owners)
+            tag:
+              label: Implementation
+              kind: impl
+            when: From the third week of May 2026
+          - title: OTA licence verification API
+            text: The Ministry of Tourism is building an API with OTA partners to verify NIB and KBLI data for listed accommodation. Enforcement cooperation with OTA partners runs alongside it.
+            tag:
+              label: Future system
+              kind: future
+            when: Announced May 2026 · launch target June 2027
+          - title: Kuta Selatan RDTR 2026–2046 in public consultation
+            text: Perbup Badung No. 59/2021 applies until the new plan is formally adopted. [Details](#kuta-selatan)
+            tag:
+              label: Draft
+              kind: draft
+            when: September–October 2026
+      - part: heading
+        text: Legal base in force in 2026
+        variant: base
+      - part: list
+        variant: base
+        items:
+          - title: PP No. 28/2025
+            text: Risk-based business licensing. Promulgated 5 June 2025; fully implemented in OSS since 5 October 2025.
+          - title: KBLI 2025
+            text: Current business classification used in OSS.
+          - title: Permenpar No. 6/2025
+            text: Tourism business standards.
+          - title: PP No. 16/2021
+            text: "Building regime: PBG and SLF."
+          - title: PP No. 21/2021
+            text: Spatial planning and KKPR.
+  - type: guide
+    id: audit
+    nav: audit
+    label: 10 / Property Compliance Audit
+    chain:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+    title: What a property compliance audit checks
+    heading_id: au-h
+    answer: A useful audit gives a property-specific answer across all six layers.
+    parts:
+      - part: table
+        variant: audit
+        columns:
+          - Audit layer
+          - Core checks
+        groups:
+          - rows:
+              - cells:
+                  - Property identification
+                  - Exact coordinates, parcel identity, land and lease references
+              - cells:
+                  - Legal control
+                  - Owner, leaseholder and operator relationship; title held in the holder’s own name
+            name: Land
+          - rows:
+              - cells:
+                  - Current spatial law
+                  - Effective provincial and regency RTRW and RDTR
+              - cells:
+                  - Activity compatibility
+                  - Actual intended activity against the applicable use and ITBX rules
+              - cells:
+                  - Intensity
+                  - KDB, KLB, KDH, KTB, height, setbacks and other controls
+              - cells:
+                  - Special restrictions
+                  - Coastal (Perda Bali No. 3/2026), productive land (Perda Bali No. 4/2026), protected rice fields, river, hazard, sacred, aviation and infrastructure provisions
+              - cells:
+                  - Formal spatial position
+                  - Existing KKPR and its consistency with the intended use
+            name: Zoning
+          - rows:
+              - cells:
+                  - Building approval
+                  - PBG or qualifying legacy IMB and approved function
+              - cells:
+                  - As-built condition
+                  - Footprint, floors, area, additions and material differences
+              - cells:
+                  - Fitness
+                  - Existing SLF or the applicable SLF process
+            name: Building
+          - rows:
+              - cells:
+                  - Operator
+                  - Individual or company identity and contractual role
+              - cells:
+                  - Business licence
+                  - NIB, KBLI 2025, OSS status and, for a PT PMA, the 2026 Bali category closure
+              - cells:
+                  - Tourism compliance
+                  - Applicable tourism standards and sector requirements
+            name: Business and licensing
+          - rows:
+              - cells:
+                  - Local operation
+                  - Tax registration, reporting and location-specific obligations
+              - cells:
+                  - Remediation
+                  - Curable gaps, authority-dependent issues and potential blockers
+            name: Operation and outcome
+      - part: heading
+        text: Each finding lands in one of three groups
+      - part: results
+        items:
+          - kind: ok
+            title: Confirmed
+            text: Evidence supports compliance.
+          - kind: cd
+            title: Requires verification
+            text: Formal authority, document or technical confirmation is still needed.
+          - kind: mi
+            title: Material issue
+            text: Current evidence shows a potentially incompatible condition to resolve before lawful rental.
+  - type: cta
+    id: review
+    nav: audit
+    tone: inverse
+    label: Free Review
+    title: Unsure Whether Your Bali Property Can Be Rented Legally?
+    text: Send the property location and the documents you have. TCG reviews them free of charge and sets out the first compliance questions to resolve before a legalization or operating strategy is designed.
+    action:
+      label: Request a Property Review
+      message: consultation
+      data_cta: guide_cta
+    secondary:
+      label: View Property Compliance Audit
+      href: /services/property-legal-audit
+    side:
+      title: What to send for an initial property audit
+      items:
+        - label: 01 / Property location
+          text: Google Maps link or accurate coordinates.
+        - label: 02 / Land document
+          text: Certificate, leasehold agreement or other document under which the property is controlled.
+        - label: 03 / Existing permits
+          text: For example PBG, SLF, legacy IMB, KKPR, NIB or other licensing documents you hold.
+      note: A missing document is itself useful diagnostic information.
+  - type: faq
+    id: faq
+    nav: faq
+    tone: sunken
+    json_ld: false
+    label: 11 / FAQ
+    heading_id: faq-h
+    title: Quick answers
+    items:
+      - question: What does an NIB cover?
+        answer: NIB is the business identity issued through OSS. Legal rental also requires zoning, building and activity-specific licensing — see [the compliance chain](#short-answer).
+      - question: Is my old IMB still valid?
+        answer: Potentially. An IMB issued before PP No. 16 of 2021 can remain relevant for a completed building in its original configuration. [Legacy IMB](#imb)
+      - question: What is the current KBLI code for a villa?
+        answer: 55203 Aktivitas Vila under KBLI 2025, converted 1:1 from legacy code 55193. [KBLI codes](#nib-kbli)
+      - question: Can a PT PMA still register a business in Bali?
+        answer: Yes, for activities outside the 18 categories closed in OSS since May 2026. Each activity is confirmed live in OSS before setup. [The 18 categories](#foreign-owners)
+      - question: Which Kuta Selatan plan applies today?
+        answer: Perbup Badung No. 59/2021, the RDTR for 2021–2041. The 2026–2046 replacement applies from its formal adoption. [Kuta Selatan](#kuta-selatan)
+      - question: Do Airbnb and Booking.com verify licences?
+        answer: The Ministry of Tourism is building an OSS-linked verification API with OTA partners, with launch targeted for June 2027. Enforcement cooperation with OTA partners already runs. [2026 updates](#changes-2026)
+  - type: sources
+    id: sources
+    nav: faq
+    title: Primary legal and government sources
+    intro:
+      lead: "This guide relies on:"
+      items:
+        - PP No. 28/2025 — risk-based business licensing
+        - PP No. 21/2021 — spatial planning and KKPR
+        - PP No. 16/2021 and official SIMBG guidance — PBG, SLF and IMB
+        - KBLI 2025 and current OSS classifications
+        - Permenpar No. 6/2025 — tourism business standards
+        - Perda Bali No. 3/2026 and No. 4/2026; Perpres No. 4/2026
+        - Badung and Bali spatial-planning sources and portals
+        - Ministry of Tourism and Bali government announcements
+    review:
+      strong: "Last reviewed: "
+      date: 28 October 2026
+      text: Current law, official licensing systems and government implementation sources were reviewed to this date. Draft spatial plans, future OTA systems and government proposals are labelled separately and treated as future developments.
+      legend:
+        - label: In force
+          kind: law
+        - label: Implementation
+          kind: impl
+        - label: Draft
+          kind: draft
+        - label: Future system
+          kind: future
+        - label: Enforcement
+          kind: enf
+    items:
+      - authority: Government of Indonesia / BPK
+        document: PP No. 28/2025 — risk-based business licensing
+        tag:
+          label: In force
+          kind: law
+        href: https://peraturan.bpk.go.id/Details/319773/pp-no-28-tahun-2025
+      - authority: Government of Indonesia / BPK
+        document: PP No. 21/2021 — spatial planning / KKPR framework
+        tag:
+          label: In force
+          kind: law
+        href: https://peraturan.bpk.go.id/Details/161851/pp-
+      - authority: Ministry of Public Works / SIMBG
+        document: PP No. 16/2021 and official SIMBG guidance — PBG, SLF, IMB, existing buildings
+        tag:
+          label: In force
+          kind: law
+        href: https://simbg.pu.go.id/
+      - authority: Ministry of Tourism
+        document: Permenpar No. 6/2025 — tourism business standards
+        tag:
+          label: In force
+          kind: law
+        href: https://jdih.kemenpar.go.id/peraturan/1422
+      - authority: OSS / Ministry of Investment
+        document: KBLI 55193 → 55203 legacy-code conversion
+        tag:
+          label: Implementation
+          kind: impl
+        href: https://oss.go.id/kbli/detail/2eebd4b4-1bf0-43eb-99de-fa767ea4fb18
+      - authority: OSS / Ministry of Investment
+        document: KBLI 2025 subgroup 5520 — short-stay accommodation
+        tag:
+          label: Implementation
+          kind: impl
+        href: https://oss.go.id/en/kbli/detail/cfc8a9d1-d5b9-5431-ab3a-649be37e54e2
+      - authority: OSS / Ministry of Investment
+        document: KBLI 2025 55901 — accommodation management (from 55900)
+        tag:
+          label: Implementation
+          kind: impl
+        href: https://oss.go.id/id/kbli/detail/af76fdde-cc8d-571c-9b9c-805ab5dd32af
+      - authority: Badung Regency JDIH
+        document: Perbup Badung No. 59/2021 — RDTR Kuta Selatan 2021–2041
+        tag:
+          label: In force
+          kind: law
+        href: https://jdih.badungkab.go.id/produk-hukum/peraturan-perundang-undangan/peraturan-bupati/rencana-detail-tata-ruang-kecamatan-kuta-selatan-tahun-2021-2041
+      - authority: Kuta Selatan / Badung
+        document: RDTR WP Kuta Selatan 2026–2046 — public consultation notice
+        tag:
+          label: Draft
+          kind: draft
+        href: https://kutaselatan.badungkab.go.id/berita/75595-konsultasi-publik-tahapan-i-renperbup-rdtr-wilayah-perencanaan-kuta-selatan-tahun-2026-2046
+      - authority: TARUBALI
+        document: ITBX zoning classification guidance
+        tag:
+          label: Implementation
+          kind: impl
+        href: https://tarubali.baliprov.go.id/aturan-dasar-pemanfaatan-ruang-dalam-peraturan-zonasi-klasifikasi-itbx-dan-implikasi-bagi-penataan-ruang-bali/
+      - authority: Bali Provincial Government
+        document: PT PMA OSS closure in 18 categories — official release with the full list
+        tag:
+          label: Implementation
+          kind: impl
+        href: https://www.baliprov.go.id/web/gubernur-koster-batasi-akses-oss-untuk-pma-di-sejumlah-kbli-lindungi-umkm-lokal-dari-persaingan-tidak-sehat
+      - authority: Ministry of Tourism
+        document: OTA verification API — 26 May 2026 press release (target June 2027)
+        tag:
+          label: Future system
+          kind: future
+        href: https://www.kemenpar.go.id/berita/siaran-pers-kemenpar-kembangkan-sistem-api-bersama-ota-perkuat-tata-kelola-akomodasi-pariwisata
+      - authority: Bali Tourism Office
+        document: Bali Kerthi Compliance Audit
+        tag:
+          label: Enforcement
+          kind: enf
+        href: https://disparda.baliprov.go.id/bali-kerthi-compliance-audit-perizinan-usaha-pariwisata-bidang-akomodasi
+      - authority: Bali Provincial Government / TARUBALI
+        document: Perda Bali No. 4/2026 — productive land and nominee ownership (in force 23 February 2026)
+        tag:
+          label: In force
+          kind: law
+        href: https://tarubali.baliprov.go.id/implementasi-kebijakan-pengendalian-alih-fungsi-lahan-produktif-di-bali-penguatan-ketahanan-pangan-perlindungan-lanskap-budaya-dan-pencegahan-praktik-nominee/
+      - authority: Bali Provincial Government / TARUBALI
+        document: Perda Bali No. 3/2026 — beaches and coastal setbacks; Perda No. 4/2026 analysis
+        tag:
+          label: In force
+          kind: law
+        href: https://tarubali.baliprov.go.id/paradoks-pariwisata-massal-tata-ruang-bali-2026
+      - authority: Coordinating Ministry for Food
+        document: Perpres No. 4/2026 — protected rice fields (press release, 12 March 2026)
+        tag:
+          label: In force
+          kind: law
+        href: https://kemenkopangan.go.id/assets/images/artikel/725131_pemerintah-percepat-penetapan-peta-lahan-sawah-dilindungi-untuk-kendalikan-alih-fungsi-lahan_20260317111056.pdf
+      - authority: Bali Provincial Government
+        document: Airbnb compliance call — 19 February 2026 announcement
+        tag:
+          label: Enforcement
+          kind: enf
+        href: https://www.baliprov.go.id/web/gubernur-koster-minta-airbnb-keluarkan-usaha-dan-jasa-pariwisata-di-bali-yang-tak-berizin-dan-tak-bayar-pajak/
+    new_tab: (opens official source in a new tab)
+    notice:
+      strong: "Legal / compliance notice:"
+      text: This page explains the regulatory framework and an audit methodology. The legal status of an individual property is determined from its exact coordinates, documents and physical building information, with formal confirmation from the competent authorities and licensed Indonesian professionals where required.

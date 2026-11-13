@@ -1,0 +1,8 @@
+---
+import { getEntry } from 'astro:content';
+import BlockPage from '../layouts/BlockPage.astro';
+
+const page = await getEntry('pages', 'regulations');
+if (!page) throw new Error('Missing content entry: pages/regulations');
+---
+<BlockPage seo={page.data.seo} blocks={page.data.blocks} pageClass={page.data.page_class} headerCta={page.data.header_cta} />

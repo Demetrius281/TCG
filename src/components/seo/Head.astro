@@ -8,8 +8,12 @@ interface Props {
   ogImage?: string;
   ogTitle?: string;
   robots?: string;
+  ogType?: string;
+  ogDescription?: string;
+  extra?: { key: string; value: string; attr: 'name' | 'property' }[];
+  jsonLd?: unknown;
 }
-const { title, description, path = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, ''), ogImage = site.ogImage, ogTitle = title, robots } = Astro.props;
+const { title, description, path = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, ''), ogImage = site.ogImage, ogTitle = title, robots, ogType = 'website', ogDescription = description, extra = [], jsonLd } = Astro.props;
 const canonical = new URL(path === '/' ? '/' : path, site.url).href;
 const image = new URL(ogImage, site.url).href;
 ---
@@ -24,16 +28,17 @@ const image = new URL(ogImage, site.url).href;
 <link rel="icon" href="/assets/brand/2_icons/favicon.ico?v=2" sizes="48x48" />
 <link rel="icon" href="/assets/brand/2_icons/favicon.svg?v=2" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/assets/brand/2_icons/apple-touch-icon.png?v=2" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
 <meta property="og:site_name" content={site.name} />
 <meta property="og:title" content={ogTitle} />
-<meta property="og:description" content={description} />
+<meta property="og:description" content={ogDescription} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={image} />
 <meta property="og:image:secure_url" content={image} />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+{extra.map((m) => (m.attr === 'property' ? <meta property={m.key} content={m.value} /> : <meta name={m.key} content={m.value} />))}
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content={image} />
 <script is:inline define:vars={{ gtmId: site.gtmId }}>
@@ -48,3 +53,4 @@ const image = new URL(ogImage, site.url).href;
     f.parentNode.insertBefore(j, f);
   })(window, document, 'script', 'dataLayer', gtmId);
 </script>
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

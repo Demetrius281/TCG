@@ -1,0 +1,58 @@
+---
+import Section from '../ui/Section.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'features'>, 'type'>;
+const { label, title, paragraphs, items, tone, id, nav } = Astro.props;
+const icons: Record<string, string[]> = {
+  network: ['<circle cx="6" cy="16" r="3"/><circle cx="26" cy="7" r="3"/><circle cx="26" cy="25" r="3"/><path d="M9 15l14-7M9 17l14 7"/>'],
+  spark: ['<path d="M16 3l2.9 9.1L28 15l-9.1 2.9L16 27l-2.9-9.1L4 15l9.1-2.9L16 3z"/><path d="M26 23l1.2 2.8L30 27l-2.8 1.2L26 31l-1.2-2.8L22 27l2.8-1.2L26 23z"/>'],
+  layers: ['<path d="M4 12l12-7 12 7-12 7-12-7z"/><path d="M4 18l12 7 12-7M4 24l12 7 12-7"/>'],
+  target: ['<circle cx="15" cy="17" r="11"/><circle cx="15" cy="17" r="5"/><path d="M15 17l13-13m-7 0h7v7"/>'],
+};
+---
+<Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`}>
+  <div class="split">
+    <div class="txt">
+      <p class="t-label label">{label}</p>
+      <h2 id={`${id}-h`}>{title}</h2>
+      {paragraphs.map((p) => <p class="t-lead lead">{p}</p>)}
+    </div>
+    <ul class="grid">
+      {
+        items.map((i) => (
+          <li class="card">
+            <span class="icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[i.icon][0]}></svg>
+            </span>
+            <strong>{i.title}</strong>
+            <span class="t-small text">{i.text}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Section>
+
+<style>
+  .split { display: grid; gap: var(--space-8); align-items: center; }
+  .txt { display: grid; gap: var(--space-4); }
+  .label { color: var(--c-accent); }
+  .lead { color: var(--c-text-2); }
+  .grid { display: grid; gap: var(--space-3); }
+  .card { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); min-width: 0; padding: var(--space-5); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); border-top: var(--bw-2) solid var(--c-accent); transition: transform var(--ease), box-shadow var(--ease); }
+  .card:hover { transform: translateY(calc(var(--space-1) / -2)); box-shadow: var(--shadow-lift); }
+  .icon { display: flex; width: var(--space-8); height: var(--space-8); color: var(--c-accent); }
+  .icon svg { display: block; width: 100%; height: 100%; }
+  strong { font-weight: 500; font-size: var(--fs-body); }
+  .text { color: var(--c-text-2); }
+  @media (min-width: 768px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--space-16); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card:hover { transform: none; }
+  }
+</style>

@@ -2,19 +2,34 @@
 import Section from '../ui/Section.astro';
 import Action from '../ui/Action.astro';
 import PropertyCheckIllustration from '../illustrations/PropertyCheckIllustration.astro';
+import DesktopIllustration from '../ui/DesktopIllustration.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'hero'>, 'type'>;
-const { variant, label, title, lead, actions, meta, fee_note, illustration, metrics, tone, id } = Astro.props;
+const { variant, heading_id = 'hero-title', label, title, subtitle, lead, intro, actions, meta, fee_note, illustration, metrics, tone, id } = Astro.props;
 const display = variant === 'display';
 ---
-<Section id={id} tone={tone} labelledby="hero-title">
+<Section id={id} tone={tone} labelledby={heading_id}>
   <div class:list={['hero', illustration && 'has-art']}>
     <div class="copy">
       {label && <p class="t-label label">{label}</p>}
-      <h1 id="hero-title" class:list={[display && 't-display', 'title']}>{title}</h1>
+      <h1 id={heading_id} class:list={[display && 't-display', 'title']}>
+        {subtitle ? <><span>{title}</span><span class="sub">{subtitle}</span></> : title}
+      </h1>
       {lead && <p class="t-lead lead">{lead}</p>}
       {meta && <p class="t-label meta">{meta}</p>}
+      {
+        metrics && (
+          <dl class="metrics">
+            {metrics.map((m) => (
+              <div class="m">
+                <dt class="value">{m.value}</dt>
+                <dd class="t-small mlabel">{m.label}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
       {
         actions.length > 0 && (
           <div class="actions">
@@ -28,15 +43,16 @@ const display = variant === 'display';
     </div>
     {illustration === 'property-check' && <div class="art"><PropertyCheckIllustration /></div>}
     {
-      metrics && (
-        <dl class="metrics">
-          {metrics.map((m) => (
-            <div>
-              <dt class="t-label">{m.label}</dt>
-              <dd class="t-h3">{m.value}</dd>
+      (illustration === 'regulations' || illustration === 'platform') && (
+        <div class="art art-live">
+          {intro && (
+            <div class="intro">
+              <h2>{intro.title}</h2>
+              <p class="t-body">{intro.text}</p>
             </div>
-          ))}
-        </dl>
+          )}
+          <DesktopIllustration name={illustration} />
+        </div>
       )
     }
   </div>
@@ -51,13 +67,20 @@ const display = variant === 'display';
   .note { color: var(--c-text-3); }
   .meta { width: 100%; padding-block: var(--space-4); border-top: var(--bw-1) solid var(--c-text); border-bottom: var(--bw-1) solid var(--c-border); color: var(--c-text-3); }
   .art { display: none; min-width: 0; }
-  .metrics { display: grid; gap: var(--space-6); }
-  .metrics dt { color: var(--c-text-3); }
+  .sub { display: block; }
+  .metrics { display: grid; gap: var(--space-4); width: 100%; margin: 0; }
+  .m { display: grid; gap: var(--space-1); position: relative; padding-left: var(--space-5); }
+  .m::before { content: ''; position: absolute; left: var(--bw-2); top: var(--space-2); width: var(--space-2); height: var(--space-2); background: var(--c-accent); transform: rotate(45deg); }
+  .value { font-weight: 600; }
+  .mlabel { color: var(--c-text-2); }
+  .intro { display: grid; gap: var(--space-4); margin-bottom: var(--space-6); }
+  .intro p { color: var(--c-text-2); }
 
   @media (min-width: 768px) {
     .art { display: block; }
+    .art-live { display: block; }
     .actions { display: flex; flex-wrap: wrap; width: auto; gap: var(--space-4); }
-    .metrics { grid-template-columns: repeat(3, 1fr); }
+    .metrics { grid-template-columns: 1fr; }
   }
   @media (min-width: 1024px) {
     .has-art { grid-template-columns: 1.2fr 1fr; align-items: center; gap: var(--space-16); }

@@ -3,10 +3,11 @@ import MobileMenu from './MobileMenu.astro';
 import Action from '../ui/Action.astro';
 import { headerNav, headerCta, isGroup } from '../../data/navigation';
 import { site } from '../../data/site';
+import type { Action as ActionType } from '../../content.config';
 
 interface Props {
   /** Replaces the default WhatsApp consultation button, for pages whose main action is on the page itself. */
-  cta?: { label: string; href: string };
+  cta?: ActionType;
 }
 const { cta } = Astro.props;
 const action = cta ?? { label: headerCta.label, message: headerCta.message };
