@@ -49,4 +49,33 @@
   --shadow-lift: 0 10px 24px -14px rgba(15, 20, 19, 0.6);
   --ease: 200ms ease;
   --z-header: 40; --z-menu: 50; --z-overlay: 60;
+  --bw-1: 1px;
+  --bw-2: 2px;
+  --bw-3: 3px;
+  --lh-display: 1.11;
+  --lh-h1: 1.125;
+  --lh-h2: 1.143;
+  --lh-h3: 1.3;
+  --lh-h4: 1.41;
+  --lh-lead: 1.556;
+  --lh-body: 1.625;
+  --lh-small: 1.571;
+  --lh-caption: 1.538;
+  --lh-label: 1.333;
+  --lh-metric: 1;
+  --lh-tight: 1.2;
+  --lh-reset: 0;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --lh-display: 1.067;
+    --lh-h1: 1.083;
+    --lh-h2: 1.1;
+    --lh-h3: 1.25;
+    --lh-h4: 1.444;
+    --lh-lead: 1.5;
+    --lh-body: 1.647;
+    --lh-small: 1.6;
+  }
 }

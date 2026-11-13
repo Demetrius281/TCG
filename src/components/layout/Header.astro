@@ -58,8 +58,15 @@ const isCurrent = (href: string) =>
 
     <div class="cta"><WhatsAppLink message={headerCta.message}>{headerCta.label}</WhatsAppLink></div>
 
-    <button class="toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
-      <span data-menu-label>Menu</span>
+    <button
+      class="toggle"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <span class="icon" aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
   </div>
   <MobileMenu current={current} />
@@ -71,7 +78,7 @@ const isCurrent = (href: string) =>
     top: 0;
     z-index: var(--z-header);
     background: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: var(--bw-1) solid var(--color-border);
   }
   .bar {
     display: flex;
@@ -82,18 +89,42 @@ const isCurrent = (href: string) =>
     height: var(--header-h);
     margin-inline: auto;
   }
-  .brand { display: block; line-height: 0; }
+  .brand { display: block; line-height: var(--lh-reset); }
   .brand img { height: var(--space-6); width: auto; }
   .desktop, .cta { display: none; }
   .toggle {
-    min-height: var(--space-12);
-    padding: 0 var(--space-4);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: calc(var(--space-10) + var(--space-1));
+    min-height: calc(var(--space-10) + var(--space-1));
+    margin-right: calc(var(--space-3) * -1);
+    padding: 0;
     background: transparent;
-    border: 1px solid var(--color-border-strong);
+    border: 0;
     border-radius: var(--radius);
-    font-size: var(--fs-small);
-    font-weight: 500;
+    color: var(--color-text);
     cursor: pointer;
+  }
+  .icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: var(--space-6);
+    height: var(--space-5);
+  }
+  .icon span {
+    display: block;
+    height: var(--bw-2);
+    background: currentColor;
+    transition: transform var(--ease), opacity var(--ease);
+  }
+  .toggle[aria-expanded='true'] .icon span:nth-child(1) {
+    transform: translateY(calc(var(--space-5) / 2 - var(--bw-2) / 2)) rotate(45deg);
+  }
+  .toggle[aria-expanded='true'] .icon span:nth-child(2) { opacity: 0; }
+  .toggle[aria-expanded='true'] .icon span:nth-child(3) {
+    transform: translateY(calc(var(--space-5) / -2 + var(--bw-2) / 2)) rotate(-45deg);
   }
 
   @media (min-width: 1024px) {
@@ -123,8 +154,8 @@ const isCurrent = (href: string) =>
     .chev {
       width: var(--space-2);
       height: var(--space-2);
-      border-right: 1px solid currentColor;
-      border-bottom: 1px solid currentColor;
+      border-right: var(--bw-1) solid currentColor;
+      border-bottom: var(--bw-1) solid currentColor;
       transform: translateY(calc(var(--space-1) / -2)) rotate(45deg);
     }
     .dd { position: relative; }
@@ -136,7 +167,7 @@ const isCurrent = (href: string) =>
       min-width: calc(var(--container-prose) / 2);
       padding: var(--space-2);
       background: var(--color-surface);
-      border: 1px solid var(--color-border);
+      border: var(--bw-1) solid var(--color-border);
       box-shadow: var(--shadow-menu);
     }
     .dd[data-open] > .drop { display: block; }
@@ -159,14 +190,13 @@ const isCurrent = (href: string) =>
   const header = document.querySelector<HTMLElement>('[data-header]');
   if (header) {
     const toggle = header.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
-    const label = header.querySelector<HTMLElement>('[data-menu-label]')!;
     const panel = header.querySelector<HTMLElement>('[data-mobile-menu]')!;
     const dropdowns = Array.from(header.querySelectorAll<HTMLElement>('[data-dropdown]'));
 
     const setMenu = (open: boolean) => {
       panel.hidden = !open;
       toggle.setAttribute('aria-expanded', String(open));
-      label.textContent = open ? 'Close' : 'Menu';
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       root.classList.toggle('menu-open', open);
     };
     toggle.addEventListener('click', () => setMenu(panel.hidden));

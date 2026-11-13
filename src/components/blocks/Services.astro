@@ -37,14 +37,14 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
   .groups { display: grid; gap: var(--space-10); }
   .group { display: grid; gap: var(--space-4); }
   .name { color: var(--c-accent); }
-  .list { border-top: 1px solid var(--c-border-strong); }
+  .list { border-top: var(--bw-1) solid var(--c-border-strong); }
   .row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-6);
     padding: var(--space-5) 0;
-    border-bottom: 1px solid var(--c-border);
+    border-bottom: var(--bw-1) solid var(--c-border);
     color: var(--c-text);
     text-decoration: none;
   }

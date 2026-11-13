@@ -43,8 +43,8 @@ const jsonLd = {
 </Section>
 
 <style>
-  .faq { max-width: calc(var(--container-prose) * 1.2); border-top: 1px solid var(--c-border-strong); }
-  .item { border-bottom: 1px solid var(--c-border); }
+  .faq { max-width: calc(var(--container-prose) * 1.2); border-top: var(--bw-1) solid var(--c-border-strong); }
+  .item { border-bottom: var(--bw-1) solid var(--c-border); }
   .trigger {
     display: flex;
     align-items: center;
@@ -65,7 +65,7 @@ const jsonLd = {
     content: '';
     position: absolute;
     inset: 50% 0 auto 0;
-    height: 2px;
+    height: var(--bw-2);
     background: var(--c-accent);
     transition: transform var(--ease);
   }

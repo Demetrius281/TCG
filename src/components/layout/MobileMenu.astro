@@ -64,7 +64,7 @@ const isCurrent = (href: string) => current === href || current.startsWith(href 
     padding: var(--space-4) var(--gutter) var(--space-8);
     overflow-y: auto;
     background: var(--color-bg);
-    border-top: 1px solid var(--color-border);
+    border-top: var(--bw-1) solid var(--color-border);
   }
   .panel[hidden] { display: none; }
   .list { display: grid; }
@@ -77,7 +77,7 @@ const isCurrent = (href: string) => current === href || current.startsWith(href 
     padding: var(--space-3) 0;
     background: none;
     border: 0;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: var(--bw-1) solid var(--color-border);
     color: var(--color-text);
     text-align: left;
     text-decoration: none;
@@ -87,8 +87,8 @@ const isCurrent = (href: string) => current === href || current.startsWith(href 
   .chev {
     width: var(--space-2);
     height: var(--space-2);
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
+    border-right: var(--bw-2) solid currentColor;
+    border-bottom: var(--bw-2) solid currentColor;
     transform: rotate(45deg);
     transition: transform var(--ease);
   }
