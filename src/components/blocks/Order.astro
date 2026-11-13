@@ -327,7 +327,7 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
   .pc-opt .r { flex: none; display: inline-flex; align-items: center; justify-content: center; width: var(--space-5); height: var(--space-5); box-sizing: border-box; border: var(--bw-2) solid var(--c-text-3); border-radius: var(--radius-full); transition: border-color var(--ease), background-color var(--ease); }
   .pc-opt .r::after { content: ''; width: var(--space-2); height: var(--space-2); border-radius: var(--radius-full); background: var(--c-accent); transform: scale(0); transition: transform var(--ease); }
   .pc-opt .r.sq { border-radius: var(--radius); }
-  .pc-opt .r.sq::after { width: var(--space-1); height: var(--space-2); margin-top: calc(var(--bw-2) * -1); border-radius: 0; background: transparent; border: solid var(--color-surface); border-width: 0 var(--bw-2) var(--bw-2) 0; transform: rotate(45deg) scale(0); }
+  .pc-opt .r.sq::after { width: var(--space-1); height: var(--space-2); margin-top: calc(var(--bw-2) * -1); border-radius: 0; background: transparent; border: solid var(--c-bg); border-width: 0 var(--bw-2) var(--bw-2) 0; transform: rotate(45deg) scale(0); }
   .pc-opt:has(input:checked) { border-color: var(--c-accent); }
   .pc-opt:has(input:checked) .r { border-color: var(--c-accent); }
   .pc-opt:has(input:checked) .r::after { transform: scale(1); }
@@ -344,15 +344,15 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
   .pc-chk { position: relative; display: flex; align-items: flex-start; gap: var(--space-3); min-height: calc(var(--space-10) + var(--space-1)); font-size: var(--fs-small); line-height: var(--lh-small); color: var(--c-text); cursor: pointer; }
   .pc-chk input { position: absolute; opacity: 0; width: var(--bw-1); height: var(--bw-1); margin: 0; }
   .pc-chk .c { flex: none; display: inline-flex; align-items: center; justify-content: center; width: var(--space-5); height: var(--space-5); margin-top: var(--bw-2); box-sizing: border-box; border: var(--bw-2) solid var(--c-text-3); transition: background-color var(--ease), border-color var(--ease); }
-  .pc-chk .c::after { content: ''; width: var(--space-1); height: var(--space-2); margin-top: calc(var(--bw-2) * -1); border: solid var(--color-surface); border-width: 0 var(--bw-2) var(--bw-2) 0; transform: rotate(45deg) scale(0); transition: transform var(--ease); }
+  .pc-chk .c::after { content: ''; width: var(--space-1); height: var(--space-2); margin-top: calc(var(--bw-2) * -1); border: solid var(--c-bg); border-width: 0 var(--bw-2) var(--bw-2) 0; transform: rotate(45deg) scale(0); transition: transform var(--ease); }
   .pc-chk:has(input:checked) .c { background: var(--c-accent); border-color: var(--c-accent); }
   .pc-chk:has(input:checked) .c::after { transform: rotate(45deg) scale(1); }
   .pc-chk:has(input:focus-visible) .c { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-2); }
   .pc-chk[aria-invalid='true'] .c { border-color: var(--color-danger); }
 
   .pc-nav { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-3); margin-top: var(--space-1); }
-  .ei-btn { min-height: var(--control-h); padding: 0 var(--space-6); background: var(--c-accent); border: 0; border-radius: var(--radius); color: var(--color-surface); font: inherit; font-size: var(--fs-small); font-weight: 500; cursor: pointer; transition: background-color var(--ease), transform var(--ease), box-shadow var(--ease); }
-  .ei-btn:hover { background: var(--color-accent-hover); transform: translateY(calc(var(--space-1) / -2)); box-shadow: var(--shadow-lift); }
+  .ei-btn { min-height: var(--control-h); padding: 0 var(--space-6); background: var(--c-accent); border: 0; border-radius: var(--radius); color: var(--c-bg); font: inherit; font-size: var(--fs-small); font-weight: 500; cursor: pointer; transition: background-color var(--ease), transform var(--ease), box-shadow var(--ease); }
+  .ei-btn:hover { background: var(--c-text); color: var(--c-bg); transform: translateY(calc(var(--space-1) / -2)); box-shadow: var(--shadow-lift); }
   .ei-btn[disabled] { opacity: 0.6; cursor: progress; transform: none; }
   .pc-back { order: 2; min-height: var(--control-h); padding: 0 var(--space-1); background: none; border: 0; color: var(--c-text); font: inherit; font-size: var(--fs-small); font-weight: 500; text-decoration: underline; text-decoration-thickness: var(--bw-1); text-underline-offset: 0.35em; cursor: pointer; transition: color var(--ease); }
   .pc-back:hover { color: var(--c-accent); text-decoration-thickness: var(--bw-2); }

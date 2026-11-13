@@ -146,22 +146,34 @@ Minimum text size: 12px, label level only.
 - Footer: mobile single column, links 44px tall.
 
 ## 7. Block catalog
+Layout rule for migrated pages: the legacy page defines composition (order, columns, alignment, element type, what is hidden on mobile); this system defines every value (spacing, type, line-height, colour, border width, container, radius). Section tone follows the legacy page (default, sunken = legacy sand, inverse = legacy dark). Variants are preferred over new blocks. Layout parity is checked with `qa/shots.mjs` and `qa/report.mjs` (output in `qa/output/`, never committed or deployed).
 | type | Fields |
 |---|---|
-| hero | variant (display, page), label, title, lead, actions[], fee_note, illustration, metrics[] |
-| cards | label, title, lead, columns (2,3,4), items[]: label, title, text, href |
+| hero | variant (display, page), heading_id, label, title, subtitle, lead, intro, actions[], meta, fee_note, illustration (property-check, regulations, platform), metrics[]. With `illustration` the copy and the art sit in two columns from 1024px; the ratio follows the illustration (property-check 1.45:1, regulations 1:1, platform 2:1). `intro` stays in the markup but is hidden at every width, as on the legacy page. `subtitle` renders as a lighter second line under a display-size title |
+| cards | label, title, lead, columns (2,3,4), variant (card, seam), items[]: label, title, text, tag, href; note: text, link. `seam` = cells share 1px rules with no gaps and the note stacks its link under the text |
 | services | title, lead, groups[]: name, items[]: title, text, href |
-| steps | label, title, layout (row, list), items[]: title, text, timing |
+| steps | label, title, layout (row, list, grid), items[]: label, title, text, timing, first. `grid` = 2x2 hairline-divided cells, first step has an accent top rule |
 | deliverables | title, lead, items[]: title, text |
 | table | title, caption, head[], rows[][] |
 | metrics | title, items[]: value, label; notes[] |
 | testimonials | title, items[]: quote, name, meta, photo |
 | logos | title, items[]: image, name; disclaimer |
-| faq | title, items[]: question, answer, href, linkText |
+| faq | label, heading_id, title, layout (split, stack), json_ld, items[]: question, answer, href, linkText. No `layout` = narrow list under the heading (home); `split` = heading left, list right from 768px; `stack` = heading above a full-width list |
 | text | title, body (Markdown) |
-| cta | title, text, action: message, label; next_steps[] |
+| cta | label, title, text, action, secondary, next_steps[], side: title, items[]: label, text, note. With `side` the block is two columns from 768px (copy and buttons left, documents list right) and the list is hidden on mobile |
 | pricing | title, tiers[]: name, price, term, features[], featured |
-| order | title, lead |
+| order | title, lead (+ the staged order form fields; see src/content/pages/due-diligence.yaml) |
+| report | label, title, lead, chips[], sample report card (rows, key risk, recommended action, footnote) |
+| comparison | title, two plans side by side (featured + traditional), closing line |
+| features | label, title, lead[], items[]: icon, title, text. Copy left, 2x2 cards right from 768px |
+| spotlight | label, title, lead, panel: kicker, time, result, comparison, cta, note. Copy left, ruled panel (no box) right from 768px |
+| acquisition_case | label, title, paragraphs[], profit, case: top, photo, prices[], facts[], disclaimer. 3 price columns with dividers and a tinted discount cell from 1024px |
+| architecture | label, title, head, columns, inputs[], engine, outputs[], foot[], note. Flow dots are desktop-only and off with prefers-reduced-motion |
+| inquiry | label, title, lead, stage[], panel, fields, interest_options, submit, disclaimer |
+| guide_nav | brand, title, links[], jump, to_top. Fixed bar; same height as the shared header (bar + border) so it fully covers it |
+| topics | label, title, items[]: n, title, hint, href. Hairline-divided grid |
+| guide | label, chain[], heading_id, title, lead, answer, parts[]. `answer` = left-border callout. Parts: prose, heading, note (pull, callout, tbl-note, sub-lead), terms (defs, coef), codes, list (restr, checks = 3-column square-bullet lists; feas, steps4 = zero-padded numbering; facts, tools = ruled two-column rows; base = hairline grid), cards (rules, plan, imb), table (layers, scenarios, kbli, pma, audit: ruled, no box), compare, path (rows from 768px, swipe cards on mobile), chain (01–06 with top rules; 2 columns mobile, 3 tablet, 6 desktop), kbli_shift, split, formula, taxbox, screen, results, timeline (zero-padded numbers, dot tags) |
+| sources | label, title, intro lists, review notice, legend, groups[]: items[]: authority, document, tag, href; notice |
 | sample | label, title, lead, document_title, rows[]: label, value, status (ok, warn, danger); note |
 | case | title, task, approach, roles[], result, quote: text, name, meta |
 | disclosure | title, text, href |

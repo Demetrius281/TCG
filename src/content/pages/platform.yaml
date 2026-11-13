@@ -9,6 +9,7 @@ blocks:
   - type: hero
     variant: display
     id: top
+    hide_label_mobile: true
     label: FROM MARKET DATA TO ACQUISITIONS
     title: Bali's Real Estate Intelligence Platform
     lead: By combining proprietary market intelligence with official Indonesian records, we uncover undervalued assets and gain a decisive advantage in every negotiation.
@@ -102,6 +103,7 @@ blocks:
       disclaimer: Hypothetical figures and AI-generated property illustration. No actual asset, seller contact, valuation or purchase offer is represented. Investment outcomes are not guaranteed.
   - type: architecture
     id: technology
+    tone: inverse
     label: 04 / Business Model & Technology
     title: Infrastructure Behind Property Intelligence.
     head:
@@ -145,6 +147,7 @@ blocks:
     note: "One intelligence infrastructure supports two revenue streams: paid verification and property investments. Research and verification are human-assisted; automated government integrations require development and authorized access."
   - type: inquiry
     id: express-interest
+    tone: inverse
     label: 05 / Strategic Investment Opportunity
     title: Invest in Bali's Property Intelligence.
     lead: TCG combines proprietary data, legal expertise and distressed-asset sourcing to identify opportunities across Bali. We seek strategic investors to expand our intelligence infrastructure and pursue selected acquisitions through dedicated investment structures.

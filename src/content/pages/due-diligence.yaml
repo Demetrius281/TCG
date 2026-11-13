@@ -24,6 +24,7 @@ blocks:
   # 01 What we check
   - type: cards
     id: check
+    variant: seam
     label: 01 / What We Check
     title: Know the Risks Before You Pay.
     columns: 3
@@ -194,7 +195,6 @@ blocks:
   # 04 How it works
   - type: steps
     id: process
-    tone: sunken
     label: 04 / How It Works
     title: From Order to Report in Four Steps.
     layout: grid
@@ -220,7 +220,7 @@ blocks:
   # 05 Order
   - type: order
     id: order
-    tone: default
+    tone: inverse
     label: 05 / Order
     title: Check a Property.
     lead: Choose a plan, add the property and tell us which documents you have, then send your order via WhatsApp.
@@ -334,7 +334,7 @@ blocks:
   # 06 FAQ
   - type: faq
     id: faq
-    tone: sunken
+    layout: split
     json_ld: false
     label: 06 / FAQ
     title: Questions Buyers Ask Before Ordering.

@@ -26,19 +26,23 @@ const { label, title, lead, panel, tone, id, nav } = Astro.props;
 
 <style>
   .layout { display: grid; gap: var(--space-8); align-items: center; }
-  .copy { display: grid; gap: var(--space-4); }
-  .label { color: var(--c-accent); }
-  .lead { color: var(--c-text-2); }
-  .panel { display: grid; gap: var(--space-4); padding: var(--space-6); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); border-top: var(--bw-2) solid var(--c-accent); }
+  .copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-5); min-width: 0; }
+  .copy h2 { max-width: 14ch; }
+  .label { color: var(--c-text-3); }
+  .lead { color: var(--c-text-2); max-width: var(--container-prose); }
+  .panel { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding-top: var(--space-5); border-top: var(--bw-2) solid var(--c-accent); }
   .kicker { color: var(--c-text-3); }
-  .time { display: flex; align-items: baseline; gap: var(--space-3); }
-  .time strong { font-size: var(--fs-metric); font-weight: 300; letter-spacing: -0.04em; line-height: var(--lh-metric); color: var(--c-accent); }
-  .time span { color: var(--c-text-3); }
-  .result { color: var(--c-text); }
-  .comparison { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2) var(--space-4); padding-block: var(--space-4); border-block: var(--bw-1) solid var(--c-border); color: var(--c-text-2); }
-  .comparison strong { font-size: var(--fs-h3); font-weight: 400; color: var(--c-text); }
-  .note { color: var(--c-text-3); }
+  .time { display: flex; align-items: baseline; gap: var(--space-4); margin-top: var(--space-2); color: var(--c-accent); }
+  .time strong { font-size: calc(var(--fs-metric) * 1.6); font-weight: 300; letter-spacing: -0.06em; line-height: var(--lh-metric); }
+  .time span { font-family: var(--font-mono); }
+  .result { color: var(--c-text-2); }
+  .comparison { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2) var(--space-4); width: 100%; margin: var(--space-6) 0 var(--space-5); padding-top: var(--space-4); border-top: var(--bw-1) solid var(--c-border-strong); color: var(--c-text-3); }
+  .comparison strong { font-size: var(--fs-h4); font-weight: 500; white-space: nowrap; color: var(--c-text); }
+  .note { max-width: 48ch; margin-top: var(--space-4); color: var(--c-text-3); }
+  @media (min-width: 768px) {
+    .layout { grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: var(--space-10); }
+  }
   @media (min-width: 1024px) {
-    .layout { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--space-16); }
+    .layout { gap: var(--space-16); }
   }
 </style>

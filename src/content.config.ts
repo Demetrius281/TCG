@@ -27,6 +27,7 @@ export const heroBlock = obj({
   variant: z.enum(['display', 'page']),
   heading_id: text.optional(),
   label: text.optional(),
+  hide_label_mobile: z.boolean().optional(),
   title: text,
   subtitle: text.optional(),
   lead: text.optional(),
@@ -45,6 +46,7 @@ export const cardsBlock = obj({
   title: text.optional(),
   lead: text.optional(),
   columns: z.union([z.literal(2), z.literal(3), z.literal(4)]).default(3),
+  variant: z.enum(['card', 'seam']).default('card'),
   items: z
     .array(obj({
         label: text.optional(),
@@ -114,6 +116,7 @@ export const faqBlock = obj({
   ...base,
   label: text.optional(),
   json_ld: z.boolean().default(true),
+  layout: z.enum(['split', 'stack']).optional(),
   heading_id: text.optional(),
   title: text,
   items: z

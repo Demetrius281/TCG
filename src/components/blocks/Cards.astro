@@ -4,12 +4,12 @@ import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'cards'>, 'type'>;
-const { label, title, lead, columns, items, note, tone, id } = Astro.props;
+const { label, title, lead, columns, variant, items, note, tone, id } = Astro.props;
 const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead label={label} title={title} lead={lead} id={headId} />
-  <ul class:list={['grid', `cols-${columns}`]}>
+  <ul class:list={['grid', `cols-${columns}`, `v-${variant}`]}>
     {
       items.map((item) => {
         const Tag = item.href ? 'a' : 'div';
@@ -29,7 +29,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   </ul>
   {
     note && (
-      <div class="note">
+      <div class:list={['note', `v-${variant}`]}>
         <p class="t-lead note-text">{note.text}</p>
         {note.link && <a class="t-small note-link" href={note.link.href}>{note.link.label}</a>}
       </div>
@@ -73,11 +73,16 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   .note-link { display: inline-flex; align-items: center; min-height: calc(var(--space-10) + var(--space-1)); font-weight: 500; }
   .arrow { color: var(--c-accent); font-size: var(--fs-lead); }
 
+  /* Hairline-divided grid (cells share 1px rules) with a stacked callout below */
+  .v-seam.grid { gap: var(--bw-1); background: var(--c-border-strong); border: var(--bw-1) solid var(--c-border-strong); }
+  .v-seam .card { background: var(--c-bg); border: 0; box-shadow: none; transform: none; }
+  .note.v-seam { margin-top: var(--space-6); background: var(--c-surface); }
+
   @media (min-width: 768px) {
     .cols-2, .cols-3, .cols-4 { grid-template-columns: repeat(2, 1fr); }
   }
   @media (min-width: 1280px) {
-    .note { grid-template-columns: 1fr auto; align-items: center; }
+    .note:not(.v-seam) { grid-template-columns: 1fr auto; align-items: center; }
   }
   @media (min-width: 1024px) {
     .cols-3 { grid-template-columns: repeat(3, 1fr); }

@@ -43,12 +43,13 @@ const { brand, title, links, jump, to_top } = Astro.props;
     transition: transform var(--ease), visibility var(--ease);
   }
   .secnav.show { transform: none; visibility: visible; }
+  /* Same height as the shared header (bar + its border), so it fully covers it. */
+  .secnav { display: flex; align-items: center; min-height: calc(var(--header-h) + var(--bw-1)); }
   .secnav-in {
     display: flex;
     align-items: center;
     gap: var(--space-6);
     width: min(100% - 2 * var(--gutter), var(--container));
-    min-height: var(--header-h);
     margin-inline: auto;
   }
   .secnav-id { display: flex; align-items: center; gap: var(--space-3); flex: none; }
@@ -139,6 +140,9 @@ const { brand, title, links, jump, to_top } = Astro.props;
 
   @media (min-width: 480px) {
     .secnav-title { display: inline; }
+  }
+  @media (min-width: 1024px) {
+    .secnav { min-height: calc(var(--header-h-lg) + var(--bw-1)); }
   }
   @media (min-width: 1280px) {
     .secnav-links { display: flex; }

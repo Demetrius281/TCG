@@ -179,6 +179,7 @@ blocks:
     to_top: Back to top
   - type: topics
     id: guide-index
+    tone: sunken
     title: What do you need to know?
     items:
       - number: "01"
@@ -245,6 +246,7 @@ blocks:
             text: Tourism standards, local tax and other ongoing obligations.
     id: short-answer
   - type: guide
+    tone: sunken
     nav: short-answer
     parts:
       - part: heading
@@ -299,6 +301,7 @@ blocks:
           - An OTA listing, an NIB or a zoning map each confirms one part of that picture. Legal status comes from the complete compliance chain above.
   - type: guide
     id: zoning
+    tone: sunken
     nav: zoning
     label: 03 / Zoning
     chain:
@@ -634,6 +637,7 @@ blocks:
             zone: OPERATION
   - type: guide
     id: nib-kbli
+    tone: sunken
     nav: nib-kbli
     label: 06 / Business Licensing
     chain:
@@ -1034,6 +1038,7 @@ blocks:
       note: A missing document is itself useful diagnostic information.
   - type: faq
     id: faq
+    layout: stack
     nav: faq
     tone: sunken
     json_ld: false
