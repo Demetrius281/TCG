@@ -11,13 +11,18 @@ import Logos from '../components/blocks/Logos.astro';
 import Steps from '../components/blocks/Steps.astro';
 import Faq from '../components/blocks/Faq.astro';
 import Cta from '../components/blocks/Cta.astro';
+import Report from '../components/blocks/Report.astro';
+import Comparison from '../components/blocks/Comparison.astro';
+import Pricing from '../components/blocks/Pricing.astro';
+import Order from '../components/blocks/Order.astro';
 import type { Block } from '../content.config';
 
 interface Props {
-  seo: { title: string; description: string; ogImage?: string };
+  seo: { title: string; description: string; og_title?: string; robots?: string; og_image?: string };
   blocks: Block[];
+  headerCta?: { label: string; href: string };
 }
-const { seo, blocks } = Astro.props;
+const { seo, blocks, headerCta } = Astro.props;
 
 const registry = {
   hero: Hero,
@@ -31,9 +36,20 @@ const registry = {
   steps: Steps,
   faq: Faq,
   cta: Cta,
+  report: Report,
+  comparison: Comparison,
+  pricing: Pricing,
+  order: Order,
 } as const;
 ---
-<Base title={seo.title} description={seo.description} ogImage={seo.ogImage}>
+<Base
+  title={seo.title}
+  description={seo.description}
+  ogTitle={seo.og_title}
+  robots={seo.robots}
+  ogImage={seo.og_image}
+  headerCta={headerCta}
+>
   {
     blocks.map(({ type, ...props }) => {
       const Component = registry[type] as any;

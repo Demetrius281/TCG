@@ -1,18 +1,20 @@
 ---
 import Section from '../ui/Section.astro';
 import Action from '../ui/Action.astro';
+import PropertyCheckIllustration from '../illustrations/PropertyCheckIllustration.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'hero'>, 'type'>;
-const { variant, label, title, lead, actions, fee_note, illustration, metrics, tone } = Astro.props;
+const { variant, label, title, lead, actions, meta, fee_note, illustration, metrics, tone, id } = Astro.props;
 const display = variant === 'display';
 ---
-<Section tone={tone} labelledby="hero-title">
+<Section id={id} tone={tone} labelledby="hero-title">
   <div class:list={['hero', illustration && 'has-art']}>
     <div class="copy">
       {label && <p class="t-label label">{label}</p>}
       <h1 id="hero-title" class:list={[display && 't-display', 'title']}>{title}</h1>
       {lead && <p class="t-lead lead">{lead}</p>}
+      {meta && <p class="t-label meta">{meta}</p>}
       {
         actions.length > 0 && (
           <div class="actions">
@@ -24,7 +26,7 @@ const display = variant === 'display';
       }
       {fee_note && <p class="t-small note">{fee_note}</p>}
     </div>
-    {illustration && <img class="art" src={illustration} alt="" loading="eager" />}
+    {illustration === 'property-check' && <div class="art"><PropertyCheckIllustration /></div>}
     {
       metrics && (
         <dl class="metrics">
@@ -47,11 +49,13 @@ const display = variant === 'display';
   .lead { color: var(--c-text-2); max-width: var(--container-prose); }
   .actions { display: grid; gap: var(--space-3); width: 100%; }
   .note { color: var(--c-text-3); }
-  .art { width: 100%; height: auto; }
+  .meta { width: 100%; padding-block: var(--space-4); border-top: var(--bw-1) solid var(--c-text); border-bottom: var(--bw-1) solid var(--c-border); color: var(--c-text-3); }
+  .art { display: none; min-width: 0; }
   .metrics { display: grid; gap: var(--space-6); }
   .metrics dt { color: var(--c-text-3); }
 
   @media (min-width: 768px) {
+    .art { display: block; }
     .actions { display: flex; flex-wrap: wrap; width: auto; gap: var(--space-4); }
     .metrics { grid-template-columns: repeat(3, 1fr); }
   }

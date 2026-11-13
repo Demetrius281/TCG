@@ -4,14 +4,15 @@ interface Props {
   variant?: 'primary' | 'secondary' | 'inverse' | 'text';
   external?: boolean;
   class?: string;
+  [attr: `data-${string}`]: string | undefined;
 }
-const { href, variant = 'primary', external = false, class: className } = Astro.props;
+const { href, variant = 'primary', external = false, class: className, ...rest } = Astro.props;
 const Tag = href ? 'a' : 'button';
 const attrs = href
   ? { href, ...(external ? { target: '_blank', rel: 'noopener' } : {}) }
   : { type: 'button' };
 ---
-<Tag class:list={['btn', `btn-${variant}`, className]} {...attrs}>
+<Tag class:list={['btn', `btn-${variant}`, className]} {...attrs} {...rest}>
   <slot />
 </Tag>
 

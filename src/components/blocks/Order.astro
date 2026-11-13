@@ -1,0 +1,417 @@
+---
+import Section from '../ui/Section.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'order'>, 'type'>;
+const { label, title, lead, step_label, stages, summary_label, panel_aria, buttons, plan, property, documents, details, done, disclaimer, tone = 'sunken', id } = Astro.props;
+const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{total}', '4');
+---
+<Section id={id} tone={tone} labelledby="order-title">
+  <div class="ei-grid">
+    <div class="ei-copy">
+      <p class="t-label label">{label}</p>
+      <h2 id="order-title">{title}</h2>
+      <p class="t-lead lead">{lead}</p>
+      <div class="stage" aria-hidden="true">
+        {stages.map((s, i) => <p data-s={i + 1}><span class="t-label">{stepText(i + 1)}</span>{s}</p>)}
+      </div>
+      <div class="ord-sum" aria-hidden="true">
+        <span class="t-label k">{summary_label}</span>
+        <span class="v" id="os-plan"></span>
+        <span class="t-small d" id="os-del"></span>
+      </div>
+    </div>
+
+    <div class="ei-panel" id="pc-panel" aria-label={panel_aria}>
+      <div class="pc-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <form id="pc-form" novalidate aria-labelledby="order-title">
+        <div class="pc-step" data-step="1">
+          <div class="ei-form">
+            <div>
+              <p class="t-label pc-stepno">{stepText(1)}</p>
+              <h3 tabindex="-1">{stages[0]}</h3>
+            </div>
+            <fieldset class="pc-set">
+              <legend class="sr-only">{plan.legend}</legend>
+              <div class="pc-opts pc-plans">
+                {
+                  plan.options.map((o) => (
+                    <label class="pc-opt">
+                      <input type="radio" name="plan" value={o.value} checked={o.checked} />
+                      <span class="r" aria-hidden="true"></span>
+                      <span class="t">{o.name}<small>{o.detail}</small></span>
+                      <span class="p">{o.price}</span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <div class="pc-nav"><button type="button" class="ei-btn" data-next="2">{buttons.next}</button></div>
+          </div>
+        </div>
+
+        <div class="pc-step" data-step="2" hidden>
+          <div class="ei-form">
+            <div>
+              <p class="t-label pc-stepno">{stepText(2)}</p>
+              <h3 tabindex="-1">{stages[1]}</h3>
+            </div>
+            <fieldset class="pc-set" id="pc-type-set" aria-describedby="pc-type-err">
+              <legend>{property.type.legend}</legend>
+              <div class="pc-opts pc-opts2">
+                {
+                  property.type.options.map((o) => (
+                    <label class="pc-opt">
+                      <input type="radio" name="type" value={o.value} />
+                      <span class="r" aria-hidden="true"></span>
+                      <span class="t">{o.label}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <p class="err" id="pc-type-err"></p>
+            </fieldset>
+            <div class="fld">
+              <div class="fld-h">
+                <label for="pc-loc">{property.location.label}</label>
+                <span class="tag">{property.location.tag}</span>
+              </div>
+              <p class="pc-help" id="pc-loc-help">{property.location.help}</p>
+              <input id="pc-loc" name="location" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder={property.location.placeholder} aria-describedby="pc-loc-help pc-loc-err" />
+              <p class="err" id="pc-loc-err"></p>
+              <div class="pc-map" id="pc-map-wrap" hidden>
+                <div class="pc-map-c" id="pc-map" aria-label={property.location.map_label}></div>
+                <p class="pc-help" id="pc-map-msg" aria-live="polite"></p>
+                <div class="pc-map-bar" id="pc-map-bar" hidden>
+                  <span class="pc-coords" id="pc-pin"></span>
+                  <button type="button" class="pc-pin-ok" id="pc-pin-ok" aria-describedby="pc-map-err">{buttons.confirm_location}</button>
+                </div>
+                <p class="err" id="pc-map-err"></p>
+              </div>
+            </div>
+            <fieldset class="pc-set" id="pc-use-set" aria-describedby="pc-use-err">
+              <legend>{property.use.legend} <span class="tag">{property.use.tag}</span></legend>
+              <div class="pc-opts pc-opts2">
+                {
+                  property.use.options.map((o) => (
+                    <label class="pc-opt">
+                      <input type="checkbox" name="use" value={o.value} />
+                      <span class="r sq" aria-hidden="true"></span>
+                      <span class="t">{o.label}</span>
+                    </label>
+                  ))
+                }
+              </div>
+              <p class="err" id="pc-use-err"></p>
+            </fieldset>
+            <div class="fld">
+              <div class="fld-h">
+                <label for="pc-project">{property.project.label}</label>
+                <span class="tag">{property.project.tag}</span>
+              </div>
+              <input id="pc-project" name="project" type="text" autocomplete="off" />
+            </div>
+            <div class="pc-grp" id="pc-company-fld">
+              <div class="fld">
+                <div class="fld-h">
+                  <label for="pc-seller">{property.seller.label}</label>
+                  <span class="tag">{property.seller.tag}</span>
+                </div>
+                <p class="pc-help" id="pc-seller-help">{property.seller.help}</p>
+                <input id="pc-seller" name="seller" type="text" autocomplete="off" aria-describedby="pc-seller-help pc-seller-err" />
+                <p class="err" id="pc-seller-err"></p>
+              </div>
+              <fieldset class="pc-set" id="pc-stype-set" aria-describedby="pc-stype-err">
+                <legend>{property.seller_type.legend}</legend>
+                <div class="pc-opts pc-opts2">
+                  {
+                    property.seller_type.options.map((o) => (
+                      <label class="pc-opt">
+                        <input type="radio" name="seller_type" value={o.value} />
+                        <span class="r" aria-hidden="true"></span>
+                        <span class="t">{o.label}</span>
+                      </label>
+                    ))
+                  }
+                </div>
+                <p class="err" id="pc-stype-err"></p>
+              </fieldset>
+              <div class="fld" id="pc-legal-fld" hidden>
+                <div class="fld-h">
+                  <label for="pc-legal">{property.legal.label}</label>
+                  <span class="tag">{property.legal.tag}</span>
+                </div>
+                <p class="pc-help" id="pc-legal-help">{property.legal.help}</p>
+                <input id="pc-legal" name="legal_company" type="text" autocomplete="off" aria-describedby="pc-legal-help" />
+              </div>
+            </div>
+            <div class="fld">
+              <div class="fld-h">
+                <label for="pc-nib">{property.nib.label}</label>
+                <span class="tag">{property.nib.tag}</span>
+              </div>
+              <input id="pc-nib" name="nib" type="text" inputmode="numeric" autocomplete="off" aria-describedby="pc-nib-err" />
+              <p class="err" id="pc-nib-err"></p>
+            </div>
+            <div class="pc-nav">
+              <button type="button" class="ei-btn" data-next="3">{buttons.next}</button>
+              <button type="button" class="pc-back" data-back="1">{buttons.back}</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pc-step" data-step="3" hidden>
+          <div class="ei-form">
+            <div>
+              <p class="t-label pc-stepno">{stepText(3)}</p>
+              <h3 tabindex="-1">{stages[2]}</h3>
+            </div>
+            <p class="pc-help pc-lead">{documents.lead}</p>
+            <fieldset class="pc-set">
+              <legend class="sr-only">{documents.legend}</legend>
+              <div class="pc-opts pc-docs">
+                {
+                  documents.options.map((o) => (
+                    <label class="pc-opt">
+                      <input type="checkbox" name="docs" value={o.value} />
+                      <span class="r sq" aria-hidden="true"></span>
+                      <span class="t">{o.label}<small>{o.detail}</small></span>
+                    </label>
+                  ))
+                }
+              </div>
+            </fieldset>
+            <p class="pc-help">{documents.note}</p>
+            <div class="pc-nav">
+              <button type="button" class="ei-btn" data-next="4" id="pc-docs-next">{buttons.next}</button>
+              <button type="button" class="pc-back" id="pc-skip-docs">{buttons.skip_docs}</button>
+              <button type="button" class="pc-back" data-back="2">{buttons.back}</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pc-step" data-step="4" hidden>
+          <div class="ei-form">
+            <div>
+              <p class="t-label pc-stepno">{stepText(4)}</p>
+              <h3 tabindex="-1">{stages[3]}</h3>
+            </div>
+            <div class="fld">
+              <div class="fld-h"><label for="pc-name">{details.name.label}</label></div>
+              <input id="pc-name" name="name" type="text" autocomplete="name" aria-describedby="pc-name-err" />
+              <p class="err" id="pc-name-err"></p>
+            </div>
+            <div class="fld">
+              <div class="fld-h"><label for="pc-email">{details.email.label}</label></div>
+              <p class="pc-help" id="pc-email-help">{details.email.help}</p>
+              <input id="pc-email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="pc-email-help pc-email-err" />
+              <p class="err" id="pc-email-err"></p>
+            </div>
+            <div class="pc-review">
+              <span class="t-label k">{details.review.label}</span>
+              <div class="pc-done-rows">
+                <p><span class="t-label">{details.review.plan}</span><b id="pc-r-plan"></b></p>
+                <p><span class="t-label">{details.review.price}</span><b id="pc-r-price"></b></p>
+                <p><span class="t-label">{details.review.location}</span><b id="pc-r-loc"></b></p>
+                <p><span class="t-label">{details.review.documents}</span><b id="pc-r-docs"></b></p>
+              </div>
+            </div>
+            <div class="fld">
+              <label class="pc-chk" id="pc-terms-lbl">
+                <input type="checkbox" id="pc-terms" name="terms" aria-describedby="pc-terms-err" />
+                <span class="c" aria-hidden="true"></span>
+                <span>{details.terms.before}<a href={details.terms.href} target="_blank" rel="noopener">{details.terms.link_text}</a>{details.terms.after}</span>
+              </label>
+              <p class="err" id="pc-terms-err"></p>
+            </div>
+            <div class="pc-nav">
+              <button type="button" class="ei-btn" id="pc-pay">{buttons.submit}</button>
+              <button type="button" class="pc-back" data-back="3">{buttons.back}</button>
+            </div>
+            <p class="pc-help" id="pc-wa-help">{details.help}</p>
+            <p class="ei-status" id="pc-pay-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </form>
+
+      <div class="pc-done" id="pc-done" hidden>
+        <h3 tabindex="-1">{done.title}</h3>
+        <div class="pc-done-rows">
+          <p><span class="t-label">{done.rows[0]}</span><b id="pc-d-id"></b></p>
+          <p><span class="t-label">{done.rows[1]}</span><b id="pc-d-plan"></b></p>
+          <p><span class="t-label">{done.rows[2]}</span><b id="pc-d-time"></b></p>
+          <p><span class="t-label">{done.rows[3]}</span><b id="pc-d-docs"></b></p>
+        </div>
+        <p class="note">{done.note.before}<b id="pc-d-email"></b>{done.note.after}</p>
+        <p class="note">{done.retry.before}<a id="pc-wa-link" href="https://wa.me/6281337973097" target="_blank" rel="noopener">{done.retry.link_text}</a>{done.retry.after}</p>
+      </div>
+    </div>
+    <p class="t-caption ei-disc scope">{disclaimer}</p>
+  </div>
+</Section>
+
+<style>
+  [hidden] { display: none !important; }
+  .ei-grid { display: grid; gap: var(--space-10); align-items: start; }
+  .ei-copy { display: grid; gap: var(--space-5); }
+  .label { color: var(--c-text-3); }
+  .lead { color: var(--c-text-2); max-width: var(--container-prose); }
+  .stage, .ord-sum { display: none; }
+  .stage { border-top: var(--bw-1) solid var(--c-border-strong); }
+  .stage p { display: flex; align-items: baseline; gap: var(--space-2); padding: var(--space-3) 0; border-bottom: var(--bw-1) solid var(--c-border-strong); font-size: var(--fs-small); color: var(--c-text-3); transition: color var(--ease); }
+  .stage p[aria-current='step'] { color: var(--c-text); }
+  .stage p[aria-current='step'] span, .stage p.done span { color: var(--c-accent); }
+  .stage p.done { color: var(--c-text-2); }
+  .ord-sum { gap: var(--space-2); padding: var(--space-4); border: var(--bw-1) solid var(--c-border-strong); background: var(--c-surface); }
+  .ord-sum .k { color: var(--c-text-3); }
+  .ord-sum .v { font-size: var(--fs-h4); font-weight: 500; }
+  .ord-sum .d { color: var(--c-text-2); }
+
+  .ei-panel { display: grid; gap: var(--space-5); padding: var(--space-6); background: var(--c-surface); border: var(--bw-1) solid var(--c-border-strong); }
+  .ei-panel h3 { color: var(--c-text); }
+  .ei-panel h3:focus, .pc-done h3:focus { outline: none; }
+  .pc-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2); }
+  .pc-bar i { height: var(--bw-2); background: var(--c-border-strong); transition: background-color var(--ease); }
+  .pc-bar i.on { background: var(--c-accent); }
+  .pc-stepno { margin-bottom: var(--space-2); color: var(--c-text-3); }
+  .ei-form { display: grid; gap: var(--space-5); }
+
+  .fld { display: grid; gap: var(--space-2); min-width: 0; }
+  .fld-h { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
+  .fld label, .pc-set legend { font-size: var(--fs-small); font-weight: 500; color: var(--c-text); }
+  .tag { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 400; color: var(--c-text-3); }
+  .pc-set legend .tag { margin-left: var(--space-2); }
+  .pc-help { font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--c-text-3); }
+  .pc-lead { font-size: var(--fs-small); color: var(--c-text-2); }
+  .fld input {
+    width: 100%;
+    min-height: var(--control-h);
+    padding: var(--space-3) var(--space-4);
+    background: var(--c-bg);
+    border: var(--bw-1) solid var(--c-border-strong);
+    border-radius: var(--radius);
+    color: var(--c-text);
+    font: inherit;
+    font-size: var(--fs-body);
+    transition: border-color var(--ease);
+  }
+  .fld input::placeholder { color: var(--c-text-3); opacity: 1; }
+  .fld input:hover { border-color: var(--c-text-3); }
+  .fld input:focus-visible { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-1); border-color: var(--c-accent); }
+  [aria-invalid='true'] { border-color: var(--color-danger); }
+  .err { font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--color-danger); }
+  .err:empty { display: none; }
+
+  .pc-set { display: grid; gap: var(--space-2); margin: 0; padding: 0; border: 0; min-width: 0; }
+  .pc-set legend { padding: 0; margin-bottom: var(--space-2); }
+  .pc-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--space-16) * 2.5)), 1fr)); gap: var(--space-2); }
+  .pc-plans, .pc-docs { grid-template-columns: 1fr; }
+  .pc-opts2 { grid-template-columns: 1fr; }
+  .pc-opt {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--control-h);
+    padding: var(--space-3) var(--space-4);
+    background: var(--c-bg);
+    border: var(--bw-1) solid var(--c-border-strong);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--c-text);
+    cursor: pointer;
+    transition: border-color var(--ease);
+  }
+  .pc-opt:hover { border-color: var(--c-text-3); }
+  .pc-opt input { position: absolute; opacity: 0; width: var(--bw-1); height: var(--bw-1); margin: 0; pointer-events: none; }
+  .pc-opt .r { flex: none; display: inline-flex; align-items: center; justify-content: center; width: var(--space-5); height: var(--space-5); box-sizing: border-box; border: var(--bw-2) solid var(--c-text-3); border-radius: var(--radius-full); transition: border-color var(--ease), background-color var(--ease); }
+  .pc-opt .r::after { content: ''; width: var(--space-2); height: var(--space-2); border-radius: var(--radius-full); background: var(--c-accent); transform: scale(0); transition: transform var(--ease); }
+  .pc-opt .r.sq { border-radius: var(--radius); }
+  .pc-opt .r.sq::after { width: var(--space-1); height: var(--space-2); margin-top: calc(var(--bw-2) * -1); border-radius: 0; background: transparent; border: solid var(--color-surface); border-width: 0 var(--bw-2) var(--bw-2) 0; transform: rotate(45deg) scale(0); }
+  .pc-opt:has(input:checked) { border-color: var(--c-accent); }
+  .pc-opt:has(input:checked) .r { border-color: var(--c-accent); }
+  .pc-opt:has(input:checked) .r::after { transform: scale(1); }
+  .pc-opt:has(input:checked) .r.sq { background: var(--c-accent); }
+  .pc-opt:has(input:checked) .r.sq::after { transform: rotate(45deg) scale(1); }
+  .pc-opt:has(input:focus-visible) { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-1); }
+  .pc-opt .t { display: flex; flex-direction: column; gap: var(--space-1); flex: 1 1 auto; min-width: 0; }
+  .pc-opt .t small { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-3); }
+  .pc-opt .p { font-family: var(--font-mono); font-size: var(--fs-caption); color: var(--c-text-3); white-space: nowrap; }
+  .pc-opt:has(input:checked) .p { color: var(--c-accent); }
+  .pc-set[aria-invalid='true'] .pc-opt { border-color: var(--color-danger); }
+  .pc-grp { display: grid; gap: var(--space-5); }
+
+  .pc-chk { position: relative; display: flex; align-items: flex-start; gap: var(--space-3); min-height: calc(var(--space-10) + var(--space-1)); font-size: var(--fs-small); line-height: var(--lh-small); color: var(--c-text); cursor: pointer; }
+  .pc-chk input { position: absolute; opacity: 0; width: var(--bw-1); height: var(--bw-1); margin: 0; }
+  .pc-chk .c { flex: none; display: inline-flex; align-items: center; justify-content: center; width: var(--space-5); height: var(--space-5); margin-top: var(--bw-2); box-sizing: border-box; border: var(--bw-2) solid var(--c-text-3); transition: background-color var(--ease), border-color var(--ease); }
+  .pc-chk .c::after { content: ''; width: var(--space-1); height: var(--space-2); margin-top: calc(var(--bw-2) * -1); border: solid var(--color-surface); border-width: 0 var(--bw-2) var(--bw-2) 0; transform: rotate(45deg) scale(0); transition: transform var(--ease); }
+  .pc-chk:has(input:checked) .c { background: var(--c-accent); border-color: var(--c-accent); }
+  .pc-chk:has(input:checked) .c::after { transform: rotate(45deg) scale(1); }
+  .pc-chk:has(input:focus-visible) .c { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-2); }
+  .pc-chk[aria-invalid='true'] .c { border-color: var(--color-danger); }
+
+  .pc-nav { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-3); margin-top: var(--space-1); }
+  .ei-btn { min-height: var(--control-h); padding: 0 var(--space-6); background: var(--c-accent); border: 0; border-radius: var(--radius); color: var(--color-surface); font: inherit; font-size: var(--fs-small); font-weight: 500; cursor: pointer; transition: background-color var(--ease), transform var(--ease), box-shadow var(--ease); }
+  .ei-btn:hover { background: var(--color-accent-hover); transform: translateY(calc(var(--space-1) / -2)); box-shadow: var(--shadow-lift); }
+  .ei-btn[disabled] { opacity: 0.6; cursor: progress; transform: none; }
+  .pc-back { order: 2; min-height: var(--control-h); padding: 0 var(--space-1); background: none; border: 0; color: var(--c-text); font: inherit; font-size: var(--fs-small); font-weight: 500; text-decoration: underline; text-decoration-thickness: var(--bw-1); text-underline-offset: 0.35em; cursor: pointer; transition: color var(--ease); }
+  .pc-back:hover { color: var(--c-accent); text-decoration-thickness: var(--bw-2); }
+  .ei-status { font-size: var(--fs-small); color: var(--c-text); }
+  .ei-status:empty { display: none; }
+
+  .pc-map { display: grid; gap: var(--space-3); margin-top: var(--space-1); }
+  .pc-map-c { z-index: 0; height: calc(var(--space-16) * 3.5); border: var(--bw-1) solid var(--c-border-strong); background: var(--c-bg); }
+  .pc-map-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3) var(--space-4); }
+  .pc-coords { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-2); }
+  .pc-pin-ok { min-height: calc(var(--space-10) + var(--space-1)); padding: 0 var(--space-5); background: none; border: var(--bw-1) solid var(--c-text-3); color: var(--c-text); font: inherit; font-size: var(--fs-small); font-weight: 500; cursor: pointer; transition: border-color var(--ease), color var(--ease); }
+  .pc-pin-ok:hover, .pc-pin-ok.ok { border-color: var(--c-accent); color: var(--c-accent); }
+  .pc-pin-ok[aria-invalid='true'] { border-color: var(--color-danger); }
+
+  .pc-review { display: grid; gap: var(--space-2); }
+  .pc-review .k { color: var(--c-text-3); }
+  .pc-done-rows { display: grid; border-top: var(--bw-1) solid var(--c-border-strong); }
+  .pc-done-rows p { padding: var(--space-3) 0; border-bottom: var(--bw-1) solid var(--c-border-strong); font-size: var(--fs-small); line-height: var(--lh-small); color: var(--c-text); }
+  .pc-done-rows span { margin-right: var(--space-2); color: var(--c-text-3); }
+  .pc-done-rows b { font-weight: 500; overflow-wrap: anywhere; }
+  .pc-review .pc-done-rows p { display: grid; grid-template-columns: calc(var(--space-16) * 1.5) minmax(0, 1fr); gap: var(--space-3); align-items: baseline; }
+  .pc-done { display: grid; gap: var(--space-5); }
+  .pc-done h3 { font-size: var(--fs-h2); line-height: var(--lh-h2); }
+  .pc-done .note { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--c-text-2); overflow-wrap: anywhere; }
+  .pc-done .note b { font-weight: 500; color: var(--c-text); }
+  .ei-disc { padding-top: var(--space-4); border-top: var(--bw-1) solid var(--c-border-strong); font-family: var(--font-mono); color: var(--c-text-3); max-width: calc(var(--container-prose) * 1.2); }
+
+  @media (min-width: 480px) {
+    .pc-opts2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 768px) {
+    .ei-panel { padding: var(--space-8); }
+    .pc-nav { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); }
+    .pc-back { order: 0; }
+  }
+  @media (min-width: 1024px) {
+    .ei-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: var(--space-16); }
+    .ei-copy { position: sticky; top: var(--space-6); align-self: start; }
+    .stage, .ord-sum { display: grid; }
+    .pc-bar { display: none; }
+    .ei-disc.scope { grid-column: 2; }
+  }
+</style>
+
+<style is:global>
+  #pc-map .pc-pin-ic { background: none; border: 0; }
+  #pc-map .pc-pin-dot {
+    display: block;
+    box-sizing: border-box;
+    width: calc(var(--space-5) + var(--space-1) / 2);
+    height: calc(var(--space-5) + var(--space-1) / 2);
+    border: var(--bw-3) solid var(--color-surface);
+    border-radius: var(--radius-full);
+    background: var(--color-accent);
+    box-shadow: 0 0 0 var(--bw-2) var(--color-accent), var(--shadow-lift);
+  }
+  #pc-map .leaflet-control-attribution { font-size: var(--fs-label); }
+</style>
+
+<script>
+  import '../../scripts/due-diligence-order.js';
+</script>

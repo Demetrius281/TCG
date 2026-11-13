@@ -3,9 +3,9 @@ import Section from '../ui/Section.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'disclosure'>, 'type'>;
-const { title, text, href, tone } = Astro.props;
+const { title, text, href, tone, id } = Astro.props;
 ---
-<Section tone={tone}>
+<Section id={id} tone={tone}>
   <aside class="box">
     <h2 class="t-h4 title">
       {href ? <a href={href}>{title}</a> : title}

@@ -1,10 +1,17 @@
 ---
 import MobileMenu from './MobileMenu.astro';
-import WhatsAppLink from '../ui/WhatsAppLink.astro';
+import Action from '../ui/Action.astro';
 import { headerNav, headerCta, isGroup } from '../../data/navigation';
 import { site } from '../../data/site';
 
-const current = Astro.url.pathname;
+interface Props {
+  /** Replaces the default WhatsApp consultation button, for pages whose main action is on the page itself. */
+  cta?: { label: string; href: string };
+}
+const { cta } = Astro.props;
+const action = cta ?? { label: headerCta.label, message: headerCta.message };
+// build.format 'file' emits /name.html; compare on the clean URL.
+const current = Astro.url.pathname.replace(/index\.html$/, '').replace(/\.html$/, '');
 const isCurrent = (href: string) =>
   href === '/' ? current === '/' : current === href || current.startsWith(href + '/');
 ---
@@ -56,7 +63,7 @@ const isCurrent = (href: string) =>
       </ul>
     </nav>
 
-    <div class="cta"><WhatsAppLink message={headerCta.message}>{headerCta.label}</WhatsAppLink></div>
+    <div class="cta"><Action action={action} /></div>
 
     <button
       class="toggle"
@@ -69,7 +76,7 @@ const isCurrent = (href: string) =>
       <span class="icon" aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
   </div>
-  <MobileMenu current={current} />
+  <MobileMenu current={current} action={action} />
 </header>
 
 <style>
@@ -200,6 +207,9 @@ const isCurrent = (href: string) =>
       root.classList.toggle('menu-open', open);
     };
     toggle.addEventListener('click', () => setMenu(panel.hidden));
+    panel.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setMenu(false);
+    });
 
     panel.querySelectorAll<HTMLButtonElement>('[data-mm-toggle]').forEach((btn) => {
       btn.addEventListener('click', () => {

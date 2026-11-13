@@ -1,11 +1,13 @@
 ---
-import WhatsAppLink from '../ui/WhatsAppLink.astro';
-import { headerNav, headerCta, isGroup } from '../../data/navigation';
+import Action from '../ui/Action.astro';
+import { headerNav, isGroup } from '../../data/navigation';
+import type { Action as ActionType } from '../../content.config';
 
 interface Props {
   current: string;
+  action: ActionType;
 }
-const { current } = Astro.props;
+const { current, action } = Astro.props;
 const groups = headerNav.filter(isGroup);
 const links = headerNav.filter((i) => !isGroup(i));
 const isCurrent = (href: string) => current === href || current.startsWith(href + '/');
@@ -50,7 +52,7 @@ const isCurrent = (href: string) => current === href || current.startsWith(href 
       }
     </ul>
   </nav>
-  <WhatsAppLink message={headerCta.message}>{headerCta.label}</WhatsAppLink>
+  <Action action={action} />
 </div>
 
 <style>

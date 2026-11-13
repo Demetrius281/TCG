@@ -1,0 +1,364 @@
+seo:
+  title: Preliminary Due Diligence for Bali Property | TCG
+  og_title: Preliminary Due Diligence for Bali Property
+  description: Check the risks before paying a deposit. TCG reviews zoning, building permits, seller company records and the land documents you provide. Report in as little as 12 hours.
+  robots: index, follow
+  og_image: /tcg-bali-social-20261027.jpg
+
+blocks:
+  # Hero
+  - type: hero
+    variant: page
+    label: TCG Preliminary Due Diligence
+    title: Preliminary Due Diligence for Bali Property.
+    lead: Before paying a deposit or committing to expensive legal due diligence, check the risks first. TCG reviews zoning, building permits, seller company records, and the land documents you provide. Get your report in as little as 12 hours.
+    meta: Land · Villas · Developers
+    illustration: property-check
+    actions:
+      - label: Check a Property
+        href: "#order"
+      - label: "See What We Check →"
+        href: "#check"
+        variant: text
+
+  # 01 What we check
+  - type: cards
+    id: check
+    label: 01 / What We Check
+    title: Know the Risks Before You Pay.
+    columns: 3
+    items:
+      - label: "01"
+        title: Can I Build or Rent Here?
+        text: Zoning, building limits and whether your plans for the property are allowed under local regulations.
+        tag: All plans
+      - label: "02"
+        title: Are the Building Permits Valid?
+        text: Verification of building permits against official government records, including whether they match the property you’re buying.
+        tag: All plans
+      - label: "03"
+        title: Who Holds the Land Rights?
+        text: Land certificate, registered rights holder and expiry date, where applicable, to identify potential ownership risks.
+        tag: Standard · Comprehensive
+      - label: "04"
+        title: Who Am I Actually Paying?
+        text: Seller’s company, shareholders, directors and the authority of the person signing your contract.
+        tag: Standard · Comprehensive
+      - label: "05"
+        title: Can I Legally Rent It Out?
+        text: Registered business activities and licenses required for your intended rental use, including short-term accommodation.
+        tag: Standard · Comprehensive
+      - label: "06"
+        title: Has This Developer Delivered Before?
+        text: Previous projects, completion records, reported delays and public disputes to help you assess the risks.
+        tag: Comprehensive
+    note:
+      text: The land certificate is reviewed from the copy you supply. Title verification at the land office is a separate service.
+      link:
+        label: "Zoning, RDTR and KKPR →"
+        href: /regulations#zoning
+
+  # 02 Your report
+  - type: report
+    id: report
+    tone: sunken
+    label: 02 / Your Report
+    title: Everything We Find. Clearly Explained.
+    lead: Get a clear picture of what we could verify, what may put your investment at risk, and what needs further investigation — with supporting sources and practical next steps.
+    line: Clear findings · Supporting evidence · Recommended actions
+    document:
+      aria_label: Sample property report, illustrative data
+      brand: TCG / Preliminary Due Diligence
+      title: Sample Property Report
+      meta: Standard Assessment · Illustrative Data
+      columns: [Finding, Source, Status]
+      findings_label: Illustrative findings
+      rows:
+        - category: Zoning
+          finding: Accommodation permitted
+          source: RDTR Badung
+          status: ok
+          status_label: Verified
+        - category: Building
+          finding: Approved function differs
+          source: PBG record
+          status: risk
+          status_label: Risk
+        - category: Land rights
+          finding: Title not independently confirmed
+          source: Certificate copy
+          status: unverified
+          status_label: Not verified
+        - category: Seller
+          finding: Registered director matches
+          source: AHU
+          status: ok
+          status_label: Verified
+        - category: Business licence
+          finding: Record unavailable
+          source: OSS
+          status: unverified
+          status_label: Not verified
+      risk:
+        label: Key Risk
+        text: The building’s approved function differs from its advertised use.
+      action:
+        label: Recommended Action
+        text: Request the supporting permits and resolve the discrepancy before paying a deposit.
+      includes: Executive summary · Source references · Check dates · Seller questions · Next steps
+      disclaimer: Illustrative findings only. Online screening does not replace formal legal due diligence or land-office title verification.
+
+  # Preliminary due diligence versus legal due diligence
+  - type: comparison
+    id: compare
+    tone: inverse
+    title: Why Pay for Full Due Diligence Before Knowing the Risks?
+    highlight:
+      title: TCG Preliminary Due Diligence
+      tag: Smarter First Step
+      facts:
+        - label: Cost from
+          value: US$90
+        - label: Time
+          value: 12–48 hours
+      text: Online screening of official records to spot potential risks before paying a deposit or ordering full legal due diligence.
+      action:
+        label: Check a Property
+        href: "#order"
+    other:
+      title: Traditional Legal Due Diligence
+      facts:
+        - label: Cost from
+          value: US$1,000
+        - label: Time
+          value: 1 week+
+      text: Lawyers, document reviews and land-office verification for comprehensive legal assurance.
+    closing: Check First. Spend More Only If Necessary.
+
+  # 03 Pricing
+  - type: pricing
+    id: pricing
+    label: 03 / Pricing
+    title: Choose the Depth of Your Check.
+    hint: "Swipe to compare plans →"
+    result_label: Result
+    note: Each plan covers one property and one company. Checks involving more companies are quoted before work starts. Delivery time counts from payment confirmation or receipt of your documents, whichever comes later.
+    tiers:
+      - name: Basic
+        price: US$90
+        scope: Plot screening
+        delivery: Delivery within 12 hours
+        features:
+          - text: "Zoning under RDTR: zone type, KDB, KLB, height, setbacks"
+          - text: Permitted activities, including accommodation
+          - text: PBG and SLF authenticity, when supplied
+        result: Know what you can legally build or operate on the property, which restrictions apply, and whether the supplied building permits can be verified.
+        cta:
+          label: Choose Basic
+          href: "#order"
+          plan: basic
+      - name: Comprehensive
+        tag: Most Complete
+        featured: true
+        price: US$250
+        scope: Off-plan and developer
+        delivery: Delivery within 48 hours
+        features:
+          - text: Everything in Standard
+            inherited: true
+          - text: Full company amendment history
+          - text: Developer track record
+          - text: Risk analysis and follow-up checks
+        result: Everything in Standard, plus the developer’s company history, past project performance, and potential risks to address before investing.
+        cta:
+          label: Choose Comprehensive
+          href: "#order"
+          plan: comprehensive
+      - name: Standard
+        standard: true
+        price: US$150
+        scope: Property and seller
+        delivery: Delivery within 24 hours
+        features:
+          - text: Everything in Basic
+            inherited: true
+          - text: "Land certificate review: SHM, HGB or Hak Pakai"
+          - text: Company owners, directors and commissioners
+          - text: NIB and KBLI in OSS
+        result: Everything in Basic, plus clarity on who holds the land rights, who is behind the seller, and whether the company is registered for your intended use.
+        cta:
+          label: Choose Standard
+          href: "#order"
+          plan: standard
+
+  # 04 How it works
+  - type: steps
+    id: process
+    tone: sunken
+    label: 04 / How It Works
+    title: From Order to Report in Four Steps.
+    layout: grid
+    items:
+      - label: Step 01
+        timing: About 2 minutes
+        first: true
+        title: Choose Your Plan
+        text: Select Basic, Standard or Comprehensive and add the property’s Google Maps link or GPS coordinates.
+      - label: Step 02
+        timing: Optional
+        title: Upload Your Documents
+        text: Add your land certificate, PBG or SLF if available. Documents are optional.
+      - label: Step 03
+        timing: 12–48 hours
+        title: TCG Checks Official Records
+        text: Property details are checked against official Indonesian records to identify potential risks.
+      - label: Step 04
+        timing: By email
+        title: Get Your Property Report
+        text: Receive a clear report by email showing verified findings, potential risks and recommended next steps.
+
+  # 05 Order
+  - type: order
+    id: order
+    tone: default
+    label: 05 / Order
+    title: Check a Property.
+    lead: Choose a plan, add the property and tell us which documents you have, then send your order via WhatsApp.
+    step_label: Step {n} of {total}
+    stages: [Your Plan, The Property, Documents, Your Details & Order]
+    summary_label: Your order
+    panel_aria: Order form
+    buttons:
+      next: Continue
+      back: Back
+      skip_docs: Continue Without Documents
+      submit: Send Order via WhatsApp
+      confirm_location: Confirm Location
+    plan:
+      legend: Plan
+      options:
+        - value: basic
+          name: Basic
+          detail: Plot screening · 12 hours
+          price: US$90
+        - value: standard
+          name: Standard
+          detail: Property and seller · 24 hours
+          price: US$150
+          checked: true
+        - value: comprehensive
+          name: Comprehensive
+          detail: Off-plan and developer · 48 hours
+          price: US$250
+    property:
+      type:
+        legend: What are you checking?
+        options:
+          - { value: Land Plot, label: Land Plot }
+          - { value: Built Villa, label: Built Villa }
+          - { value: Unfinished Villa, label: Unfinished Villa }
+          - { value: Off-Plan Project, label: Off-Plan Project }
+      location:
+        label: Where is it?
+        tag: Badung regency
+        help: Paste a Google Maps link or enter GPS coordinates.
+        placeholder: "-8.6491, 115.1386"
+        map_label: Property location map
+      use:
+        legend: What do you plan to do with the property?
+        tag: Select all that apply
+        options:
+          - { value: Live in It, label: Live in It }
+          - { value: Long-Term Rental, label: Long-Term Rental }
+          - { value: Short-Term Rental, label: Short-Term Rental }
+          - { value: Build, label: Build }
+      project:
+        label: Project name
+        tag: Optional
+      seller:
+        label: Seller or Developer Name
+        tag: Required
+        help: A person or a company.
+      seller_type:
+        legend: The seller or developer is
+        options:
+          - { value: Individual, label: An Individual }
+          - { value: Company, label: A Company }
+      legal:
+        label: Legal Company Name
+        tag: Optional
+        help: As registered, for example PT Example Bali.
+      nib:
+        label: NIB number
+        tag: Optional
+    documents:
+      lead: Select the documents you have. You will send them in WhatsApp after placing the order. Missing documents may limit certain checks.
+      legend: Documents you have
+      options:
+        - { value: Land Certificate, label: Land Certificate, detail: "SHM, HGB, Hak Pakai" }
+        - { value: Building Permits, label: Building Permits, detail: "PBG, SLF" }
+        - { value: Agreements, label: Agreements, detail: "Lease Agreement, PPJB" }
+        - { value: Company Documents, label: Company Documents, detail: "NIB, company registration" }
+        - { value: Project Documents, label: Project Documents, detail: "Site plan, building drawings, project details" }
+      note: All documents are optional.
+    details:
+      name:
+        label: Full name
+      email:
+        label: Email
+        help: The report is sent here.
+      review:
+        label: Order summary
+        plan: Plan
+        price: Price
+        location: Location
+        documents: Documents
+      terms:
+        before: "I agree to the Terms and "
+        link_text: Privacy Policy
+        href: /privacy-policy
+        after: "."
+      help: WhatsApp opens with your order details. Send the message to place the order, and TCG replies in the chat to confirm it.
+    done:
+      title: Your order is ready in WhatsApp.
+      rows: [Order, Plan, Delivery, Documents]
+      note:
+        before: "Send the prepared message in WhatsApp to place your order, then attach your documents in the same chat. The report will be sent to "
+        after: "."
+      retry:
+        before: "WhatsApp did not open? "
+        link_text: Open the message again
+        after: "."
+    disclaimer: TCG Preliminary Due Diligence is an independent, records-based property screening service. Findings are based on accessible official Indonesian records and documents provided, reflecting information available at the time of review. The service does not constitute a legal opinion, guarantee clear title or replace formal land-office verification, legal due diligence or technical inspections.
+
+  # 06 FAQ
+  - type: faq
+    id: faq
+    tone: sunken
+    json_ld: false
+    label: 06 / FAQ
+    title: Questions Buyers Ask Before Ordering.
+    items:
+      - question: Does Preliminary Due Diligence replace a full legal review?
+        answer: TCG Preliminary Due Diligence covers many of the same areas, including zoning, building permits, land rights, company registration and business licensing. However, it is an online records-based assessment, not a formal legal opinion or a substitute for detailed title verification at the land office.
+      - question: Which areas and property types do you cover?
+        answer: Currently focused on Badung, Bali. The service covers land plots, completed villas, unfinished properties and off-plan developments. Available checks depend on the selected plan and accessible records.
+      - question: Do I need documents to order?
+        answer: No. A property location and the requested seller details are enough to get started. Providing a land certificate, PBG, SLF or company documents allows additional cross-checks. Any limitations will be clearly identified in the report.
+      - question: What if an official record is unavailable?
+        answer: The finding is marked “Not Verified”, with an explanation and recommended next steps. Missing records are never treated as proof that a property is either legally compliant or non-compliant.
+      - question: How fast will I receive the report?
+        answer: Basic reports are delivered within 12 hours, Standard within 24 hours and Comprehensive within 48 hours. Your report arrives by email with findings, identified risks and recommended next steps.
+      - question: Can I check a property before paying a deposit?
+        answer: Yes. TCG Preliminary Due Diligence is designed to identify potential problems before transferring money, signing agreements or committing to expensive legal procedures.
+
+  # 07 Final CTA
+  - type: cta
+    id: property-check-cta
+    tone: inverse
+    label: 07 / Preliminary Due Diligence
+    title: Check the Property Before You Pay a Deposit.
+    text: Zoning, permits, land title and the seller’s company, reviewed against official Indonesian records within 12–48 hours.
+    action:
+      label: "Check a Property →"
+      href: "#order"

@@ -4,10 +4,10 @@ import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'services'>, 'type'>;
-const { title, lead, groups, tone } = Astro.props;
+const { title, lead, groups, tone, id } = Astro.props;
 const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
-<Section tone={tone} labelledby={headId}>
+<Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} lead={lead} id={headId} />
   <div class="groups">
     {

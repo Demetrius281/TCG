@@ -4,10 +4,10 @@ import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'cards'>, 'type'>;
-const { label, title, lead, columns, items, tone } = Astro.props;
+const { label, title, lead, columns, items, note, tone, id } = Astro.props;
 const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
 ---
-<Section tone={tone} labelledby={headId}>
+<Section id={id} tone={tone} labelledby={headId}>
   <SectionHead label={label} title={title} lead={lead} id={headId} />
   <ul class:list={['grid', `cols-${columns}`]}>
     {
@@ -19,6 +19,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
               {item.label && <p class="t-label label">{item.label}</p>}
               <h3>{item.title}</h3>
               <p class="t-body text">{item.text}</p>
+              {item.tag && <p class="t-label tag">{item.tag}</p>}
               {item.href && <span class="arrow" aria-hidden="true">→</span>}
             </Tag>
           </li>
@@ -26,6 +27,14 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
       })
     }
   </ul>
+  {
+    note && (
+      <div class="note">
+        <p class="t-lead note-text">{note.text}</p>
+        {note.link && <a class="t-small note-link" href={note.link.href}>{note.link.label}</a>}
+      </div>
+    )
+  }
 </Section>
 
 <style>
@@ -50,10 +59,25 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   }
   .label { color: var(--c-accent); }
   .text { color: var(--c-text-2); }
+  .tag { margin-top: auto; padding-top: var(--space-3); border-top: var(--bw-1) solid var(--c-border); color: var(--c-accent); }
+  .note {
+    display: grid;
+    gap: var(--space-2) var(--space-8);
+    margin-top: var(--grid-gap);
+    padding: var(--space-5) var(--space-6);
+    background: var(--c-surface);
+    border: var(--bw-1) solid var(--c-border);
+    border-left: var(--bw-2) solid var(--c-accent);
+  }
+  .note-text { font-weight: 500; }
+  .note-link { display: inline-flex; align-items: center; min-height: calc(var(--space-10) + var(--space-1)); font-weight: 500; }
   .arrow { color: var(--c-accent); font-size: var(--fs-lead); }
 
   @media (min-width: 768px) {
     .cols-2, .cols-3, .cols-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1280px) {
+    .note { grid-template-columns: 1fr auto; align-items: center; }
   }
   @media (min-width: 1024px) {
     .cols-3 { grid-template-columns: repeat(3, 1fr); }
