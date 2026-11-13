@@ -1,0 +1,111 @@
+---
+import WhatsAppLink from '../ui/WhatsAppLink.astro';
+import { headerNav, headerCta, isGroup } from '../../data/navigation';
+
+interface Props {
+  current: string;
+}
+const { current } = Astro.props;
+const groups = headerNav.filter(isGroup);
+const links = headerNav.filter((i) => !isGroup(i));
+const isCurrent = (href: string) => current === href || current.startsWith(href + '/');
+---
+<div class="panel" id="mobile-menu" data-mobile-menu hidden>
+  <nav aria-label="Mobile">
+    <ul class="list">
+      {
+        groups.map((g, i) => (
+          <li>
+            <button
+              class="row t-h3"
+              type="button"
+              aria-expanded="false"
+              aria-controls={`mm-${i}`}
+              aria-current={g.items.some((l) => isCurrent(l.href)) ? 'true' : undefined}
+              data-mm-toggle
+            >
+              {g.label}
+              <span class="chev" aria-hidden="true"></span>
+            </button>
+            <ul class="sub" id={`mm-${i}`} hidden>
+              {g.items.map((l) => (
+                <li>
+                  <a class="subrow" href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+      {
+        links.map((l) => (
+          <li>
+            <a class="row t-h3" href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <WhatsAppLink message={headerCta.message}>{headerCta.label}</WhatsAppLink>
+</div>
+
+<style>
+  .panel {
+    position: fixed;
+    inset: var(--header-h) 0 0 0;
+    z-index: var(--z-menu);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding: var(--space-4) var(--gutter) var(--space-8);
+    overflow-y: auto;
+    background: var(--color-bg);
+    border-top: 1px solid var(--color-border);
+  }
+  .panel[hidden] { display: none; }
+  .list { display: grid; }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: var(--control-h);
+    padding: var(--space-3) 0;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .row[aria-current] { color: var(--color-accent); }
+  .chev {
+    width: var(--space-2);
+    height: var(--space-2);
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform var(--ease);
+  }
+  [aria-expanded='true'] > .chev { transform: rotate(-135deg); }
+  .sub { display: grid; padding: var(--space-2) 0 var(--space-4) var(--space-4); }
+  .sub[hidden] { display: none; }
+  .subrow {
+    display: flex;
+    align-items: center;
+    min-height: var(--control-h);
+    color: var(--color-text-2);
+    font-size: var(--fs-body);
+    text-decoration: none;
+  }
+  .subrow[aria-current] { color: var(--color-accent); }
+
+  @media (min-width: 1024px) {
+    .panel { display: none; }
+  }
+</style>

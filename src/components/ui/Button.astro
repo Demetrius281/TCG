@@ -1,0 +1,69 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'inverse' | 'text';
+  external?: boolean;
+  class?: string;
+}
+const { href, variant = 'primary', external = false, class: className } = Astro.props;
+const Tag = href ? 'a' : 'button';
+const attrs = href
+  ? { href, ...(external ? { target: '_blank', rel: 'noopener' } : {}) }
+  : { type: 'button' };
+---
+<Tag class:list={['btn', `btn-${variant}`, className]} {...attrs}>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    min-height: var(--control-h);
+    padding: 0 var(--space-6);
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background var(--ease),
+      color var(--ease),
+      border-color var(--ease),
+      transform var(--ease),
+      box-shadow var(--ease);
+  }
+  .btn:hover {
+    transform: translateY(calc(var(--space-1) / -2));
+    box-shadow: var(--shadow-lift);
+  }
+  .btn-primary { background: var(--color-accent); color: var(--color-surface); }
+  .btn-primary:hover { background: var(--color-accent-hover); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+  }
+  .btn-secondary:hover { background: var(--color-accent-hover); color: var(--color-surface); border-color: var(--color-accent-hover); }
+  .btn-inverse { background: var(--color-accent-inverse); color: var(--color-inverse); }
+  .btn-inverse:hover { background: var(--color-surface); color: var(--color-inverse); }
+  .btn-text {
+    width: auto;
+    padding: 0;
+    background: transparent;
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .btn-text:hover { color: var(--color-accent-hover); box-shadow: none; transform: none; }
+
+  @media (min-width: 768px) {
+    .btn { width: auto; min-height: var(--control-h-lg); }
+  }
+</style>

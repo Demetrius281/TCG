@@ -1,0 +1,42 @@
+---
+import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'steps'>, 'type'>;
+const { label, title, layout, items, tone } = Astro.props;
+const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+---
+<Section tone={tone} labelledby={headId}>
+  <SectionHead label={label} title={title} id={headId} />
+  <ol class:list={['steps', `layout-${layout}`]}>
+    {
+      items.map((s, i) => (
+        <li class="step">
+          <p class="t-label num">{String(i + 1).padStart(2, '0')}</p>
+          <h3>{s.title}</h3>
+          <p class="t-body text">{s.text}</p>
+          {s.timing && <p class="t-label timing">{s.timing}</p>}
+        </li>
+      ))
+    }
+  </ol>
+</Section>
+
+<style>
+  .steps { display: grid; gap: var(--grid-gap); counter-reset: none; }
+  .step {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--c-border-strong);
+  }
+  .num { color: var(--c-accent); }
+  .text { color: var(--c-text-2); }
+  .timing { color: var(--c-text-3); }
+
+  @media (min-width: 768px) {
+    .layout-row { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

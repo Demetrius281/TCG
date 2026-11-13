@@ -1,0 +1,42 @@
+---
+import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'metrics'>, 'type'>;
+const { title, items, notes, tone } = Astro.props;
+const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
+---
+<Section tone={tone} labelledby={headId}>
+  <SectionHead title={title} id={headId} />
+  <dl class="metrics">
+    {
+      items.map((m) => (
+        <div class="metric">
+          <dt class="t-small label">{m.label}</dt>
+          <dd class="t-metric value">{m.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+  {
+    notes && (
+      <ul class="notes">
+        {notes.map((n) => <li class="t-body note">{n}</li>)}
+      </ul>
+    )
+  }
+</Section>
+
+<style>
+  .metrics { display: grid; gap: var(--space-8); }
+  .metric { display: flex; flex-direction: column-reverse; gap: var(--space-2); padding-top: var(--space-5); border-top: 1px solid var(--c-border-strong); }
+  .value { margin: 0; color: var(--c-text); }
+  .label { color: var(--c-text-2); }
+  .notes { display: grid; gap: var(--space-3); margin-top: var(--space-10); max-width: var(--container-prose); }
+  .note { color: var(--c-text-2); }
+
+  @media (min-width: 768px) {
+    .metrics { grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
+  }
+</style>

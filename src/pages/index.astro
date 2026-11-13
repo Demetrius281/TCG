@@ -1,0 +1,8 @@
+---
+import { getEntry } from 'astro:content';
+import BlockPage from '../layouts/BlockPage.astro';
+
+const home = await getEntry('home', 'index');
+if (!home) throw new Error('Missing content entry: home/index');
+---
+<BlockPage seo={home.data.seo} blocks={home.data.blocks} />

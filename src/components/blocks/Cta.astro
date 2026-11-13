@@ -1,0 +1,38 @@
+---
+import Section from '../ui/Section.astro';
+import Action from '../ui/Action.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'cta'>, 'type'>;
+const { title, text, action, next_steps, tone = 'inverse' } = Astro.props;
+---
+<Section tone={tone} labelledby="cta-title">
+  <div class="cta">
+    <div class="copy">
+      <h2 id="cta-title">{title}</h2>
+      <p class="t-lead text">{text}</p>
+    </div>
+    <div class="side">
+      <Action action={action} fallbackVariant={tone === 'inverse' ? 'inverse' : 'primary'} />
+      {
+        next_steps && (
+          <ol class="next">
+            {next_steps.map((s) => <li class="t-small">{s}</li>)}
+          </ol>
+        )
+      }
+    </div>
+  </div>
+</Section>
+
+<style>
+  .cta { display: grid; gap: var(--space-8); }
+  .copy { display: grid; gap: var(--space-4); max-width: var(--container-prose); }
+  .text { color: var(--c-text-2); }
+  .side { display: grid; gap: var(--space-6); justify-items: start; align-content: start; }
+  .next { display: grid; gap: var(--space-2); color: var(--c-text-2); }
+
+  @media (min-width: 1024px) {
+    .cta { grid-template-columns: 2fr 1fr; align-items: center; gap: var(--space-16); }
+  }
+</style>

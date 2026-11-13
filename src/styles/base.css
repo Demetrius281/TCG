@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-f4634c3b.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Geist Mono';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-mono-cd5b2578.woff2') format('woff2');
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: var(--header-h-lg);
+}
+html.menu-open { overflow: hidden; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.625;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, figure, blockquote, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img, svg { display: block; max-width: 100%; }
+a { color: var(--color-accent); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+button { font: inherit; color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+.on-inverse :focus-visible { outline-color: var(--color-accent-inverse); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Type scale (spec section 5). Sizes come from tokens; line-height and tracking per scale. */
+.t-display, .t-h1, .t-h2, .t-h3, .t-h4 { font-family: var(--font-sans); text-wrap: balance; }
+
+.t-display { font-size: var(--fs-display); font-weight: 500; letter-spacing: -0.025em; line-height: 1.11; }
+.t-h1, h1 { font-size: var(--fs-h1); font-weight: 500; letter-spacing: -0.025em; line-height: 1.125; }
+.t-h2, h2 { font-size: var(--fs-h2); font-weight: 500; letter-spacing: -0.02em; line-height: 1.143; }
+.t-h3, h3 { font-size: var(--fs-h3); font-weight: 500; letter-spacing: -0.012em; line-height: 1.3; }
+.t-h4, h4 { font-size: var(--fs-h4); font-weight: 600; letter-spacing: 0; line-height: 1.41; }
+.t-lead { font-size: var(--fs-lead); font-weight: 400; line-height: 1.556; }
+.t-body { font-size: var(--fs-body); font-weight: 400; line-height: 1.625; }
+.t-small { font-size: var(--fs-small); font-weight: 400; line-height: 1.571; }
+.t-caption { font-size: var(--fs-caption); font-weight: 400; line-height: 1.538; }
+.t-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.333;
+  text-transform: uppercase;
+}
+.t-metric { font-size: var(--fs-metric); font-weight: 300; letter-spacing: -0.04em; line-height: 1; }
+
+@media (min-width: 768px) {
+  .t-display { line-height: 1.067; }
+  .t-h1, h1 { line-height: 1.083; }
+  .t-h2, h2 { line-height: 1.1; }
+  .t-h3, h3 { line-height: 1.25; }
+  .t-h4, h4 { line-height: 1.444; }
+  .t-lead { line-height: 1.5; }
+  .t-body { line-height: 1.647; }
+  .t-small { line-height: 1.6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

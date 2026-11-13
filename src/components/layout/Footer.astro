@@ -1,0 +1,96 @@
+---
+import { footerServices, footerResources, footerLegal } from '../../data/navigation';
+import { site } from '../../data/site';
+import { whatsappHref } from '../../data/whatsapp';
+---
+<footer class="footer on-inverse">
+  <div class="inner">
+    <div class="brandcol">
+      <a class="brand" href="/" aria-label={`${site.name}, home`}>
+        <img src="/assets/brand/logos/tcg-horizontal-full-reverse.svg" alt={site.name} width="240" height="18" />
+      </a>
+      <p class="t-small muted">{site.positioning}</p>
+    </div>
+
+    <nav class="cols" aria-label="Footer">
+      <div class="col">
+        <h2 class="t-label colhead">Services</h2>
+        {
+          footerServices.map((g) => (
+            <div class="group">
+              <h3 class="t-small grouphead">{g.label}</h3>
+              <ul>
+                {g.items.map((l) => (
+                  <li><a class="flink" href={l.href}>{l.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <div class="col">
+        <h2 class="t-label colhead">Resources</h2>
+        <ul>
+          {footerResources.map((l) => <li><a class="flink" href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+      <div class="col">
+        <h2 class="t-label colhead">Legal</h2>
+        <ul>
+          {footerLegal.map((l) => <li><a class="flink" href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+      <div class="col">
+        <h2 class="t-label colhead">Contact</h2>
+        <ul>
+          <li><a class="flink" href={whatsappHref('consultation')} target="_blank" rel="noopener">WhatsApp: {site.whatsappDisplay}</a></li>
+          <li><a class="flink" href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><address class="t-small muted addr">{site.address}</address></li>
+        </ul>
+      </div>
+    </nav>
+
+    <p class="t-caption muted copy">{site.copyright}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: var(--space-16) var(--space-10);
+    background: var(--color-inverse);
+    color: var(--color-on-inverse);
+  }
+  .inner {
+    display: grid;
+    gap: var(--space-12);
+    width: min(100% - 2 * var(--gutter), var(--container));
+    margin-inline: auto;
+  }
+  .muted { color: var(--color-on-inverse-2); }
+  .brandcol { display: grid; gap: var(--space-4); max-width: calc(var(--container-prose) / 2); }
+  .brand { display: block; line-height: 0; }
+  .brand img { height: var(--space-5); width: auto; }
+  .cols { display: grid; gap: var(--space-10); }
+  .col { display: grid; gap: var(--space-4); align-content: start; }
+  .group { display: grid; gap: var(--space-1); }
+  .colhead { color: var(--color-accent-inverse); }
+  .grouphead { color: var(--color-on-inverse-2); }
+  .flink {
+    display: flex;
+    align-items: center;
+    min-height: calc(var(--space-10) + var(--space-1));
+    color: var(--color-on-inverse);
+    font-size: var(--fs-small);
+    text-decoration: none;
+  }
+  .flink:hover { color: var(--color-accent-inverse); text-decoration: underline; }
+  .addr { font-style: normal; padding-block: var(--space-2); }
+  .copy { padding-top: var(--space-6); border-top: 1px solid var(--color-border-inverse); }
+
+  @media (min-width: 768px) {
+    .cols { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .cols { grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); }
+  }
+</style>

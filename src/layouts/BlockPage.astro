@@ -1,0 +1,43 @@
+---
+import Base from './Base.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Cards from '../components/blocks/Cards.astro';
+import Sample from '../components/blocks/Sample.astro';
+import Services from '../components/blocks/Services.astro';
+import Disclosure from '../components/blocks/Disclosure.astro';
+import Metrics from '../components/blocks/Metrics.astro';
+import Testimonials from '../components/blocks/Testimonials.astro';
+import Logos from '../components/blocks/Logos.astro';
+import Steps from '../components/blocks/Steps.astro';
+import Faq from '../components/blocks/Faq.astro';
+import Cta from '../components/blocks/Cta.astro';
+import type { Block } from '../content.config';
+
+interface Props {
+  seo: { title: string; description: string; ogImage?: string };
+  blocks: Block[];
+}
+const { seo, blocks } = Astro.props;
+
+const registry = {
+  hero: Hero,
+  cards: Cards,
+  sample: Sample,
+  services: Services,
+  disclosure: Disclosure,
+  metrics: Metrics,
+  testimonials: Testimonials,
+  logos: Logos,
+  steps: Steps,
+  faq: Faq,
+  cta: Cta,
+} as const;
+---
+<Base title={seo.title} description={seo.description} ogImage={seo.ogImage}>
+  {
+    blocks.map(({ type, ...props }) => {
+      const Component = registry[type] as any;
+      return <Component {...props} />;
+    })
+  }
+</Base>

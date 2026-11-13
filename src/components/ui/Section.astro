@@ -1,0 +1,43 @@
+---
+interface Props {
+  tone?: 'default' | 'sunken' | 'inverse';
+  id?: string;
+  labelledby?: string;
+}
+const { tone = 'default', id, labelledby } = Astro.props;
+---
+<section class:list={['section', `tone-${tone}`, tone === 'inverse' && 'on-inverse']} id={id} aria-labelledby={labelledby}>
+  <div class="inner"><slot /></div>
+</section>
+
+<style>
+  .section {
+    /* Semantic colour roles. Blocks read these, so one block works on every tone. */
+    --c-bg: var(--color-bg);
+    --c-surface: var(--color-surface);
+    --c-text: var(--color-text);
+    --c-text-2: var(--color-text-2);
+    --c-text-3: var(--color-text-3);
+    --c-border: var(--color-border);
+    --c-border-strong: var(--color-border-strong);
+    --c-accent: var(--color-accent);
+    padding-block: var(--section-y);
+    background: var(--c-bg);
+    color: var(--c-text);
+  }
+  .tone-sunken { --c-bg: var(--color-sunken); }
+  .tone-inverse {
+    --c-bg: var(--color-inverse);
+    --c-surface: var(--color-inverse-raised);
+    --c-text: var(--color-on-inverse);
+    --c-text-2: var(--color-on-inverse-2);
+    --c-text-3: var(--color-on-inverse-2);
+    --c-border: var(--color-border-inverse);
+    --c-border-strong: var(--color-border-inverse);
+    --c-accent: var(--color-accent-inverse);
+  }
+  .inner {
+    width: min(100% - 2 * var(--gutter), var(--container));
+    margin-inline: auto;
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'logos'>, 'type'>;
+const { title, items, disclaimer, tone } = Astro.props;
+const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+---
+<Section tone={tone} labelledby={headId}>
+  <SectionHead title={title} id={headId} />
+  <ul class="logos">
+    {
+      items.map((l) => (
+        <li><img src={l.image} alt={l.name} title={l.name} loading="lazy" decoding="async" /></li>
+      ))
+    }
+  </ul>
+  <p class="t-small disclaimer">{disclaimer}</p>
+</Section>
+
+<style>
+  .logos { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-6) var(--space-8); }
+  .logos img { height: var(--space-12); width: auto; filter: grayscale(1); opacity: 0.75; }
+  .disclaimer { margin-top: var(--space-8); max-width: var(--container-prose); color: var(--c-text-3); }
+</style>

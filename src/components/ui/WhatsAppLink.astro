@@ -1,0 +1,12 @@
+---
+import Button from './Button.astro';
+import { whatsappHref, type WhatsAppKey } from '../../data/whatsapp';
+
+interface Props {
+  message: WhatsAppKey;
+  variant?: 'primary' | 'secondary' | 'inverse' | 'text';
+  class?: string;
+}
+const { message, variant = 'primary', class: className } = Astro.props;
+---
+<Button href={whatsappHref(message)} variant={variant} external class={className}><slot /></Button>

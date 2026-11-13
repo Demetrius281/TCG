@@ -1,0 +1,62 @@
+---
+import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'cards'>, 'type'>;
+const { label, title, lead, columns, items, tone } = Astro.props;
+const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
+---
+<Section tone={tone} labelledby={headId}>
+  <SectionHead label={label} title={title} lead={lead} id={headId} />
+  <ul class:list={['grid', `cols-${columns}`]}>
+    {
+      items.map((item) => {
+        const Tag = item.href ? 'a' : 'div';
+        return (
+          <li>
+            <Tag class="card" href={item.href}>
+              {item.label && <p class="t-label label">{item.label}</p>}
+              <h3>{item.title}</h3>
+              <p class="t-body text">{item.text}</p>
+              {item.href && <span class="arrow" aria-hidden="true">→</span>}
+            </Tag>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Section>
+
+<style>
+  .grid { display: grid; gap: var(--grid-gap); }
+  .card {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+    height: 100%;
+    padding: var(--space-6);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    color: var(--c-text);
+    text-decoration: none;
+    transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+  }
+  a.card:hover {
+    border-color: var(--c-accent);
+    transform: translateY(calc(var(--space-1) / -2));
+    box-shadow: var(--shadow-lift);
+  }
+  .label { color: var(--c-accent); }
+  .text { color: var(--c-text-2); }
+  .arrow { color: var(--c-accent); font-size: var(--fs-lead); }
+
+  @media (min-width: 768px) {
+    .cols-2, .cols-3, .cols-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .cols-4 { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>

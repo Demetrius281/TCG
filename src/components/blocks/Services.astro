@@ -1,0 +1,61 @@
+---
+import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'services'>, 'type'>;
+const { title, lead, groups, tone } = Astro.props;
+const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+---
+<Section tone={tone} labelledby={headId}>
+  <SectionHead title={title} lead={lead} id={headId} />
+  <div class="groups">
+    {
+      groups.map((g) => (
+        <div class="group">
+          {g.name && <h3 class="t-label name">{g.name}</h3>}
+          <ul class="list">
+            {g.items.map((item) => (
+              <li>
+                <a class="row" href={item.href}>
+                  <span class="main">
+                    <span class="t-h3 t">{item.title}</span>
+                    <span class="t-small text">{item.text}</span>
+                  </span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .groups { display: grid; gap: var(--space-10); }
+  .group { display: grid; gap: var(--space-4); }
+  .name { color: var(--c-accent); }
+  .list { border-top: 1px solid var(--c-border-strong); }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--c-border);
+    color: var(--c-text);
+    text-decoration: none;
+  }
+  .main { display: grid; gap: var(--space-2); max-width: var(--container-prose); }
+  .t { font-weight: 500; }
+  .text { color: var(--c-text-2); }
+  .arrow { color: var(--c-accent); font-size: var(--fs-lead); transition: transform var(--ease); }
+  .row:hover .t { color: var(--c-accent); }
+  .row:hover .arrow { transform: translateX(var(--space-1)); }
+
+  @media (min-width: 1024px) {
+    .group { grid-template-columns: 1fr 3fr; gap: var(--grid-gap); }
+  }
+</style>

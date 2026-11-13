@@ -1,0 +1,240 @@
+seo:
+  title: Twins Consulting Group
+  description: Verified data, capital access and development strategy for property investors in Bali.
+
+blocks:
+  # 1. Hero
+  - type: hero
+    variant: display
+    title: Verified data, capital access and development strategy for property investors in Bali.
+    lead: "[TEXT]"
+    actions:
+      - label: Check a Property
+        href: /due-diligence#pricing
+      - label: Book a Consultation
+        message: consultation
+
+  # 2. How it connects
+  - type: cards
+    tone: sunken
+    label: How it connects
+    title: "[TEXT]"
+    lead: Every check adds data. The data drives advisory. Advisory finds deals. Deals are funded with investors.
+    columns: 3
+    items:
+      - label: "01"
+        title: Intelligence
+        text: Buyers and investors.
+      - label: "02"
+        title: Advisory
+        text: Buyers of complex properties, developers and landowners.
+      - label: "03"
+        title: Capital
+        text: Sellers of distressed properties and investors.
+
+  # 3. Intelligence
+  - type: cards
+    label: Intelligence
+    title: "[TEXT]"
+    columns: 3
+    items:
+      - label: Databases
+        title: Connected databases
+        text: "[TEXT]"
+      - label: Checks
+        title: Automatic checks
+        text: "[TEXT]"
+      - label: Due Diligence
+        title: Preliminary Due Diligence
+        text: From $90.
+        href: /due-diligence
+  - type: sample
+    label: Report excerpt
+    title: "[TEXT]"
+    lead: "[TEXT]"
+    document_title: "[TEXT]"
+    rows:
+      - label: "[TEXT]"
+        value: "[TEXT]"
+        status: ok
+      - label: "[TEXT]"
+        value: "[TEXT]"
+        status: warn
+      - label: "[TEXT]"
+        value: "[TEXT]"
+        status: danger
+    note: "[TEXT]"
+
+  # 4. Advisory
+  - type: services
+    tone: sunken
+    title: "[TEXT]"
+    lead: "[TEXT]"
+    groups:
+      - items:
+          - title: Acquisition Advisory
+            text: "[TEXT]"
+            href: /acquisition-advisory
+          - title: Go-to-Market for Developers
+            text: "[TEXT]"
+            href: /go-to-market
+          - title: Land Monetization Strategy
+            text: Understand your land’s development potential, compare monetization options and prepare a clear strategy for investors, developers or buyers.
+            href: /land
+
+  # 5. Capital
+  - type: cards
+    label: Capital
+    title: "[TEXT]"
+    lead: Buyouts of undervalued and unfinished properties with investors.
+    columns: 2
+    items:
+      - label: Sellers
+        title: Distressed Property Buyout
+        text: "[TEXT]"
+        href: /distressed-property-buyout
+      - label: Investors
+        title: Platform
+        text: "[TEXT]"
+        href: /platform
+  - type: disclosure
+    title: Disclosure
+    text: "[TEXT]"
+    href: /terms#conflict-of-interest
+
+  # 6. Proof
+  - type: metrics
+    tone: sunken
+    title: Proven Experience.
+    items:
+      - value: 5+
+        label: Years in Bali Property
+      - value: 58+
+        label: Properties Assessed
+      - value: 150+
+        label: Hectares of Land Assessed
+    notes:
+      - "Expertise: notary/PPAT, architect, structural engineer, licensed valuer."
+
+  # 7. Testimonials and logos
+  - type: testimonials
+    title: Client Experiences
+    items:
+      - quote: Our villa was doing well, but the licensing situation was a real headache. TCG helped us sort everything out properly. We’re now renting it out legally and earning again. Such a relief.
+        name: James Mitchell
+        meta: Australia · Rental Villa
+        photo: /assets/img/testimonials/james.webp
+      - quote: We wanted to sell our villa, but an issue with the SLF was holding things up. TCG identified what needed to be done and helped us resolve it. The sale could finally move forward. Professional and efficient.
+        name: Sophie Müller
+        meta: Switzerland · Residential Villa
+        photo: /assets/img/testimonials/sophie.webp
+      - quote: Our contractor left us with a half-finished villa. We were seriously considering walking away. TCG assessed the project and showed us that finishing it made more financial sense. We completed construction and later sold the villa for a very good price. That advice made a huge difference.
+        name: Alexey Morozov
+        meta: Russia · Development Project
+        photo: /assets/img/testimonials/alexey.webp
+      - quote: I was very close to buying a property in Bali. Thankfully, I asked TCG to review the documents first. They uncovered a nominee ownership arrangement I hadn’t fully understood. I decided not to proceed. Money very well spent.
+        name: Oliver Bennett
+        meta: United Kingdom · Investment Property
+        photo: /assets/img/testimonials/oliver.webp
+      - quote: We had plans to develop our land, but weren’t certain what was actually permitted. TCG helped us understand the zoning restrictions and what we could realistically build. It gave us the clarity we needed before spending more money on the project.
+        name: Thomas Weber
+        meta: Germany · Development Land
+        photo: /assets/img/testimonials/thomas.webp
+  - type: logos
+    title: Government Authorities & Regulatory Bodies
+    items:
+      - image: /assets/img/logos/logo-d7a21937e0.webp
+        name: Provincial Government of Bali
+      - image: /assets/img/logos/logo-8e18101765.webp
+        name: Badung Regency Government
+      - image: /assets/img/logos/logo-b5b9a1a914.webp
+        name: Ministry of Agrarian Affairs and Spatial Planning / National Land Agency (ATR/BPN)
+      - image: /assets/img/logos/logo-0ac2df6d61.webp
+        name: Ministry of Investment and Downstream Industry / BKPM
+      - image: /assets/img/logos/logo-7782e3c92f.webp
+        name: Online Single Submission (OSS)
+      - image: /assets/img/logos/logo-dc1ca2ae33.webp
+        name: Ministry of Tourism of the Republic of Indonesia
+      - image: /assets/img/logos/logo-a8e14bb403.webp
+        name: Ministry of Law of the Republic of Indonesia
+      - image: /assets/img/logos/logo-335bc15c73.webp
+        name: Ministry of Environment / Environmental Control Agency
+      - image: /assets/img/logos/logo-dc2865df38.webp
+        name: Ministry of Forestry of the Republic of Indonesia
+      - image: /assets/img/logos/logo-eab2de1599.webp
+        name: Satpol PP (Civil Service Police Unit)
+    disclaimer: TCG is an independent private consulting company. The government authorities shown are relevant to property-related regulatory and administrative procedures. Their logos are displayed for identification purposes only and do not imply any official partnership, affiliation, endorsement or guarantee of approval.
+
+  # 8. How work starts
+  - type: steps
+    tone: sunken
+    label: How work starts
+    title: "[TEXT]"
+    layout: row
+    items:
+      - title: Tell Us Your Story
+        text: Share your concerns and available documents. We’ll review the initial details and explain where we can help.
+      - title: Understand Your Options
+        text: Our specialists assess the legal, technical and financial issues, outlining possible solutions, costs and risks.
+      - title: Choose Your Way Forward
+        text: Receive a written action plan. Follow it independently or have TCG coordinate the implementation.
+
+  # 9. FAQ
+  - type: faq
+    title: Frequently Asked Questions
+    items:
+      - question: Can a foreigner own a villa in Bali?
+        answer: Foreigners cannot directly own Hak Milik (freehold) land in Indonesia. Depending on eligibility, lawful alternatives include Hak Pakai, a lease or ownership through an eligible PT PMA structure. Holding property rights and operating a rental business are separate legal matters.
+        href: /regulations#fo-h
+        linkText: Explore Foreign Ownership Regulations
+      - question: My land is held by an Indonesian nominee. What is the risk?
+        answer: A nominee arrangement can put your investment at risk. The Indonesian certificate holder remains the registered owner, while agreements designed to give a foreigner effective freehold ownership may be legally invalid. Bali’s Perda No. 4/2026 introduces additional restrictions. The consequences and available restructuring options depend on the actual documents and circumstances.
+        href: /regulations#chg-h
+        linkText: Understand Nominee Ownership Risks
+      - question: I live abroad. Do I need to be in Bali?
+        answer: Not necessarily. Initial document reviews, consultations and written assessments can be handled remotely. If a procedure requires your presence, notarised documents or a power of attorney, TCG can identify the requirements and help coordinate the process where legally permitted.
+      - question: "[TEXT]"
+        answer: "[TEXT]"
+      - question: "[TEXT]"
+        answer: "[TEXT]"
+      - question: What if my property cannot be legalised?
+        answer: We’ll tell you clearly. If the intended use cannot be approved, the audit explains why and evaluates alternatives such as redesign, another permitted use, project recovery or sale. The goal is to protect the remaining value of your investment rather than recommend further spending without a sound legal and financial basis.
+
+  # 10. All services
+  - type: services
+    tone: sunken
+    title: All services
+    lead: "[TEXT]"
+    groups:
+      - name: Buyers
+        items:
+          - title: Preliminary Due Diligence
+            text: "[TEXT]"
+            href: /due-diligence
+          - title: Acquisition Advisory
+            text: "[TEXT]"
+            href: /acquisition-advisory
+      - name: Owners and Developers
+        items:
+          - title: Distressed Property Buyout
+            text: "[TEXT]"
+            href: /distressed-property-buyout
+          - title: Go-to-Market for Developers
+            text: "[TEXT]"
+            href: /go-to-market
+          - title: Land Monetization Strategy
+            text: Understand your land’s development potential, compare monetization options and prepare a clear strategy for investors, developers or buyers.
+            href: /land
+      - name: Investors
+        items:
+          - title: Platform
+            text: "[TEXT]"
+            href: /platform
+
+  # 11. Final CTA
+  - type: cta
+    title: Not Sure Where to Start?
+    text: Tell us about your property and the issue you’re facing. We’ll help identify the appropriate next step.
+    action:
+      label: Book a Consultation
+      message: consultation

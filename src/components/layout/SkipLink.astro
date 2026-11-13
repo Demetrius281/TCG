@@ -1,0 +1,16 @@
+<a class="skip" href="#main">Skip to content</a>
+
+<style>
+  .skip {
+    position: absolute;
+    left: var(--space-4);
+    top: var(--space-4);
+    z-index: var(--z-overlay);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-inverse);
+    color: var(--color-on-inverse);
+    font-size: var(--fs-small);
+    transform: translateY(-200%);
+  }
+  .skip:focus { transform: none; }
+</style>

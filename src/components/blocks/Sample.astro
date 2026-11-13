@@ -1,0 +1,61 @@
+---
+import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'sample'>, 'type'>;
+const { label, title, lead, document_title, rows, note, tone } = Astro.props;
+const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+const statusText = { ok: 'Clear', warn: 'Attention', danger: 'Issue' } as const;
+---
+<Section tone={tone} labelledby={headId}>
+  <SectionHead label={label} title={title} lead={lead} id={headId} />
+  <figure class="doc">
+    <figcaption class="t-label doctitle">{document_title}</figcaption>
+    <ul>
+      {
+        rows.map((r) => (
+          <li class="row">
+            <span class={`dot dot-${r.status}`} aria-hidden="true"></span>
+            <span class="sr-only">{statusText[r.status]}:</span>
+            <span class="t-small k">{r.label}</span>
+            <span class="t-body v">{r.value}</span>
+          </li>
+        ))
+      }
+    </ul>
+    {note && <p class="t-caption note">{note}</p>}
+  </figure>
+</Section>
+
+<style>
+  .doc {
+    max-width: calc(var(--container-prose) * 1.2);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+  }
+  .doctitle { padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--c-border); color: var(--c-text-3); }
+  .row {
+    display: grid;
+    grid-template-columns: var(--space-3) 1fr;
+    column-gap: var(--space-3);
+    row-gap: var(--space-1);
+    align-items: baseline;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .dot { width: var(--space-2); height: var(--space-2); border-radius: var(--radius-full); align-self: center; grid-row: span 2; }
+  .dot-ok { background: var(--color-ok); }
+  .dot-warn { background: var(--color-warn); }
+  .dot-danger { background: var(--color-danger); }
+  .k { color: var(--c-text-3); grid-column: 2; }
+  .v { grid-column: 2; color: var(--c-text); }
+  .note { padding: var(--space-4) var(--space-6); color: var(--c-text-3); }
+
+  @media (min-width: 768px) {
+    .row { grid-template-columns: var(--space-3) minmax(0, 1fr) minmax(0, 2fr); }
+    .dot { grid-row: auto; }
+    .k, .v { grid-column: auto; }
+  }
+</style>

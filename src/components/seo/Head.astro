@@ -1,0 +1,43 @@
+---
+import { site } from '../../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  ogImage?: string;
+}
+const { title, description, path = Astro.url.pathname, ogImage = site.ogImage } = Astro.props;
+const canonical = new URL(path === '/' ? '/' : path, site.url).href;
+const image = new URL(ogImage, site.url).href;
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<link rel="preload" href="/fonts/geist-f4634c3b.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/geist-mono-cd5b2578.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="icon" href="/assets/brand/2_icons/favicon.ico?v=2" sizes="48x48" />
+<link rel="icon" href="/assets/brand/2_icons/favicon.svg?v=2" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/assets/brand/2_icons/apple-touch-icon.png?v=2" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={image} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={image} />
+<script is:inline define:vars={{ gtmId: site.gtmId }}>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', gtmId);
+</script>

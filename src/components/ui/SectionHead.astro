@@ -1,0 +1,31 @@
+---
+interface Props {
+  label?: string;
+  title?: string;
+  lead?: string;
+  id?: string;
+  level?: 1 | 2;
+}
+const { label, title, lead, id, level = 2 } = Astro.props;
+const H = `h${level}`;
+---
+{
+  (label || title || lead) && (
+    <header class="head">
+      {label && <p class="t-label label">{label}</p>}
+      {title && <H class="title" id={id}>{title}</H>}
+      {lead && <p class="t-lead lead">{lead}</p>}
+    </header>
+  )
+}
+
+<style>
+  .head {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--container-prose);
+    margin-bottom: var(--space-10);
+  }
+  .label { color: var(--c-accent); }
+  .lead { color: var(--c-text-2); }
+</style>

@@ -1,0 +1,19 @@
+---
+import Button from './Button.astro';
+import WhatsAppLink from './WhatsAppLink.astro';
+import type { Action } from '../../content.config';
+
+interface Props {
+  action: Action;
+  fallbackVariant?: 'primary' | 'secondary' | 'inverse' | 'text';
+}
+const { action, fallbackVariant = 'primary' } = Astro.props;
+const variant = action.variant ?? fallbackVariant;
+---
+{
+  action.message ? (
+    <WhatsAppLink message={action.message} variant={variant}>{action.label}</WhatsAppLink>
+  ) : (
+    <Button href={action.href} variant={variant}>{action.label}</Button>
+  )
+}

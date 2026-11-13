@@ -1,0 +1,87 @@
+---
+import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import JsonLd from '../seo/JsonLd.astro';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'faq'>, 'type'>;
+const { title, items, tone } = Astro.props;
+const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+// Placeholder entries stay out of structured data.
+const published = items.filter((i) => !i.question.includes('[TEXT]') && !i.answer.includes('[TEXT]'));
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: published.map((i) => ({
+    '@type': 'Question',
+    name: i.question,
+    acceptedAnswer: { '@type': 'Answer', text: i.answer },
+  })),
+};
+---
+<Section tone={tone} labelledby={headId}>
+  <SectionHead title={title} id={headId} />
+  <ul class="faq">
+    {
+      items.map((item, i) => (
+        <li class="item">
+          <h3 class="q">
+            <button class="trigger" type="button" aria-expanded="false" aria-controls={`faq-${i}`} data-faq>
+              <span class="t-h3 qt">{item.question}</span>
+              <span class="icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="panel" id={`faq-${i}`} hidden>
+            <p class="t-body a">{item.answer}</p>
+            {item.href && item.linkText && <a class="more t-small" href={item.href}>{item.linkText} →</a>}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+  {published.length > 0 && <JsonLd data={jsonLd} />}
+</Section>
+
+<style>
+  .faq { max-width: calc(var(--container-prose) * 1.2); border-top: 1px solid var(--c-border-strong); }
+  .item { border-bottom: 1px solid var(--c-border); }
+  .trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    width: 100%;
+    min-height: var(--control-h);
+    padding: var(--space-5) 0;
+    background: none;
+    border: 0;
+    color: var(--c-text);
+    text-align: left;
+    cursor: pointer;
+  }
+  .qt { font-weight: 500; }
+  .icon { position: relative; flex: none; width: var(--space-4); height: var(--space-4); }
+  .icon::before, .icon::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 auto 0;
+    height: 2px;
+    background: var(--c-accent);
+    transition: transform var(--ease);
+  }
+  .icon::after { transform: rotate(90deg); }
+  [aria-expanded='true'] .icon::after { transform: rotate(0); }
+  .panel { display: grid; gap: var(--space-4); padding-bottom: var(--space-6); max-width: var(--container-prose); }
+  .panel[hidden] { display: none; }
+  .a { color: var(--c-text-2); }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-faq]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      document.getElementById(btn.getAttribute('aria-controls')!)!.hidden = !open;
+    });
+  });
+</script>
