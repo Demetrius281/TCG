@@ -1,0 +1,208 @@
+# TCG website — build spec (next)
+
+Site: twinsconsulting.group (PT Twins Consulting Group, Bali).
+Positioning: "Verified data, capital access and development strategy for property investors in Bali."
+Business model: Intelligence (online DD + data platform) → Advisory (paid consulting) → Capital (buyouts of undervalued and unfinished properties with investors). Primary audience: investors.
+
+## 1. Stack
+- Astro, latest stable, version pinned in package-lock. `output: 'static'`, TypeScript strict.
+- Plain CSS with custom properties. Styles live inside components. No Tailwind, no React.
+- Interactivity: plain TypeScript in component `<script>` tags.
+- Content: YAML for pages built from blocks, Markdown/MDX for long text. Zod schemas in `src/content.config.ts`. A wrong field must fail the build.
+- Hosting: Vercel. Every pushed branch gets a preview.
+- Analytics: keep GTM-P9JVP4SF.
+- Fonts: Geist and Geist Mono, self-hosted (files already in the repo).
+
+## 2. Hard rules
+1. One Header and one Footer for the whole site, rendered only in `src/layouts/Base.astro`.
+2. Pages are lists of blocks in content files. Page files contain no markup or styles of their own.
+3. Every colour, font size, spacing, radius and shadow comes from `src/styles/tokens.css`. No other values anywhere.
+4. No inline styles.
+5. No duplicated text for mobile and desktop. One text, responsive layout.
+6. Mobile-first. On mobile, all text is left-aligned.
+7. Breakpoints: `min-width` only: 480, 768, 1024, 1280px.
+8. Navigation, contacts and WhatsApp message templates each have one source file in `src/data/`.
+9. Do not invent texts, facts or numbers. Missing copy is `[TEXT]`.
+10. Never push to `main`. Work only on the branch you were given. Changes to tokens, components or layouts need the owner's approval.
+
+## 3. Structure
+src/styles/: tokens.css, base.css, prose.css
+src/data/: site.ts (name, address, email, WhatsApp, GTM ID), navigation.ts (header + footer, single source), whatsapp.ts (message templates by key)
+src/content.config.ts
+src/content/: home/index.yaml, services/<slug>.yaml, legal/*.md
+src/components/: layout/ (Header, MobileMenu, Footer, Breadcrumbs, SkipLink), ui/ (Button, WhatsAppLink, Card, Accordion, Icon), blocks/ (one component per block type), seo/ (Head, JsonLd)
+src/layouts/: Base.astro, BlockPage.astro, Guide.astro, Legal.astro
+src/pages/
+public/: assets/brand/, fonts/, og/, robots.txt, llms.txt
+docs/: site-spec.md
+
+## 4. Sitemap
+Header: Platform · Buyers · Owners · Regulations · Blog. Buyers and Owners are dropdowns with no page of their own.
+
+| Menu | Page | URL | Status |
+|---|---|---|---|
+| Platform | Investor page | /platform | Port as is + "why now" section (2026 regulation changes) |
+| Buyers | Preliminary Due Diligence | /due-diligence | Port as is, incl. order form |
+| Buyers | Acquisition Advisory | /acquisition-advisory | New, service template |
+| Owners | Distressed Property Buyout | /distressed-property-buyout | New, service template |
+| Owners | Go-to-Market for Developers | /go-to-market | New, service template; separate section for launched projects that do not sell |
+| Owners | Land Monetization Strategy | /land | Port as is; link to /go-to-market as a monetization option |
+| Regulations | Guide | /regulations | Port as is |
+| Blog | List + articles | /blog, /blog/<slug> | After launch |
+| Footer | Privacy Policy, Terms | /privacy-policy, /terms | Terms is new and includes a Conflict of Interest Policy section |
+
+"Port as is" means content and logic stay the same, and the page is rebuilt on the shared tokens and components.
+Prices appear only on /due-diligence ($90 / $150 / $250).
+Footer: services grouped as Buyers / Owners and Developers / Investors; Platform, Regulations, Blog; Privacy Policy, Terms, Conflict of Interest Policy; contacts (WhatsApp, email, address).
+
+301 redirects (vercel.json):
+- /services/property-legal-audit → /regulations
+- /services/distressed-property → /distressed-property-buyout
+- /services/due-diligence → /due-diligence
+- /property-check → /due-diligence
+
+## 5. Design tokens — src/styles/tokens.css
+Style: warm light background, dark green accent, square corners, Geist, mono labels.
+
+:root {
+  --color-bg: #F6F5F1;
+  --color-surface: #FFFFFF;
+  --color-sunken: #ECEAE4;
+  --color-inverse: #0F1413;
+  --color-inverse-raised: #2A3331;
+  --color-text: #0F1413;
+  --color-text-2: #3E4744;
+  --color-text-3: #5B6461;
+  --color-on-inverse: #E8E6E0;
+  --color-on-inverse-2: #B9C0BD;
+  --color-border: #E2E0D9;
+  --color-border-strong: #D9D6CE;
+  --color-border-inverse: #2F3A38;
+  --color-accent: #0E5A55;
+  --color-accent-hover: #0F1413;
+  --color-accent-inverse: #5FD3B6;
+  --color-ok: #0E5A55;
+  --color-warn: #8A5D0B;
+  --color-danger: #A23B2A;
+  --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --fs-display: clamp(2.25rem, 1.6630rem + 2.6087vw, 3.75rem);
+  --fs-h1: clamp(2rem, 1.6087rem + 1.7391vw, 3rem);
+  --fs-h2: clamp(1.75rem, 1.4565rem + 1.3043vw, 2.5rem);
+  --fs-h3: clamp(1.25rem, 1.1522rem + 0.4348vw, 1.5rem);
+  --fs-h4: clamp(1.0625rem, 1.0380rem + 0.1087vw, 1.125rem);
+  --fs-lead: clamp(1.125rem, 1.0761rem + 0.2174vw, 1.25rem);
+  --fs-body: clamp(1rem, 0.9755rem + 0.1087vw, 1.0625rem);
+  --fs-small: clamp(0.875rem, 0.8505rem + 0.1087vw, 0.9375rem);
+  --fs-caption: 0.8125rem;
+  --fs-label: 0.75rem;
+  --fs-metric: clamp(3rem, 2.4130rem + 2.6087vw, 4.5rem);
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
+  --space-12: 3rem; --space-16: 4rem; --space-20: 5rem; --space-24: 6rem;
+  --container: 75rem;
+  --container-prose: 45rem;
+  --gutter: clamp(1.25rem, 0.7609rem + 2.1739vw, 2.5rem);
+  --section-y: clamp(3.5rem, 2.1304rem + 6.0870vw, 7rem);
+  --grid-gap: clamp(1rem, 0.6087rem + 1.7391vw, 2rem);
+  --radius: 0;
+  --radius-full: 999px;
+  --control-h: 3.25rem;
+  --control-h-lg: 3rem;
+  --header-h: 3.5rem;
+  --header-h-lg: 4.75rem;
+  --shadow-menu: 0 18px 40px -24px rgba(15, 20, 19, 0.45);
+  --shadow-lift: 0 10px 24px -14px rgba(15, 20, 19, 0.6);
+  --ease: 200ms ease;
+  --z-header: 40; --z-menu: 50; --z-overlay: 60;
+}
+
+Type scale (px, size/line-height, mobile 360 → desktop 1280):
+| Level | Mobile | Desktop | Weight | Tracking | Font | Use |
+|---|---|---|---|---|---|---|
+| display | 36/40 | 60/64 | 500 | -0.025em | Geist | h1 on home and /platform |
+| h1 | 32/36 | 48/52 | 500 | -0.025em | Geist | h1 elsewhere |
+| h2 | 28/32 | 40/44 | 500 | -0.02em | Geist | section titles |
+| h3 | 20/26 | 24/30 | 500 | -0.012em | Geist | cards, steps, FAQ |
+| h4 | 17/24 | 18/26 | 600 | 0 | Geist | subheads in long text |
+| lead | 18/28 | 20/30 | 400 | 0 | Geist | paragraph under a title |
+| body | 16/26 | 17/28 | 400 | 0 | Geist | body text |
+| small | 14/22 | 15/24 | 400 | 0 | Geist | notes, disclaimers |
+| caption | 13/20 | 13/20 | 400 | 0 | Geist | captions, meta |
+| label | 12/16 | 12/16 | 500, uppercase | +0.08em | Geist Mono | eyebrows, step numbers, statuses |
+| metric | 48/48 | 72/72 | 300 | -0.04em | Geist | big numbers like "58+" |
+Minimum text size: 12px, label level only.
+
+## 6. Component behaviour
+- Focus state everywhere: 2px outline --color-accent, 3px offset (--color-accent-inverse on dark).
+- Header: sticky. Mobile: 56px, short logo + Menu button. Desktop (≥1024): full menu with dropdowns for Buyers and Owners, one CTA button. Current section marked with aria-current.
+- MobileMenu: full-screen panel under the header; Buyers and Owners expand into service lists, then Platform, Regulations, Blog, then a full-width CTA. Esc closes; page scroll locked while open.
+- Dropdown (desktop): opens on click and hover, closes on Esc and outside click, --shadow-menu.
+- Button: variants primary, secondary, inverse, text. Mobile: 52px high, full width. Hover: --color-accent-hover, 2px lift, --shadow-lift.
+- WhatsAppLink: same look as Button; message taken by key from whatsapp.ts; target=_blank rel=noopener.
+- Faq: accordion with aria-expanded; outputs FAQPage JSON-LD.
+- Testimonials: continuous auto-scroll kept; pauses on hover, focus and touch; Pause button; no animation under prefers-reduced-motion.
+- LogoStrip: greyscale logos, mandatory disclaimer.
+- Footer: mobile single column, links 44px tall.
+
+## 7. Block catalog
+| type | Fields |
+|---|---|
+| hero | variant (display, page), label, title, lead, actions[], fee_note, illustration, metrics[] |
+| cards | label, title, lead, columns (2,3,4), items[]: label, title, text, href |
+| services | title, lead, groups[]: name, items[]: title, text, href |
+| steps | label, title, layout (row, list), items[]: title, text, timing |
+| deliverables | title, lead, items[]: title, text |
+| table | title, caption, head[], rows[][] |
+| metrics | title, items[]: value, label; notes[] |
+| testimonials | title, items[]: quote, name, meta, photo |
+| logos | title, items[]: image, name; disclaimer |
+| faq | title, items[]: question, answer, href, linkText |
+| text | title, body (Markdown) |
+| cta | title, text, action: message, label; next_steps[] |
+| pricing | title, tiers[]: name, price, term, features[], featured |
+| order | title, lead |
+| sample | label, title, lead, document_title, rows[]: label, value, status (ok, warn, danger); note |
+| case | title, task, approach, roles[], result, quote: text, name, meta |
+| disclosure | title, text, href |
+| related | title, items[]: title, text, href |
+
+## 8. Home — src/content/home/index.yaml
+| # | Section | Blocks | Content |
+|---|---|---|---|
+| 1 | Hero | hero (display) | Positioning. Buttons: "Check a Property" → /due-diligence#pricing; "Book a Consultation" → WhatsApp with prefilled message |
+| 2 | How it connects | cards (3) | Intelligence: buyers and investors. Advisory: buyers of complex properties, developers, landowners. Capital: sellers of distressed properties and investors. Loop: every check adds data → data drives advisory → advisory finds deals → deals are funded with investors |
+| 3 | Intelligence | cards + sample | Which databases are connected, what is checked automatically, report excerpt. Due Diligence from $90 → /due-diligence |
+| 4 | Advisory | services | Acquisition Advisory, Go-to-Market for Developers, Land Monetization Strategy |
+| 5 | Capital | cards + disclosure | Buyouts of undervalued and unfinished properties with investors. Sellers → /distressed-property-buyout, investors → /platform. TCG interest disclosure line |
+| 6 | Proof | metrics | 5+ years, 58+ properties checked, 150+ ha. Expertise: notary/PPAT, architect, structural engineer, licensed valuer |
+| 7 | Testimonials and logos | testimonials + logos | Client testimonials; government agency logos with disclaimer |
+| 8 | How work starts | steps | Three steps |
+| 9 | FAQ | faq | Questions from buyers, investors, developers, sellers |
+| 10 | All services | services | Grouped: Buyers / Owners and Developers / Investors |
+| 11 | Final CTA | cta | Final call to action; full footer follows |
+
+## 9. Service page template — src/content/services/<slug>.yaml
+Used by Acquisition Advisory, Distressed Property Buyout, Go-to-Market for Developers. /due-diligence, /platform and /land keep their current structure.
+1. hero (page): who it is for, outcome, one button, fee_note (how the fee is formed). Required.
+2. cards: client situations. Required.
+3. deliverables: what the client receives. Required.
+4. sample: excerpt of a report or memo. Required.
+5. steps: process with timing and payment point. Required.
+6. text: how the price is formed, with no figures. Required.
+7. case: task → approach → roles involved (job titles only) → result → client quote. Built from real testimonials. Required.
+8. disclosure: Distressed Property Buyout only.
+9. faq: objections from a sceptical buyer. Required.
+10. cta: what to send, when we reply, what happens next. Required.
+11. related: related service. Optional.
+No team block. No staff names.
+
+## 10. Copy rules (English)
+- No "X, not Y" or "X is not Y" constructions.
+- No parallel, repetitive constructions in headlines.
+- Restrained, business tone.
+- No invented facts, numbers, clients or quotes. Use [TEXT] where copy is missing.
+- Reuse text from the current site only where it fits the new section.
+
+## 11. Out of scope until after launch
+Blog pipeline, payments, document upload, owner application form, tests (Lighthouse CI, Playwright), /styleguide, language versions.
