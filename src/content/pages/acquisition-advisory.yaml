@@ -50,12 +50,16 @@ blocks:
     items:
       - title: Recommendation
         text: Proceed, renegotiate or withdraw, with the evidence behind each finding and the risks that would still remain after closing.
+        tag: Clear verdict
       - title: Verified Asset File
         text: Title, zoning, permits and owner records, with a structural engineer's comparison of the building against its approved plans.
+        tag: Legal and technical
       - title: Valuation and Price Targets
         text: Worth today and after rectification from a licensed appraiser, the costs to legalise and complete, and the walk-away figure.
+        tag: Price evidence
       - title: Agreed Terms
         text: A contract reviewed by our notary and legal counsel, final conditions in writing and a post-acquisition plan for licensing and rental.
+        tag: Ready for signing
     note:
       text: Zoning, PBG and SLF requirements are explained in the TCG regulations guide.
       link:
@@ -125,12 +129,16 @@ blocks:
     items:
       - title: Scope
         text: Mandate type, asset complexity, transaction size and the verification depth each case needs.
+        tag: Agreed upfront
       - title: Payment
         text: 50% on engagement and 50% on completion, on a written schedule agreed before any work begins.
+        tag: Two instalments
       - title: Third-Party Costs
         text: Notary charges, taxes and partner counsel in Jakarta, settled separately from the advisory fee.
+        tag: Pass-through
       - title: Independence
         text: No commission from sellers or developers, and TCG's own pipeline is never offered to clients.
+        tag: Buyer-side only
     note:
       text: How TCG keeps advisory work independent of its own deals.
       link:
