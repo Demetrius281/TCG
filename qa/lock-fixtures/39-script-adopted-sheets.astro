@@ -1,0 +1,10 @@
+<!-- lock-path: src/components/blocks/Cta.astro; expect: L3 -->
+---
+import Section from "../ui/Section.astro";
+---
+<Section><div class="x">a</div></Section>
+<script>
+  const s = new CSSStyleSheet();
+  document.adoptedStyleSheets = [s];
+  s.insertRule(".x{color:red}");
+</script>

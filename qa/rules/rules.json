@@ -548,6 +548,15 @@
       3
     ]
   },
+  "design": {
+    "_doc": "Rule D (design quality), checked by qa/rules/audit-dom.mjs at every width. D1 equal card heights in a row; D2 card-ending buttons on one line at the card bottom; D3 repeated rows and dividers share the container width; D4 no empty box; D5 no empty band; D6 column tops/centres aligned, no orphan; D7 number on the first text line; D8 priced cards ascending; D9 motion present (hover transform, carousel controls, diagram connectors).",
+    "tol": 1,
+    "emptyMinHeight": 120,
+    "emptyRun": 160,
+    "emptyCover": 0.35,
+    "bandMax": 120,
+    "markerTol": 3
+  },
   "decisions": {
     "D1": "Button and link text: role control = small size 14/15, sans, weight 500, no uppercase; only .btn, .ei-btn, <a>.",
     "D2": "No bold inside text: no <b>/<strong>, no weight 600/700 anywhere.",
@@ -626,6 +635,7 @@
       "border-radius",
       "transform"
     ],
+    "mathNumbers": ["-1", "1", "2", "-2", "100%", "1lh", "0", "38", "54", "56", "60", "64", "66", "68", "72", "45deg", "90deg", "-45deg"],
     "classesOwnedByPrimitives": [
       "t-*",
       "btn",

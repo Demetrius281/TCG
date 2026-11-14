@@ -1,0 +1,8 @@
+<!-- lock-path: src/components/blocks/Cta.astro; expect: L3 -->
+---
+import Section from "../ui/Section.astro";
+---
+<Section><div class="x">a</div></Section>
+<script>
+  Object.assign(document.querySelector(".x").style, { color: "red" });
+</script>

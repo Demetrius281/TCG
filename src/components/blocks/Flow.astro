@@ -2,9 +2,7 @@
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import DesktopIllustration from '../ui/DesktopIllustration.astro';
-import Grid from '../ui/Grid.astro';
-import Card from '../ui/Card.astro';
-import Stack from '../ui/Stack.astro';
+import Diagram from '../ui/Diagram.astro';
 import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
@@ -14,29 +12,7 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} lead={lead} id={headId} />
-  <Grid as="div" cols={3} class="flow" data-flow>
-    <Stack gap={12}>
-      <Text role="small" tone="subtle">{sources.title}</Text>
-      <Stack as="ul" gap={8}>
-        {sources.items.map((s) => <li data-flow-src><Text as="span">{s}</Text></li>)}
-      </Stack>
-    </Stack>
-    <Card as="div" data-flow-hub>
-      <Text as="span" role="card-title">{hub}</Text>
-    </Card>
-    <Stack as="ul" gap={16}>
-      {
-        outputs.map((o) => (
-          <li data-flow-out>
-            <Card as="div" accent>
-              <Text as="h3" role="card-title">{o.title}</Text>
-              <Text tone="muted">{o.text}</Text>
-            </Card>
-          </li>
-        ))
-      }
-    </Stack>
-  </Grid>
+  <Diagram sourcesTitle={sources.title} sources={sources.items.map((s) => ({ title: s }))} hub={{ title: hub }} outputs={outputs} />
   {closing && <Text>{closing}</Text>}
 </Section>
 <!-- The loader script draws the connector lines on desktop only; nothing is fetched below 768px. -->

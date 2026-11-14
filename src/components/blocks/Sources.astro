@@ -20,7 +20,7 @@ const kindTone = { law: 'accent', impl: 'muted', draft: 'subtle', future: 'subtl
     </List>
   </SectionHead>
   <Card as="div">
-    <Text role="small" tone="muted">{review.strong}<time>{review.date}</time>. {review.text}</Text>
+    <Text role="small" tone="muted">{review.strong}<Text as="time" role="small">{review.date}</Text>. {review.text}</Text>
     <Cluster gap={8}>
       {review.legend.map((t) => <Text as="span" role="label" tone={kindTone[t.kind as keyof typeof kindTone] ?? 'subtle'}>{t.label}</Text>)}
     </Cluster>

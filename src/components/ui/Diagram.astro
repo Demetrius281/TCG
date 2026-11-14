@@ -1,0 +1,77 @@
+---
+// Sources -> hub -> outputs. The three columns are centred on each other; the connector lines are drawn by
+// src/scripts/illustrations/flow.ts from the data-flow-* markers (they meet the items exactly). Desktop only.
+//   hub: the central box. A plain hub is a dark label; with `modules` it is an accent-framed card.
+//   outputs: cards with an accent line on top (card) or plain boxes (node).
+interface Node { title: string; text?: string }
+interface Props {
+  sourcesTitle?: string;
+  sources: Node[];
+  outputsTitle?: string;
+  outputs: Node[];
+  hub: { kicker?: string; title: string; modules?: Node[] };
+  outputStyle?: 'card' | 'node';
+  /** Column titles as labels and items aligned left (architecture) instead of right-aligned sources (data flow). */
+  layers?: boolean;
+}
+const { sourcesTitle, sources, outputsTitle, outputs, hub, outputStyle = 'card', layers = false } = Astro.props;
+---
+<div class:list={['diagram', layers && 'is-layers']} data-flow>
+  <div class="col src">
+    {sourcesTitle && <p class:list={[layers ? 't-label' : 't-small', 'col-title']}>{sourcesTitle}</p>}
+    <ul class="list-col">
+      {sources.map((s) => <li class="node" data-flow-src><span class="t-text">{s.title}</span>{s.text && <span class="t-small sub">{s.text}</span>}</li>)}
+    </ul>
+  </div>
+  <div class:list={['hub', hub.modules && 'is-card']} data-flow-hub>
+    {hub.kicker && <span class="t-label kicker">{hub.kicker}</span>}
+    <span class="t-card-title">{hub.title}</span>
+    {hub.modules && (
+      <ul class="mods">
+        {hub.modules.map((m) => <li class="mod"><span class="t-small">{m.title}</span>{m.text && <span class="t-small sub">{m.text}</span>}</li>)}
+      </ul>
+    )}
+  </div>
+  <div class="col out">
+    {outputsTitle && <p class:list={[layers ? 't-label' : 't-small', 'col-title']}>{outputsTitle}</p>}
+    <ul class="list-col">
+      {
+        outputs.map((o) => (
+          <li class:list={['node', outputStyle === 'card' && 'is-card']} data-flow-out>
+            {outputStyle === 'card' ? <h3 class="t-card-title">{o.title}</h3> : <span class="t-text">{o.title}</span>}
+            {o.text && <span class="t-text sub">{o.text}</span>}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<style>
+  .diagram { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-24); align-items: center; }
+  .col, .hub { min-width: 0; }
+  .col { display: grid; gap: var(--s-12); }
+  .list-col { display: grid; gap: var(--s-12); margin: 0; padding: 0; list-style: none; }
+  .col-title { color: var(--c-text-3); }
+  .node, .hub, .mod { overflow-wrap: anywhere; }
+  .node { display: grid; gap: var(--s-8); padding: var(--s-12) var(--s-16); background: var(--c-surface); border: var(--bw-1) solid var(--c-border-strong); }
+  .node.is-card { gap: var(--s-12); padding: var(--s-16) var(--s-24); border-color: var(--c-border); border-top: var(--bw-2) solid var(--c-accent); }
+  .sub { color: var(--c-text-2); }
+  .hub { display: grid; justify-self: start; gap: var(--s-12); padding: var(--s-16) var(--s-32); background: var(--color-inverse); color: var(--color-on-inverse); }
+  .hub.is-card { justify-self: stretch; padding: var(--s-24); background: var(--c-surface); color: var(--c-text); border: var(--bw-2) solid var(--c-accent); }
+  .kicker { color: var(--c-accent); }
+  .mods { display: grid; gap: var(--s-8); margin: 0; padding: 0; list-style: none; }
+  .mod { display: grid; gap: var(--s-8); padding: var(--s-12); background: var(--c-bg); border: var(--bw-1) solid var(--c-border); }
+  @media (min-width: 768px) {
+    .diagram { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.3fr); gap: var(--s-32); }
+    .src { text-align: right; }
+    .src .node { justify-items: end; }
+    .is-layers .src { text-align: left; }
+    .is-layers .src .node { justify-items: start; }
+    .hub { justify-self: center; }
+  }
+  @media (min-width: 1024px) {
+    .diagram { gap: var(--split-gap); }
+    .hub.is-card { min-width: var(--size-slide); }
+  }
+</style>

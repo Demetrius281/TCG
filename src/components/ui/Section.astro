@@ -14,8 +14,10 @@ interface Props {
   art?: string;
   /** split only: the head column stays in view while the content scrolls. */
   sticky?: boolean;
+  /** split only: the two columns are centred on each other instead of top-aligned. */
+  center?: boolean;
 }
-const { tone = 'default', id, labelledby, nav, layout = 'stacked', art, sticky = false } = Astro.props;
+const { tone = 'default', id, labelledby, nav, layout = 'stacked', art, sticky = false, center = false } = Astro.props;
 const twoCol = layout === 'split' || layout === 'article';
 ---
 <section class:list={['section', `tone-${tone}`, tone === 'inverse' && 'on-inverse']} id={id} data-nav={nav} aria-labelledby={labelledby}>
@@ -26,7 +28,7 @@ const twoCol = layout === 'split' || layout === 'article';
         {art && <div class="art"><slot name="art" /></div>}
       </div>
     ) : twoCol ? (
-      <div class={`inner layout-${layout}`}>
+      <div class:list={['inner', `layout-${layout}`, center && 'is-center']}>
         <div class:list={['side', sticky && 'is-sticky']}>{layout === 'split' ? <slot name="head" /> : <slot name="nav" />}</div>
         <div class="body"><slot /></div>
       </div>
@@ -48,6 +50,7 @@ const twoCol = layout === 'split' || layout === 'article';
     --c-border-strong: var(--color-border-strong);
     --c-accent: var(--color-accent);
     padding-block: var(--section-y);
+    overflow-x: clip;
     background: var(--c-bg);
     color: var(--c-text);
   }
@@ -78,6 +81,7 @@ const twoCol = layout === 'split' || layout === 'article';
     .layout-split { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--split-gap); }
     .layout-article { grid-template-columns: var(--article-nav) minmax(0, var(--container-prose)); gap: var(--split-gap); }
     .has-art { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--split-gap); }
+    .is-center { align-items: center; }
     .is-sticky { position: sticky; top: calc(var(--header-h-lg) + var(--s-24)); align-self: start; }
   }
 </style>

@@ -8,15 +8,17 @@ interface Props {
   item?: boolean;
   href?: string;
   accent?: boolean;
+  /** Raised card (document, case): soft shadow. */
+  floating?: boolean;
   variant?: 'surface' | 'note';
   class?: string;
   [attr: string]: unknown;
 }
-const { as = 'div', item = false, href, accent = false, variant = 'surface', class: className, ...rest } = Astro.props;
+const { as = 'div', item = false, href, accent = false, floating = false, variant = 'surface', class: className, style: _style, ...rest } = Astro.props;
 const Tag = href ? 'a' : as;
 const hasFoot = Astro.slots.has('foot');
 const hasActions = Astro.slots.has('actions');
-const cls = [variant === 'note' ? 'note' : 'card', `v-${variant}`, accent && 'is-accent', href && 'is-link', className];
+const cls = [variant === 'note' ? 'note' : 'card', `v-${variant}`, accent && 'is-accent', floating && 'is-floating', href && 'is-link', className];
 ---
 {
   item ? (
@@ -44,11 +46,15 @@ const cls = [variant === 'note' ? 'note' : 'card', `v-${variant}`, accent && 'is
     text-decoration: none;
   }
   .cell > .card { height: 100%; }
+  .is-floating { box-shadow: var(--shadow-menu); }
   .is-accent { border-top: var(--bw-2) solid var(--c-accent); }
   .note { display: flex; flex-direction: column; gap: var(--s-12); min-width: 0; margin: 0; padding: 0 0 0 var(--s-24); color: var(--c-text); }
   .v-note { padding: 0 0 0 var(--s-24); background: transparent; border: 0; border-left: var(--bw-2) solid var(--c-accent); }
-  .is-link { transition: border-color var(--ease), box-shadow var(--ease); }
-  .is-link:hover { border-color: var(--c-accent); box-shadow: var(--shadow-lift); }
+  .is-link { transition: border-color var(--ease), box-shadow var(--ease), transform var(--ease); }
+  .is-link:hover { border-color: var(--c-accent); box-shadow: var(--shadow-lift); transform: translateY(var(--lift)); }
+  @media (prefers-reduced-motion: reduce) {
+    .is-link:hover { transform: none; }
+  }
   .actions { margin-top: calc(var(--s-32) - var(--s-12)); }
-  .foot { display: flex; flex-direction: column; gap: var(--s-12); margin-top: auto; padding-top: var(--s-12); border-top: var(--bw-1) solid var(--c-border); }
+  .foot { display: flex; flex-direction: column; gap: var(--s-12); padding-top: var(--s-12); border-top: var(--bw-1) solid var(--c-border); }
 </style>

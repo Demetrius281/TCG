@@ -21,7 +21,7 @@ const statusText = { ok: 'Clear', warn: 'Attention', danger: 'Issue' } as const;
           <li>
             <Stack gap={8} as="div">
               <Text as="span" role="small" tone="subtle">{r.label}</Text>
-              <Text as="span" tone={r.status}><span class="sr-only">{statusText[r.status]}: </span>{r.value}</Text>
+              <Text as="span" tone={r.status}><Text as="span" class="sr-only">{statusText[r.status]}: </Text>{r.value}</Text>
             </Stack>
           </li>
         ))

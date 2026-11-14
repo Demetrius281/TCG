@@ -1,0 +1,109 @@
+---
+// A row of cards that scrolls by itself, can be dragged, stepped with arrows and paused.
+// Slot: <li> items (Card item). Cards share one height. Motion stops under prefers-reduced-motion (the row stays scrollable).
+interface Props {
+  label: string;
+  pause?: string;
+  play?: string;
+  previous?: string;
+  next?: string;
+}
+const { label, pause = 'Pause', play = 'Play', previous = 'Previous', next = 'Next' } = Astro.props;
+---
+<div class="carousel" data-carousel data-pause={pause} data-play={play}>
+  <div class="viewport" role="region" aria-label={label} tabindex="0" data-viewport>
+    <ul class="track" data-track><slot /></ul>
+  </div>
+  <div class="controls">
+    <button class="ctl" type="button" aria-label={previous} data-prev><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg></button>
+    <button class="ctl" type="button" aria-label={next} data-next><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg></button>
+    <button class="ctl t-control" type="button" aria-pressed="false" data-toggle hidden>{pause}</button>
+  </div>
+</div>
+
+<style>
+  .carousel { display: grid; gap: var(--s-24); min-width: 0; }
+  .viewport { overflow-x: auto; scrollbar-width: none; cursor: grab; }
+  .viewport::-webkit-scrollbar { display: none; }
+  .viewport.is-drag { cursor: grabbing; user-select: none; }
+  .track { display: flex; gap: var(--grid-gap); width: max-content; margin: 0; padding: 0; list-style: none; }
+  .controls { display: flex; justify-content: flex-end; gap: var(--s-8); }
+  .ctl { display: inline-flex; align-items: center; justify-content: center; min-width: var(--control-h); height: var(--control-h); padding: 0 var(--s-16); background: transparent; border: var(--bw-1) solid var(--c-border-strong); border-radius: var(--radius); color: var(--c-text); cursor: pointer; transition: border-color var(--ease), color var(--ease); }
+  .ctl:hover { border-color: var(--c-accent); color: var(--c-accent); }
+  .ctl[hidden] { display: none; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const viewport = root.querySelector<HTMLElement>('[data-viewport]')!;
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    const toggle = root.querySelector<HTMLButtonElement>('[data-toggle]')!;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const step = () => (track.firstElementChild as HTMLElement).getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || '0');
+    root.querySelector('[data-prev]')!.addEventListener('click', () => viewport.scrollBy({ left: -step(), behavior: reduced ? 'auto' : 'smooth' }));
+    root.querySelector('[data-next]')!.addEventListener('click', () => viewport.scrollBy({ left: step(), behavior: reduced ? 'auto' : 'smooth' }));
+    if (reduced) return;
+
+    // Clone the cards once so the loop is seamless. Clones are hidden from assistive tech.
+    Array.from(track.children).forEach((li) => {
+      const clone = li.cloneNode(true) as HTMLElement;
+      clone.setAttribute('aria-hidden', 'true');
+      clone.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', '-1'));
+      track.appendChild(clone);
+    });
+    let paused = false;
+    let hover = false;
+    let dragging = false;
+    let visible = true;
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => {
+      paused = !paused;
+      toggle.setAttribute('aria-pressed', String(paused));
+      toggle.textContent = paused ? root.dataset.play! : root.dataset.pause!;
+    });
+    root.addEventListener('mouseenter', () => (hover = true));
+    root.addEventListener('mouseleave', () => (hover = false));
+    root.addEventListener('focusin', () => (hover = true));
+    root.addEventListener('focusout', () => (hover = false));
+    new IntersectionObserver((e) => (visible = e[0].isIntersecting)).observe(root);
+
+    // Drag with the mouse (touch and trackpad scroll natively).
+    let startX = 0;
+    let startLeft = 0;
+    viewport.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      dragging = true;
+      startX = e.clientX;
+      startLeft = viewport.scrollLeft;
+      viewport.classList.add('is-drag');
+      viewport.setPointerCapture(e.pointerId);
+    });
+    viewport.addEventListener('pointermove', (e) => {
+      if (dragging) viewport.scrollLeft = startLeft - (e.clientX - startX);
+    });
+    const end = () => {
+      dragging = false;
+      viewport.classList.remove('is-drag');
+    };
+    viewport.addEventListener('pointerup', end);
+    viewport.addEventListener('pointercancel', end);
+    viewport.addEventListener('touchstart', () => (hover = true), { passive: true });
+    viewport.addEventListener('touchend', () => (hover = false));
+
+    // Sub-pixel scroll positions are rounded by the browser, so keep our own position.
+    let pos = viewport.scrollLeft;
+    let last = viewport.scrollLeft;
+    const tick = () => {
+      if (Math.abs(viewport.scrollLeft - last) > 1.5) pos = viewport.scrollLeft;
+      if (!paused && !hover && !dragging && visible) {
+        const half = track.scrollWidth / 2;
+        pos += 0.5;
+        if (pos >= half) pos -= half;
+        viewport.scrollLeft = pos;
+        last = viewport.scrollLeft;
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+</script>

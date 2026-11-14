@@ -7,12 +7,12 @@ interface Props {
 }
 const { rows, grid = false } = Astro.props;
 ---
-<div class:list={['rows', grid && 'is-grid']}>
+<div class:list={['data-rows', grid && 'is-grid']}>
   {rows.map((r) => <p class="t-small"><span class="t-label k">{r.label}</span><span class="v" id={r.id}></span></p>)}
 </div>
 
 <style>
-  .rows { display: grid; border-top: var(--bw-1) solid var(--c-border-strong); }
+  .data-rows { display: grid; border-top: var(--bw-1) solid var(--c-border-strong); }
   p { display: flex; flex-wrap: wrap; gap: var(--s-8); padding: var(--s-12) 0; border-bottom: var(--bw-1) solid var(--c-border-strong); color: var(--c-text); }
   .k { color: var(--c-text-3); }
   .v { overflow-wrap: anywhere; }

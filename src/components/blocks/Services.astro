@@ -20,7 +20,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
       groups.map((g) => (
         <Stack gap={16} id={g.id}>
           {g.name && <Text as="h3" role="card-title">{g.name}</Text>}
-          <Rows items={g.items.map((item) => ({ href: item.href, title: item.title, text: item.text, meta: item.meta, go: explore }))} />
+          <Rows bleed items={g.items.map((item) => ({ href: item.href, title: item.title, text: item.text, meta: item.meta, go: explore }))} />
         </Stack>
       ))
     }

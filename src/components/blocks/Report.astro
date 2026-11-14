@@ -11,13 +11,15 @@ import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'report'>, 'type'>;
 const { title, lead, line, document: doc, tone, id } = Astro.props;
-const rows = doc.rows.map((r) => ({ cells: [r.category, r.finding, r.source, r.status_label] }));
+const rows = doc.rows.map((r) => ({ cells: [`${r.category}: ${r.finding}`, r.source, r.status_label] }));
 ---
-<Section id={id} tone={tone} labelledby="report-title" layout="split">
-  <SectionHead slot="head" title={title} lead={lead} id="report-title" />
-  <Stack gap={24}>
+<Section id={id} tone={tone} labelledby="report-title" layout="split" center>
+  <Stack slot="head" gap={40}>
+    <SectionHead title={title} lead={lead} id="report-title" />
     <Text role="small" tone="subtle">{line}</Text>
-    <Card as="figure" aria-label={doc.aria_label}>
+  </Stack>
+  <Stack gap={24}>
+    <Card as="figure" floating aria-label={doc.aria_label}>
       <Cluster justify="between" gap={8} align="baseline">
         <Text as="span" role="label" tone="accent">{doc.brand}</Text>
         <Text as="span" role="small" tone="subtle">{doc.meta}</Text>

@@ -13,7 +13,7 @@ const ROOT = process.cwd();
 const DIST = path.join(ROOT, 'dist');
 const OUT = path.join(ROOT, 'qa/audit');
 const R = JSON.parse(fs.readFileSync(path.join(ROOT, 'qa/rules/rules.json'), 'utf8'));
-const RULES = ['R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'X'];
+const RULES = ['R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'X', 'D'];
 const args = new Set(process.argv.slice(2));
 const log = (...a) => console.log(new Date().toISOString().slice(11, 19), ...a);
 
@@ -111,7 +111,7 @@ const FORCE = () => {
   const walkRules = (rules, parent) => {
     for (const r of rules) {
       if (r instanceof CSSStyleRule) {
-        if (/:hover|:focus-visible|:focus-within|:focus\b/.test(r.selectorText)) add.push([parent, r.selectorText.replace(/:hover|:focus-visible|:focus-within|:focus\b/g, '.__force') + '{' + r.style.cssText + '}']);
+        if (/:hover|:focus-visible|:focus-within|:focus\b/.test(r.selectorText)) add.push([parent, r.selectorText.replace(/:hover|:focus-visible|:focus-within|:focus\b/g, '.__force') + '{' + r.style.cssText.replace(/(^|;|\s)(transform|translate|rotate|scale)\s*:[^;]*;?/g, '$1') + '}']);
       } else if (r.cssRules) walkRules(r.cssRules, r);
     }
   };
@@ -354,7 +354,7 @@ async function prove(base, discovered) {
   const browser = await launch('chromium');
   const rows = [];
   for (const p of discovered.pages) {
-    for (const rule of RULES) {
+    for (const rule of [...RULES.filter((r) => r !== 'D'), 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9']) {
       for (const kind of ['last', 'last-section', 'middle']) {
         if (kind === 'last-section' && false) continue;
         const rec = { illustrationRequests: [] };
@@ -362,10 +362,10 @@ async function prove(base, discovered) {
         const info = await page.evaluate(`(${MUTATE})(${JSON.stringify(rule)}, ${JSON.stringify(kind)}, 'info')`);
         await page.evaluate(`(${MUTATE})(${JSON.stringify(rule)}, ${JSON.stringify(kind)})`);
         await page.waitForTimeout(150);
-        const res = await runMeasure(page, { vw: 1280, state: 'default', path: p.route, only: [rule] });
-        const hit = res.violations.filter((v) => v.rule === rule && v.screenIndex === info.index);
+        const res = await runMeasure(page, { vw: 1280, state: 'default', path: p.route, only: [rule.startsWith('D') ? 'D' : rule] });
+        const hit = res.violations.filter((v) => (rule.startsWith('D') ? v.rule === 'D' && v.measured.startsWith(rule + ' ') : v.rule === rule) && v.screenIndex === info.index);
         // R5 does not apply to the footer; /404 has one screen only, so an extra h1 there is the first screen's h1 (R2 cannot be broken outside it).
-        const sectionOnly = (rule === 'R5' && kind === 'last') || (rule === 'R2' && kind !== 'last' && p.route === '/404');
+        const sectionOnly = ((rule === 'R5' || rule === 'D5') && kind === 'last') || (rule === 'R2' && kind !== 'last' && p.route === '/404');
         rows.push({ page: p.route, rule, target: kind, screen: info.name, caught: hit.length > 0, na: sectionOnly, detail: hit[0] ? `${hit[0].measured} (required ${hit[0].required})` : sectionOnly ? 'not applicable here (R5: sections only, see last-section; R2 on /404: one screen only)' : 'NOT CAUGHT' });
         await ctx.close();
       }

@@ -229,17 +229,17 @@ blocks:
     parts:
       - part: chain
         items:
-          - title: LAND
+          - title: Land
             text: Lawful control of the property for the intended arrangement.
-          - title: ZONING
+          - title: Zoning
             text: The intended accommodation activity is permitted on this parcel.
-          - title: BUILDING
+          - title: Building
             text: PBG or qualifying legacy IMB, and SLF for fitness of use.
-          - title: BUSINESS
+          - title: Business
             text: The legal operator of the accommodation and its role.
-          - title: LICENSING
+          - title: Licensing
             text: NIB, current KBLI, risk-based licensing and supporting approvals.
-          - title: OPERATION
+          - title: Operation
             text: Tourism standards, local tax and other ongoing obligations.
     id: short-answer
   - type: guide

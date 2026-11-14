@@ -243,7 +243,8 @@ function measure(vp) {
     if (!visible(hd)) return;
     const next = hd.nextElementSibling;
     if (!next || !visible(next) || next.getBoundingClientRect().top < hd.getBoundingClientRect().bottom - 1) return;
-    const exp = hd.classList.contains('next-actions') ? 32 : 40;
+    // text -> buttons is 32 (also when the buttons sit next to the head in a row that wrapped)
+    const exp = next.matches('.btn, .action-stack') || next.querySelector(':scope > .btn:not(.btn-text)') ? 32 : 40;
     const g = gap(hd, next);
     if (!near(g, exp)) fail('4-head-content', hd, Math.round(g), exp);
   });

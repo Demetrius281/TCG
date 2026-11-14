@@ -9,5 +9,5 @@ const { title, items, tone, id, nav } = Astro.props;
 ---
 <Section id={id} nav={nav} tone={tone} labelledby="idx-h">
   <SectionHead title={title} id="idx-h" />
-  <Rows as="ol" titleRole="text" items={items.map((t) => ({ href: t.href, label: t.number, title: t.question, meta: t.hint }))} />
+  <Rows as="ol" cols={2} titleRole="text" items={items.map((t) => ({ href: t.href, label: t.number, title: t.question, meta: t.hint, arrow: true }))} />
 </Section>

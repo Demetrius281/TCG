@@ -9,7 +9,7 @@ interface Props {
   class?: string;
   [attr: string]: unknown;
 }
-const { gap = 16, as: Tag = 'div', align = 'stretch', class: className, ...rest } = Astro.props;
+const { gap = 16, as: Tag = 'div', align = 'stretch', class: className, style: _style, ...rest } = Astro.props;
 assertGap(gap, 'Stack');
 ---
 <Tag class:list={['stack', `g-${gap}`, `a-${align}`, className]} {...rest}><slot /></Tag>

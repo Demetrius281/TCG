@@ -61,7 +61,7 @@ button { font: inherit; color: inherit; }
 .t-control, a, .btn, .ei-btn { font-family: var(--font-sans); font-size: var(--fs-small); font-weight: var(--fw-medium); letter-spacing: 0; line-height: var(--lh-small); text-transform: none; }
 
 /* Running text is at most 720px wide (D3). Table cells are exempt. */
-p, li, dd, blockquote, figcaption, address { max-width: var(--container-prose); }
+p, dd, blockquote, figcaption, address, .list > li { max-width: var(--container-prose); }
 td p, td li, th p { max-width: none; }
 
 a { color: var(--c-accent, var(--color-accent)); text-decoration-thickness: var(--bw-1); text-underline-offset: var(--underline-offset); }
@@ -72,6 +72,20 @@ a { color: var(--c-accent, var(--color-accent)); text-decoration-thickness: var(
 }
 
 [hidden][hidden][hidden] { display: none; }
+
+/* Grid (ui/Grid): no orphan. A lone last item takes the whole row; the cells are children of the primitive, so this lives here. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .grid.cols-2 > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .grid.cols-3 > :last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+  .grid.cols-3 > :last-child:nth-child(3n + 2) { grid-column: span 2; }
+  .grid.cols-4 > :last-child:nth-child(4n + 1) { grid-column: 1 / -1; }
+}
+
+/* Carousel slides (ui/Carousel): one width for every card. */
+[data-track] > * { flex: none; width: var(--size-slide); }
 
 .sr-only {
   position: absolute;

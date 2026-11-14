@@ -4,8 +4,8 @@
 export function measure(R, ctx) {
   const vw = ctx.vw;
   const T = R.tolerance;
-  const ALL = ['R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'X'];
-  const enabled = (r) => (!ctx.only || ctx.only.includes(r)) && (!ctx.sweep || ['R1', 'R4', 'R6', 'X'].includes(r));
+  const ALL = ['R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'X', 'D'];
+  const enabled = (r) => (!ctx.only || ctx.only.includes(r)) && (!ctx.sweep || ['R1', 'R4', 'R6', 'X', 'D'].includes(r));
   const t = Math.min(1, Math.max(0, (vw - R.fluid.from) / (R.fluid.to - R.fluid.from)));
   const val = (s) => (s.mode === 'fluid' ? s.mobile + (s.desktop - s.mobile) * t : vw >= (s.stepAt ?? R.breakpoints.desktop) ? s.desktop : s.mobile);
   const near = (a, b, tol = T.px) => Math.abs(a - b) <= tol;
@@ -381,6 +381,8 @@ export function measure(R, ctx) {
     const docW = document.documentElement.scrollWidth;
     const target = (() => { let best = null; let max = vw + 1; for (const e of els) { const r = rc(e).right; if (r > max && !e.closest('[class*="track"], .viewport, .scroll, [tabindex="0"]') && !(() => { for (let a = e.parentElement; a; a = a.parentElement) { const o = cs(a).overflowX; if (o === 'auto' || o === 'scroll' || o === 'hidden' || o === 'clip') return true; } return false; })()) { max = r; best = e; } } return best; })();
     chk('X', target || document.body, docW <= vw + 1, `scrollWidth ${docW}`, `no horizontal scroll (viewport ${vw})`);
+    // a screen clips its own overflow (overflow-x: clip): content wider than the screen is still a violation
+    document.querySelectorAll('main > section').forEach((s) => { if (visible(s)) chk('X', s, s.scrollWidth <= s.clientWidth + 1, `screen content ${s.scrollWidth}px in a screen of ${s.clientWidth}px`, 'nothing wider than the screen'); });
     for (const e of textEls) {
       if (!isBlockish(e)) continue;
       const c = cs(e);
@@ -394,6 +396,117 @@ export function measure(R, ctx) {
       const outside = screenOf(document.body.querySelector('main') || document.body);
       for (const [k, n] of Object.entries(seen)) { outside.counts.X.c++; if (n > 1 && !/^(og:image:|article:)/.test(k)) { outside.counts.X.v++; violations.push({ rule: 'X', screen: '(document head)', screenIndex: -1, kind: 'head', element: k, measured: `${n} tags`, required: 'one tag' }); } }
     }
+  }
+
+  // ---- D: design quality (CLAUDE.md "Design quality", rules.json design.*)
+  if (enabled('D')) {
+    const DS = R.design;
+    const q = (sel, root = document) => [...root.querySelectorAll(sel)].filter((e) => !e.closest(`${EXCL}`) && visible(e));
+    const near1 = (a, b, tol = DS.tol) => Math.abs(a - b) <= tol;
+    const boxes = q('.card, .tier').filter((e) => !e.classList.contains('note'));
+    // D1 + D2: cards of one row share a height; the buttons that end them sit on one line at the card bottom
+    const groups = new Map();
+    const stretchedSet = new Set();
+    for (const b of boxes) {
+      const host = b.closest('.grid, .tiers, .track');
+      if (!host) continue;
+      const key = host; const arr = groups.get(key) ?? []; arr.push(b); groups.set(key, arr);
+    }
+    for (const [host, arr] of groups) {
+      const rows = [];
+      for (const b of arr.sort((a, c) => rc(a).top - rc(c).top)) { const r = rows.find((x) => Math.abs(rc(x[0]).top - rc(b).top) <= 2); r ? r.push(b) : rows.push([b]); }
+      for (const row of rows) {
+        if (row.length < 2) continue;
+        row.forEach((b) => stretchedSet.add(b));
+        const hmax = Math.max(...row.map((b) => rc(b).height));
+        row.forEach((b) => chk('D', b, near1(rc(b).height, hmax), `D1 height ${Math.round(rc(b).height)} in a row of ${Math.round(hmax)}`, 'equal heights in one row'));
+        const withBtn = row.map((b) => ({ b, btn: [...b.querySelectorAll('.btn, .ei-btn')].filter(visible).pop() })).filter((x) => x.btn);
+        if (withBtn.length >= 2) {
+          const ref = rc(withBtn[0].btn).bottom;
+          withBtn.forEach(({ b, btn }) => {
+            const padB = parseFloat(cs(b).paddingBottom) + parseFloat(cs(b).borderBottomWidth);
+            chk('D', btn, near1(rc(btn).bottom, ref) && rc(b).bottom - rc(btn).bottom <= padB + 2 * DS.tol + 1, `D2 button bottom ${Math.round(rc(btn).bottom - rc(withBtn[0].btn).bottom)}px off, ${Math.round(rc(b).bottom - rc(btn).bottom)}px above the card bottom`, 'one line, at the card bottom');
+          });
+        }
+      }
+    }
+    // D3: repeated rows and dividers share the width of their container
+    q('.rows').forEach((r) => {
+      const host = r.closest('.inner, .body, .side, .stacked') ?? r.parentElement;
+      const hw = host.clientWidth - parseFloat(cs(host).paddingLeft) - parseFloat(cs(host).paddingRight);
+      const two = r.classList.contains('is-two');
+      const w = rc(r).width;
+      chk('D', r, near1(w, hw, 2), `D3 rows ${Math.round(w)} in a column of ${Math.round(hw)}`, 'rows span the container');
+      if (!two) [...r.children].filter(visible).forEach((it) => chk('D', it, near1(rc(it).width, w, 2 + 2 * parseFloat(cs(r).borderLeftWidth)), `D3 row ${Math.round(rc(it).width)} in rows of ${Math.round(w)}`, 'one row width'));
+    });
+    // D4: no empty box (content < 35% of the height of a tall box, or an empty vertical run > 160px inside it)
+    const contentRects = (root) => {
+      const out = [];
+      const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      for (let n = tw.nextNode(); n; n = tw.nextNode()) { if (!n.nodeValue.trim() || n.parentElement.closest(`${SKIP}`)) continue; const rg = document.createRange(); rg.selectNodeContents(n); const r = rg.getBoundingClientRect(); if (r.width && r.height) out.push(r); }
+      root.querySelectorAll('img, svg, button, input, select, textarea, .btn, .card, .node, .cell, .item, table').forEach((e) => { if (visible(e) && e !== root) { const r = rc(e); out.push(r); } });
+      return out;
+    };
+    const runs = (rects, top, bottom) => {
+      const iv = rects.map((r) => [Math.max(top, r.top), Math.min(bottom, r.bottom)]).filter((x) => x[1] > x[0]).sort((a, b) => a[0] - b[0]);
+      const merged = []; for (const x of iv) { const l = merged[merged.length - 1]; if (l && x[0] <= l[1]) l[1] = Math.max(l[1], x[1]); else merged.push([...x]); }
+      let gap = 0, last = top; for (const m of merged) { gap = Math.max(gap, m[0] - last); last = m[1]; } gap = Math.max(gap, bottom - last);
+      const covered = merged.reduce((n, m) => n + (m[1] - m[0]), 0);
+      return { gap, covered };
+    };
+    q('.card, .tier, .hub, figure, aside').filter((e) => !e.classList.contains('note')).forEach((e) => {
+      const r = rc(e); if (r.height < DS.emptyMinHeight) return;
+      // a card stretched to the height of its row (D1) is not empty because its neighbour is taller: only the run above its last content counts
+      const stretched = stretchedSet.has(e);
+      const rects = contentRects(e);
+      const lastBottom = Math.max(r.top, ...rects.map((x) => Math.min(r.bottom, x.bottom)));
+      const { gap, covered } = runs(rects, r.top, stretched ? lastBottom : r.bottom);
+      chk('D', e, gap <= DS.emptyRun && (stretched || covered / r.height >= DS.emptyCover), `D4 empty run ${Math.round(gap)}px, content ${Math.round((100 * covered) / r.height)}% of the box`, `empty run <= ${DS.emptyRun}px, content >= ${Math.round(100 * DS.emptyCover)}%`);
+    });
+    // D5: no empty band inside a screen or between content of two screens (beyond the section padding)
+    q('main > section').forEach((s) => {
+      const r = rc(s); const c = cs(s);
+      const rects = contentRects(s).filter((x) => x.bottom > r.top && x.top < r.bottom);
+      const pt = parseFloat(c.paddingTop), pb = parseFloat(c.paddingBottom);
+      const iv = rects.map((x) => [x.top, x.bottom]).sort((a, b) => a[0] - b[0]);
+      const merged = []; for (const x of iv) { const l = merged[merged.length - 1]; if (l && x[0] <= l[1]) l[1] = Math.max(l[1], x[1]); else merged.push([...x]); }
+      if (!merged.length) { chk('D', s, false, 'D5 section without content', 'content'); return; }
+      let worst = Math.max(merged[0][0] - (r.top + pt), r.bottom - pb - merged[merged.length - 1][1]);
+      for (let i = 1; i < merged.length; i++) worst = Math.max(worst, merged[i][0] - merged[i - 1][1]);
+      chk('D', s, worst <= DS.bandMax, `D5 empty band ${Math.round(worst)}px`, `no empty band > ${DS.bandMax}px`);
+    });
+    // D6: columns of a composition share tops (or centres); no orphan in the last row of a grid
+    q('.grid, .layout-split, .hero.has-art, .diagram, .tiers').forEach((g) => {
+      const kids = [...g.children].filter((k) => visible(k) && cs(k).position !== 'absolute');
+      const rows = []; for (const k of kids.sort((a, b) => rc(a).top - rc(b).top)) { const row = rows.find((x) => rc(k).top < rc(x[0]).bottom - 2 && rc(k).bottom > rc(x[0]).top + 2); row ? row.push(k) : rows.push([k]); }
+      rows.forEach((row) => { if (row.length < 2) return; const okTop = row.every((k) => near1(rc(k).top, rc(row[0]).top, 2)); const okMid = row.every((k) => near1(rc(k).top + rc(k).height / 2, rc(row[0]).top + rc(row[0]).height / 2, 2)); chk('D', row[0], okTop || okMid, `D6 column tops differ by ${Math.round(Math.max(...row.map((k) => Math.abs(rc(k).top - rc(row[0]).top))))}px`, 'tops or centres aligned'); });
+      if (g.matches('.grid') && rows.length >= 2) {
+        const last = rows[rows.length - 1]; const full = last.length === 1 && near1(rc(last[0]).width, rc(g).width, 2);
+        chk('D', last[0], !(last.length === 1 && rows[rows.length - 2].length >= 2) || full, `D6 orphan: 1 item in the last row of ${rows[rows.length - 2].length}`, 'no orphan item');
+      }
+    });
+    // D7: a number / marker sits on the first text line of its item
+    q('.row.has-label').forEach((row) => {
+      const lab = row.querySelector('.label'); const name = row.querySelector('.name'); if (!lab || !name) return;
+      const lh = parseFloat(cs(name).lineHeight) || rc(name).height;
+      const llh = parseFloat(cs(lab).lineHeight) || rc(lab).height;
+      const mid = rc(name).top + lh / 2; const lm = rc(lab).top + llh / 2;
+      chk('D', lab, Math.abs(mid - lm) <= DS.markerTol, `D7 marker ${Math.round(lm - mid)}px off the first line`, `within ${DS.markerTol}px of the first line`);
+    });
+    // D8: priced cards ascend
+    q('.tiers').forEach((t) => {
+      const ps = [...t.querySelectorAll('[data-price]')].filter(visible);
+      const ordered = ps.every((p, i) => i === 0 || Number(p.dataset.price) >= Number(ps[i - 1].dataset.price));
+      const sameRow = ps.every((p, i) => i === 0 || rc(p).left >= rc(ps[i - 1].left === undefined ? ps[i - 1] : ps[i - 1]).left - 1 || rc(p).top > rc(ps[i - 1]).top);
+      chk('D', t, ordered && sameRow, `D8 prices ${ps.map((p) => p.dataset.price).join(', ')}`, 'ascending by price');
+    });
+    // D9: motion present where the reference design had it
+    q('.btn').forEach((b) => chk('D', b, /transform|all/.test(cs(b).transitionProperty), `D9 button transition: ${cs(b).transitionProperty}`, 'hover motion (transform)'));
+    q('a.card').forEach((b) => chk('D', b, /transform|all/.test(cs(b).transitionProperty), `D9 card transition: ${cs(b).transitionProperty}`, 'hover motion (transform)'));
+    // the pause button exists only while the carousel autoplays; under prefers-reduced-motion arrows and drag remain
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    q('[data-carousel]').forEach((c) => { const t = c.querySelector('[data-toggle]'); const arrows = c.querySelector('[data-prev]') && c.querySelector('[data-next]'); chk('D', c, !!arrows && (reducedMotion || (!!t && !t.hidden)), 'D9 carousel without running controls', 'autoplay, drag, arrows, pause'); });
+    if (vw >= R.breakpoints.tablet) q('[data-flow]').forEach((f) => chk('D', f, !!f.querySelector('.flow-lines path'), 'D9 diagram without connector lines', 'connector lines drawn'));
   }
 
   counts.screens = screens.filter((s) => s.kind !== 'outside').length;
@@ -449,5 +562,17 @@ export function mutate(rule, kind, idx) {
   if (rule === 'R8') add('<a class="btn btn-primary" style="display:inline-flex;height:40px;border-radius:8px;background:rgb(1,2,3);color:#fff;font-size:15px">Audit probe R8</a>');
   if (rule === 'R9') add('<ul style="list-style:disc;margin:0;padding-left:20px"><li style="font-size:17px">Audit probe R9</li></ul>');
   if (rule === 'X') add('<div style="width:3000px;height:6px;background:#888"></div>');
+  // D probes: each breaks one design rule (D1..D9); the audit reports rule "D" with the sub-rule in the measurement.
+  const card = (h, extra = '') => `<li style="list-style:none;display:block"><div class="card" style="display:block;border:1px solid #ccc;padding:24px;height:${h}px">${extra}<p style="${P}">Audit probe</p></div></li>`;
+  const grid2 = (inner) => add(`<ul class="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0;padding:0;list-style:none;align-items:start">${inner}</ul>`);
+  if (rule === 'D1') grid2(card(120) + card(240));
+  if (rule === 'D2') grid2(`<li style="list-style:none"><div class="card" style="display:block;height:200px;padding:24px;border:1px solid #ccc"><a class="btn btn-secondary" style="display:inline-flex;height:52px;margin-top:20px;transition:transform 1s">x</a></div></li><li style="list-style:none"><div class="card" style="display:block;height:200px;padding:24px;border:1px solid #ccc"><a class="btn btn-secondary" style="display:inline-flex;height:52px;margin-top:100px;transition:transform 1s">x</a></div></li>`);
+  if (rule === 'D3') add(`<ul class="rows" style="display:grid;width:60%;margin:0;padding:0;list-style:none"><li class="item" style="width:50%"><div class="row">Audit probe row</div></li><li class="item"><div class="row">Audit probe row</div></li></ul>`);
+  if (rule === 'D4') add(`<div class="card" style="display:block;height:420px;padding:24px;border:1px solid #ccc"><p style="${P}">Audit probe</p></div>`);
+  if (rule === 'D5') add(`<div><p style="${P}">Audit probe top</p><div style="height:260px"></div><p style="${P}">Audit probe bottom</p></div>`);
+  if (rule === 'D6') grid2(card(100) + card(100) + card(100));
+  if (rule === 'D7') add(`<div class="row has-label" style="display:grid;grid-template-columns:auto 1fr;align-items:center;gap:12px"><span class="label t-label">01</span><span class="name" style="${P}line-height:28px">Audit probe line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one line one</span></div>`);
+  if (rule === 'D8') add(`<div class="tiers" style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div data-price="250" style="${P}">250</div><div data-price="90" style="${P}">90</div></div>`);
+  if (rule === 'D9') add('<a class="btn btn-primary" style="display:inline-flex;height:52px;transition:none">Audit probe D9</a>');
   return null;
 }

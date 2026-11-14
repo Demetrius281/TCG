@@ -1,0 +1,2 @@
+/* lock-path: public/theme.css; expect: L8 */
+body { color: red; }

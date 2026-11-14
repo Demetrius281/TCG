@@ -11,7 +11,7 @@ interface Props {
   class?: string;
   [attr: string]: unknown;
 }
-const { gap = 16, as: Tag = 'div', align = 'center', justify = 'start', nowrap = false, class: className, ...rest } = Astro.props;
+const { gap = 16, as: Tag = 'div', align = 'center', justify = 'start', nowrap = false, class: className, style: _style, ...rest } = Astro.props;
 if (gap !== 'buttons') assertGap(gap, 'Cluster');
 ---
 <Tag class:list={['cluster', `g-${gap}`, `a-${align}`, `j-${justify}`, nowrap && 'nowrap', className]} {...rest}><slot /></Tag>

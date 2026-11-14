@@ -1,44 +1,15 @@
 ---
 import Section from '../ui/Section.astro';
-import List from '../ui/List.astro';
 import SectionHead from '../ui/SectionHead.astro';
-import Button from '../ui/Button.astro';
-import Grid from '../ui/Grid.astro';
-import Card from '../ui/Card.astro';
-import Cluster from '../ui/Cluster.astro';
-import Stack from '../ui/Stack.astro';
+import PriceGrid from '../ui/PriceGrid.astro';
 import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'pricing'>, 'type'>;
-const { title, hint, note, result_label, tiers, tone, id } = Astro.props;
+const { title, note, result_label, tiers, tone, id } = Astro.props;
 ---
 <Section id={id} tone={tone} labelledby="pricing-title">
   <SectionHead title={title} id="pricing-title" />
-  <Grid as="div" cols={3} aria-label="Pricing plans">
-    {
-      tiers.map((t) => (
-        <Card as="article" accent={Boolean(t.featured)}>
-          <Cluster justify="between" gap={8}>
-            <Text as="h3" role="card-title" tone="accent">{t.name}</Text>
-            {t.tag && <Text as="span" role="label" tone="accent">{t.tag}</Text>}
-          </Cluster>
-          <Stack gap={8}>
-            <Text as="span" role="metric">{t.price}</Text>
-            <Text as="span" role="small" tone="subtle">{t.scope}</Text>
-            <Text as="span" role="small" tone="subtle">{t.delivery}</Text>
-          </Stack>
-          <List>
-            {t.features.map((f) => <li><Text as="span" role="small" tone={f.inherited ? 'subtle' : 'default'}>{f.text}</Text></li>)}
-          </List>
-          <Stack gap={8}>
-            <Text as="span" role="label" tone="subtle">{result_label}</Text>
-            <Text role="small">{t.result}</Text>
-          </Stack>
-          <Button slot="actions" href={t.cta.href} variant={t.featured ? (tone === 'inverse' ? 'inverse' : 'primary') : 'secondary'} data-plan={t.cta.plan}>{t.cta.label}</Button>
-        </Card>
-      ))
-    }
-  </Grid>
+  <PriceGrid tiers={tiers} resultLabel={result_label} inverse={tone === 'inverse'} />
   {note && <Text role="small" tone="subtle">{note}</Text>}
 </Section>

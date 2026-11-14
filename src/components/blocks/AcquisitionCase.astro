@@ -11,19 +11,23 @@ import type { BlockOf } from '../../content.config';
 type Props = Omit<BlockOf<'acquisition_case'>, 'type'>;
 const { title, paragraphs, profit, case: c, tone, id, nav } = Astro.props;
 ---
-<Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`} layout="split">
-  <SectionHead slot="head" title={title} lead={paragraphs} id={`${id}-h`} />
+<Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`} layout="split" center>
+  <Stack slot="head" gap={40}>
+    <SectionHead title={title} lead={paragraphs} id={`${id}-h`} />
+    <Card variant="note" as="aside">
+      <Cluster align="start" gap={16} nowrap>
+        <div class="icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 24l8-8 6 5 10-12"></path><path d="M20 9h8v8"></path></svg>
+        </div>
+        <Stack gap={8} as="div">
+          <Text as="span" role="label">{profit.title}</Text>
+          <Text as="span" tone="muted">{profit.text}</Text>
+        </Stack>
+      </Cluster>
+    </Card>
+  </Stack>
   <Stack gap={24}>
-    <Cluster align="start" gap={16} nowrap>
-      <span class="icon">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 24l8-8 6 5 10-12"></path><path d="M20 9h8v8"></path></svg>
-      </span>
-      <Stack gap={8} as="div">
-        <Text as="span" role="label">{profit.title}</Text>
-        <Text as="span" tone="muted">{profit.text}</Text>
-      </Stack>
-    </Cluster>
-    <Card as="article">
+    <Card as="article" floating>
       <Cluster justify="between" gap={8}>
         <Text as="span" role="label">{c.top[0]}</Text>
         <Text as="span" role="label" tone="accent">{c.top[1]}</Text>

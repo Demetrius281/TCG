@@ -7,12 +7,6 @@
   };
   /* Orders are sent via WhatsApp until online payment is connected */
   var WA_NUMBER='6281337973097';
-  var LEAFLET={
-    js:'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js',
-    jsSri:'sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH',
-    css:'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css',
-    cssSri:'sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H'
-  };
   var BADUNG=[-8.62,115.17];
 
   var form=document.getElementById('pc-form');
@@ -115,15 +109,13 @@
     if(mapState==='loading')return;
     mapState='loading';
     function flush(ok){mapState=ok?'ready':'failed';var q=mapQueue;mapQueue=[];q.forEach(function(f){f(ok);});}
-    var css=document.createElement('link');
-    css.rel='stylesheet';css.href=LEAFLET.css;css.integrity=LEAFLET.cssSri;css.crossOrigin='anonymous';
-    document.head.appendChild(css);
-    var js=document.createElement('script');
-    js.src=LEAFLET.js;js.integrity=LEAFLET.jsSri;js.crossOrigin='anonymous';
+    /* Leaflet ships with the site (npm package, built by Astro): no stylesheet or script is injected at run time. */
     var t=setTimeout(function(){if(mapState==='loading')flush(false);},12000);
-    js.onload=function(){clearTimeout(t);if(mapState==='loading')flush(!!(window.L&&window.L.map));};
-    js.onerror=function(){clearTimeout(t);if(mapState==='loading')flush(false);};
-    document.head.appendChild(js);
+    import('leaflet').then(function(m){
+      clearTimeout(t);
+      window.L=m.default||m;
+      if(mapState==='loading')flush(!!(window.L&&window.L.map));
+    }).catch(function(){clearTimeout(t);if(mapState==='loading')flush(false);});
   }
   function ensureMap(){
     if(map)return;

@@ -1,0 +1,2 @@
+/* lock-path: src/styles/base.css; expect: SPEC */
+.t-label { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: var(--fw-medium); text-transform: none; }

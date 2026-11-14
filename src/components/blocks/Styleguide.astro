@@ -212,7 +212,7 @@ const primitives = ['Section', 'SectionHead', 'Stack', 'Cluster', 'Grid', 'Card'
       <Stage items={[{ label: 'STEP 1', text: 'First' }, { label: 'STEP 2', text: 'Second' }]} />
       <DataRows rows={[{ label: 'Plan', id: 'sg-r1' }, { label: 'Price', id: 'sg-r2' }]} />
       <Cluster gap="buttons"><FormButton>Next</FormButton><FormButton kind="back">Back</FormButton></Cluster>
-      <ActionStack action={{ label: cta.action.label, href: '/due-diligence' }} link={{ label: 'Text link', href: '/' }} />
+      <ActionStack action={{ label: cta.action.label, href: '/due-diligence' }} link={{ label: 'Text link', href: '/' }} fallbackVariant="secondary" />
     </Stack>
   </Card>
 </Section>

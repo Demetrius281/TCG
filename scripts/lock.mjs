@@ -83,6 +83,13 @@ function checkCss(file, kind, css, lineOffset, isGlobalAttr) {
       const stripped = value.replace(/var\(\s*--[\w-]+\s*(,[^)]*)?\)/g, 'VAR');
       const raw = stripped.match(/(?<![\w.-])-?\d*\.?\d+(px|rem|em|vw|vh|vmin|vmax|ch|ex|cqw)\b/);
       if (raw && !/^(100vh|100dvh|100vw)$/.test(stripped)) err(file, line, 'L2', `${prop}: ${value} (raw ${raw[0]})`, 'use a token from src/styles/tokens.css: var(--s-8|12|16|24|32|40), --section-y, --grid-gap, --size-*, --bw-*');
+      // D3: numbers inside calc()/min()/max()/clamp() (fluid formulas live in tokens.css only)
+      if (/\b(calc|min|max|clamp)\s*\(/.test(value)) {
+        let fx = value; for (let i = 0; i < 8; i++) fx = fx.replace(/\b(var|env)\([^()]*\)/g, 'X');
+        for (const n of fx.replace(/\b(calc|min|max|clamp|translateX|translateY|rotate|scale)\b/g, '').matchAll(/(?<![\w.-])-?\d*\.?\d+(%|lh|rem|em|px|vw|vh|deg)?/g)) {
+          if (!LOCK.mathNumbers.includes(n[0])) err(file, line, 'D3', `${prop}: ${value} (number ${n[0]} inside a math function)`, 'use tokens only; allowed constants: ' + LOCK.mathNumbers.join(' '));
+        }
+      }
       for (const m of value.matchAll(/var\(\s*(--[\w-]+)/g)) {
         const name = m[1];
         if (!tokenNames.has(name) && !name.startsWith('--c-')) err(file, line, 'L2', `${prop}: var(${name}) is not in tokens.css`, 'use a token from src/styles/tokens.css');
@@ -117,12 +124,75 @@ function checkScript(file, code, lineOffset) {
   const lines = code.split('\n');
   lines.forEach((l, i) => {
     if (/\.style\b\s*[.[=]|\.style\.[a-zA-Z]+\s*=|setProperty\s*\(|\.cssText\b|setAttribute\(\s*['"]style['"]/.test(l)) err(file, lineOffset + i, 'L3', `style written from a script: ${l.trim().slice(0, 70)}`, 'toggle a class or an attribute and style it in the primitive');
+    // D4 (TASK 7 Part D.4): every other way to put CSS into the page at run time
+    if (/Object\.assign\s*\([^\n]*\bstyle\b|\[\s*['"`]style['"`]\s*\]|\.style\s*\)|insertRule|deleteRule|CSSStyleSheet|adoptedStyleSheets|replaceSync|createElement\(\s*['"`](style|link)['"`]\s*\)|(?:innerHTML|outerHTML|insertAdjacentHTML)[^;\n]*(?:<style|\sstyle\s*=)/.test(l)) err(file, lineOffset + i, 'L3', `CSS injected from a script: ${l.trim().slice(0, 70)}`, 'toggle a class or an attribute; all CSS is built by Astro from the primitives');
   });
+}
+
+// ---------- specs: primitives and tokens must match rules.json exactly (TASK 7 Part D.1, D.2)
+const remPx = (v) => { const m = String(v).trim().match(/^(-?\d*\.?\d+)(rem|px)$/); return m ? (m[2] === 'rem' ? Number(m[1]) * 16 : Number(m[1])) : null; };
+const clampAt = (v, w) => { const m = String(v).replace(/\s+/g, ' ').match(/^clamp\(\s*([\d.]+)rem,\s*([\d.]+)rem\s*\+\s*([\d.]+)vw,\s*([\d.]+)rem\s*\)$/); if (!m) return null; const [lo, base, k, hi] = m.slice(1).map(Number); return Math.min(hi * 16, Math.max(lo * 16, base * 16 + (k * w) / 100)); };
+function declMap(css) {
+  const out = new Map();
+  let root; try { root = postcss.parse(css); } catch { return out; }
+  root.walkDecls((d) => {
+    let media = ''; for (let p = d.parent?.parent; p; p = p.parent) if (p.type === 'atrule' && p.name === 'media') media = p.params.replace(/\s+/g, ' ');
+    const sel = (d.parent.selector ?? '').replace(/\s+/g, ' ').trim();
+    out.set(`${sel}|${media}|${d.prop}`, d.value.replace(/\s+/g, ' ').trim());
+  });
+  return out;
+}
+const cssOfFile = (file, text) => (/\.css$/.test(file) ? text : [...text.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join('\n'));
+function checkSpec(file, text) {
+  const exp = [];
+  const MIN768 = '(min-width: 768px)';
+  const ui = (n) => `src/components/ui/${n}.astro`;
+  if (file === ui('Stack') || file === ui('Cluster')) for (const n of SCALE) exp.push([`.g-${n}`, '', 'gap', `var(--s-${n})`]);
+  if (file === ui('Cluster')) { exp.push(['.g-buttons', '', 'gap', `var(--s-${R.spacing.buttons.mobile})`], ['.g-buttons', MIN768, 'gap', `var(--s-${R.spacing.buttons.desktop})`]); }
+  if (file === ui('Card')) exp.push(['.card', '', 'padding', `var(--s-${R.spacing.cardPadding})`], ['.card', '', 'gap', `var(--s-${R.spacing.cardTitleText})`]);
+  if (file === ui('Grid')) exp.push(['.grid', '', 'gap', 'var(--grid-gap)']);
+  if (file === ui('Section')) exp.push(['.section', '', 'padding-block', 'var(--section-y)'], ['.stacked, .hero, .layout-split, .layout-article', '', 'gap', `var(--s-${R.spacing.headContent})`]);
+  if (file === ui('SectionHead')) exp.push(['.lines', '', 'gap', `var(--s-${R.spacing.headingText})`], ['.head', '', 'gap', `var(--s-${R.spacing.textButtons})`]);
+  if (file === ui('Button')) exp.push(['.btn', '', 'height', 'var(--control-h)'], ['.btn', '', 'border-radius', 'var(--radius)']);
+  if (file === 'src/styles/base.css') {
+    exp.push(['.list', '', 'gap', `var(--s-${R.spacing.listItems})`], ['.list.is-bulleted > li::before', '', 'width', 'var(--size-mark)']);
+    const sel = { 'page-title': '.t-page-title, h1', 'section-title': '.t-section-title, h2', 'card-title': '.t-card-title, h3, h4', text: '.t-text', small: '.t-small, small', label: '.t-label', metric: '.t-metric', control: '.t-control, a, .btn, .ei-btn' };
+    for (const [name, r] of Object.entries(R.roles)) {
+      const s = sel[name]; if (!s) continue;
+      exp.push([s, '', 'font-size', name === 'control' ? 'var(--fs-small)' : `var(--fs-${name})`]);
+      exp.push([s, '', 'font-weight', { 300: 'var(--fw-light)', 400: 'var(--fw-regular)', 500: 'var(--fw-medium)' }[r.weight]]);
+      if (r.family === 'mono') exp.push([s, '', 'font-family', 'var(--font-mono)']);
+      if (r.case === 'uppercase') exp.push([s, '', 'text-transform', 'uppercase']);
+      if (name === 'control') exp.push([s, '', 'text-transform', 'none']);
+    }
+  }
+  if (exp.length) {
+    const m = declMap(cssOfFile(file, text));
+    for (const [sel, media, prop, want] of exp) {
+      const got = m.get(`${sel}|${media}|${prop}`);
+      if (got !== want) err(file, 1, 'SPEC', `${sel}${media ? ' @media ' + media : ''} { ${prop}: ${got ?? '(missing)'} }, rules.json requires ${want}`, 'primitives and base.css must match qa/rules/rules.json exactly');
+    }
+  }
+  if (file === 'src/styles/tokens.css') {
+    const t = new Map(); for (const m of text.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) if (!t.has(m[1])) t.set(m[1], m[2].trim()); // the first definition is the mobile value
+    const need = (tok, px) => { const got = remPx(t.get(tok)); if (got !== px) err(file, 1, 'SPEC', `${tok}: ${t.get(tok) ?? '(missing)'} = ${got}px, rules.json requires ${px}px`, 'tokens.css must match qa/rules/rules.json'); };
+    for (const n of SCALE) need(`--s-${n}`, n);
+    need('--container', R.container.max); need('--container-prose', R.width.text); need('--hero-title-max', R.width.pageTitle);
+    need('--split-gap', R.fixed.splitGap); need('--article-nav', R.fixed.articleNav); need('--control-h', R.button.height);
+    need('--header-h', R.header.mobile); need('--header-h-lg', R.header.desktop); need('--page-top', R.pageTop.mobile); need('--fs-label', R.roles.label.mobile);
+    if (t.get('--radius') !== '0') err(file, 1, 'SPEC', `--radius: ${t.get('--radius')}, rules.json requires 0`, 'radius 0 everywhere');
+    const fluid = (tok, a, b, tag) => { for (const [w, want] of [[R.fluid.from, a], [R.fluid.to, b]]) { const got = clampAt(t.get(tok), w); if (got === null || Math.abs(got - want) > 0.05) err(file, 1, 'SPEC', `${tok} at ${w}px = ${got?.toFixed(2)}, rules.json ${tag} = ${want}`, 'tokens.css must match qa/rules/rules.json'); } };
+    for (const [name, r] of Object.entries(R.roles)) if (name !== 'label' && name !== 'control') fluid(`--fs-${name}`, r.mobile, r.desktop, `roles.${name}`);
+    fluid('--section-y', R.screen.padding.mobile, R.screen.padding.desktop, 'screen.padding');
+    fluid('--grid-gap', R.spacing.cards.mobile, R.spacing.cards.desktop, 'spacing.cards');
+    fluid('--gutter', R.container.gutter.mobile, R.container.gutter.desktop, 'container.gutter');
+  }
 }
 
 // ---------- one file
 function checkFile(file, text) {
   const kind = kindOf(file);
+  if (kind === 'ui' || kind === 'base' || kind === 'tokens') checkSpec(file, text);
   if (/\.css$/.test(file)) { checkCss(file, kind, text, 1); return; }
   if (/\.(js|ts|mjs)$/.test(file)) {
     checkScript(file, text, 1);
@@ -140,6 +210,7 @@ function checkFile(file, text) {
   }
   // scripts
   for (const m of text.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)) checkScript(file, m[2], lineAt(text, m.index + m[0].indexOf('>') + 1));
+  for (const m of text.matchAll(/<link[^>]*rel\s*=\s*["']stylesheet["'][^>]*>/gi)) err(file, lineAt(text, m.index), 'L8', '<link rel="stylesheet"> not built by Astro', 'import the stylesheet in a component or script so Astro builds it');
   // template-level rules
   const tpl = templateOf(text);
   for (const m of tpl.matchAll(/\sstyle\s*=/g)) err(file, lineAt(tpl, m.index), 'L3', 'style="" attribute', 'no inline styles: use primitive props or classes');
@@ -148,6 +219,19 @@ function checkFile(file, text) {
   // frontmatter strings with bold tags
   const fm = text.match(/^(?:<!--[^\n]*-->\n)?---\n([\s\S]*?)\n---/);
   if (fm) for (const m of fm[1].matchAll(/<\/?(b|strong)(\s|>)/gi)) err(file, lineAt(text, m.index + 4), 'D2', `<${m[1]}> in a string`, 'no bold inside text (D2)');
+  // TASK 7 Part D.7: text in blocks and pages only through primitives
+  if (kind === 'block' || kind === 'page') {
+    for (const m of tpl.matchAll(/<(p|h[1-6]|blockquote|dt|dd|figcaption|small|label|legend|time|address|summary)[\s>]/g)) err(file, lineAt(tpl, m.index), 'L6', `raw <${m[1]}> in a ${kind}`, 'text goes through <Text role="..." as="...">');
+    for (const m of tpl.matchAll(/<span[\s>]/g)) { const before = tpl.slice(0, m.index); if (before.lastIndexOf('<svg') > before.lastIndexOf('</svg')) continue; err(file, lineAt(tpl, m.index), 'L6', `raw <span> in a ${kind}`, 'text goes through <Text as="span" role="...">; wrappers are <div>'); }
+    for (const m of tpl.matchAll(/<li[^>]*>\s*([^<\s][^<]*)/g)) err(file, lineAt(tpl, m.index), 'L6', `raw text in <li>: ${m[1].trim().slice(0, 40)}`, 'wrap the text in <Text as="span" role="...">');
+  }
+  // TASK 7 Part D.8: primitives never forward style or class through ...rest
+  if (kind === 'ui' && /\{\s*\.\.\.rest\s*\}/.test(tpl.length ? text : '')) {
+    const fmText = (text.match(/^(?:<!--[^\n]*-->\n)?---\n([\s\S]*?)\n---/) ?? [])[1] ?? '';
+    if (!/\bstyle\s*:\s*_\w+/.test(fmText)) err(file, 1, 'L7', '{...rest} forwards style', 'destructure style: _style before ...rest so a caller cannot inject style');
+    if (!/\bclass\s*:\s*\w+/.test(fmText)) err(file, 1, 'L7', '{...rest} forwards class', 'take class explicitly (class: className) before ...rest');
+  }
+  for (const m of text.matchAll(/\{\s*\.\.\.\s*\{[^}]*\b(style|class)\b/g)) err(file, lineAt(text, m.index), 'L7', 'style/class passed through a spread object', 'no {...{style}} spreads');
   // gap props must be names from the scale
   for (const m of tpl.matchAll(/<(Stack|Cluster)\b[^>]*?\sgap=(?:\{([^}]*)\}|"([^"]*)")/g)) {
     const v = (m[2] ?? m[3]).trim().replace(/^['"]|['"]$/g, '');
@@ -213,10 +297,36 @@ if (flag('--file')) {
   const f = path.isAbsolute(file) ? rel(file) : file;
   const text = flag('--stdin') ? fs.readFileSync(0, 'utf8') : fs.readFileSync(path.join(ROOT, f), 'utf8');
   if (/^src\//.test(f) && SRC_RE.test(f)) checkFile(f, text);
+  else if (/^public\/.*\.css$/.test(f)) err(f, 1, 'L8', 'a .css file in public/', 'all CSS is built by Astro from tokens.css, base.css and the primitives');
+  else if (/^src\/content\/.*\.ya?ml$/.test(f)) {
+    text.split('\n').forEach((l, i) => {
+      for (const [kind, re] of [['html style/class', /<[a-z][^>]*\s(style|class)\s*=/i], ['<style>', /<style\b/i], ['<b>/<strong>', /<\/?(b|strong)\b/i], ['markdown **bold**', /\*\*[^*]+\*\*/]]) if (re.test(l)) err(f, i + 1, 'L9', `${kind} in content`, 'plain text only; the owner edits copy');
+    });
+  }
   else if (/^(CLAUDE\.md|qa\/rules\/blocks\.json)$/.test(f)) { /* protected files are guarded by guard.mjs, nothing to lint */ }
 } else {
   const files = walk(path.join(ROOT, 'src')).filter((p) => SRC_RE.test(p));
   for (const p of files) checkFile(rel(p), fs.readFileSync(p, 'utf8'));
+  // TASK 7 Part D.5: no CSS outside what Astro builds
+  for (const p of walk(path.join(ROOT, 'public')).filter((f) => /\.css$/.test(f))) err(rel(p), 1, 'L8', 'a .css file in public/', 'all CSS is built by Astro from tokens.css, base.css and the primitives');
+  for (const p of files.filter((f) => /\.(html|ts|js)$/.test(f))) {
+    const tx = fs.readFileSync(p, 'utf8');
+    for (const m of tx.matchAll(/<link[^>]*rel\s*=\s*["']stylesheet["'][^>]*>/gi)) err(rel(p), lineAt(tx, m.index), 'L8', '<link rel="stylesheet"> not built by Astro', 'import the stylesheet in a component or script so Astro builds it');
+  }
+  // TASK 7 Part D.6: content files carry plain text only. Occurrences are listed; the baseline (qa/baseline/content.json) can only shrink.
+  const contentBase = fs.existsSync(path.join(ROOT, 'qa/baseline/content.json')) ? JSON.parse(fs.readFileSync(path.join(ROOT, 'qa/baseline/content.json'), 'utf8')) : {};
+  const contentFound = {};
+  for (const p of walk(path.join(ROOT, 'src/content')).filter((f) => /\.ya?ml$/.test(f))) {
+    const lines = fs.readFileSync(p, 'utf8').split('\n');
+    lines.forEach((l, i) => {
+      for (const [kind, re] of [['html style/class', /<[a-z][^>]*\s(style|class)\s*=/i], ['<style>', /<style\b/i], ['<b>/<strong>', /<\/?(b|strong)\b/i], ['markdown **bold**', /\*\*[^*]+\*\*/]]) if (re.test(l)) { const k = `${rel(p)}|${kind}`; (contentFound[k] ??= []).push(i + 1); }
+    });
+  }
+  for (const [k, ls] of Object.entries(contentFound)) {
+    const [f, kind] = k.split('|'); const allowed = contentBase[k]?.length ?? 0;
+    if (ls.length > allowed) err(f, ls[0], 'L9', `${kind} in content: ${ls.length} occurrence(s), ${allowed} in the baseline (lines ${ls.slice(0, 12).join(', ')}${ls.length > 12 ? ', ...' : ''})`, 'plain text only; the owner edits copy (qa/baseline/content.json lists today\'s occurrences)');
+  }
+  if (flag('--write-content-baseline')) fs.writeFileSync(path.join(ROOT, 'qa/baseline/content.json'), JSON.stringify(contentFound, null, 1) + '\n');
   // registry: every block and primitive file is listed, every listed one exists
   const have = (d) => fs.existsSync(path.join(ROOT, d)) ? fs.readdirSync(path.join(ROOT, d)).filter((x) => x.endsWith('.astro')).map((x) => x.replace(/\.astro$/, '')) : [];
   for (const n of REG.blocks) if (!have('src/components/blocks').includes(n)) err('qa/rules/blocks.json', 1, 'L4', `block ${n} is listed but src/components/blocks/${n}.astro does not exist`, 'remove it from blocks.json');

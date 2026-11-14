@@ -39,7 +39,7 @@ jobs:
         env:
           APPROVED: ${{ contains(github.event.pull_request.labels.*.name, 'rules-approved') }}
         run: |
-          changed=$(git diff --name-only "origin/main...${{ github.event.pull_request.head.sha }}" -- CLAUDE.md .claude .github .githooks package.json package-lock.json scripts qa src/styles/tokens.css ':!qa/audit' ':!qa/lock' ':!qa/output')
+          changed=$(git diff --name-only "origin/main...${{ github.event.pull_request.head.sha }}" -- CLAUDE.md .claude .github .githooks package.json package-lock.json scripts qa src/styles/tokens.css src/styles/base.css src/components/ui src/lib/scale.ts ':!qa/audit' ':!qa/lock' ':!qa/output')
           if [ -n "$changed" ] && [ "$APPROVED" != "true" ]; then
             echo "This pull request changes protected files and has no 'rules-approved' label:"
             echo "$changed"

@@ -4,6 +4,7 @@ import SectionHead from '../ui/SectionHead.astro';
 import Card from '../ui/Card.astro';
 import Grid from '../ui/Grid.astro';
 import Cluster from '../ui/Cluster.astro';
+import Diagram from '../ui/Diagram.astro';
 import Stack from '../ui/Stack.astro';
 import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
@@ -18,26 +19,9 @@ const { title, head, columns, inputs, engine, outputs, foot, note, tone, id, nav
       <Text as="span" role="label" tone="subtle">{head[0]}</Text>
       <Text as="span" role="label" tone="accent">{head[1]}</Text>
     </Cluster>
+    <Diagram layers sourcesTitle={columns[0]} outputsTitle={columns[2]} sources={inputs} outputs={outputs} outputStyle="node" hub={{ kicker: engine.kicker, title: engine.title, modules: engine.modules }} />
     <Grid as="div" cols={3}>
-      <Stack gap={12}>
-        <Text as="span" role="label" tone="subtle">{columns[0]}</Text>
-        {inputs.map((n) => <Card as="div"><Text as="span" role="small">{n.title}</Text><Text as="span" role="small" tone="subtle">{n.text}</Text></Card>)}
-      </Stack>
-      <Stack gap={12}>
-        <Text as="span" role="label" tone="subtle">{columns[1]}</Text>
-        <Card as="div" accent>
-          <Text as="span" role="label" tone="accent">{engine.kicker}</Text>
-          <Text as="span" role="card-title">{engine.title}</Text>
-          {engine.modules.map((m) => <Stack gap={8} as="div"><Text as="span" role="small">{m.title}</Text><Text as="span" role="small" tone="subtle">{m.text}</Text></Stack>)}
-        </Card>
-      </Stack>
-      <Stack gap={12}>
-        <Text as="span" role="label" tone="subtle">{columns[2]}</Text>
-        {outputs.map((n) => <Card as="div"><Text as="span" role="small">{n.title}</Text><Text as="span" role="small" tone="subtle">{n.text}</Text></Card>)}
-      </Stack>
-    </Grid>
-    <Grid as="div" cols={3}>
-      {foot.map((f) => <Stack gap={8} as="div"><Text as="span" role="small">{f.title}</Text><Text as="span" role="small" tone="muted">{f.text}</Text></Stack>)}
+      {foot.map((f) => <Stack gap={8} as="div"><Text as="span" role="card-title">{f.title}</Text><Text as="span" role="small" tone="muted">{f.text}</Text></Stack>)}
     </Grid>
   </Card>
   <Text role="small" tone="subtle">{note}</Text>

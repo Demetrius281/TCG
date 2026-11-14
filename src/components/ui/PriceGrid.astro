@@ -1,0 +1,75 @@
+---
+// Priced plans, cheapest first. Every row of the cards (name, price, features, result, button) is aligned across the cards
+// with a subgrid; all cards have one height and the buttons sit on one line at the bottom. The featured plan carries an accent frame.
+import List from './List.astro';
+import Button from './Button.astro';
+
+interface Tier {
+  name: string;
+  tag?: string;
+  featured?: boolean;
+  price: string;
+  scope: string;
+  delivery: string;
+  features: { text: string; inherited?: boolean }[];
+  result: string;
+  cta: { label: string; href: string; plan?: string };
+}
+interface Props {
+  tiers: Tier[];
+  resultLabel: string;
+  inverse?: boolean;
+}
+const { tiers, resultLabel, inverse = false } = Astro.props;
+const amount = (p: string) => Number((p.match(/[\d.,]+/)?.[0] ?? '0').replace(/,/g, ''));
+const sorted = [...tiers].sort((a, b) => amount(a.price) - amount(b.price));
+---
+<div class="tiers" role="group" aria-label="Plans">
+  {
+    sorted.map((t) => (
+      <article class:list={['tier', t.featured && 'is-featured']} data-price={amount(t.price)}>
+        <div class="head">
+          <h3 class="t-card-title name">{t.name}</h3>
+          {t.tag && <span class="t-label tag">{t.tag}</span>}
+        </div>
+        <div class="price">
+          <span class="t-metric">{t.price}</span>
+          <span class="t-small meta">{t.scope}</span>
+          <span class="t-small meta">{t.delivery}</span>
+        </div>
+        <List>
+          {t.features.map((f) => <li><span class:list={['t-small', f.inherited && 'inh']}>{f.text}</span></li>)}
+        </List>
+        <div class="result">
+          <span class="t-label meta">{resultLabel}</span>
+          <p class="t-small">{t.result}</p>
+        </div>
+        <div class="action">
+          <Button href={t.cta.href} variant={t.featured ? (inverse ? 'inverse' : 'primary') : 'secondary'} data-plan={t.cta.plan}>{t.cta.label}</Button>
+        </div>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .tiers { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--grid-gap); }
+  .tier { display: flex; flex-direction: column; gap: var(--s-24); min-width: 0; padding: var(--s-24); background: var(--c-surface); border: var(--bw-2) solid var(--c-border); transition: border-color var(--ease), box-shadow var(--ease); }
+  .tier:hover { border-color: var(--c-accent); box-shadow: var(--shadow-lift); }
+  .is-featured { border-color: var(--c-accent); }
+  .head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-8) var(--s-16); }
+  .name { color: var(--c-accent); }
+  .tag { padding: var(--s-8) var(--s-12); border: var(--bw-1) solid var(--c-accent); color: var(--c-accent); }
+  .price { display: grid; gap: var(--s-8); padding-bottom: var(--s-24); border-bottom: var(--bw-1) solid var(--c-text); }
+  .meta { color: var(--c-text-3); }
+  .inh { color: var(--c-text-3); }
+  .result { display: grid; gap: var(--s-8); padding-top: var(--s-24); border-top: var(--bw-1) solid var(--c-border); align-content: start; }
+  .action { display: grid; align-self: end; margin-top: auto; }
+  @media (min-width: 768px) {
+    .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--grid-gap); }
+  }
+  @media (min-width: 1024px) {
+    .tiers { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 0; }
+    .tier { display: grid; align-content: start; grid-row: span 5; grid-template-rows: subgrid; row-gap: var(--s-24); }
+  }
+</style>

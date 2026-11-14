@@ -4,6 +4,8 @@ import SectionHead from '../ui/SectionHead.astro';
 import Action from '../ui/Action.astro';
 import ActionStack from '../ui/ActionStack.astro';
 import Card from '../ui/Card.astro';
+import Cluster from '../ui/Cluster.astro';
+import Grid from '../ui/Grid.astro';
 import List from '../ui/List.astro';
 import Stack from '../ui/Stack.astro';
 import Text from '../ui/Text.astro';
@@ -14,18 +16,18 @@ const { title, text, action, secondary, side, next_steps, tone = 'inverse', id, 
 const fallback = tone === 'inverse' ? 'inverse' : 'primary';
 ---
 <Section id={id} nav={nav} tone={tone} labelledby="cta-title">
-  <SectionHead title={title} lead={text} id="cta-title">
-    {
-      next_steps && (
-        <List numbered>
-          {next_steps.map((s) => <li><Text as="span" role="small" tone="muted">{s}</Text></li>)}
-        </List>
-      )
-    }
-    <div slot="actions">
-      {secondary ? <ActionStack action={action} link={secondary} fallbackVariant={fallback} /> : <Action action={action} fallbackVariant={fallback} />}
-    </div>
-  </SectionHead>
+  <Cluster gap={32} justify="between" align="center">
+    <SectionHead title={title} lead={text} id="cta-title">
+      {
+        next_steps && (
+          <List numbered>
+            {next_steps.map((s) => <li><Text as="span" role="small" tone="muted">{s}</Text></li>)}
+          </List>
+        )
+      }
+    </SectionHead>
+    {secondary ? <ActionStack action={action} link={secondary} fallbackVariant={fallback} /> : <Action action={action} fallbackVariant={fallback} />}
+  </Cluster>
   {
     side && (
       <Card as="aside">

@@ -12,7 +12,8 @@
    pass with empty baselines.
 5. Never edit protected files without owner approval: CLAUDE.md, .claude/, .github/,
    .githooks/, package.json, scripts/ (check-design, lock, lock-selftest, gen-scale, audit),
-   qa/rules/ (rules.json, blocks.json), qa/baseline/, qa/lock-fixtures/, src/styles/tokens.css.
+   qa/rules/ (rules.json, blocks.json), qa/baseline/, qa/lock-fixtures/, src/styles/tokens.css,
+   src/styles/base.css, src/components/ui/ (the primitives).
 6. Branch `next` only. Never touch `main` or /legacy. Reports in Russian.
 7. Work is done only when `npm run audit` passes with full coverage and 0 violations.
    Paste its COVERAGE line in every report. Never report a page or screen as checked
@@ -89,6 +90,16 @@ B. Screen layout: stacked | split (head 5/12 left, content 7/12 right, gap 64,
    from 1024px) | article (nav 280px + text 720px; /regulations, legal, blog).
 C. Background per screen within rule 5.
 D. Blocks and order from the page-type template in docs/site-spec.md.
+
+## 11. Design quality (rule D, measured by npm run audit at every width)
+Numbers come from these rules; design must also be good. The pre-migration version (commit 59b022f) is the design source:
+never simplify or remove design to pass a check; if an idea cannot be built within the rules, propose a primitive and ask.
+D1 cards in one row have equal height. D2 buttons that end cards in one row sit on one line at the card bottom.
+D3 repeated rows and their dividers share one width (the container or the column). D4 no empty box (content < 35% of a
+tall box, or an empty vertical run > 160px). D5 no empty band > 120px inside or between screens beyond the section padding.
+D6 column tops (or centres) aligned, no orphan item in the last row. D7 a number/marker sits on the first text line.
+D8 priced cards ascend by price. D9 motion exists where 59b022f had it (hover, carousel, connectors) and respects
+prefers-reduced-motion. Motion and transform live in primitives only, with duration/easing tokens.
 
 ## 10. The lock (scripts/lock.mjs, qa/rules/blocks.json)
 Size, spacing and type exist only in the primitives (src/components/ui), tokens.css and base.css.

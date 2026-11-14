@@ -8,6 +8,6 @@ interface Props {
   class?: string;
   [attr: `data-${string}`]: string | undefined;
 }
-const { message, variant = 'primary', class: className, ...rest } = Astro.props;
+const { message, variant = 'primary', class: className, style: _style, ...rest } = Astro.props;
 ---
 <Button href={whatsappHref(message)} variant={variant} external class={className} {...rest}><slot /></Button>

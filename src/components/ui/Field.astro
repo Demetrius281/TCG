@@ -20,7 +20,7 @@ interface Props {
   full?: boolean;
   [attr: string]: unknown;
 }
-const { id, name, label, tag, help, err = false, kind = 'input', type = 'text', inputmode, autocomplete = 'off', placeholder, required = false, rows = 4, options = [], hidden, full = false, ...rest } = Astro.props;
+const { id, name, label, tag, help, err = false, kind = 'input', type = 'text', inputmode, autocomplete = 'off', placeholder, required = false, rows = 4, options = [], hidden, full = false, style: _style, class: _class, ...rest } = Astro.props;
 const described = [help && `${id}-help`, err && `${id}-err`].filter(Boolean).join(' ') || undefined;
 ---
 <div class:list={['fld', full && 'full']} id={rest['data-wrap'] as string | undefined} hidden={hidden}>

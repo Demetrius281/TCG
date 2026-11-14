@@ -7,7 +7,7 @@ interface Props {
   height?: number;
   [attr: string]: unknown;
 }
-const { src, alt = '', width, height, ...rest } = Astro.props;
+const { src, alt = '', width, height, style: _style, class: _class, ...rest } = Astro.props;
 ---
 <div class="media" {...rest}>
   {src ? <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" /> : <slot />}

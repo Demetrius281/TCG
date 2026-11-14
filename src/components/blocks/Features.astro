@@ -21,9 +21,9 @@ const icons: Record<string, string> = {
     {
       items.map((i) => (
         <Card item accent>
-          <span class="icon">
+          <div class="icon">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[i.icon]}></svg>
-          </span>
+          </div>
           <Text as="h3" role="card-title">{i.title}</Text>
           <Text role="small" tone="muted">{i.text}</Text>
         </Card>

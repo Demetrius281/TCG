@@ -20,6 +20,11 @@ const codeTone = { i: 'ok', t: 'muted', b: 'warn', x: 'danger' } as const;
 const resultTone = { ok: 'ok', cd: 'warn', mi: 'danger' } as const;
 const colsFor = (n: number): 2 | 3 | 4 => (n <= 2 ? 2 : n === 4 ? 4 : 3);
 const pad = (n: number) => String(n).padStart(2, '0');
+// A subheading stays with the part it introduces (card-title -> text 12, D6); every other gap between parts is 24.
+const groups: (typeof parts)[] = [];
+for (let i = 0; i < parts.length; i++) {
+  if (parts[i].part === 'heading' && parts[i + 1]) { groups.push([parts[i], parts[i + 1]]); i++; } else groups.push([parts[i]]);
+}
 ---
 <Section id={id} nav={nav} tone={tone} labelledby={heading_id}>
   <SectionHead title={title} lead={lead} id={heading_id} />
@@ -27,7 +32,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   {answer && <Card variant="note"><Text>{answer}</Text></Card>}
   <Stack gap={24}>
     {
-      parts.map((p) => {
+      groups.map((g) => <Stack gap={12}>{g.map((p) => {
         switch (p.part) {
           case 'prose':
             return <Stack gap={16}>{p.paragraphs.map((t) => <Text tone="muted"><Fragment set:html={inline(t)} /></Text>)}</Stack>;
@@ -227,7 +232,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
               </Stack>
             );
         }
-      })
+      })}</Stack>)
     }
   </Stack>
 </Section>

@@ -6,7 +6,7 @@ interface Props {
   class?: string;
   [attr: `data-${string}`]: string | undefined;
 }
-const { href, variant = 'primary', external = false, class: className, ...rest } = Astro.props;
+const { href, variant = 'primary', external = false, class: className, style: _style, ...rest } = Astro.props;
 const Tag = href ? 'a' : 'button';
 const attrs = href
   ? { href, ...(external ? { target: '_blank', rel: 'noopener' } : {}) }
@@ -29,9 +29,9 @@ const attrs = href
     border-radius: var(--radius);
     text-decoration: none;
     cursor: pointer;
-    transition: background var(--ease), color var(--ease), border-color var(--ease), box-shadow var(--ease);
+    transition: background var(--ease), color var(--ease), border-color var(--ease), box-shadow var(--ease), transform var(--ease);
   }
-  .btn:hover { box-shadow: var(--shadow-lift); }
+  .btn:hover { box-shadow: var(--shadow-lift); transform: translateY(var(--lift)); }
   .btn-primary { background: var(--color-accent); color: var(--color-surface); }
   .btn-primary:hover { background: var(--color-accent-hover); }
   .btn-secondary { background: transparent; color: var(--color-text); border-color: var(--color-border-strong); }
@@ -43,5 +43,8 @@ const attrs = href
 
   @media (min-width: 768px) {
     .btn { width: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover { transform: none; }
   }
 </style>

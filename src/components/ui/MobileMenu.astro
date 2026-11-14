@@ -87,6 +87,8 @@ const isCurrent = (href: string) => current === href || current.startsWith(href 
   }
   .row[aria-current] { color: var(--color-accent); }
   .chev {
+    flex: none;
+    margin-right: var(--s-8);
     width: var(--s-8);
     height: var(--s-8);
     border-right: var(--bw-2) solid currentColor;

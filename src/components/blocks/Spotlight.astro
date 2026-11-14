@@ -10,7 +10,7 @@ import type { BlockOf } from '../../content.config';
 type Props = Omit<BlockOf<'spotlight'>, 'type'>;
 const { title, lead, panel, tone, id, nav } = Astro.props;
 ---
-<Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`} layout="split">
+<Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`} layout="split" center>
   <SectionHead slot="head" title={title} lead={lead} id={`${id}-h`} />
   <Card as="aside" accent>
     <Text as="span" role="label" tone="subtle">{panel.kicker}</Text>
@@ -24,6 +24,6 @@ const { title, lead, panel, tone, id, nav } = Astro.props;
       <Text as="span" role="control">{panel.comparison.value}</Text>
     </Cluster>
     <Text role="small" tone="subtle">{panel.note}</Text>
-    <Button slot="actions" href={panel.cta.href}>{panel.cta.label} <span>{panel.cta.arrow}</span></Button>
+    <Button slot="actions" href={panel.cta.href}>{panel.cta.label} <Text as="span" role="control">{panel.cta.arrow}</Text></Button>
   </Card>
 </Section>

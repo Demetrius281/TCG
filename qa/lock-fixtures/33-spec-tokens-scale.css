@@ -1,0 +1,2 @@
+/* lock-path: src/styles/tokens.css; expect: SPEC */
+:root { --s-8: 0.5rem; --s-12: 0.75rem; --s-16: 1rem; --s-24: 1.75rem; --s-32: 2rem; --s-40: 2.5rem; --container: 75rem; --radius: 0; }

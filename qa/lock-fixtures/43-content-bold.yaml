@@ -1,0 +1,4 @@
+# lock-path: src/content/pages/example.yaml; expect: L9
+blocks:
+  - type: cta
+    text: "This is **bold** copy"

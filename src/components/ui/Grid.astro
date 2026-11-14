@@ -7,7 +7,7 @@ interface Props {
   class?: string;
   [attr: string]: unknown;
 }
-const { cols = 3, as: Tag = 'ul', class: className, ...rest } = Astro.props;
+const { cols = 3, as: Tag = 'ul', class: className, style: _style, ...rest } = Astro.props;
 ---
 <Tag class:list={['grid', `cols-${cols}`, className]} {...rest}><slot /></Tag>
 

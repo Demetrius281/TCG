@@ -19,7 +19,7 @@ const leadText = launch && !isPlaceholder(launch) ? `${lead} ${launch}` : lead;
     {
       links && (
         <Cluster slot="actions" gap="buttons">
-          {links.map((l, i) => <Button href={l.href} variant={i === 0 ? 'secondary' : 'text'}>{l.label}</Button>)}
+          {links.map((l, i) => (i === 0 ? <Button href={l.href} variant="secondary">{l.label}</Button> : <a href={l.href}>{l.label}</a>))}
         </Cluster>
       )
     }

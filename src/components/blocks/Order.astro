@@ -135,7 +135,7 @@ const stepHead = (n: number) => ({ label: stepText(n), title: stages[n - 1] });
           { label: done.rows[2], id: 'pc-d-time' },
           { label: done.rows[3], id: 'pc-d-docs' },
         ]} />
-        <Text role="small" tone="muted">{done.note.before}<span id="pc-d-email"></span>{done.note.after}</Text>
+        <Text role="small" tone="muted">{done.note.before}<Text as="span" role="small" id="pc-d-email"></Text>{done.note.after}</Text>
         <Text role="small" tone="muted">{done.retry.before}<a id="pc-wa-link" href="https://wa.me/6281337973097" target="_blank" rel="noopener">{done.retry.link_text}</a>{done.retry.after}</Text>
       </Stack>
     </Card>
@@ -151,5 +151,6 @@ const stepHead = (n: number) => ({ label: stepText(n), title: stages[n - 1] });
 </style>
 
 <script>
+  import 'leaflet/dist/leaflet.css';
   import '../../scripts/due-diligence-order.js';
 </script>
