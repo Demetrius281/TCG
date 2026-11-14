@@ -1,0 +1,53 @@
+---
+// The only table: full width, cell padding from the scale (D5). Scrolls sideways on narrow screens, or
+// (stack) turns every row into a block with the column name before each value.
+import { inline } from '../../lib/inline';
+
+interface Props {
+  columns: string[];
+  groups: { name?: string; rows: { cells: string[]; highlight?: boolean }[] }[];
+  stack?: boolean;
+  label?: string;
+}
+const { columns, groups, stack = false, label } = Astro.props;
+---
+<div class="wrap" role="region" aria-label={label} tabindex="0">
+  <table class:list={['table', stack && 'is-stack']}>
+    <thead>
+      <tr>{columns.map((c) => <th scope="col" class="t-label">{c}</th>)}</tr>
+    </thead>
+    {
+      groups.map((g) => (
+        <tbody>
+          {g.name && <tr class="grp"><th colspan={columns.length} scope="colgroup" class="t-small">{g.name}</th></tr>}
+          {
+            g.rows.map((r) => (
+              <tr class:list={[r.highlight && 'hl']}>
+                {r.cells.map((c, i) =>
+                  i === 0 ? <th scope="row" class="t-small" set:html={inline(c)} /> : <td data-label={columns[i]} class="t-small" set:html={inline(c)} />,
+                )}
+              </tr>
+            ))
+          }
+        </tbody>
+      ))
+    }
+  </table>
+</div>
+
+<style>
+  .wrap { width: 100%; overflow-x: auto; border: var(--bw-1) solid var(--c-border); background: var(--c-surface); }
+  .table { width: 100%; border-collapse: collapse; text-align: left; }
+  th, td { padding: var(--s-12) var(--s-16); border-bottom: var(--bw-1) solid var(--c-border); vertical-align: top; text-align: left; }
+  thead th { background: var(--c-bg); color: var(--c-text-3); border-bottom-color: var(--c-border-strong); }
+  tbody th[scope='row'] { color: var(--c-text); }
+  td { color: var(--c-text-2); }
+  .grp th { background: var(--c-bg); color: var(--c-text); }
+  .hl th, .hl td { background: var(--c-bg); }
+  tr:last-child > * { border-bottom: 0; }
+  @media (max-width: 767px) {
+    .is-stack thead { display: none; }
+    .is-stack, .is-stack tbody, .is-stack tr, .is-stack th, .is-stack td { display: block; }
+    .is-stack td::before { content: attr(data-label); display: block; color: var(--c-text-3); }
+  }
+</style>

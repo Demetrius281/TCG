@@ -1,0 +1,144 @@
+---
+// The compact section navigator that slides in after the question index, with a "jump to" menu and a back-to-top button.
+interface Props {
+  brand: string;
+  title: { label: string; href: string };
+  links: { label: string; href: string }[];
+  jump: { label: string; fallback: string; links: { label: string; href: string }[] };
+  to_top: string;
+}
+const { brand, title, links, jump, to_top } = Astro.props;
+---
+<nav class="secnav" aria-label={brand}>
+  <div class="secnav-in">
+    <div class="secnav-id">
+      <a class="secnav-brand" href="/" aria-label={brand}>
+        <img src="/assets/brand/logos/tcg-mark-color.svg" alt="" width="26" height="20" />
+      </a>
+      <a class="secnav-title" href={title.href}>{title.label}</a>
+    </div>
+    <ul class="secnav-links">
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+    <details class="jump">
+      <summary>
+        <span class="t-label jl">{jump.label}</span>
+        <span class="jc t-control">{jump.fallback}</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg>
+      </summary>
+      <ul class="jump-panel">
+        {jump.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </details>
+  </div>
+</nav>
+<a class="to-top" href="#top" aria-label={to_top}>
+  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 17V4M4 9.5l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.7"></path></svg>
+</a>
+
+<style>
+  .secnav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: var(--z-menu);
+    display: flex;
+    align-items: center;
+    min-height: calc(var(--header-h) + var(--bw-1));
+    background: var(--color-bg);
+    border-bottom: var(--bw-1) solid var(--color-border);
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: transform var(--ease), visibility var(--ease);
+  }
+  .secnav.show { transform: none; visibility: visible; }
+  .secnav-in { display: flex; align-items: center; gap: var(--s-24); width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; }
+  .secnav-id { display: flex; align-items: center; gap: var(--s-12); flex: none; }
+  .secnav-brand { display: inline-flex; align-items: center; justify-content: center; width: var(--s-32); height: var(--s-32); border: var(--bw-1) solid var(--color-text); overflow: hidden; }
+  .secnav-brand img { display: block; height: var(--size-icon); width: auto; }
+  .secnav-title { display: none; color: var(--color-text); text-decoration: none; }
+  .secnav-links { display: none; margin: 0 0 0 auto; padding: 0; list-style: none; overflow-x: auto; gap: var(--s-24); scrollbar-width: none; }
+  .secnav-links::-webkit-scrollbar { display: none; }
+  .secnav-links a { display: inline-flex; align-items: center; min-height: var(--control-h); border-bottom: var(--bw-2) solid transparent; color: var(--color-text-2); text-decoration: none; white-space: nowrap; }
+  .secnav-links a:hover { color: var(--color-text); }
+  .secnav-links a.active { color: var(--color-text); border-bottom-color: var(--color-accent); }
+
+  .jump { position: relative; margin-left: auto; }
+  .jump summary { display: flex; align-items: center; gap: var(--s-12); min-height: var(--control-h); padding: 0 var(--s-16); border: var(--bw-1) solid var(--color-border); background: var(--color-surface); list-style: none; cursor: pointer; }
+  .jump summary::-webkit-details-marker { display: none; }
+  .jl { color: var(--color-text-3); }
+  .jump[open] summary svg { transform: rotate(180deg); }
+  .jump-panel { position: absolute; right: 0; top: calc(100% + var(--s-8)); min-width: var(--article-nav); max-height: 70dvh; overflow: auto; margin: 0; padding: var(--s-8) 0; list-style: none; background: var(--color-surface); border: var(--bw-1) solid var(--color-border); box-shadow: var(--shadow-menu); }
+  .jump-panel a { display: flex; align-items: center; min-height: var(--control-h); padding: 0 var(--s-16); color: var(--color-text); text-decoration: none; }
+  .jump-panel a.active { box-shadow: inset var(--bw-2) 0 0 var(--color-accent); }
+
+  .to-top { position: fixed; right: var(--s-16); bottom: calc(var(--s-16) + env(safe-area-inset-bottom, 0)); z-index: var(--z-header); display: flex; align-items: center; justify-content: center; width: var(--control-h); height: var(--control-h); background: var(--color-inverse); color: var(--color-on-inverse); opacity: 0; visibility: hidden; transition: opacity var(--ease), visibility var(--ease); }
+  .to-top.show { opacity: 1; visibility: visible; }
+  .to-top svg { width: var(--size-icon); height: var(--size-icon); }
+
+  @media (min-width: 480px) {
+    .secnav-title { display: inline; }
+  }
+  @media (min-width: 1024px) {
+    .secnav { min-height: calc(var(--header-h-lg) + var(--bw-1)); }
+  }
+  @media (min-width: 1280px) {
+    .secnav-links { display: flex; }
+    .jump { display: none; }
+  }
+</style>
+
+
+<script>
+  // Section navigator: active state, mobile jump label, compact bar after the question index.
+  const jump = document.querySelector<HTMLDetailsElement>('.jump');
+  const jc = document.querySelector<HTMLElement>('.jump .jc');
+  const links = document.querySelectorAll<HTMLAnchorElement>('.secnav-links a, .jump-panel a');
+  const names: Record<string, string> = {};
+  document.querySelectorAll<HTMLAnchorElement>('.secnav-links a').forEach((a) => {
+    names[a.getAttribute('href')!.slice(1)] = a.textContent ?? '';
+  });
+  if (jump) {
+    jump.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => jump.removeAttribute('open')));
+    document.addEventListener('click', (e) => {
+      if (jump.hasAttribute('open') && !jump.contains(e.target as Node)) jump.removeAttribute('open');
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && jump.hasAttribute('open')) {
+        jump.removeAttribute('open');
+        jump.querySelector('summary')!.focus();
+      }
+    });
+  }
+  const secs = Array.from(document.querySelectorAll<HTMLElement>('[data-nav]'));
+  const bar = document.querySelector<HTMLElement>('.secnav');
+  const gi = document.getElementById('guide-index');
+  const tt = document.querySelector<HTMLElement>('.to-top');
+  const fallback = jc?.textContent ?? '';
+  function setActive(key: string | null) {
+    links.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + key));
+    if (jc) jc.textContent = key && names[key] ? names[key] : fallback;
+  }
+  let ticking = false;
+  function check() {
+    ticking = false;
+    const y = 120;
+    let cur: string | null = null;
+    for (const s of secs) if (s.getBoundingClientRect().top <= y) cur = s.getAttribute('data-nav');
+    setActive(cur);
+    // compact bar: only after the question selector has been passed
+    const show = !!gi && gi.getBoundingClientRect().bottom <= 60;
+    if (tt) tt.classList.toggle('show', show);
+    if (bar && bar.classList.contains('show') !== show) {
+      bar.classList.toggle('show', show);
+      if (!show && jump) jump.removeAttribute('open');
+    }
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(check);
+    }
+  }, { passive: true });
+  window.addEventListener('resize', check);
+  check();
+</script>

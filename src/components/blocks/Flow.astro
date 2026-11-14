@@ -2,6 +2,10 @@
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import DesktopIllustration from '../ui/DesktopIllustration.astro';
+import Grid from '../ui/Grid.astro';
+import Card from '../ui/Card.astro';
+import Stack from '../ui/Stack.astro';
+import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'flow'>, 'type'>;
@@ -10,73 +14,30 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} lead={lead} id={headId} />
-  <div class="flow" data-flow>
-    <div class="src">
-      <p class="t-small src-title">{sources.title}</p>
-      <ul class="src-list">
-        {sources.items.map((s) => <li class="t-text" data-flow-src>{s}</li>)}
-      </ul>
-    </div>
-    <p class="hub t-card-title" data-flow-hub>{hub}</p>
-    <ul class="outs">
+  <Grid as="div" cols={3} class="flow" data-flow>
+    <Stack gap={12}>
+      <Text role="small" tone="subtle">{sources.title}</Text>
+      <Stack as="ul" gap={8}>
+        {sources.items.map((s) => <li data-flow-src><Text as="span">{s}</Text></li>)}
+      </Stack>
+    </Stack>
+    <Card as="div" data-flow-hub>
+      <Text as="span" role="card-title">{hub}</Text>
+    </Card>
+    <Stack as="ul" gap={16}>
       {
         outputs.map((o) => (
-          <li class="out" data-flow-out>
-            <h3 class="t-card-title">{o.title}</h3>
-            <p class="t-text text">{o.text}</p>
+          <li data-flow-out>
+            <Card as="div" accent>
+              <Text as="h3" role="card-title">{o.title}</Text>
+              <Text tone="muted">{o.text}</Text>
+            </Card>
           </li>
         ))
       }
-    </ul>
-  </div>
-  {closing && <p class="t-text closing">{closing}</p>}
+    </Stack>
+  </Grid>
+  {closing && <Text>{closing}</Text>}
 </Section>
 <!-- The loader script draws the connector lines on desktop only; nothing is fetched below 768px. -->
 <DesktopIllustration name="flow" />
-
-<style is:global>
-  .flow-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-  .flow-lines path { fill: none; stroke-width: var(--bw-1); stroke-linecap: round; }
-  .flow-lines .in { stroke: var(--c-text-3); }
-  .flow-lines .out { stroke: var(--c-accent); }
-  @media (prefers-reduced-motion: no-preference) {
-    .flow:not(.drawn) .flow-lines path { stroke-dasharray: 1; stroke-dashoffset: 1; }
-    .flow.drawn:not(.settled) .flow-lines path { stroke-dasharray: 1; animation: flow-draw 900ms cubic-bezier(0.45, 0, 0.2, 1) both; }
-    .flow.drawn:not(.settled) .flow-lines .out { animation-delay: 700ms; }
-    .flow.drawn:not(.settled) .flow-lines .d1 { animation-delay: 80ms; }
-    .flow.drawn:not(.settled) .flow-lines .d2 { animation-delay: 160ms; }
-    .flow.drawn:not(.settled) .flow-lines .d3 { animation-delay: 240ms; }
-    .flow.drawn:not(.settled) .flow-lines .d4 { animation-delay: 320ms; }
-    .flow.drawn:not(.settled) .flow-lines .out.d1 { animation-delay: 780ms; }
-    .flow.drawn:not(.settled) .flow-lines .out.d2 { animation-delay: 860ms; }
-    @keyframes flow-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-  }
-</style>
-
-<style>
-  .flow { display: grid; gap: var(--space-6); position: relative; }
-  .src { display: grid; gap: var(--space-3); }
-  .src-title { color: var(--c-text-3); }
-  .src-list { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-  .src-list li { padding: var(--space-2) var(--space-3); background: var(--c-surface); border: var(--bw-1) solid var(--c-border-strong); }
-  .hub {
-    justify-self: start;
-    margin: 0;
-    padding: var(--space-4) var(--space-8);
-    background: var(--color-inverse);
-    color: var(--color-on-inverse);
-    font-weight: 600;
-  }
-  .outs { display: grid; gap: var(--space-4); }
-  .out { display: grid; gap: var(--space-2); align-content: start; padding: var(--space-5) var(--space-6); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); border-top: var(--bw-2) solid var(--c-accent); }
-  .text { color: var(--c-text-2); }
-  .closing { margin-top: var(--space-10); max-width: var(--container-prose); color: var(--c-text); font-weight: 500; }
-
-  @media (min-width: 768px) {
-    .flow { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.3fr); align-items: center; gap: var(--space-16); }
-    .src-list { display: grid; gap: var(--space-3); }
-    .src-list li { text-align: right; }
-    .src-title { text-align: right; }
-    .hub { justify-self: center; position: relative; }
-  }
-</style>

@@ -1,0 +1,79 @@
+---
+// A group of radio buttons or checkboxes drawn as option rows. The inputs keep their names and values for the form scripts.
+interface Option {
+  value: string;
+  label: string;
+  detail?: string;
+  price?: string;
+  checked?: boolean;
+}
+interface Props {
+  legend: string;
+  hideLegend?: boolean;
+  tag?: string;
+  type?: 'radio' | 'checkbox';
+  name: string;
+  options: Option[];
+  cols?: 1 | 2;
+  id?: string;
+  err?: string;
+}
+const { legend, hideLegend = false, tag, type = 'radio', name, options, cols = 2, id, err } = Astro.props;
+---
+<fieldset class="set" id={id} aria-describedby={err}>
+  <legend class:list={[hideLegend && 'sr-only']}>{legend}{tag && <span class="tag t-label"> {tag}</span>}</legend>
+  <div class={`opts c-${cols}`}>
+    {
+      options.map((o) => (
+        <label class="opt">
+          <input type={type} name={name} value={o.value} checked={o.checked} />
+          <span class:list={['mark', type === 'checkbox' && 'sq']} aria-hidden="true"></span>
+          <span class="t-small body">{o.label}{o.detail && <small class="detail t-label">{o.detail}</small>}</span>
+          {o.price && <span class="price t-label">{o.price}</span>}
+        </label>
+      ))
+    }
+  </div>
+  {err && <p class="t-small err" id={err}></p>}
+</fieldset>
+
+<style>
+  .set { display: grid; gap: var(--s-8); margin: 0; padding: 0; border: 0; min-width: 0; }
+  legend { padding: 0; margin-bottom: var(--s-8); font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--c-text); }
+  .tag { color: var(--c-text-3); }
+  .opts { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
+  .opt {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--s-12);
+    min-height: var(--control-h);
+    padding: var(--s-12) var(--s-16);
+    background: var(--c-bg);
+    border: var(--bw-1) solid var(--c-border-strong);
+    color: var(--c-text);
+    cursor: pointer;
+    transition: border-color var(--ease);
+  }
+  .opt:hover { border-color: var(--c-text-3); }
+  .opt input { position: absolute; opacity: 0; width: var(--bw-1); height: var(--bw-1); margin: 0; pointer-events: none; }
+  .mark { flex: none; display: inline-flex; align-items: center; justify-content: center; width: var(--s-16); height: var(--s-16); box-sizing: border-box; border: var(--bw-2) solid var(--c-text-3); border-radius: var(--radius-full); transition: border-color var(--ease), background-color var(--ease); }
+  .mark::after { content: ''; width: var(--size-mark); height: var(--size-mark); border-radius: var(--radius-full); background: var(--c-accent); transform: scale(0); transition: transform var(--ease); }
+  .sq { border-radius: var(--radius); }
+  .sq::after { border-radius: 0; background: var(--c-bg); transform: scale(0); }
+  .opt:has(input:checked) { border-color: var(--c-accent); }
+  .opt:has(input:checked) .mark { border-color: var(--c-accent); }
+  .opt:has(input:checked) .mark::after { transform: scale(1); }
+  .opt:has(input:checked) .sq { background: var(--c-accent); }
+  .opt:has(input:focus-visible) { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-1); }
+  .body { display: flex; flex-direction: column; gap: var(--s-8); flex: 1 1 auto; min-width: 0; }
+  .detail { color: var(--c-text-3); }
+  .price { color: var(--c-text-3); white-space: nowrap; }
+  .opt:has(input:checked) .price { color: var(--c-accent); }
+  .set[aria-invalid='true'] .opt { border-color: var(--color-danger); }
+  .err { color: var(--color-danger); }
+  .err:empty { display: none; }
+  @media (min-width: 480px) {
+    .c-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>

@@ -233,8 +233,13 @@ The rules text is CLAUDE.md (rules 1-9 and the mandatory workflow); this section
 - Screens: padding 56/112. Neighbours with the same background share the gap (the second has no top padding). Never two inverse screens in a row.
 - Lists: shared `List` only (green diamond, mint on inverse; numbered = label role "01").
 
-### Shared elements that implement the rules
-Section (tone, layout: stacked | split | article), SectionHead (title, text, small meta line; `next` = content 40px or actions 32px; hero mode), Hero (the first screen), Grid (cols 2, 3, 4), List (bulleted | numbered), Button / WhatsAppLink (Action). Blocks use them and cannot override their spacing, width, gap, markers or type. Block CSS may bind a font size only to one of the 7 role tokens (`font-size: var(--fs-small)`); any other value fails `npm run check`.
+### Shared elements that implement the rules (the primitives, src/components/ui)
+Layout: Section (tone; layout stacked | split | article | hero), SectionHead (title, text; default slot = list/extras 32px below the text, slot "actions" = buttons 32px below; head -> content 40 is the Section gap), Stack (vertical, gap = a scale name 8/12/16/24/32/40), Cluster (horizontal row, same scale or "buttons" = 12/16), Grid (cols 2, 3, 4; gap 16/32).
+Content: Card (padding 24, title -> text 12, slots foot and actions; variants surface | note; link cards do not move on hover), Text (role = page-title | section-title | card-title | text | small | label | metric | control; tone), List (bulleted | numbered), Table, Rows (hairline link rows), Stats (big figures), LogoGrid, Media, Accordion.
+Actions: Button, Action, WhatsAppLink, ActionStack (a button with a centred text link under it).
+Forms: Field, Choices, Check, FormButton, Stage, StepBar, DataRows.
+Chrome: Header, Footer, MobileMenu, SkipLink, SectionNav (the compact navigator of the guide), DesktopIllustration.
+Blocks compose these with props only and cannot set size, spacing or type: the lock (`npm run lock`, scripts/lock.mjs) fails on any margin, padding, gap, font, width, height, transform or border-radius outside the primitives. The list of blocks and primitives is qa/rules/blocks.json; adding to it needs owner approval. Spacing scale (D5): 8, 12, 16, 24, 32, 40 (tokens `--s-8` ... `--s-40`), screens `--section-y` 56/112, grid `--grid-gap` 16/32.
 
 ### Where the old first-screen extras went
 - /due-diligence: meta strip "Land · Villas · Developers" is the small meta line of the first `cards` block (`meta`).
@@ -247,6 +252,7 @@ Section (tone, layout: stacked | split | article), SectionHead (title, text, sma
 ### Page-type templates (block order)
 - home: section 8.
 - service: section 9.
+- 404 (src/pages/404.astro): hero only (page-title, one paragraph, two buttons); text from legacy/404.html.
 - due-diligence: hero → cards → report → comparison → pricing → steps → order → faq → cta.
 - platform: hero → features → spotlight → acquisition_case → architecture → inquiry.
 - guide (/regulations): hero → guide_nav → topics → guide (one per section) → cta → faq → sources.

@@ -27,7 +27,7 @@ jobs:
         if: github.event_name == 'pull_request' && github.base_ref == 'main'
         run: |
           git fetch origin main
-          for p in scripts/check-design.mjs qa/rules; do
+          for p in scripts/check-design.mjs scripts/lock.mjs scripts/lock-selftest.mjs scripts/gen-scale.mjs scripts/audit.mjs package.json package-lock.json .githooks qa/rules qa/baseline qa/lock-fixtures; do
             if git cat-file -e "origin/main:$p" 2>/dev/null; then
               git checkout origin/main -- "$p"
               echo "using $p from main"
@@ -39,7 +39,7 @@ jobs:
         env:
           APPROVED: ${{ contains(github.event.pull_request.labels.*.name, 'rules-approved') }}
         run: |
-          changed=$(git diff --name-only "origin/main...${{ github.event.pull_request.head.sha }}" -- CLAUDE.md .claude .github scripts/check-design.mjs qa/rules qa/baseline)
+          changed=$(git diff --name-only "origin/main...${{ github.event.pull_request.head.sha }}" -- CLAUDE.md .claude .github .githooks package.json package-lock.json scripts qa src/styles/tokens.css ':!qa/audit' ':!qa/lock' ':!qa/output')
           if [ -n "$changed" ] && [ "$APPROVED" != "true" ]; then
             echo "This pull request changes protected files and has no 'rules-approved' label:"
             echo "$changed"
@@ -52,6 +52,10 @@ jobs:
         run: |
           test "$(node -e "console.log(Object.keys(require('./qa/baseline/design.json')).length)")" = "0"
           test "$(node -e "console.log(require('./qa/baseline/layout.json').length)")" = "0"
+      - name: Lock (every rule, whole repo)
+        run: npm run lock
+      - name: Lock self-test (every forbidden pattern is caught)
+        run: npm run lock:selftest
       - run: npm run check
       - run: npm run build
       - run: npm run check:layout

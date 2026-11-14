@@ -1,0 +1,41 @@
+---
+// Horizontal row that wraps. The gap is a name from the scale (D5) or "buttons" (12 mobile / 16 desktop).
+import { assertGap, type ClusterGap } from '../../lib/scale';
+
+interface Props {
+  gap?: ClusterGap;
+  as?: 'div' | 'ul' | 'ol' | 'li' | 'nav' | 'span' | 'p' | 'figcaption' | 'header' | 'dl';
+  align?: 'start' | 'center' | 'baseline' | 'end' | 'stretch';
+  justify?: 'start' | 'between' | 'end' | 'center';
+  nowrap?: boolean;
+  class?: string;
+  [attr: string]: unknown;
+}
+const { gap = 16, as: Tag = 'div', align = 'center', justify = 'start', nowrap = false, class: className, ...rest } = Astro.props;
+if (gap !== 'buttons') assertGap(gap, 'Cluster');
+---
+<Tag class:list={['cluster', `g-${gap}`, `a-${align}`, `j-${justify}`, nowrap && 'nowrap', className]} {...rest}><slot /></Tag>
+
+<style>
+  .cluster { display: flex; flex-wrap: wrap; min-width: 0; margin: 0; padding: 0; list-style: none; }
+  .nowrap { flex-wrap: nowrap; }
+  .g-8 { gap: var(--s-8); }
+  .g-12 { gap: var(--s-12); }
+  .g-16 { gap: var(--s-16); }
+  .g-24 { gap: var(--s-24); }
+  .g-32 { gap: var(--s-32); }
+  .g-40 { gap: var(--s-40); }
+  .g-buttons { gap: var(--s-12); width: 100%; }
+  .a-start { align-items: flex-start; }
+  .a-center { align-items: center; }
+  .a-baseline { align-items: baseline; }
+  .a-end { align-items: flex-end; }
+  .a-stretch { align-items: stretch; }
+  .j-start { justify-content: flex-start; }
+  .j-between { justify-content: space-between; }
+  .j-end { justify-content: flex-end; }
+  .j-center { justify-content: center; }
+  @media (min-width: 768px) {
+    .g-buttons { gap: var(--s-16); width: auto; }
+  }
+</style>

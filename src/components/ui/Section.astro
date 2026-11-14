@@ -1,31 +1,39 @@
 ---
 // The only way to write a section (CLAUDE.md rules 1 and 5, variation B).
-//   stacked (default): head and content in one column.
+//   stacked (default): head and content in one column, gap 40.
 //   split: slot "head" 5/12 left, content 7/12 right from 1024px, gap --split-gap.
 //   article: slot "nav" (--article-nav) left, text column (--container-prose) right from 1024px.
+//   hero: the first screen. Copy left; with `art`, slot "art" right, 50/50, gap --split-gap, top-aligned.
 interface Props {
   tone?: 'default' | 'sunken' | 'inverse';
   id?: string;
   labelledby?: string;
   nav?: string;
-  layout?: 'stacked' | 'split' | 'article';
+  layout?: 'stacked' | 'split' | 'article' | 'hero';
+  /** hero only: reserve the illustration column. */
+  art?: string;
+  /** split only: the head column stays in view while the content scrolls. */
+  sticky?: boolean;
 }
-const { tone = 'default', id, labelledby, nav, layout = 'stacked' } = Astro.props;
-const twoCol = layout !== 'stacked';
+const { tone = 'default', id, labelledby, nav, layout = 'stacked', art, sticky = false } = Astro.props;
+const twoCol = layout === 'split' || layout === 'article';
 ---
 <section class:list={['section', `tone-${tone}`, tone === 'inverse' && 'on-inverse']} id={id} data-nav={nav} aria-labelledby={labelledby}>
-  <div class:list={['inner', twoCol && `layout-${layout}`]}>
-    {
-      twoCol ? (
-        <>
-          <div class="side">{layout === 'split' ? <slot name="head" /> : <slot name="nav" />}</div>
-          <div class="body"><slot /></div>
-        </>
-      ) : (
-        <slot />
-      )
-    }
-  </div>
+  {
+    layout === 'hero' ? (
+      <div class:list={['inner', 'hero', art && 'has-art']} data-art={art}>
+        <div class="copy"><slot /></div>
+        {art && <div class="art"><slot name="art" /></div>}
+      </div>
+    ) : twoCol ? (
+      <div class={`inner layout-${layout}`}>
+        <div class:list={['side', sticky && 'is-sticky']}>{layout === 'split' ? <slot name="head" /> : <slot name="nav" />}</div>
+        <div class="body"><slot /></div>
+      </div>
+    ) : (
+      <div class="inner stacked"><slot /></div>
+    )
+  }
 </section>
 
 <style>
@@ -54,26 +62,22 @@ const twoCol = layout !== 'stacked';
     --c-border-strong: var(--color-border-inverse);
     --c-accent: var(--color-accent-inverse);
   }
-  /* Page top: the first section starts --page-top below the header (rule 2). */
-  :global(main > section.section:first-of-type) { padding-top: var(--page-top); }
-  /* Rule 5: the gap between two screens is always --section-y. Neighbours with the same background share it. */
-  :global(.section.tone-default + .section.tone-default),
-  :global(.section.tone-default + script + .section.tone-default),
-  :global(.section.tone-sunken + .section.tone-sunken),
-  :global(.section.tone-sunken + script + .section.tone-sunken),
-  :global(.section.tone-inverse + .section.tone-inverse),
-  :global(.section.tone-inverse + script + .section.tone-inverse) { padding-top: 0; }
-  /* Nothing inside a screen adds space after its last element: the screen's bottom padding is the whole gap. */
-  :global(main .section .inner :last-child) { margin-bottom: 0; }
-  :global(main .section .inner :first-child) { margin-top: 0; }
   .inner {
     width: min(100% - 2 * var(--gutter), var(--container));
     margin-inline: auto;
   }
-  .side, .body { min-width: 0; }
-  .layout-split, .layout-article { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); }
+  .stacked, .hero, .layout-split, .layout-article { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-40); }
+  .stacked > * { min-width: 0; }
+  .side, .body, .copy, .art { min-width: 0; }
+  .copy { display: flex; flex-direction: column; align-items: flex-start; max-width: var(--hero-title-max); }
+  .art { display: none; }
+  @media (min-width: 768px) {
+    .art { display: block; }
+  }
   @media (min-width: 1024px) {
     .layout-split { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--split-gap); }
     .layout-article { grid-template-columns: var(--article-nav) minmax(0, var(--container-prose)); gap: var(--split-gap); }
+    .has-art { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--split-gap); }
+    .is-sticky { position: sticky; top: calc(var(--header-h-lg) + var(--s-24)); align-self: start; }
   }
 </style>

@@ -1,0 +1,70 @@
+---
+// Hairline-divided rows. A row with href is one link. Used for service lists, topic indexes and source lists.
+// Title role: card-title (default) or text. The row never moves on hover; only its background changes.
+interface Item {
+  href?: string;
+  external?: boolean;
+  label?: string;
+  title: string;
+  text?: string;
+  meta?: string;
+  tag?: string;
+  go?: string;
+}
+interface Props {
+  items: Item[];
+  titleRole?: 'card-title' | 'text';
+  as?: 'ul' | 'ol';
+  newTab?: string;
+}
+const { items, titleRole = 'card-title', as: Tag = 'ul', newTab = 'opens in a new tab' } = Astro.props;
+---
+<Tag class="rows">
+  {
+    items.map((it) => {
+      const Row = it.href ? 'a' : 'div';
+      const ext = it.external ? { target: '_blank', rel: 'noopener' } : {};
+      return (
+        <li class="item">
+          <Row class:list={['row', it.href && 'is-link']} href={it.href} {...ext}>
+            {it.label && <span class="t-label label">{it.label}</span>}
+            <span class="body">
+              <span class={`t-${titleRole} name`}>{it.title}</span>
+              {it.text && <span class="t-text text">{it.text}</span>}
+              {it.meta && <span class="t-small meta">{it.meta}</span>}
+              {it.tag && <span class="t-label tag">{it.tag}</span>}
+            </span>
+            {it.go && <span class="t-small go">{it.go} <span aria-hidden="true">→</span></span>}
+            {it.external && <span class="sr-only"> {newTab}</span>}
+          </Row>
+        </li>
+      );
+    })
+  }
+</Tag>
+
+<style>
+  .rows { display: grid; margin: 0; padding: 0; list-style: none; border-top: var(--bw-1) solid var(--c-border-strong); }
+  .item { border-bottom: var(--bw-1) solid var(--c-border); }
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-12);
+    align-items: start;
+    padding: var(--s-24) 0;
+    color: var(--c-text);
+    text-decoration: none;
+    transition: background-color var(--ease);
+  }
+  .is-link:hover, .is-link:focus-visible { background: var(--c-surface); }
+  .body { display: grid; gap: var(--s-12); min-width: 0; }
+  .label { color: var(--c-accent); }
+  .text { color: var(--c-text-2); }
+  .meta { color: var(--c-text-3); }
+  .tag { justify-self: start; color: var(--c-accent); }
+  .go { color: var(--c-accent); }
+  @media (min-width: 768px) {
+    .row { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--s-40); }
+    .row:has(.label) { grid-template-columns: auto minmax(0, 1fr) auto; }
+  }
+</style>

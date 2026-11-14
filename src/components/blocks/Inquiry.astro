@@ -1,121 +1,47 @@
 ---
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
+import Card from '../ui/Card.astro';
+import Grid from '../ui/Grid.astro';
+import Stack from '../ui/Stack.astro';
+import Text from '../ui/Text.astro';
+import Field from '../ui/Field.astro';
+import FormButton from '../ui/FormButton.astro';
+import Stage from '../ui/Stage.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'inquiry'>, 'type'>;
 const { title, lead, stage, panel, fields: f, interest_options, message_placeholder, submit, disclaimer, sticky_copy = true, tone = 'sunken', id, nav } = Astro.props;
 ---
-<Section id={id} nav={nav} tone={tone} labelledby="ei-title">
-  <div class="ei-grid">
-    <div class:list={['ei-copy', sticky_copy && 'sticky-copy']}>
-      <SectionHead title={title} lead={lead} id="ei-title" />
-      <div class="stage">
-        {stage.map((s) => <p><span class="t-label">{s.label}</span>{s.text}</p>)}
-      </div>
-    </div>
-    <div class="ei-panel">
-      <div>
-        <h3 id="ei-form-title">{panel.title}</h3>
-        <p class="t-small ei-note" id="ei-form-note">{panel.note}</p>
-      </div>
-      <form class="ei-form" id="ei-form" novalidate aria-labelledby="ei-form-title" aria-describedby="ei-form-note">
-        <div class="fld">
-          <div class="fld-h"><label for="ei-name">{f.name.label}</label><span class="tag" aria-hidden="true">{f.name.tag}</span></div>
-          <input id="ei-name" name="name" type="text" autocomplete="name" required aria-required="true" aria-describedby="ei-name-err" />
-          <p class="err" id="ei-name-err"></p>
-        </div>
-        <div class="fld">
-          <div class="fld-h"><label for="ei-org">{f.organisation.label}</label><span class="tag" aria-hidden="true">{f.organisation.tag}</span></div>
-          <input id="ei-org" name="organisation" type="text" autocomplete="organization" />
-        </div>
-        <div class="fld">
-          <div class="fld-h"><label for="ei-role">{f.role.label}</label><span class="tag" aria-hidden="true">{f.role.tag}</span></div>
-          <input id="ei-role" name="role" type="text" autocomplete="organization-title" />
-        </div>
-        <div class="fld">
-          <div class="fld-h"><label for="ei-interest">{f.interest.label}</label><span class="tag" aria-hidden="true">{f.interest.tag}</span></div>
-          <select id="ei-interest" name="interest" required aria-required="true" aria-describedby="ei-interest-err">
-            {interest_options.map((o, i) => (i === 0 ? <option value={o.value}>{o.label}</option> : <option>{o.label}</option>))}
-          </select>
-          <p class="err" id="ei-interest-err"></p>
-        </div>
-        <div class="fld full">
-          <div class="fld-h"><label for="ei-contact">{f.contact.label}</label><span class="tag" aria-hidden="true">{f.contact.tag}</span></div>
-          <input id="ei-contact" name="contact" type="text" autocomplete="off" inputmode="text" required aria-required="true" aria-describedby="ei-contact-err" />
-          <p class="err" id="ei-contact-err"></p>
-        </div>
-        <div class="fld full">
-          <div class="fld-h"><label for="ei-msg">{f.message.label}</label><span class="tag" aria-hidden="true">{f.message.tag}</span></div>
-          <textarea id="ei-msg" name="message" rows="4" placeholder={message_placeholder}></textarea>
-        </div>
-        <div class="ei-submit">
-          <button type="submit" class="ei-btn">{submit}</button>
-          <p class="ei-status" id="ei-status" role="status" aria-live="polite"></p>
-        </div>
-      </form>
-      <p class="t-small ei-disc">{disclaimer}</p>
-    </div>
-  </div>
+<Section id={id} nav={nav} tone={tone} labelledby="ei-title" layout="split" sticky={sticky_copy}>
+  <Stack slot="head" gap={40}>
+    <SectionHead title={title} lead={lead} id="ei-title" />
+    <Stage items={stage} />
+  </Stack>
+  <Card as="div">
+    <Stack gap={8}>
+      <Text as="h3" role="card-title" id="ei-form-title">{panel.title}</Text>
+      <Text role="small" tone="muted" id="ei-form-note">{panel.note}</Text>
+    </Stack>
+    <Stack as="form" gap={32} id="ei-form" novalidate aria-labelledby="ei-form-title" aria-describedby="ei-form-note">
+      <Stack gap={24}>
+        <Grid as="div" cols={2}>
+          <Field id="ei-name" name="name" label={f.name.label} tag={f.name.tag} autocomplete="name" required err />
+          <Field id="ei-org" name="organisation" label={f.organisation.label} tag={f.organisation.tag} autocomplete="organization" />
+          <Field id="ei-role" name="role" label={f.role.label} tag={f.role.tag} autocomplete="organization-title" />
+          <Field id="ei-interest" name="interest" kind="select" label={f.interest.label} tag={f.interest.tag} required err options={interest_options.map((o, i) => (i === 0 ? { value: o.value, label: o.label } : { label: o.label }))} />
+        </Grid>
+        <Field id="ei-contact" name="contact" label={f.contact.label} tag={f.contact.tag} required err />
+        <Field id="ei-msg" name="message" kind="textarea" label={f.message.label} tag={f.message.tag} placeholder={message_placeholder} />
+      </Stack>
+      <Stack gap={12}>
+        <FormButton type="submit">{submit}</FormButton>
+        <div role="status" aria-live="polite"><Text as="span" role="small" id="ei-status"></Text></div>
+      </Stack>
+    </Stack>
+    <Text role="small" tone="subtle">{disclaimer}</Text>
+  </Card>
 </Section>
-
-<style>
-  .ei-grid { display: grid; gap: var(--space-8); align-items: start; }
-  .ei-copy { display: grid; gap: 0; }
-  .label { color: var(--c-accent); }
-  .lead { color: var(--c-text-2); max-width: var(--container-prose); }
-  .stage { display: grid; border-top: var(--bw-1) solid var(--c-border-strong); }
-  .stage p { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2); padding: var(--space-3) 0; border-bottom: var(--bw-1) solid var(--c-border-strong); font-size: var(--fs-small); color: var(--c-text); }
-  .stage span { color: var(--c-accent); }
-  .ei-panel { display: grid; gap: var(--space-5); padding: var(--space-5); background: var(--c-surface); border: var(--bw-1) solid var(--c-border-strong); }
-  .ei-note { margin-top: var(--space-2); color: var(--c-text-2); }
-  .ei-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4) var(--space-5); }
-  .fld { display: grid; gap: var(--space-2); min-width: 0; }
-  .fld-h { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
-  .fld label { font-size: var(--fs-small); font-weight: 500; }
-  .tag { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-3); }
-  .fld input, .fld select, .fld textarea {
-    width: 100%;
-    min-height: var(--control-h);
-    padding: var(--space-3) var(--space-4);
-    background: var(--c-bg);
-    border: var(--bw-1) solid var(--c-border-strong);
-    border-radius: var(--radius);
-    color: var(--c-text);
-    font: inherit;
-    font-size: var(--fs-text);
-    transition: border-color var(--ease);
-  }
-  .fld textarea { min-height: calc(var(--space-16) * 2); resize: vertical; line-height: var(--lh-small); }
-  .fld select { cursor: pointer; }
-  .fld select.empty { color: var(--c-text-3); }
-  .fld ::placeholder { color: var(--c-text-3); opacity: 1; }
-  .fld input:hover, .fld select:hover, .fld textarea:hover { border-color: var(--c-text-3); }
-  .fld input:focus-visible, .fld select:focus-visible, .fld textarea:focus-visible { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-1); border-color: var(--c-accent); }
-  .fld [aria-invalid='true'] { border-color: var(--color-danger); }
-  .err { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--color-danger); }
-  .err:empty { display: none; }
-  .ei-submit { display: grid; gap: var(--space-3); align-items: stretch; margin-top: var(--space-1); }
-  .ei-btn { min-height: var(--control-h); padding: 0 var(--space-6); background: var(--c-accent); border: 0; border-radius: var(--radius); color: var(--c-bg); font: inherit; font-size: var(--fs-small); font-weight: 500; cursor: pointer; transition: background-color var(--ease), transform var(--ease), box-shadow var(--ease); }
-  .ei-btn:hover { background: var(--c-text); color: var(--c-bg); transform: translateY(calc(var(--space-1) / -2)); box-shadow: var(--shadow-lift); }
-  .ei-status { font-size: var(--fs-small); color: var(--c-text); }
-  .ei-status:empty { display: none; }
-  .ei-disc { padding-top: var(--space-4); border-top: var(--bw-1) solid var(--c-border-strong); font-family: var(--font-mono); color: var(--c-text-3); }
-
-  @media (min-width: 768px) {
-    .ei-panel { padding: var(--space-8); }
-    .ei-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .ei-form .full, .ei-submit { grid-column: 1 / -1; }
-    .ei-submit { justify-items: start; }
-  }
-  @media (min-width: 1024px) {
-    .ei-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: var(--space-16); }
-  }
-</style>
-
-<style is:global>
-  #ei-form .fld select.empty { color: var(--color-text-3); }
-</style>
 
 <script>
   import '../../scripts/investment-inquiry.js';

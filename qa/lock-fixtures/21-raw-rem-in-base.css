@@ -1,0 +1,2 @@
+/* lock-path: src/styles/base.css; expect: L2 */
+.x { gap: 1.25rem; }

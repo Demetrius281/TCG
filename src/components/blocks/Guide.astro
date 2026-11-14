@@ -1,414 +1,233 @@
 ---
+// One guide section: heading, answer line and an ordered list of parts. Every part is built from primitives only.
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import List from '../ui/List.astro';
+import Grid from '../ui/Grid.astro';
+import Card from '../ui/Card.astro';
+import Stack from '../ui/Stack.astro';
+import Cluster from '../ui/Cluster.astro';
+import Table from '../ui/Table.astro';
+import Rows from '../ui/Rows.astro';
+import Text from '../ui/Text.astro';
 import { inline } from '../../lib/inline';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'guide'>, 'type'>;
 const { chain, heading_id, title, lead, answer, parts, tone, id, nav } = Astro.props;
-const text = (v: string | { title: string; text: string }) => (typeof v === 'string' ? v : null);
+const tagTone = { law: 'accent', draft: 'warn', impl: 'muted', future: 'subtle', enf: 'danger' } as const;
+const codeTone = { i: 'ok', t: 'muted', b: 'warn', x: 'danger' } as const;
+const resultTone = { ok: 'ok', cd: 'warn', mi: 'danger' } as const;
+const colsFor = (n: number): 2 | 3 | 4 => (n <= 2 ? 2 : n === 4 ? 4 : 3);
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 <Section id={id} nav={nav} tone={tone} labelledby={heading_id}>
   <SectionHead title={title} lead={lead} id={heading_id} />
-  {chain && <span class="chainpos">{[1, 2, 3, 4, 5, 6].map((n) => <i class={chain.includes(n) ? 'on' : undefined}></i>)}</span>}
-  {answer && <p class="answer">{answer}</p>}
-
-  {
-    parts.map((p) => {
-      switch (p.part) {
-        case 'prose':
-          return <div class="prose">{p.paragraphs.map((t) => <p set:html={inline(t)} />)}</div>;
-        case 'heading':
-          return <h3 class={p.variant === 'base' ? 'base-h' : 'h3'} id={p.id}>{p.text}</h3>;
-        case 'note':
-          return p.variant === 'callout' ? (
-            <div class="colour-note"><p>{p.strong && <strong>{p.strong}</strong>}{p.text}</p></div>
-          ) : (
-            <p class={p.variant} set:html={inline(p.text)} />
-          );
-        case 'terms':
-          return (
-            <div class={p.variant}>
-              {p.items.map((i) => <div><span class="ab">{i.abbr}</span><span class="t-small full">{i.full}</span><p class="t-small">{i.text}</p></div>)}
-            </div>
-          );
-        case 'codes':
-          return (
-            <ul class="itbx">
-              {p.items.map((i) => <li class={i.kind}><span class="L">{i.letter}</span><b>{i.title}</b><p class="t-small">{i.text}</p></li>)}
-            </ul>
-          );
-        case 'list': {
-          const shared = ['restr', 'checks', 'feas', 'steps4'].includes(p.variant);
-          const rows = p.items.map((i) => (text(i) !== null ? <li set:html={inline(text(i)!)} /> : <li><b>{(i as any).title}</b><span class="t-small">{(i as any).text}</span></li>));
-          return shared ? <List numbered={p.variant === 'feas' || p.variant === 'steps4'} class={`${p.variant} gl`}>{rows}</List> : <ul class={p.variant}>{rows}</ul>;
-        }
-        case 'cards':
-          return (
-            <div class={`cards cards-${p.variant}`}>
-              {p.items.map((i) => (
-                <div class:list={[i.draft && 'draft']}>
-                  {i.tag && p.variant !== 'imb' && p.variant === 'rules' && <span class={`t-label tag tag-${i.tag.kind}`}>{i.tag.label}</span>}
-                  {i.tag && p.variant === 'plan' && <span class={`t-label tag tag-${i.tag.kind}`}>{i.tag.label}</span>}
-                  {p.variant === 'rules' ? (
-                    <>
-                      <h3>{i.title}</h3>
-                      <span class="t-small k">{i.kicker}</span>
-                    </>
-                  ) : (
-                    <>
-                      <span class="t-small k">{i.kicker}</span>
-                      <h3>{i.title}</h3>
-                    </>
-                  )}
-                  <p class="t-small">{i.text}</p>
-                </div>
-              ))}
-            </div>
-          );
-        case 'table':
-          return (
-            <div class:list={['tbl-wrap', p.variant === 'audit' && 'audit-t']}>
-              <table class:list={['t', ['layers', 'scenarios', 'kbli'].includes(p.variant) && 'stack', p.variant === 'pma' && 'pma']}>
-                <thead>
-                  <tr>{p.columns.map((c) => <th scope="col">{c}</th>)}</tr>
-                </thead>
-                {p.groups.map((g) => (
-                  <tbody>
-                    {g.name && <tr class="grp"><th colspan={p.columns.length} scope="colgroup">{g.name}</th></tr>}
-                    {g.rows.map((r) => (
-                      <tr class:list={[r.highlight && 'hl']}>
-                        {r.cells.map((c, i) =>
-                          i === 0 ? (
-                            <th scope="row" class:list={[p.variant === 'kbli' && 'code-cell']} set:html={inline(c)} />
-                          ) : (
-                            <td data-label={p.columns[i]} set:html={inline(c)} />
-                          ),
-                        )}
-                      </tr>
-                    ))}
-                  </tbody>
+  {chain && <Text role="label" tone="subtle">{chain.map(pad).join(' · ')}</Text>}
+  {answer && <Card variant="note"><Text>{answer}</Text></Card>}
+  <Stack gap={24}>
+    {
+      parts.map((p) => {
+        switch (p.part) {
+          case 'prose':
+            return <Stack gap={16}>{p.paragraphs.map((t) => <Text tone="muted"><Fragment set:html={inline(t)} /></Text>)}</Stack>;
+          case 'heading':
+            return <Text as="h3" role="card-title" id={p.id}>{p.text}</Text>;
+          case 'note':
+            return p.variant === 'callout' ? (
+              <Card variant="note"><Text role="small">{p.strong && `${p.strong} `}{p.text}</Text></Card>
+            ) : p.variant === 'pull' ? (
+              <Card variant="note"><Text><Fragment set:html={inline(p.text)} /></Text></Card>
+            ) : (
+              <Text role={p.variant === 'tbl-note' ? 'small' : 'text'} tone={p.variant === 'tbl-note' ? 'subtle' : 'muted'}><Fragment set:html={inline(p.text)} /></Text>
+            );
+          case 'terms':
+            return (
+              <Grid cols={3}>
+                {p.items.map((i) => (
+                  <Card item>
+                    <Text as="span" role="card-title">{i.abbr}</Text>
+                    <Text as="span" role="label" tone="subtle">{i.full}</Text>
+                    <Text role="small" tone="muted">{i.text}</Text>
+                  </Card>
                 ))}
-              </table>
-            </div>
-          );
-        case 'compare':
-          return (
-            <div class="cmp">
-              {p.items.map((i) => (
-                <div class={i.kind}>
-                  <div class="cmp-h"><b>{i.abbr}</b><span>{i.full}</span></div>
-                  <dl>{i.rows.map((r) => <><dt>{r.label}</dt><dd>{r.value}</dd></>)}</dl>
-                </div>
-              ))}
-            </div>
-          );
-        case 'path':
-          return (
-            <ol class="path">
-              {p.items.map((i) => (
-                <li>
-                  <span class="st"><small>{i.step_label}</small><b>{i.step}</b></span>
-                  <div><h3>{i.title}</h3><p class="t-small">{i.text}</p><span class="t-label zone">{i.zone}</span></div>
-                </li>
-              ))}
-            </ol>
-          );
-        case 'chain':
-          return (
-            <ol class="chain">
-              {p.items.map((i, n) => <li><span class="node">{n + 1}</span><h3>{i.title}</h3><p class="t-small">{i.text}</p></li>)}
-            </ol>
-          );
-        case 'kbli_shift':
-          return (
-            <div class="kbli-shift">
-              <div class="code old"><b>{p.old.code}</b><span><strong>{p.old.title}</strong>{p.old.note}</span></div>
-              <div class="arr" aria-hidden="true"><svg viewBox="0 0 64 24"><path d="M0 12h60M50 3l10 9-10 9" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>{p.arrow}</div>
-              <div class="code new"><b>{p.current.code}</b><span><strong>{p.current.title}</strong>{p.current.note}</span></div>
-            </div>
-          );
-        case 'split':
-          return (
-            <div class="split">
-              {p.items.map((i) => (
-                <div><h3 class="h3" id={i.id}>{i.title}</h3><div class="prose">{i.paragraphs.map((t) => <p set:html={inline(t)} />)}</div></div>
-              ))}
-            </div>
-          );
-        case 'formula':
-          return (
-            <div class="formula">
-              {p.items.map((i, n) => (n % 2 === 1 ? <div class="op">{i}</div> : <div class:list={[n === p.items.length - 1 && 'res']}><b>{i}</b></div>))}
-            </div>
-          );
-        case 'taxbox':
-          return (
-            <div class="taxbox" id={p.id}>
-              <div><h3 class="h3">{p.title}</h3></div>
-              <div class="prose">{p.paragraphs.map((t) => <p set:html={inline(t)} />)}</div>
-            </div>
-          );
-        case 'screen':
-          return (
-            <div class="screen">
-              {p.columns.map((c) => <div><h3>{c.title}</h3><ul>{c.items.map((i) => <li class="t-small">{i}</li>)}</ul></div>)}
-            </div>
-          );
-        case 'results':
-          return (
-            <div class="results">
-              {p.items.map((i) => <div class={i.kind}><span class="mk"></span><b>{i.title}</b><p class="t-small">{i.text}</p></div>)}
-            </div>
-          );
-        case 'timeline':
-          return (
-            <ol class="tl">
-              {p.items.map((i, n) => (
-                <li>
-                  <span class="no">{n + 1}</span>
-                  <div><h3>{i.title}</h3><p class="t-small" set:html={inline(i.text)} /></div>
-                  <div class="meta"><span class={`t-label tag tag-${i.tag.kind}`}>{i.tag.label}</span><span class="t-small when">{i.when}</span></div>
-                </li>
-              ))}
-            </ol>
-          );
-      }
-    })
-  }
+              </Grid>
+            );
+          case 'codes':
+            return (
+              <Grid cols={4}>
+                {p.items.map((i) => (
+                  <Card item accent>
+                    <Text as="span" role="card-title" tone={codeTone[i.kind]}>{i.letter}</Text>
+                    <Text as="span">{i.title}</Text>
+                    <Text role="small" tone="muted">{i.text}</Text>
+                  </Card>
+                ))}
+              </Grid>
+            );
+          case 'list': {
+            const plain = p.items.every((i) => typeof i === 'string');
+            const numbered = p.variant === 'feas' || p.variant === 'steps4';
+            return plain ? (
+              <List numbered={numbered}>
+                {p.items.map((i) => <li><Text as="span" tone="muted"><Fragment set:html={inline(i as string)} /></Text></li>)}
+              </List>
+            ) : (
+              <Rows titleRole="text" items={p.items.map((i) => ({ title: (i as { title: string }).title, text: (i as { text: string }).text }))} />
+            );
+          }
+          case 'cards':
+            return (
+              <Grid cols={colsFor(p.items.length)}>
+                {p.items.map((i) => (
+                  <Card item accent={p.variant === 'plan'}>
+                    {i.tag && p.variant !== 'imb' && <Text as="span" role="label" tone={tagTone[i.tag.kind]}>{i.tag.label}</Text>}
+                    {p.variant === 'rules' ? (
+                      <>
+                        <Text as="h3" role="card-title">{i.title}</Text>
+                        <Text as="span" role="small" tone="subtle">{i.kicker}</Text>
+                      </>
+                    ) : (
+                      <>
+                        <Text as="span" role="small" tone="subtle">{i.kicker}</Text>
+                        <Text as="h3" role="card-title">{i.title}</Text>
+                      </>
+                    )}
+                    <Text role="small" tone="muted">{i.text}</Text>
+                  </Card>
+                ))}
+              </Grid>
+            );
+          case 'table':
+            return <Table columns={p.columns} groups={p.groups} stack={['layers', 'scenarios', 'kbli'].includes(p.variant)} />;
+          case 'compare':
+            return (
+              <Grid as="div" cols={2}>
+                {p.items.map((i) => (
+                  <Card as="div">
+                    <Cluster justify="between" gap={8}>
+                      <Text as="span" role="card-title">{i.abbr}</Text>
+                      <Text as="span" role="label" tone="subtle">{i.full}</Text>
+                    </Cluster>
+                    <Stack as="dl" gap={12}>
+                      {i.rows.map((r) => <Stack gap={8} as="div"><Text as="dt" role="label" tone="subtle">{r.label}</Text><Text as="dd" role="small">{r.value}</Text></Stack>)}
+                    </Stack>
+                  </Card>
+                ))}
+              </Grid>
+            );
+          case 'path':
+            return (
+              <Grid as="ol" cols={3}>
+                {p.items.map((i) => (
+                  <Card item>
+                    <Cluster justify="between" gap={8}>
+                      <Text as="span" role="label" tone="subtle">{i.step_label}</Text>
+                      <Text as="span" role="card-title" tone="accent">{i.step}</Text>
+                    </Cluster>
+                    <Text as="h3" role="card-title">{i.title}</Text>
+                    <Text role="small" tone="muted">{i.text}</Text>
+                    <Text as="span" role="label" tone="accent">{i.zone}</Text>
+                  </Card>
+                ))}
+              </Grid>
+            );
+          case 'chain':
+            return (
+              <Grid as="ol" cols={3}>
+                {p.items.map((i, n) => (
+                  <Card item>
+                    <Text as="span" role="label" tone="accent">{pad(n + 1)}</Text>
+                    <Text as="h3" role="card-title">{i.title}</Text>
+                    <Text role="small" tone="muted">{i.text}</Text>
+                  </Card>
+                ))}
+              </Grid>
+            );
+          case 'kbli_shift':
+            return (
+              <Grid as="div" cols={2}>
+                <Card as="div">
+                  <Text as="span" role="card-title" tone="subtle">{p.old.code}</Text>
+                  <Text as="span">{p.old.title}</Text>
+                  <Text role="small" tone="muted">{p.old.note}</Text>
+                </Card>
+                <Card as="div" accent>
+                  <Text as="span" role="label" tone="accent">{p.arrow}</Text>
+                  <Text as="span" role="card-title" tone="accent">{p.current.code}</Text>
+                  <Text as="span">{p.current.title}</Text>
+                  <Text role="small" tone="muted">{p.current.note}</Text>
+                </Card>
+              </Grid>
+            );
+          case 'split':
+            return (
+              <Grid as="div" cols={2}>
+                {p.items.map((i) => (
+                  <Stack gap={16}>
+                    <Text as="h3" role="card-title" id={i.id}>{i.title}</Text>
+                    {i.paragraphs.map((t) => <Text tone="muted"><Fragment set:html={inline(t)} /></Text>)}
+                  </Stack>
+                ))}
+              </Grid>
+            );
+          case 'formula':
+            return (
+              <Cluster gap={16}>
+                {p.items.map((i, n) => <Text as="span" role="card-title" tone={n % 2 === 1 ? 'subtle' : n === p.items.length - 1 ? 'accent' : 'default'}>{i}</Text>)}
+              </Cluster>
+            );
+          case 'taxbox':
+            return (
+              <Card as="div" id={p.id} accent>
+                <Text as="h3" role="card-title">{p.title}</Text>
+                {p.paragraphs.map((t) => <Text tone="muted"><Fragment set:html={inline(t)} /></Text>)}
+              </Card>
+            );
+          case 'screen':
+            return (
+              <Grid as="div" cols={2}>
+                {p.columns.map((c) => (
+                  <Card as="div">
+                    <Text as="h3" role="card-title">{c.title}</Text>
+                    <List>{c.items.map((i) => <li><Text as="span" role="small" tone="muted">{i}</Text></li>)}</List>
+                  </Card>
+                ))}
+              </Grid>
+            );
+          case 'results':
+            return (
+              <Grid as="div" cols={3}>
+                {p.items.map((i) => (
+                  <Card as="div" accent>
+                    <Text as="span" role="card-title" tone={resultTone[i.kind]}>{i.title}</Text>
+                    <Text role="small" tone="muted">{i.text}</Text>
+                  </Card>
+                ))}
+              </Grid>
+            );
+          case 'timeline':
+            return (
+              <Stack as="ol" gap={16}>
+                {
+                  p.items.map((i, n) => (
+                    <li>
+                      <Card as="div">
+                        <Cluster justify="between" gap={8}>
+                          <Text as="span" role="label" tone="accent">{pad(n + 1)}</Text>
+                          <Text as="span" role="label" tone={tagTone[i.tag.kind]}>{i.tag.label}</Text>
+                        </Cluster>
+                        <Text as="h3" role="card-title">{i.title}</Text>
+                        <Text role="small" tone="muted"><Fragment set:html={inline(i.text)} /></Text>
+                        <Text as="span" role="small" tone="subtle">{i.when}</Text>
+                      </Card>
+                    </li>
+                  ))
+                }
+              </Stack>
+            );
+        }
+      })
+    }
+  </Stack>
 </Section>
-
-<style>
-  .sec-head { display: grid; gap: var(--space-5); max-width: var(--container-prose); margin-bottom: var(--space-6); }
-  .chainpos { display: flex; gap: var(--space-1); margin: 0 0 var(--space-10); }
-  .chainpos i { display: block; width: var(--space-4); height: var(--bw-2); background: var(--c-border-strong); }
-  .chainpos i.on { background: var(--c-accent); }
-  .lead { color: var(--c-text-2); max-width: var(--container-prose); margin-bottom: var(--space-8); }
-  .answer { max-width: var(--container-prose); margin-bottom: var(--space-6); padding: var(--space-5) 0 var(--space-5) var(--space-6); border-left: var(--bw-2) solid var(--c-accent); font-size: var(--fs-text); line-height: var(--lh-text); font-weight: 500; color: var(--c-text); }
-  .prose { display: grid; gap: var(--space-4); max-width: var(--container-prose); margin-bottom: var(--space-6); color: var(--c-text-2); }
-  .prose :global(strong) { color: var(--c-text); font-weight: 600; }
-  .prose :global(a), .tl :global(a), .answer :global(a) { color: var(--c-accent); }
-  .h3, .base-h { margin: var(--space-12) 0 var(--space-6); }
-  .pull { max-width: var(--container-prose); margin-top: var(--space-10); padding: var(--space-6); border: var(--bw-1) solid var(--c-border); border-left: var(--bw-2) solid var(--c-accent); background: var(--c-surface); font-size: var(--fs-text); line-height: var(--lh-text); font-weight: 500; color: var(--c-text); }
-  .tbl-note { margin-top: var(--space-4); max-width: var(--container-prose); font-family: var(--font-mono); font-size: var(--fs-label); line-height: var(--lh-small); color: var(--c-text-3); }
-  .sub-lead { max-width: var(--container-prose); margin: var(--space-8) 0 var(--space-4); color: var(--c-text-2); }
-  .colour-note { max-width: var(--container-prose); margin-block: var(--space-4) var(--space-6); padding: var(--space-4) var(--space-5); background: var(--c-bg); border: var(--bw-1) solid var(--c-border); }
-  .colour-note strong { display: block; margin-bottom: var(--space-1); }
-
-  /* Hairline-divided grids (legacy "seam"): cells share 1px rules instead of having gaps. */
-  .defs, .coef, .cards-rules, .results, .cards-plan, .cards-imb, .base { display: grid; gap: var(--bw-1); background: var(--c-border-strong); border: var(--bw-1) solid var(--c-border-strong); margin-block: var(--space-4) var(--space-6); }
-  .defs > div, .coef > div, .cards > div, .results > div, .base li { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-6); background: var(--c-bg); }
-  :global(.tone-sunken) .defs > div, :global(.tone-sunken) .coef > div, :global(.tone-sunken) .cards > div, :global(.tone-sunken) .results > div { background: var(--c-surface); }
-  /* Separate bordered cards with real gaps. */
-  .cmp, .screen { display: grid; gap: var(--space-6); margin-block: var(--space-4) var(--space-6); }
-  .cmp > div, .screen > div { padding: var(--space-6); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); }
-  .split { display: grid; gap: var(--space-8) var(--space-16); margin-block: var(--space-4) var(--space-6); }
-  .ab, .coef b { font-size: var(--fs-card-title); font-weight: 500; line-height: var(--lh-card-title); color: var(--c-text); }
-  .full, .k { font-family: var(--font-mono); font-size: var(--fs-label); line-height: var(--lh-small); color: var(--c-text-3); }
-  p { color: var(--c-text-2); }
-  .cards h3, .results b { font-size: var(--fs-card-title); font-weight: 500; line-height: var(--lh-card-title); letter-spacing: normal; color: var(--c-text); }
-  .cards-imb h3 { font-size: var(--fs-card-title); line-height: var(--lh-card-title); color: var(--c-accent); }
-  .cards-plan > div:first-child { box-shadow: inset 0 var(--bw-2) 0 var(--color-ok); }
-  .cards-plan > .draft { box-shadow: inset 0 var(--bw-2) 0 var(--color-warn); }
-  .results .ok b { color: var(--color-ok); }
-  .results .cd b { color: var(--color-warn); }
-  .results .mi b { color: var(--color-danger); }
-  .tag { display: inline-flex; align-items: center; gap: var(--space-2); justify-self: start; text-transform: none; letter-spacing: 0; white-space: nowrap; color: var(--c-text-2); }
-  .tag-law { color: var(--c-accent); }
-  .tag-impl { color: var(--c-text-2); }
-  .tag-draft { color: var(--color-warn); }
-  .tag-future { color: var(--c-text-3); }
-  .tag-enf { color: var(--color-danger); }
-  :global(.tone-inverse) .tag-draft, :global(.tone-inverse) .tag-enf { color: var(--c-text-2); }
-
-  /* ITBX classification cards: white, coloured top rule */
-  .itbx { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); margin-block: var(--space-6) var(--space-4); }
-  .itbx li { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; padding: var(--space-4); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); border-top: var(--bw-3) solid var(--c-accent); }
-  .itbx .i li, .itbx li.i { border-top-color: var(--color-ok); }
-  .itbx li.t { border-top-color: var(--c-text-2); }
-  .itbx li.b { border-top-color: var(--color-warn); }
-  .itbx li.x { border-top-color: var(--color-danger); }
-  .L { font-family: var(--font-mono); font-size: var(--fs-card-title); font-weight: 300; line-height: var(--lh-metric); color: var(--c-accent); }
-  .itbx .i .L { color: var(--color-ok); }
-  .itbx .t .L { color: var(--c-text-2); }
-  .itbx .b .L { color: var(--color-warn); }
-  .itbx .x .L { color: var(--color-danger); }
-  .itbx b { font-size: var(--fs-text); font-weight: 500; color: var(--c-text); }
-
-  /* Lists: ruled rows, square bullets, zero-padded numbers */
-  .facts, .tools { margin-block: var(--space-5) var(--space-6); border-top: var(--bw-1) solid var(--c-text); }
-  :global(.gl) { margin-block: var(--space-5) var(--space-6); max-width: var(--container-prose); }
-  .facts li, .tools li { display: grid; gap: var(--space-1) var(--space-12); padding-block: var(--space-5); border-bottom: var(--bw-1) solid var(--c-border); }
-  .facts b, .tools b { font-size: var(--fs-text); font-weight: 500; line-height: var(--lh-text); color: var(--c-text); }
-  .facts span, .tools span { color: var(--c-text-2); }
-  .base { margin-block: 0; }
-  .base li { gap: var(--space-2); }
-  .base b { font-size: var(--fs-text); font-weight: 500; color: var(--c-text); }
-  .base span { font-size: var(--fs-small); color: var(--c-text-2); }
-
-  /* Tables: ruled, no box. Stacked on small screens, real tables from 768px */
-  .tbl-wrap { overflow-x: auto; margin-top: var(--space-4); border-top: var(--bw-1) solid var(--c-text); }
-  .t { width: 100%; border-collapse: collapse; }
-  .t thead { display: none; }
-  .t thead th { padding: var(--space-3) var(--space-4); border-bottom: var(--bw-1) solid var(--c-border); font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-text-3); text-align: left; }
-  .t th, .t td { padding: var(--space-4); text-align: left; vertical-align: top; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--c-text-2); }
-  .t th[scope='row'] { color: var(--c-text); font-weight: 500; }
-  .t tbody tr { border-bottom: var(--bw-1) solid var(--c-border); }
-  .t tr.hl th, .t tr.hl td { background: var(--c-surface); }
-  .t .grp th { padding: var(--space-5) var(--space-4) var(--space-2); background: transparent; color: var(--c-accent); font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
-  .stack tr, .stack th, .stack td { display: block; }
-  .stack tbody tr { padding-block: var(--space-4); }
-  .stack th, .stack td { padding: var(--space-1) 0; }
-  .stack th[scope='row'] { padding-bottom: var(--space-3); font-size: var(--fs-text); }
-  .stack td::before { content: attr(data-label); display: block; margin: var(--space-2) 0 var(--space-1); font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-text-3); }
-  .code-cell { font-family: var(--font-mono); }
-  .t :global(small) { display: block; color: var(--c-text-3); }
-  .pma th[scope='row'] { font-family: var(--font-mono); font-weight: 400; }
-  .pma th, .pma td, .audit-t .t th, .audit-t .t td { display: table-cell; padding: var(--space-3) var(--space-4); }
-  .pma thead, .audit-t thead { display: table-header-group; }
-  .pma tr, .audit-t tr { display: table-row; }
-
-  /* PBG / SLF comparison */
-  .cmp-h { display: grid; gap: var(--space-1); padding-bottom: var(--space-4); margin-bottom: var(--space-2); border-bottom: var(--bw-1) solid var(--c-text); }
-  .cmp-h b { font-size: var(--fs-card-title); font-weight: 300; line-height: var(--lh-metric); color: var(--c-text); }
-  .cmp-h span { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-3); }
-  .cmp dl { display: grid; grid-template-columns: var(--space-24) minmax(0, 1fr); margin: 0; }
-  .cmp dt, .cmp dd { padding-block: var(--space-3); border-bottom: var(--bw-1) solid var(--c-border); }
-  .cmp dt { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: none; letter-spacing: 0; color: var(--c-text-3); }
-  .cmp dd { margin: 0; font-size: var(--fs-small); line-height: var(--lh-small); color: var(--c-text); }
-  .cmp dl > :nth-last-child(-n + 2) { border-bottom: 0; }
-
-  /* Legalization path: rows on desktop, swipeable cards on mobile (as legacy) */
-  .path { display: grid; grid-auto-flow: column; grid-auto-columns: min(83%, calc(var(--container-prose) * 0.65)); gap: var(--space-3); overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; margin-block: var(--space-4) var(--space-3); }
-  .path > li { display: grid; grid-template-columns: var(--space-10) minmax(0, 1fr); gap: var(--space-3); align-content: start; scroll-snap-align: start; padding: var(--space-5); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); min-width: 0; }
-  .st { display: grid; justify-items: start; align-content: start; gap: var(--space-1); }
-  .st small { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; color: var(--c-text-3); }
-  .st b { font-size: var(--fs-card-title); font-weight: 300; line-height: var(--lh-metric); letter-spacing: -0.03em; color: var(--c-accent); }
-  .path h3 { font-size: var(--fs-card-title); font-weight: 500; color: var(--c-text); }
-  .path div { display: grid; gap: var(--space-2); }
-  .zone { font-family: var(--font-mono); color: var(--c-text-3); }
-
-  /* Compliance chain: 01–06 with top rules */
-  .chain { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) var(--space-3); margin-block: var(--space-4) var(--space-6); }
-  .chain li { position: relative; display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-5) var(--space-5) 0 0; border-top: var(--bw-2) solid var(--c-accent); }
-  .node { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-3); }
-  .node::before { content: '0'; }
-  .chain h3 { font-size: var(--fs-card-title); font-weight: 500; line-height: var(--lh-card-title); text-transform: none; letter-spacing: normal; }
-  .chain p { color: var(--c-text-2); }
-
-  /* KBLI shift */
-  .kbli-shift { display: grid; gap: var(--space-4); align-items: stretch; margin-bottom: var(--space-8); }
-  .kbli-shift .code { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-5) var(--space-6); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); }
-  .kbli-shift .code b { font-size: var(--fs-metric); font-weight: 300; letter-spacing: -0.04em; line-height: var(--lh-metric); }
-  .kbli-shift .code span { display: flex; flex-direction: column; gap: var(--space-1); font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-3); }
-  .kbli-shift strong { font-family: var(--font-sans); font-size: var(--fs-small); font-weight: 500; color: var(--c-text); }
-  .kbli-shift .old b { color: var(--c-text-3); text-decoration: line-through; text-decoration-thickness: var(--bw-2); }
-  .kbli-shift .new { border-top: var(--bw-2) solid var(--c-accent); }
-  .kbli-shift .new b { color: var(--c-accent); }
-  .arr { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-3); }
-  .arr svg { width: var(--space-12); height: var(--space-5); color: var(--c-text); transform: rotate(90deg); }
-
-  .formula { display: grid; gap: var(--space-3); align-items: stretch; margin: var(--space-8) 0 var(--space-16); }
-  .formula > div { display: flex; align-items: center; padding: var(--space-6); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); font-size: var(--fs-text); }
-  .formula b { font-weight: 500; }
-  .formula .op { justify-content: center; padding: var(--space-1) 0; background: none; border: 0; font-family: var(--font-mono); font-size: var(--fs-card-title); color: var(--c-text-3); }
-  .formula > .res { background: var(--color-inverse); border-color: var(--color-inverse); color: var(--color-on-inverse); }
-  .taxbox { display: grid; gap: var(--space-6) var(--space-16); margin-top: var(--space-6); padding: var(--space-8); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); border-left: var(--bw-2) solid var(--c-accent); }
-  .taxbox .h3 { margin: var(--space-2) 0 0; }
-  .taxbox .prose { margin: 0; }
-  .screen h3 { margin-bottom: var(--space-3); }
-  .screen > div:last-child { border-top: var(--bw-2) solid var(--c-accent); }
-  .screen ul { display: grid; }
-  .screen li { padding-block: var(--space-3); border-bottom: var(--bw-1) solid var(--c-border); color: var(--c-text-2); }
-  .screen li:last-child { border-bottom: 0; }
-  .mk { width: var(--space-3); height: var(--space-3); border-radius: var(--radius-full); }
-  .results .ok .mk { background: var(--color-ok); }
-  .results .cd .mk { background: var(--color-warn); }
-  .results .mi .mk { background: var(--color-danger); }
-  .split .h3 { margin-top: 0; }
-
-  /* 2026 timeline */
-  .tl { display: grid; margin-block: var(--space-4) var(--space-8); border-top: var(--bw-1) solid var(--c-text); }
-  .tl > li { display: grid; grid-template-columns: var(--space-10) minmax(0, 1fr); gap: var(--space-3) var(--space-4); padding-block: var(--space-6); border-bottom: var(--bw-1) solid var(--c-border); }
-  .no { padding-top: var(--space-1); font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-3); }
-  .no::before { content: '0'; }
-  .tl h3 { font-size: var(--fs-card-title); font-weight: 500; line-height: var(--lh-card-title); color: var(--c-text); }
-  .tl li > div { display: grid; gap: var(--space-2); }
-  .meta { grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); }
-  .when { font-family: var(--font-mono); color: var(--c-text-3); }
-
-  @media (min-width: 768px) {
-    .lead { margin-bottom: var(--space-12); }
-    .coef, .itbx { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .cards-plan, .cards-imb, .cmp, .screen, .split, .taxbox { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .base { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .base li:last-child:nth-child(odd) { grid-column: 1 / -1; }
-    .chain { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-10) 0; }
-    .facts li { grid-template-columns: calc(var(--space-16) * 5) minmax(0, 1fr); }
-    .tools li { grid-template-columns: calc(var(--space-16) * 4) minmax(0, 1fr); }
-    .kbli-shift { grid-template-columns: 1fr auto 1fr; }
-    .arr svg { transform: none; }
-    .formula { grid-template-columns: 1fr auto 1fr auto 1fr; }
-    .path { grid-auto-flow: row; grid-auto-columns: auto; overflow: visible; gap: 0; border-top: var(--bw-1) solid var(--c-text); padding-bottom: 0; margin-block: var(--space-4) var(--space-6); }
-    .path > li { grid-template-columns: var(--space-20) minmax(0, 1fr); gap: var(--space-5); padding: var(--space-6) 0; background: none; border: 0; border-bottom: var(--bw-1) solid var(--c-border); }
-    .tl > li { grid-template-columns: var(--space-10) minmax(0, 1fr) calc(var(--space-16) * 4); gap: var(--space-3) var(--space-8); }
-    .meta { grid-column: auto; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); }
-    .t thead { display: table-header-group; }
-    .stack tr { display: table-row; }
-    .stack tbody tr { padding: 0; }
-    .stack th, .stack td { display: table-cell; padding: var(--space-4); }
-    .stack th[scope='row'] { font-size: var(--fs-small); padding-bottom: var(--space-4); }
-    .stack td::before { display: none; }
-  }
-  @media (min-width: 1024px) {
-    .defs, .cards-rules, .results { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .coef, .itbx { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .base { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-    .base li:last-child:nth-child(odd) { grid-column: auto; }
-    .chain { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  }
-</style>
-
-<style is:global>
-  /* Smooth in-page scrolling on the guide, as on the legacy page. */
-  @media (prefers-reduced-motion: no-preference) {
-    html:has(.regulations-page) { scroll-behavior: smooth; }
-  }
-  /* Elements added by the mobile enhancement script (src/scripts/regulations-mobile.js). */
-  .regulations-page .mobile-reg-disclosure { border-bottom: var(--bw-1) solid var(--color-border); }
-  .regulations-page .mobile-reg-disclosure summary {
-    position: relative;
-    padding: var(--space-4) var(--space-8) var(--space-4) var(--space-1);
-    list-style: none;
-    cursor: pointer;
-    font-size: var(--fs-text);
-    font-weight: 500;
-  }
-  .regulations-page .mobile-reg-disclosure summary::-webkit-details-marker { display: none; }
-  .regulations-page .mobile-reg-disclosure summary::after { content: '+'; position: absolute; right: var(--space-1); top: var(--space-3); color: var(--color-accent); font-size: var(--fs-card-title); font-weight: 400; }
-  .regulations-page .mobile-reg-disclosure[open] summary::after { content: '−'; }
-  .regulations-page .mobile-reg-body { padding: 0 0 var(--space-4); font-size: var(--fs-small); color: var(--color-text-2); }
-  .regulations-page .mobile-reg-body p { margin: var(--space-2) 0; }
-  .regulations-page .mobile-reg-body a { color: var(--color-accent); }
-  .regulations-page .reg-mobile-group { border-top: var(--bw-1) solid var(--color-text); margin-block: var(--space-4) var(--space-6); }
-  .regulations-page .reg-mobile-group .tag { margin: 0 0 var(--space-2); }
-  .regulations-page .mobile-reg-hint { margin-top: var(--space-2); font-family: var(--font-mono); font-size: var(--fs-label); color: var(--color-text-3); }
-  .regulations-page .reg-hero-arrow { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); min-height: calc(var(--space-10) + var(--space-1)); align-self: center; font-weight: 500; }
-  .regulations-page .reg-hero-arrow svg { width: var(--space-4); height: var(--space-4); }
-  .regulations-page.reg-mobile-enhanced #scenarios + .tbl-wrap,
-  .regulations-page.reg-mobile-enhanced #changes-2026 .tl,
-  .regulations-page.reg-mobile-enhanced #audit .audit-t { display: none; }
-  @media (min-width: 768px) {
-    .regulations-page .reg-mobile-only { display: none !important; }
-    .regulations-page.reg-mobile-enhanced #scenarios + .tbl-wrap { display: block; }
-    .regulations-page.reg-mobile-enhanced #changes-2026 .tl { display: grid; }
-    .regulations-page.reg-mobile-enhanced #audit .audit-t { display: block; }
-  }
-</style>
-
-<script>
-  // Mobile-only enhancements carried over unchanged from the legacy page; both no-op elsewhere.
-  import '../../scripts/regulations-mobile.js';
-  import '../../scripts/regulations-faq-title.js';
-</script>

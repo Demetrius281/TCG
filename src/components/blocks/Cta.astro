@@ -3,70 +3,38 @@ import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import Action from '../ui/Action.astro';
 import ActionStack from '../ui/ActionStack.astro';
+import Card from '../ui/Card.astro';
+import List from '../ui/List.astro';
+import Stack from '../ui/Stack.astro';
+import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'cta'>, 'type'>;
 const { title, text, action, secondary, side, next_steps, tone = 'inverse', id, nav } = Astro.props;
+const fallback = tone === 'inverse' ? 'inverse' : 'primary';
 ---
 <Section id={id} nav={nav} tone={tone} labelledby="cta-title">
-  <div class:list={['cta', side && 'has-docs']}>
-    <div class="copy">
-      <SectionHead title={title} lead={text} id="cta-title" next="actions" />
-    </div>
-    <div class="side">
-      {
-        secondary ? (
-          <ActionStack action={action} link={secondary} fallbackVariant={tone === 'inverse' ? 'inverse' : 'primary'} />
-        ) : (
-          <Action action={action} fallbackVariant={tone === 'inverse' ? 'inverse' : 'primary'} />
-        )
-      }
-      {
-        next_steps && (
-          <ol class="next">
-            {next_steps.map((s) => <li class="t-small">{s}</li>)}
-          </ol>
-        )
-      }
-    </div>
+  <SectionHead title={title} lead={text} id="cta-title">
     {
-      side && (
-        <div class="side-docs">
-          <h3>{side.title}</h3>
-          <ol class="docs">
-            {side.items.map((i) => <li><span class="t-label">{i.label}</span><span class="t-small">{i.text}</span></li>)}
-          </ol>
-          {side.note && <p class="t-small">{side.note}</p>}
-        </div>
+      next_steps && (
+        <List numbered>
+          {next_steps.map((s) => <li><Text as="span" role="small" tone="muted">{s}</Text></li>)}
+        </List>
       )
     }
-  </div>
+    <div slot="actions">
+      {secondary ? <ActionStack action={action} link={secondary} fallbackVariant={fallback} /> : <Action action={action} fallbackVariant={fallback} />}
+    </div>
+  </SectionHead>
+  {
+    side && (
+      <Card as="aside">
+        <Text as="h3" role="card-title">{side.title}</Text>
+        <Stack as="ul" gap={16}>
+          {side.items.map((i) => <li><Stack gap={8} as="div"><Text as="span" role="label" tone="subtle">{i.label}</Text><Text as="span" role="small" tone="muted">{i.text}</Text></Stack></li>)}
+        </Stack>
+        {side.note && <Text role="small" tone="subtle">{side.note}</Text>}
+      </Card>
+    )
+  }
 </Section>
-
-<style>
-  .cta { display: grid; gap: 0; }
-  .copy { display: grid; gap: var(--space-4); max-width: var(--container-prose); }
-  .label { color: var(--c-text-2); }
-  .text { color: var(--c-text-2); }
-  .side { display: grid; gap: var(--space-6); justify-items: start; align-content: start; }
-  .next { display: grid; gap: var(--space-2); color: var(--c-text-2); }
-  /* The optional documents column stays hidden on small screens, as on the legacy page. */
-  .side-docs { display: none; gap: var(--space-4); align-content: start; }
-  .side-docs h3 { padding-bottom: var(--space-3); border-bottom: var(--bw-2) solid var(--c-accent); font-weight: 400; }
-  .docs { display: grid; }
-  .docs li { display: grid; gap: var(--space-2); padding-block: var(--space-5); border-bottom: var(--bw-1) solid var(--c-border); }
-  .docs .t-label { text-transform: none; letter-spacing: 0; color: var(--c-text-3); }
-  .docs .t-small { font-size: var(--fs-text); line-height: var(--lh-text); color: var(--c-text-2); }
-  .side-docs > p { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-3); }
-  @media (min-width: 768px) {
-    .side-docs { display: grid; }
-    .has-docs { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: 'copy docs' 'side docs'; grid-template-rows: auto 1fr; align-items: start; gap: 0 var(--space-16); }
-    .has-docs .copy { grid-area: copy; }
-    .has-docs .side { grid-area: side; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-6); }
-    .has-docs .side-docs { grid-area: docs; }
-  }
-
-  @media (min-width: 1024px) {
-    .cta:not(.has-docs) { grid-template-columns: 2fr 1fr; align-items: center; gap: var(--space-16); }
-  }
-</style>

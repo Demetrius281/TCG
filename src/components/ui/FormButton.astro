@@ -1,0 +1,26 @@
+---
+// Buttons inside forms: primary (.ei-btn, 52px), back (text link look), pin (small outlined).
+interface Props {
+  kind?: 'primary' | 'back' | 'pin';
+  type?: 'button' | 'submit';
+  [attr: string]: unknown;
+}
+const { kind = 'primary', type = 'button', ...rest } = Astro.props;
+const cls = { primary: 'ei-btn', back: 'pc-back', pin: 'pc-pin-ok' }[kind];
+---
+<button class={cls} type={type} {...rest}><slot /></button>
+
+<style>
+  .ei-btn { width: 100%; min-height: var(--control-h); padding: 0 var(--s-24); background: var(--c-accent); border: 0; border-radius: var(--radius); color: var(--c-bg); cursor: pointer; transition: background-color var(--ease), box-shadow var(--ease); }
+  .ei-btn:hover { background: var(--c-text); color: var(--c-bg); box-shadow: var(--shadow-lift); }
+  .ei-btn[disabled] { opacity: 0.6; cursor: progress; }
+  .pc-back { order: 2; min-height: var(--control-h); padding: 0; background: none; border: 0; color: var(--c-text); text-decoration: underline; text-decoration-thickness: var(--bw-1); text-underline-offset: var(--underline-offset); cursor: pointer; transition: color var(--ease); }
+  .pc-back:hover { color: var(--c-accent); text-decoration-thickness: var(--bw-2); }
+  .pc-pin-ok { min-height: var(--control-h); padding: 0 var(--s-16); background: none; border: var(--bw-1) solid var(--c-text-3); border-radius: var(--radius); color: var(--c-text); cursor: pointer; transition: border-color var(--ease), color var(--ease); }
+  .pc-pin-ok:hover, .pc-pin-ok.ok { border-color: var(--c-accent); color: var(--c-accent); }
+  .pc-pin-ok[aria-invalid='true'] { border-color: var(--color-danger); }
+  @media (min-width: 768px) {
+    .ei-btn { width: auto; }
+    .pc-back { order: 0; }
+  }
+</style>

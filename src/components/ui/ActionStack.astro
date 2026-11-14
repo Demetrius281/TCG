@@ -11,15 +11,15 @@ interface Props {
 }
 const { action, link, fallbackVariant = 'primary' } = Astro.props;
 ---
-<div class="stack">
+<div class="action-stack">
   <Action action={action} fallbackVariant={fallbackVariant} />
-  <a class="t-small link" href={link.href}>{link.label}</a>
+  <a class="link" href={link.href}>{link.label}</a>
 </div>
 
 <style>
-  .stack { display: grid; gap: var(--space-4); justify-items: stretch; width: 100%; }
-  .link { display: block; inline-size: 0; min-inline-size: 100%; text-align: center; color: var(--c-accent); font-weight: 500; }
+  .action-stack { display: grid; gap: var(--s-16); justify-items: stretch; width: 100%; }
+  .link { display: block; inline-size: 0; min-inline-size: 100%; text-align: center; color: var(--c-accent); }
   @media (min-width: 768px) {
-    .stack { width: fit-content; }
+    .action-stack { width: fit-content; }
   }
 </style>

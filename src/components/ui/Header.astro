@@ -1,6 +1,6 @@
 ---
 import MobileMenu from './MobileMenu.astro';
-import Action from '../ui/Action.astro';
+import Action from './Action.astro';
 import { headerNav, headerCta, isGroup } from '../../data/navigation';
 import { site } from '../../data/site';
 import type { Action as ActionType } from '../../content.config';
@@ -32,7 +32,7 @@ const isCurrent = (href: string) =>
             isGroup(item) ? (
               <li class="dd" data-dropdown>
                 <button
-                  class="link"
+                  class="link t-control"
                   type="button"
                   aria-expanded="false"
                   aria-haspopup="true"
@@ -92,21 +92,21 @@ const isCurrent = (href: string) =>
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-6);
+    gap: var(--s-24);
     width: min(100% - 2 * var(--gutter), var(--container));
     height: var(--header-h);
     margin-inline: auto;
   }
-  .brand { display: block; line-height: var(--lh-reset); }
-  .brand img { height: var(--space-6); width: auto; }
+  .brand { display: block; line-height: 0; }
+  .brand img { height: var(--s-24); width: auto; }
   .desktop, .cta { display: none; }
   .toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: calc(var(--space-10) + var(--space-1));
-    min-height: calc(var(--space-10) + var(--space-1));
-    margin-right: calc(var(--space-3) * -1);
+    min-width: var(--control-h);
+    min-height: var(--control-h);
+    margin-right: calc(var(--s-12) * -1);
     padding: 0;
     background: transparent;
     border: 0;
@@ -118,8 +118,8 @@ const isCurrent = (href: string) =>
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: var(--space-6);
-    height: var(--space-5);
+    width: var(--s-24);
+    height: var(--size-icon);
   }
   .icon span {
     display: block;
@@ -128,43 +128,41 @@ const isCurrent = (href: string) =>
     transition: transform var(--ease), opacity var(--ease);
   }
   .toggle[aria-expanded='true'] .icon span:nth-child(1) {
-    transform: translateY(calc(var(--space-5) / 2 - var(--bw-2) / 2)) rotate(45deg);
+    transform: translateY(calc(var(--size-icon) / 2 - var(--bw-2) / 2)) rotate(45deg);
   }
   .toggle[aria-expanded='true'] .icon span:nth-child(2) { opacity: 0; }
   .toggle[aria-expanded='true'] .icon span:nth-child(3) {
-    transform: translateY(calc(var(--space-5) / -2 + var(--bw-2) / 2)) rotate(-45deg);
+    transform: translateY(calc(var(--size-icon) / -2 + var(--bw-2) / 2)) rotate(-45deg);
   }
 
   @media (min-width: 1024px) {
     .bar { height: var(--header-h-lg); }
-    .brand img { height: var(--space-6); }
+    .brand img { height: var(--s-24); }
     .toggle { display: none; }
     .desktop, .cta { display: block; }
-    .desktop { margin-inline: auto var(--space-6); }
-    .menu { display: flex; align-items: center; gap: var(--space-2); }
+    .desktop { margin-inline: auto var(--s-24); }
+    .menu { display: flex; align-items: center; gap: var(--s-8); }
     .link {
       display: inline-flex;
       align-items: center;
-      gap: var(--space-2);
-      min-height: var(--control-h-lg);
-      padding: 0 var(--space-4);
+      gap: var(--s-8);
+      min-height: var(--control-h);
+      padding: 0 var(--s-16);
       background: none;
       border: 0;
       color: var(--color-text-2);
-      font-size: var(--fs-small);
-      font-weight: 500;
       text-decoration: none;
       cursor: pointer;
       transition: color var(--ease);
     }
     .link:hover, .link[aria-current], .dd[data-open] > .link { color: var(--color-text); }
-    .link[aria-current] { box-shadow: inset 0 calc(var(--space-1) / -2) 0 var(--color-accent); }
+    .link[aria-current] { box-shadow: inset 0 calc(var(--bw-2) * -1) 0 var(--color-accent); }
     .chev {
-      width: var(--space-2);
-      height: var(--space-2);
+      width: var(--s-8);
+      height: var(--s-8);
       border-right: var(--bw-1) solid currentColor;
       border-bottom: var(--bw-1) solid currentColor;
-      transform: translateY(calc(var(--space-1) / -2)) rotate(45deg);
+      transform: translateY(calc(var(--bw-2) * -1)) rotate(45deg);
     }
     .dd { position: relative; }
     .drop {
@@ -173,7 +171,7 @@ const isCurrent = (href: string) =>
       left: 0;
       display: none;
       min-width: calc(var(--container-prose) / 2);
-      padding: var(--space-2);
+      padding: var(--s-8);
       background: var(--color-surface);
       border: var(--bw-1) solid var(--color-border);
       box-shadow: var(--shadow-menu);
@@ -182,10 +180,9 @@ const isCurrent = (href: string) =>
     .droplink {
       display: flex;
       align-items: center;
-      min-height: var(--control-h-lg);
-      padding: 0 var(--space-4);
+      min-height: var(--control-h);
+      padding: 0 var(--s-16);
       color: var(--color-text);
-      font-size: var(--fs-small);
       text-decoration: none;
     }
     .droplink:hover { background: var(--color-sunken); }

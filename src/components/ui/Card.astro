@@ -1,0 +1,54 @@
+---
+// The only card. Padding 24, title -> text 12 built in (rule 4), no hover movement.
+//   item: render as a list cell (<li>) of a Grid. href: the whole card is a link.
+//   accent: accent line on top. variant "note": accent line on the left, no frame (disclosure).
+//   slot "foot": pinned to the bottom of the card (tags). slot "actions": buttons, 32 below the text (D4).
+interface Props {
+  as?: 'div' | 'article' | 'figure' | 'aside' | 'blockquote';
+  item?: boolean;
+  href?: string;
+  accent?: boolean;
+  variant?: 'surface' | 'note';
+  class?: string;
+  [attr: string]: unknown;
+}
+const { as = 'div', item = false, href, accent = false, variant = 'surface', class: className, ...rest } = Astro.props;
+const Tag = href ? 'a' : as;
+const hasFoot = Astro.slots.has('foot');
+const hasActions = Astro.slots.has('actions');
+const cls = [variant === 'note' ? 'note' : 'card', `v-${variant}`, accent && 'is-accent', href && 'is-link', className];
+---
+{
+  item ? (
+    <li class="cell">
+      <Tag class:list={cls} href={href} {...rest}><slot />{hasActions && <div class="actions"><slot name="actions" /></div>}{hasFoot && <div class="foot"><slot name="foot" /></div>}</Tag>
+    </li>
+  ) : (
+    <Tag class:list={cls} href={href} {...rest}><slot />{hasActions && <div class="actions"><slot name="actions" /></div>}{hasFoot && <div class="foot"><slot name="foot" /></div>}</Tag>
+  )
+}
+
+<style>
+  .cell { display: grid; min-width: 0; list-style: none; }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-12);
+    min-width: 0;
+    margin: 0;
+    padding: var(--s-24);
+    background: var(--c-surface);
+    border: var(--bw-1) solid var(--c-border);
+    border-radius: var(--radius);
+    color: var(--c-text);
+    text-decoration: none;
+  }
+  .cell > .card { height: 100%; }
+  .is-accent { border-top: var(--bw-2) solid var(--c-accent); }
+  .note { display: flex; flex-direction: column; gap: var(--s-12); min-width: 0; margin: 0; padding: 0 0 0 var(--s-24); color: var(--c-text); }
+  .v-note { padding: 0 0 0 var(--s-24); background: transparent; border: 0; border-left: var(--bw-2) solid var(--c-accent); }
+  .is-link { transition: border-color var(--ease), box-shadow var(--ease); }
+  .is-link:hover { border-color: var(--c-accent); box-shadow: var(--shadow-lift); }
+  .actions { margin-top: calc(var(--s-32) - var(--s-12)); }
+  .foot { display: flex; flex-direction: column; gap: var(--s-12); margin-top: auto; padding-top: var(--s-12); border-top: var(--bw-1) solid var(--c-border); }
+</style>

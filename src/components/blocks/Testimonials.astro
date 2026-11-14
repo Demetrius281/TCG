@@ -1,6 +1,11 @@
 ---
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
+import Grid from '../ui/Grid.astro';
+import Card from '../ui/Card.astro';
+import Cluster from '../ui/Cluster.astro';
+import Stack from '../ui/Stack.astro';
+import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'testimonials'>, 'type'>;
@@ -8,102 +13,21 @@ const { title, items, tone, id } = Astro.props;
 const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
-  <div class="top">
-    <SectionHead title={title} id={headId} />
-    <button class="pause t-small" type="button" aria-pressed="false" data-pause hidden>Pause</button>
-  </div>
-  <div class="viewport" data-testimonials>
-    <ul class="track" data-track>
-      {
-        items.map((t) => (
-          <li class="item">
-            <figure class="card">
-              <blockquote class="t-text quote">“{t.quote}”</blockquote>
-              <figcaption class="who">
-                {t.photo && <img class="photo" src={t.photo} alt="" width="48" height="48" loading="lazy" decoding="async" />}
-                <span class="id">
-                  <span class="t-card-title name">{t.name}</span>
-                  {t.meta && <span class="t-small meta">{t.meta}</span>}
-                </span>
-              </figcaption>
-            </figure>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+  <SectionHead title={title} id={headId} />
+  <Grid cols={3}>
+    {
+      items.map((t) => (
+        <Card item as="figure">
+          <Text as="blockquote" tone="muted">“{t.quote}”</Text>
+          <Cluster as="figcaption" gap={16}>
+            {t.photo && <img src={t.photo} alt="" width="48" height="48" loading="lazy" decoding="async" />}
+            <Stack gap={8} as="div">
+              <Text as="span" role="card-title">{t.name}</Text>
+              {t.meta && <Text as="span" role="small" tone="subtle">{t.meta}</Text>}
+            </Stack>
+          </Cluster>
+        </Card>
+      ))
+    }
+  </Grid>
 </Section>
-
-<style>
-  .top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-4); }
-  .top :global(.head) { margin-bottom: 0; }
-  .pause {
-    min-height: var(--control-h-lg);
-    padding: 0 var(--space-4);
-    background: transparent;
-    border: var(--bw-1) solid var(--c-border-strong);
-    border-radius: var(--radius);
-    color: var(--c-text);
-    cursor: pointer;
-  }
-  .pause[hidden] { display: none; }
-  .viewport { margin-top: var(--space-10); overflow-x: auto; }
-  .viewport.auto { overflow: hidden; }
-  .track { display: flex; width: max-content; }
-  .item { flex: none; width: min(85vw, calc(var(--container-prose) / 2)); margin-inline-end: var(--grid-gap); }
-  .card {
-    display: grid;
-    gap: var(--space-6);
-    align-content: space-between;
-    height: 100%;
-    margin: 0;
-    padding: var(--space-6);
-    background: var(--c-surface);
-    border: var(--bw-1) solid var(--c-border);
-    border-radius: var(--radius);
-  }
-  .quote { color: var(--c-text-2); }
-  .who { display: flex; align-items: center; gap: var(--space-4); }
-  .photo { width: var(--space-12); height: var(--space-12); object-fit: cover; border-radius: var(--radius-full); }
-  .id { display: grid; }
-  .meta { color: var(--c-text-3); }
-
-  .auto .track { animation: scroll 90s linear infinite; }
-  .auto.paused .track, .auto.touching .track { animation-play-state: paused; }
-  .auto:hover .track, .auto:focus-within .track { animation-play-state: paused; }
-  @keyframes scroll { to { transform: translateX(-50%); } }
-
-  @media (prefers-reduced-motion: reduce) {
-    .auto .track { animation: none; }
-    .viewport.auto { overflow-x: auto; }
-  }
-</style>
-
-<script>
-  document.querySelectorAll<HTMLElement>('[data-testimonials]').forEach((viewport) => {
-    const track = viewport.querySelector<HTMLElement>('[data-track]')!;
-    const section = viewport.closest('section')!;
-    const pause = section.querySelector<HTMLButtonElement>('[data-pause]')!;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    // Clone the cards once so the loop is seamless. Clones stay hidden from assistive tech.
-    Array.from(track.children).forEach((li) => {
-      const clone = li.cloneNode(true) as HTMLElement;
-      clone.setAttribute('aria-hidden', 'true');
-      clone.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', '-1'));
-      track.appendChild(clone);
-    });
-    viewport.classList.add('auto');
-    pause.hidden = false;
-
-    pause.addEventListener('click', () => {
-      const on = viewport.classList.toggle('paused');
-      pause.setAttribute('aria-pressed', String(on));
-      pause.textContent = on ? 'Play' : 'Pause';
-    });
-    viewport.addEventListener('touchstart', () => viewport.classList.add('touching'), { passive: true });
-    const release = () => viewport.classList.remove('touching');
-    viewport.addEventListener('touchend', release);
-    viewport.addEventListener('touchcancel', release);
-  });
-</script>

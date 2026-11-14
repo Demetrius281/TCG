@@ -1,0 +1,19 @@
+---
+// Label / value rows (order review, confirmation). The form script fills every value by its id.
+interface Props {
+  rows: { label: string; id: string }[];
+  /** Labels stay beside the values (review) or sit before them inline (confirmation). */
+  grid?: boolean;
+}
+const { rows, grid = false } = Astro.props;
+---
+<div class:list={['rows', grid && 'is-grid']}>
+  {rows.map((r) => <p class="t-small"><span class="t-label k">{r.label}</span><span class="v" id={r.id}></span></p>)}
+</div>
+
+<style>
+  .rows { display: grid; border-top: var(--bw-1) solid var(--c-border-strong); }
+  p { display: flex; flex-wrap: wrap; gap: var(--s-8); padding: var(--s-12) 0; border-bottom: var(--bw-1) solid var(--c-border-strong); color: var(--c-text); }
+  .k { color: var(--c-text-3); }
+  .v { overflow-wrap: anywhere; }
+</style>

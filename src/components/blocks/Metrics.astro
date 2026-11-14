@@ -3,7 +3,11 @@ import Section from '../ui/Section.astro';
 import { isPlaceholder } from '../../lib/placeholder';
 import SectionHead from '../ui/SectionHead.astro';
 import Grid from '../ui/Grid.astro';
+import Card from '../ui/Card.astro';
 import List from '../ui/List.astro';
+import Stats from '../ui/Stats.astro';
+import Stack from '../ui/Stack.astro';
+import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'metrics'>, 'type'>;
@@ -15,70 +19,41 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} id={headId} />
-  <dl class="metrics">
-    {
-      items.map((m) => (
-        <div class="metric">
-          <dt class="t-small label">{m.label}</dt>
-          <dd class="t-metric value">{m.value}</dd>
-        </div>
-      ))
-    }
-  </dl>
+  <Stats items={items} />
   {
     reach && (
-      <div class="reach">
-        <h3 class="t-card-title">{reach.title}</h3>
-        <p class="t-text">{reach.text}</p>
-      </div>
+      <Stack gap={12}>
+        <Text as="h3" role="card-title">{reach.title}</Text>
+        <Text tone="muted">{reach.text}</Text>
+      </Stack>
     )
   }
   {
     (showLetter || shownPartners.length > 0) && (
       <Grid cols={2} class="proof">
         {showLetter && (
-          <li class="card">
-            <h3 class="t-card-title">{letter!.title}</h3>
-            <blockquote class="t-text">{letter!.quote}</blockquote>
-            <p class="t-small"><a href={letter!.href} {...ext(letter!.href)}>{letter!.org}</a></p>
-          </li>
+          <Card item>
+            <Text as="h3" role="card-title">{letter!.title}</Text>
+            <Text as="blockquote">{letter!.quote}</Text>
+            <Text role="small"><a href={letter!.href} {...ext(letter!.href)}>{letter!.org}</a></Text>
+          </Card>
         )}
         {shownPartners.length > 0 && (
-          <li class="card">
-            {partners_title && <h3 class="t-card-title">{partners_title}</h3>}
+          <Card item>
+            {partners_title && <Text as="h3" role="card-title">{partners_title}</Text>}
             <List>
-              {shownPartners.map((p) => <li class="t-small"><span class="grp">{p.group}</span> <a href={p.href} {...ext(p.href)}>{p.name}</a></li>)}
+              {shownPartners.map((p) => <li><Text as="span" role="small" tone="subtle">{p.group}</Text> <a href={p.href} {...ext(p.href)}>{p.name}</a></li>)}
             </List>
-          </li>
+          </Card>
         )}
       </Grid>
     )
   }
   {
     notes && (
-      <ul class="notes">
-        {notes.map((n) => <li class="t-text note">{n}</li>)}
-      </ul>
+      <Stack as="ul" gap={12}>
+        {notes.map((n) => <li><Text as="span" tone="muted">{n}</Text></li>)}
+      </Stack>
     )
   }
 </Section>
-
-<style>
-  .metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; border-top: var(--bw-1) solid var(--c-text); }
-  .metric { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: var(--space-2); padding: var(--space-6) var(--space-6) var(--space-6) 0; border-bottom: var(--bw-1) solid var(--c-border); }
-  .value { margin: 0; color: var(--c-text); }
-  .label { margin: 0; color: var(--c-text-2); }
-  .reach { display: grid; gap: var(--space-3); margin-top: var(--space-10); }
-  .reach p { max-width: var(--container-prose); color: var(--c-text-2); }
-  :global(.proof) { margin-top: var(--space-10); }
-  .card { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); }
-  .card blockquote { margin: 0; }
-  .card a { color: var(--c-accent); }
-  .grp { color: var(--c-text-3); }
-  .notes { display: grid; gap: var(--space-3); margin-top: var(--space-10); max-width: var(--container-prose); }
-  .note { color: var(--c-text-2); }
-
-  @media (min-width: 768px) {
-    .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  }
-</style>

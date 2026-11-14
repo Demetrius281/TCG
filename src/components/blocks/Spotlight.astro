@@ -2,46 +2,28 @@
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import Button from '../ui/Button.astro';
+import Card from '../ui/Card.astro';
+import Cluster from '../ui/Cluster.astro';
+import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'spotlight'>, 'type'>;
 const { title, lead, panel, tone, id, nav } = Astro.props;
 ---
-<Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`}>
-  <div class="layout">
-    <div class="copy">
-      <SectionHead title={title} lead={lead} id={`${id}-h`} next="actions" />
-    </div>
-    <div class="panel">
-      <span class="t-label kicker">{panel.kicker}</span>
-      <div class="time"><strong>{panel.time.value}</strong><span class="t-label">{panel.time.unit}</span></div>
-      <p class="t-text result">{panel.result}</p>
-      <div class="comparison"><span class="t-small">{panel.comparison.label}</span><strong>{panel.comparison.value}</strong></div>
-      <Button href={panel.cta.href}>{panel.cta.label} <span>{panel.cta.arrow}</span></Button>
-      <p class="t-small note">{panel.note}</p>
-    </div>
-  </div>
+<Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`} layout="split">
+  <SectionHead slot="head" title={title} lead={lead} id={`${id}-h`} />
+  <Card as="aside" accent>
+    <Text as="span" role="label" tone="subtle">{panel.kicker}</Text>
+    <Cluster align="baseline" gap={16}>
+      <Text as="span" role="metric" tone="accent">{panel.time.value}</Text>
+      <Text as="span" role="label" tone="accent">{panel.time.unit}</Text>
+    </Cluster>
+    <Text tone="muted">{panel.result}</Text>
+    <Cluster justify="between" align="baseline" gap={8}>
+      <Text as="span" role="small" tone="subtle">{panel.comparison.label}</Text>
+      <Text as="span" role="control">{panel.comparison.value}</Text>
+    </Cluster>
+    <Text role="small" tone="subtle">{panel.note}</Text>
+    <Button slot="actions" href={panel.cta.href}>{panel.cta.label} <span>{panel.cta.arrow}</span></Button>
+  </Card>
 </Section>
-
-<style>
-  .layout { display: grid; gap: var(--space-8); align-items: center; }
-  .copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-5); min-width: 0; }
-  .copy h2 { max-width: 14ch; }
-  .label { color: var(--c-text-3); }
-  .lead { color: var(--c-text-2); max-width: var(--container-prose); }
-  .panel { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding-top: var(--space-5); border-top: var(--bw-2) solid var(--c-accent); }
-  .kicker { color: var(--c-text-3); }
-  .time { display: flex; align-items: baseline; gap: var(--space-4); margin-top: var(--space-2); color: var(--c-accent); }
-  .time strong { font-size: var(--fs-metric); font-weight: 300; letter-spacing: -0.06em; line-height: var(--lh-metric); }
-  .time span { font-family: var(--font-mono); }
-  .result { color: var(--c-text-2); }
-  .comparison { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2) var(--space-4); width: 100%; margin: var(--space-6) 0 var(--space-5); padding-top: var(--space-4); border-top: var(--bw-1) solid var(--c-border-strong); color: var(--c-text-3); }
-  .comparison strong { font-size: var(--fs-text); font-weight: 500; white-space: nowrap; color: var(--c-text); }
-  .note { max-width: 48ch; margin-top: var(--space-4); color: var(--c-text-3); }
-  @media (min-width: 768px) {
-    .layout { grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: var(--space-10); }
-  }
-  @media (min-width: 1024px) {
-    .layout { gap: var(--space-16); }
-  }
-</style>

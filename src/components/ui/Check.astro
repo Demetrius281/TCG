@@ -1,0 +1,31 @@
+---
+// One checkbox with a text (terms). The text is the slot.
+interface Props {
+  id: string;
+  name: string;
+  err?: boolean;
+}
+const { id, name, err = false } = Astro.props;
+---
+<div class="fld">
+  <label class="chk" id={`${id}-lbl`}>
+    <input type="checkbox" id={id} name={name} aria-describedby={err ? `${id}-err` : undefined} />
+    <span class="box" aria-hidden="true"></span>
+    <span class="t-small"><slot /></span>
+  </label>
+  {err && <p class="t-small err" id={`${id}-err`}></p>}
+</div>
+
+<style>
+  .fld { display: grid; gap: var(--s-8); }
+  .chk { position: relative; display: flex; align-items: flex-start; gap: var(--s-12); color: var(--c-text); cursor: pointer; }
+  .chk input { position: absolute; opacity: 0; width: var(--bw-1); height: var(--bw-1); margin: 0; }
+  .box { flex: none; display: inline-flex; align-items: center; justify-content: center; width: var(--s-16); height: var(--s-16); box-sizing: border-box; border: var(--bw-2) solid var(--c-text-3); transition: background-color var(--ease), border-color var(--ease); }
+  .box::after { content: ''; width: var(--size-mark); height: var(--size-mark); background: var(--c-bg); transform: scale(0); transition: transform var(--ease); }
+  .chk:has(input:checked) .box { background: var(--c-accent); border-color: var(--c-accent); }
+  .chk:has(input:checked) .box::after { transform: scale(1); }
+  .chk:has(input:focus-visible) .box { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-2); }
+  .chk[aria-invalid='true'] .box { border-color: var(--color-danger); }
+  .err { color: var(--color-danger); }
+  .err:empty { display: none; }
+</style>

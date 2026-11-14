@@ -1,0 +1,19 @@
+---
+// A framed picture or map area with a fixed height (--size-media). Slot = map container.
+interface Props {
+  src?: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+  [attr: string]: unknown;
+}
+const { src, alt = '', width, height, ...rest } = Astro.props;
+---
+<div class="media" {...rest}>
+  {src ? <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" /> : <slot />}
+</div>
+
+<style>
+  .media { height: var(--size-media); overflow: hidden; background: var(--color-sunken); border: var(--bw-1) solid var(--c-border-strong); }
+  .media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+</style>

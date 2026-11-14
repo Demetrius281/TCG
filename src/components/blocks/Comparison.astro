@@ -2,6 +2,11 @@
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import Action from '../ui/Action.astro';
+import Grid from '../ui/Grid.astro';
+import Card from '../ui/Card.astro';
+import Cluster from '../ui/Cluster.astro';
+import Stack from '../ui/Stack.astro';
+import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'comparison'>, 'type'>;
@@ -9,52 +14,25 @@ const { title, highlight, other, closing, tone = 'inverse', id } = Astro.props;
 ---
 <Section id={id} tone={tone} labelledby="compare-title">
   <SectionHead title={title} id="compare-title" />
-  <div class="cmp">
-    <div class="on">
-      <div class="top">
-        <h3>{highlight.title}</h3>
-        <span class="t-label tag">{highlight.tag}</span>
-      </div>
-      <dl class="facts">
-        {highlight.facts.map((f) => <div><dt class="t-label">{f.label}</dt><dd>{f.value}</dd></div>)}
-      </dl>
-      <p class="t-text text">{highlight.text}</p>
-      <div class="cta"><Action action={highlight.action} /></div>
-    </div>
-    <div class="off">
-      <div class="top"><h3>{other.title}</h3></div>
-      <dl class="facts">
-        {other.facts.map((f) => <div><dt class="t-label">{f.label}</dt><dd>{f.value}</dd></div>)}
-      </dl>
-      <p class="t-small text">{other.text}</p>
-    </div>
-  </div>
-  <p class="closing">{closing}</p>
+  <Grid as="div" cols={2}>
+    <Card as="div" accent>
+      <Cluster justify="between" gap={8}>
+        <Text as="h3" role="card-title">{highlight.title}</Text>
+        <Text as="span" role="label" tone="accent">{highlight.tag}</Text>
+      </Cluster>
+      <Cluster as="dl" gap={32} align="start">
+        {highlight.facts.map((f) => <Stack gap={8} as="div"><Text as="dt" role="label" tone="subtle">{f.label}</Text><Text as="dd" role="card-title" tone="accent">{f.value}</Text></Stack>)}
+      </Cluster>
+      <Text tone="muted">{highlight.text}</Text>
+      <Action slot="actions" action={highlight.action} fallbackVariant={tone === 'inverse' ? 'inverse' : 'primary'} />
+    </Card>
+    <Card as="div">
+      <Text as="h3" role="card-title">{other.title}</Text>
+      <Cluster as="dl" gap={32} align="start">
+        {other.facts.map((f) => <Stack gap={8} as="div"><Text as="dt" role="label" tone="subtle">{f.label}</Text><Text as="dd" role="card-title" tone="muted">{f.value}</Text></Stack>)}
+      </Cluster>
+      <Text role="small" tone="muted">{other.text}</Text>
+    </Card>
+  </Grid>
+  <Text role="card-title">{closing}</Text>
 </Section>
-
-<style>
-  .cmp { display: grid; gap: var(--space-4); align-items: stretch; }
-  .cmp > div { position: relative; display: flex; flex-direction: column; gap: var(--space-5); min-width: 0; padding: var(--space-6); }
-  .on { background: var(--color-surface); color: var(--color-text); }
-  .on::before { content: ''; position: absolute; inset: 0 0 auto 0; height: var(--bw-3); background: var(--color-accent); }
-  .off { background: var(--c-surface); border: var(--bw-1) solid var(--c-border); color: var(--c-text-2); }
-  .off h3 { color: var(--c-text); }
-  .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4); }
-  .tag { padding: var(--space-1) var(--space-3); border: var(--bw-1) solid var(--color-accent); color: var(--color-accent); }
-  .facts { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: start; gap: var(--space-4) var(--space-8); padding-block: var(--space-5); border-block: var(--bw-1) solid var(--color-border); margin: 0; }
-  .off .facts { border-color: var(--c-border); }
-  .facts dt { margin-bottom: var(--space-2); color: var(--color-text-3); }
-  .off .facts dt { color: var(--c-text-3); }
-  .facts dd { margin: 0; white-space: nowrap; font-size: var(--fs-card-title); font-weight: 300; letter-spacing: -0.03em; line-height: var(--lh-metric); }
-  .on .facts dd { color: var(--color-accent); }
-  .off .facts dd { font-size: var(--fs-card-title); color: var(--c-text-2); }
-  .on .text { color: var(--color-text-2); }
-  .cta { display: flex; margin-top: auto; }
-  .closing { max-width: var(--container-prose); margin-top: var(--space-6); padding-top: var(--space-6); border-top: var(--bw-1) solid var(--c-border); font-size: var(--fs-card-title); font-weight: 500; letter-spacing: -0.015em; line-height: var(--lh-card-title); color: var(--c-text); }
-
-  @media (min-width: 768px) {
-    .facts { grid-template-columns: auto auto; }
-    .cmp { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--grid-gap); }
-    .cmp > div { padding: var(--space-8); }
-  }
-</style>

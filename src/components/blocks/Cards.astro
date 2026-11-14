@@ -1,8 +1,12 @@
 ---
 import Section from '../ui/Section.astro';
-import Grid from '../ui/Grid.astro';
-import Button from '../ui/Button.astro';
 import SectionHead from '../ui/SectionHead.astro';
+import Grid from '../ui/Grid.astro';
+import Card from '../ui/Card.astro';
+import Text from '../ui/Text.astro';
+import Stack from '../ui/Stack.astro';
+import Cluster from '../ui/Cluster.astro';
+import Button from '../ui/Button.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'cards'>, 'type'>;
@@ -13,62 +17,25 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   <SectionHead title={title} lead={lead} meta={meta} id={headId} />
   <Grid cols={columns}>
     {
-      items.map((item) => {
-        const Tag = item.href ? 'a' : 'div';
-        return (
-          <li>
-            <Tag class="card" href={item.href}>
-              {item.label && <p class="t-label label">{item.label}</p>}
-              <h3>{item.title}</h3>
-              <p class="t-text text">{item.text}</p>
-              {item.tag && <p class="t-label tag">{item.tag}</p>}
-              {item.href && <span class="arrow" aria-hidden="true">→</span>}
-            </Tag>
-          </li>
-        );
-      })
+      items.map((item) => (
+        <Card item href={item.href}>
+          {item.label && <Text role="label" tone="accent">{item.label}</Text>}
+          <Text as="h3" role="card-title">{item.title}</Text>
+          <Text tone="muted">{item.text}</Text>
+          {item.href && <Text as="span" role="control" tone="accent" aria-hidden="true">→</Text>}
+          {item.tag && <Text slot="foot" role="label" tone="accent">{item.tag}</Text>}
+        </Card>
+      ))
     }
   </Grid>
-  {link && <div class="link"><Button href={link.href} variant="secondary">{link.label}</Button></div>}
-  {fineprint && <p class="t-small fineprint"><a href={fineprint.href}>{fineprint.label}</a></p>}
+  {link && <Cluster gap="buttons"><Button href={link.href} variant="secondary">{link.label}</Button></Cluster>}
+  {fineprint && <Text role="small" tone="muted"><a href={fineprint.href}>{fineprint.label}</a></Text>}
   {
     note && (
-      <div class="note">
-        <p class="t-text note-text">{note.text}</p>
-        {note.link && <a class="t-small note-link" href={note.link.href}>{note.link.label}</a>}
-      </div>
+      <Stack gap={12} align="start">
+        <Text>{note.text}</Text>
+        {note.link && <a href={note.link.href}>{note.link.label}</a>}
+      </Stack>
     )
   }
 </Section>
-
-<style>
-  .link { margin-top: var(--space-8); }
-  .fineprint { max-width: var(--container-prose); margin-top: var(--space-6); }
-  .fineprint a { color: var(--c-text-2); text-decoration: underline; text-underline-offset: var(--space-1); }
-  .card {
-    display: grid;
-    gap: var(--space-3);
-    align-content: start;
-    height: 100%;
-    padding: var(--space-6);
-    background: var(--c-surface);
-    border: var(--bw-1) solid var(--c-border);
-    border-radius: var(--radius);
-    color: var(--c-text);
-    text-decoration: none;
-    transition: border-color var(--ease), transform var(--ease), box-shadow var(--ease);
-  }
-  a.card:hover {
-    border-color: var(--c-accent);
-    transform: translateY(calc(var(--space-1) / -2));
-    box-shadow: var(--shadow-lift);
-  }
-  .label { color: var(--c-accent); }
-  .text { color: var(--c-text-2); }
-  .tag { margin-top: auto; padding-top: var(--space-3); border-top: var(--bw-1) solid var(--c-border); color: var(--c-accent); }
-  .note { display: grid; gap: var(--space-3); justify-items: start; margin-top: var(--space-10); max-width: var(--container-prose); }
-  .note-text { font-weight: 500; }
-  .note-link { font-weight: 500; }
-  .arrow { color: var(--c-accent); font-size: var(--fs-text); }
-
-</style>

@@ -1,0 +1,224 @@
+---
+// /styleguide: every primitive and every block, built from real TCG content read from the content files at build time.
+import { getCollection, getEntry } from 'astro:content';
+import Blocks from './Blocks.astro';
+import Cards from './Cards.astro';
+import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
+import Stack from '../ui/Stack.astro';
+import Cluster from '../ui/Cluster.astro';
+import Grid from '../ui/Grid.astro';
+import Card from '../ui/Card.astro';
+import Text from '../ui/Text.astro';
+import List from '../ui/List.astro';
+import Button from '../ui/Button.astro';
+import ActionStack from '../ui/ActionStack.astro';
+import Table from '../ui/Table.astro';
+import Accordion from '../ui/Accordion.astro';
+import Rows from '../ui/Rows.astro';
+import Stats from '../ui/Stats.astro';
+import LogoGrid from '../ui/LogoGrid.astro';
+import Media from '../ui/Media.astro';
+import Field from '../ui/Field.astro';
+import Choices from '../ui/Choices.astro';
+import Check from '../ui/Check.astro';
+import FormButton from '../ui/FormButton.astro';
+import Stage from '../ui/Stage.astro';
+import StepBar from '../ui/StepBar.astro';
+import DataRows from '../ui/DataRows.astro';
+import { SCALE, ROLES } from '../../lib/scale';
+import type { Block } from '../../content.config';
+
+const home = await getEntry('home', 'index');
+const pages = await getCollection('pages');
+if (!home) throw new Error('Missing content entries for /styleguide');
+const all: Block[] = [...home.data.blocks, ...pages.flatMap((p) => p.data.blocks)];
+const first = <T extends Block['type']>(type: T) => all.find((b) => b.type === type) as Extract<Block, { type: T }>;
+
+const hero = first('hero');
+const ddHero = pages.find((p) => p.id === 'due-diligence')!.data.blocks[0] as Extract<Block, { type: 'hero' }>;
+const flow = first('flow');
+const advisory = first('cards');
+const capital = home.data.blocks.filter((b) => b.type === 'cards')[1] as Extract<Block, { type: 'cards' }>;
+const metrics = first('metrics');
+const answers = first('answers');
+const cta = first('cta');
+const faq = first('faq');
+const logos = first('logos');
+const services = first('services');
+const topics = first('topics');
+const cardPool = [...advisory.items, ...capital.items];
+const grid = (n: 2 | 3 | 4): Extract<Block, { type: 'cards' }> => ({ type: 'cards', columns: n, items: cardPool.slice(0, n) });
+
+// First screen samples: one with and one without the illustration (same shared Hero).
+const withArt: Block = { ...ddHero, id: undefined, heading_id: 'sg-hero-art' };
+const withoutArt: Block = { ...ddHero, id: undefined, illustration: undefined, heading_id: 'sg-hero-page' };
+const types = Array.from(new Set(all.map((b) => b.type)));
+const singles: Block[] = types.filter((t) => t !== 'hero' && t !== 'guide' && t !== 'guide_nav').map((t) => all.find((b) => b.type === t)!);
+const guides = all.filter((b) => b.type === 'guide');
+let prev = '';
+const samples: Block[] = [...singles, ...guides].map((b) => {
+  const out = { ...b } as Block;
+  if (out.tone === 'inverse' && prev === 'inverse') out.tone = 'default';
+  prev = out.tone ?? 'default';
+  return out;
+});
+const blockIndex = ['hero', ...types.filter((t) => t !== 'hero')];
+
+const roleSamples: Record<string, string> = {
+  'page-title': ddHero.title,
+  'section-title': flow.title,
+  'card-title': advisory.items[0].title,
+  text: advisory.items[0].text,
+  small: capital.items[0].text,
+  label: flow.sources.title,
+  metric: metrics.items[0].value,
+  control: 'Button and link text',
+};
+const listItems = answers.items.slice(0, 3);
+const navItems = answers.items.slice(0, 4);
+const tableGroups = [{ rows: [{ cells: [advisory.items[0].title, advisory.items[0].text] }, { cells: [capital.items[0].title, capital.items[0].text], highlight: true }] }];
+const primitives = ['Section', 'SectionHead', 'Stack', 'Cluster', 'Grid', 'Card', 'Text', 'List', 'Button', 'ActionStack', 'Table', 'Accordion', 'Rows', 'Stats', 'LogoGrid', 'Media', 'Field', 'Choices', 'Check', 'FormButton', 'Stage', 'StepBar', 'DataRows', 'Header, Footer, MobileMenu, SkipLink, SectionNav (page chrome)'];
+---
+<Blocks blocks={[{ type: 'hero', title: 'Design rules', lead: flow.lead, actions: [{ label: 'Type roles', href: '#roles' }], heading_id: 'sg-title' } as Block]} />
+
+<Section id="roles" tone="sunken">
+  <SectionHead title="Type roles" />
+  <Stack as="ul" gap={32}>
+    {ROLES.map((r) => <li><Stack gap={8}><Text role="label" tone="subtle">{r}</Text><Text as="span" role={r}>{roleSamples[r]}</Text></Stack></li>)}
+  </Stack>
+</Section>
+
+<Section>
+  <SectionHead title="First screen with an illustration" />
+</Section>
+<Blocks blocks={[withArt]} />
+<Section tone="sunken">
+  <SectionHead title="First screen without an illustration" />
+</Section>
+<Blocks blocks={[withoutArt]} />
+
+<Section>
+  <SectionHead title="Lists on light" />
+  <Stack gap={32}>
+    <List>{listItems.map((i) => <li><Text as="span">{i}</Text></li>)}</List>
+    <List numbered>{listItems.map((i) => <li><Text as="span">{i}</Text></li>)}</List>
+  </Stack>
+</Section>
+<Section tone="inverse">
+  <SectionHead title="Lists on dark" />
+  <Stack gap={32}>
+    <List>{listItems.map((i) => <li><Text as="span">{i}</Text></li>)}</List>
+    <List numbered>{listItems.map((i) => <li><Text as="span">{i}</Text></li>)}</List>
+  </Stack>
+</Section>
+
+<Section>
+  <SectionHead title="Two screens in a row, same background" lead={answers.lead} />
+</Section>
+<Section>
+  <SectionHead title={answers.title} lead={flow.lead} />
+</Section>
+
+<Section tone="sunken">
+  <SectionHead title="Section tones" lead="default, sunken, inverse" />
+</Section>
+<Section tone="inverse">
+  <SectionHead title={cta.title} lead={cta.text}>
+    <Cluster slot="actions" gap="buttons"><Button href="/due-diligence" variant="inverse">inverse</Button></Cluster>
+  </SectionHead>
+</Section>
+
+<Cards title="Layout: stacked" lead={flow.lead} columns={3} items={cardPool.slice(0, 3)} />
+<Section tone="sunken" layout="split">
+  <SectionHead slot="head" title="Layout: split" lead={flow.lead} />
+  <Text>{advisory.items[0].text}</Text>
+</Section>
+<Section layout="article">
+  <nav slot="nav" aria-label="Article">
+    <List>{navItems.map((n) => <li><Text as="span" role="small">{n}</Text></li>)}</List>
+  </nav>
+  <Stack gap={40}>
+    <SectionHead title="Layout: article" lead={answers.lead} />
+    <Stack gap={16}>
+      <Text>{advisory.items[0].text}</Text>
+      <Text as="h3" role="card-title">{capital.items[0].title}</Text>
+      <Text>{capital.items[0].text}</Text>
+    </Stack>
+  </Stack>
+</Section>
+
+<Cards {...grid(2)} title="Grid: 2 columns" tone="sunken" />
+<Cards {...grid(3)} title="Grid: 3 columns" />
+<Cards {...grid(4)} title="Grid: 4 columns" tone="sunken" />
+
+<Section>
+  <SectionHead title="Buttons on light">
+    <Cluster slot="actions" gap="buttons">
+      <Button href="/due-diligence" variant="primary">{hero.actions[0].label}</Button>
+      <Button href="/due-diligence" variant="secondary">{hero.actions[1].label}</Button>
+    </Cluster>
+  </SectionHead>
+</Section>
+<Section tone="inverse">
+  <SectionHead title="Buttons on dark">
+    <Cluster slot="actions" gap="buttons">
+      <Button href="/due-diligence" variant="inverse">{hero.actions[0].label}</Button>
+      <Button href="/due-diligence" variant="secondary">{hero.actions[1].label}</Button>
+    </Cluster>
+  </SectionHead>
+</Section>
+
+<Section tone="sunken">
+  <SectionHead title="Primitives" lead="The only elements that set size, spacing and type. Blocks compose them and never set these properties." />
+  <List numbered>{primitives.map((n) => <li><Text as="span" role="small">{n}</Text></li>)}</List>
+</Section>
+<Section>
+  <SectionHead title="Spacing scale" lead={`Stack and Cluster take a gap from the scale: ${SCALE.join(', ')}.`} />
+  <Stack gap={24}>
+    <Text role="label" tone="subtle">Stack</Text>
+    <Stack gap={8}><Text as="span">8</Text><Text as="span">8</Text></Stack>
+    <Stack gap={40}><Text as="span">40</Text><Text as="span">40</Text></Stack>
+    <Text role="label" tone="subtle">Cluster</Text>
+    <Cluster gap={12}><Text as="span">12</Text><Text as="span">12</Text><Text as="span">12</Text></Cluster>
+    <Cluster gap={32}><Text as="span">32</Text><Text as="span">32</Text><Text as="span">32</Text></Cluster>
+  </Stack>
+</Section>
+<Section tone="sunken">
+  <SectionHead title="Card, Table, Rows, Stats" />
+  <Grid cols={3}>
+    <Card item><Text as="h3" role="card-title">{advisory.items[0].title}</Text><Text tone="muted">{advisory.items[0].text}</Text></Card>
+    <Card item accent href="/due-diligence"><Text as="h3" role="card-title">{advisory.items[1].title}</Text><Text tone="muted">{advisory.items[1].text}</Text></Card>
+    <Card item><Text as="h3" role="card-title">{capital.items[0].title}</Text><Text tone="muted">{capital.items[0].text}</Text><Text slot="foot" role="label" tone="accent">tag</Text></Card>
+  </Grid>
+  <Table columns={['Name', 'Text']} groups={tableGroups} />
+  <Rows items={services.groups[0].items.slice(0, 2).map((i) => ({ href: i.href, title: i.title, text: i.text, meta: i.meta, go: services.explore }))} />
+  <Stats items={metrics.items} />
+</Section>
+<Section>
+  <SectionHead title="Accordion, LogoGrid, Media" />
+  <Accordion items={faq.items.slice(0, 2)} prefix="sg-faq" />
+  <LogoGrid items={logos.items.slice(0, 5)} />
+  <Media src={logos.items[0].image} alt={logos.items[0].name} />
+</Section>
+<Section tone="sunken">
+  <SectionHead title="Form primitives" />
+  <Card as="div">
+    <Stack gap={24}>
+      <StepBar count={4} />
+      <Field id="sg-name" name="name" label="Full name" tag="required" help="Help text" />
+      <Choices legend="Choices" type="radio" name="sg-choice" options={[{ value: 'a', label: 'Option A', detail: 'detail', price: '1' }, { value: 'b', label: 'Option B', checked: true }]} />
+      <Check id="sg-check" name="sg-check">Checkbox with text</Check>
+      <Stage items={[{ label: 'STEP 1', text: 'First' }, { label: 'STEP 2', text: 'Second' }]} />
+      <DataRows rows={[{ label: 'Plan', id: 'sg-r1' }, { label: 'Price', id: 'sg-r2' }]} />
+      <Cluster gap="buttons"><FormButton>Next</FormButton><FormButton kind="back">Back</FormButton></Cluster>
+      <ActionStack action={{ label: cta.action.label, href: '/due-diligence' }} link={{ label: 'Text link', href: '/' }} />
+    </Stack>
+  </Card>
+</Section>
+
+<Section tone="sunken">
+  <SectionHead title="Blocks" lead="Every block type of the site, in this order below." />
+  <List numbered>{blockIndex.map((n) => <li><Text as="span" role="small">{n}</Text></li>)}</List>
+</Section>
+<Blocks blocks={samples} />

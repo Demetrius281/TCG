@@ -1,0 +1,75 @@
+---
+// FAQ / disclosure list. Every item is a heading (card-title) with a button; the answer opens below it.
+import { inline } from '../../lib/inline';
+
+interface Props {
+  items: { question: string; answer: string; href?: string; linkText?: string }[];
+  prefix?: string;
+}
+const { items, prefix = 'faq' } = Astro.props;
+---
+<ul class="faq">
+  {
+    items.map((item, i) => (
+      <li class="item">
+        <h3 class="q">
+          <button class="trigger" type="button" aria-expanded="false" aria-controls={`${prefix}-${i}`} data-faq>
+            <span class="qt">{item.question}</span>
+            <span class="icon" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="panel" id={`${prefix}-${i}`} hidden>
+          <p class="t-text a" set:html={inline(item.answer)} />
+          {item.href && item.linkText && <a class="more" href={item.href}>{item.linkText} →</a>}
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .faq { margin: 0; padding: 0; list-style: none; border-top: var(--bw-1) solid var(--c-text); }
+  .item { border-bottom: var(--bw-1) solid var(--c-border); }
+  .q { margin: 0; }
+  .trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-16);
+    width: 100%;
+    min-height: var(--control-h);
+    padding: var(--s-16) 0;
+    background: none;
+    border: 0;
+    color: var(--c-text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .icon { position: relative; flex: none; width: var(--size-icon); height: var(--size-icon); }
+  .icon::before, .icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: var(--bw-2);
+    background: var(--c-accent);
+    transition: transform var(--ease);
+  }
+  .icon::after { transform: rotate(90deg); }
+  [aria-expanded='true'] .icon::after { transform: rotate(0); }
+  .panel { display: grid; gap: var(--s-16); padding-bottom: var(--s-24); }
+  .panel[hidden] { display: none; }
+  .a { color: var(--c-text-2); }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-faq]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      document.getElementById(btn.getAttribute('aria-controls')!)!.hidden = !open;
+    });
+  });
+</script>

@@ -1,0 +1,15 @@
+#!/bin/sh
+# G2, commit gate: the lock and the static design check run on the STAGED tree (what would be committed), not the working tree.
+# npm install installs this hook (package.json "prepare"). Bypassing it (--no-verify, core.hooksPath) is blocked for the agent and caught again by CI.
+set -e
+ROOT=$(git rev-parse --show-toplevel)
+cd "$ROOT"
+TMP=$(mktemp -d)
+trap 'rm -rf "$TMP"' EXIT
+git checkout-index -a -f --prefix="$TMP/"
+ln -s "$ROOT/node_modules" "$TMP/node_modules"
+cd "$TMP"
+echo "pre-commit: lock on the staged tree"
+node scripts/lock.mjs || { echo "pre-commit: the lock failed, no commit created." >&2; exit 1; }
+echo "pre-commit: static design check on the staged tree"
+node scripts/check-design.mjs || { echo "pre-commit: npm run check failed, no commit created." >&2; exit 1; }

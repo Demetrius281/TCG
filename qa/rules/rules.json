@@ -102,6 +102,18 @@
       "family": "sans",
       "weight": 300,
       "case": "none"
+    },
+    "control": {
+      "mobile": 14,
+      "desktop": 15,
+      "family": "sans",
+      "weight": 500,
+      "case": "none",
+      "appliesTo": [
+        ".btn",
+        ".ei-btn",
+        "a"
+      ]
     }
   },
   "spacing": {
@@ -346,6 +358,46 @@
       {
         "path": "firstScreen.A2.listToButtons",
         "pattern": "list -> buttons (\\d+)px"
+      },
+      {
+        "path": "roles.control.mobile",
+        "pattern": "control (\\d+)/\\d+ \\(button"
+      },
+      {
+        "path": "roles.control.desktop",
+        "pattern": "control \\d+/(\\d+) \\(button"
+      },
+      {
+        "path": "scale.steps.0",
+        "pattern": "every gap is one of (\\d+), \\d+, \\d+, \\d+, \\d+, \\d+;"
+      },
+      {
+        "path": "scale.steps.1",
+        "pattern": "every gap is one of \\d+, (\\d+), \\d+, \\d+, \\d+, \\d+;"
+      },
+      {
+        "path": "scale.steps.2",
+        "pattern": "every gap is one of \\d+, \\d+, (\\d+), \\d+, \\d+, \\d+;"
+      },
+      {
+        "path": "scale.steps.3",
+        "pattern": "every gap is one of \\d+, \\d+, \\d+, (\\d+), \\d+, \\d+;"
+      },
+      {
+        "path": "scale.steps.4",
+        "pattern": "every gap is one of \\d+, \\d+, \\d+, \\d+, (\\d+), \\d+;"
+      },
+      {
+        "path": "scale.steps.5",
+        "pattern": "every gap is one of \\d+, \\d+, \\d+, \\d+, \\d+, (\\d+);"
+      },
+      {
+        "path": "fixed.splitGap",
+        "pattern": "split gap (\\d+)"
+      },
+      {
+        "path": "fixed.articleNav",
+        "pattern": "article nav (\\d+)"
       }
     ],
     "tokens": [
@@ -418,7 +470,208 @@
       {
         "token": "--fs-label",
         "path": "roles.label.mobile"
+      },
+      {
+        "token": "--s-8",
+        "path": "scale.steps.0"
+      },
+      {
+        "token": "--s-12",
+        "path": "scale.steps.1"
+      },
+      {
+        "token": "--s-16",
+        "path": "scale.steps.2"
+      },
+      {
+        "token": "--s-24",
+        "path": "scale.steps.3"
+      },
+      {
+        "token": "--s-32",
+        "path": "scale.steps.4"
+      },
+      {
+        "token": "--s-40",
+        "path": "scale.steps.5"
+      },
+      {
+        "token": "--split-gap",
+        "path": "fixed.splitGap"
+      },
+      {
+        "token": "--article-nav",
+        "path": "fixed.articleNav"
       }
+    ]
+  },
+  "scale": {
+    "_doc": "D5: every gap/padding is one of these px values (token --s-<px>). Sections use --section-y 56/112 fluid, card grids --grid-gap 16/32 fluid. Nothing else exists.",
+    "steps": [
+      8,
+      12,
+      16,
+      24,
+      32,
+      40
+    ],
+    "fluid": {
+      "section": {
+        "mobile": 56,
+        "desktop": 112
+      },
+      "grid": {
+        "mobile": 16,
+        "desktop": 32
+      }
+    }
+  },
+  "fixed": {
+    "_doc": "Named fixed values (tokens in tokens.css). These are the only non-scale lengths.",
+    "header": {
+      "mobile": 56,
+      "desktop": 76
+    },
+    "pageTop": {
+      "mobile": 48,
+      "desktop": 80
+    },
+    "splitGap": 64,
+    "articleNav": 280,
+    "container": 1200,
+    "text": 720,
+    "pageTitle": 900,
+    "control": 52,
+    "borders": [
+      1,
+      2,
+      3
+    ]
+  },
+  "decisions": {
+    "D1": "Button and link text: role control = small size 14/15, sans, weight 500, no uppercase; only .btn, .ei-btn, <a>.",
+    "D2": "No bold inside text: no <b>/<strong>, no weight 600/700 anywhere.",
+    "D3": "Text max width 720 for all running text (p, li, dd, blockquote, card text, list text, article). Table cells exempt.",
+    "D4": "Text -> buttons 32 everywhere, including cards and forms.",
+    "D5": "Spacing scale 8,12,16,24,32,40; section 56/112 fluid; card grid 16/32 fluid; named fixed values only.",
+    "D6": "card-title (h3/h4) -> following text 12 everywhere; heading (h1/h2) -> text 16.",
+    "D7": "Exclusions: svg/[data-illustration]; aria-hidden glyph-only elements for R1."
+  },
+  "lock": {
+    "_doc": "scripts/lock.mjs reads this block.",
+    "allowedCssFiles": [
+      "src/styles/tokens.css",
+      "src/styles/base.css",
+      "src/components/ui/*.astro"
+    ],
+    "blockAllowedProps": [
+      "display",
+      "grid-area",
+      "grid-template-areas",
+      "align-*",
+      "justify-*",
+      "place-*",
+      "order",
+      "flex-direction",
+      "flex-wrap",
+      "visibility",
+      "overflow",
+      "overflow-x",
+      "overflow-y",
+      "color",
+      "background",
+      "background-color",
+      "border",
+      "border-top",
+      "border-bottom",
+      "border-left",
+      "border-right",
+      "border-color",
+      "border-block",
+      "border-inline",
+      "border-block-start",
+      "border-block-end",
+      "border-inline-start",
+      "border-inline-end",
+      "text-align"
+    ],
+    "blockForbiddenPatterns": [
+      "margin*",
+      "padding*",
+      "gap",
+      "row-gap",
+      "column-gap",
+      "font*",
+      "line-height",
+      "letter-spacing",
+      "text-transform",
+      "width",
+      "min-width",
+      "max-width",
+      "inline-size",
+      "min-inline-size",
+      "max-inline-size",
+      "height",
+      "min-height",
+      "max-height",
+      "block-size",
+      "top",
+      "right",
+      "bottom",
+      "left",
+      "inset*",
+      "grid-template-columns",
+      "grid-template-rows",
+      "flex-basis",
+      "border-radius",
+      "transform"
+    ],
+    "classesOwnedByPrimitives": [
+      "t-*",
+      "btn",
+      "btn-*",
+      "ei-btn",
+      "list",
+      "grid",
+      "card",
+      "stack",
+      "head",
+      "cluster"
+    ],
+    "scaleProps": [
+      "gap"
+    ],
+    "blockValueRules": {
+      "color": "var(--c-*)",
+      "background": "var(--c-*)",
+      "background-color": "var(--c-*)",
+      "border*": "var(--c-*)/var(--bw-*)"
+    },
+    "primitiveAllowedValue": "var(--*) | 0 | auto | none | inherit | currentColor | transparent | 50% | 100% | 1fr | minmax(...) with tokens | keywords",
+    "spacingTokens": [
+      "--s-8",
+      "--s-12",
+      "--s-16",
+      "--s-24",
+      "--s-32",
+      "--s-40",
+      "--section-y",
+      "--grid-gap",
+      "--gutter",
+      "--split-gap",
+      "--page-top",
+      "--header-h",
+      "--header-h-lg",
+      "--control-h",
+      "--bw-1",
+      "--bw-2",
+      "--bw-3",
+      "--size-mark",
+      "--size-icon",
+      "--size-icon-lg",
+      "--size-avatar",
+      "--size-media",
+      "--size-cell"
     ]
   }
 }

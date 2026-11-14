@@ -1,6 +1,10 @@
 ---
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
+import Grid from '../ui/Grid.astro';
+import Card from '../ui/Card.astro';
+import Cluster from '../ui/Cluster.astro';
+import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'steps'>, 'type'>;
@@ -9,47 +13,19 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} id={headId} />
-  <ol class:list={['steps', `layout-${layout}`]}>
+  <Grid as="ol" cols={layout === 'row' ? 3 : 2}>
     {
       items.map((s, i) => (
-        <li class:list={['step', s.first && 'first']}>
-          <div class="top">
-            <p class="t-label num">{s.label ?? String(i + 1).padStart(2, '0')}</p>
-            {s.timing && layout === 'grid' && <p class:list={['t-label tag', s.first && 'tag-on']}>{s.timing}</p>}
-          </div>
-          <h3>{s.title}</h3>
-          <p class="t-text text">{s.text}</p>
-          {s.timing && layout !== 'grid' && <p class="t-label timing">{s.timing}</p>}
-        </li>
+        <Card item accent={Boolean(s.first)}>
+          <Cluster justify="between" gap={8}>
+            <Text role="label" tone="accent">{s.label ?? String(i + 1).padStart(2, '0')}</Text>
+            {s.timing && layout === 'grid' && <Text role="label" tone={s.first ? 'accent' : 'subtle'}>{s.timing}</Text>}
+          </Cluster>
+          <Text as="h3" role="card-title">{s.title}</Text>
+          <Text tone="muted">{s.text}</Text>
+          {s.timing && layout !== 'grid' && <Text role="label" tone="subtle">{s.timing}</Text>}
+        </Card>
       ))
     }
-  </ol>
+  </Grid>
 </Section>
-
-<style>
-  .steps { display: grid; gap: var(--grid-gap); counter-reset: none; }
-  .step {
-    display: grid;
-    gap: var(--space-3);
-    align-content: start;
-    padding-top: var(--space-5);
-    border-top: var(--bw-1) solid var(--c-border-strong);
-  }
-  .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4); }
-  .num { color: var(--c-accent); }
-  .tag { padding: var(--space-1) var(--space-3); border: var(--bw-1) solid var(--c-border-strong); color: var(--c-text-3); }
-  .tag-on { border-color: var(--c-accent); color: var(--c-accent); }
-  .first { border-top-color: var(--c-accent); }
-  .text { color: var(--c-text-2); }
-  .timing { color: var(--c-text-3); }
-
-  /* Hairline-divided grid, as on the legacy page */
-  .layout-grid { gap: var(--bw-1); background: var(--c-border-strong); border: var(--bw-1) solid var(--c-border-strong); }
-  .layout-grid .step { padding: var(--space-6); background: var(--c-bg); border-top: 0; }
-  .layout-grid .first { box-shadow: inset 0 var(--bw-2) 0 var(--c-accent); }
-
-  @media (min-width: 768px) {
-    .layout-row { grid-template-columns: repeat(3, 1fr); }
-    .layout-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-</style>

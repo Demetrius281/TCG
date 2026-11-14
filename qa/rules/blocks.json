@@ -1,0 +1,13 @@
+{
+  "_doc": "The registry of blocks and primitives (lock rule L4). A block or primitive file that is not listed here is an error; adding one needs owner approval (protected file). Pages import listed blocks and layouts only; blocks import listed primitives, listed blocks and seo/JsonLd only.",
+  "primitives": [
+    "Accordion", "Action", "ActionStack", "Button", "Card", "Check", "Choices", "Cluster", "DataRows", "DesktopIllustration",
+    "Field", "Footer", "FormButton", "Grid", "Header", "List", "LogoGrid", "Media", "MobileMenu", "Rows",
+    "Section", "SectionHead", "SectionNav", "SkipLink", "Stack", "Stage", "Stats", "StepBar", "Table", "Text", "WhatsAppLink"
+  ],
+  "blocks": [
+    "AcquisitionCase", "Answers", "Architecture", "Blocks", "Cards", "Comparison", "Cta", "Disclosure", "Faq", "Features",
+    "Flow", "Guide", "GuideNav", "Hero", "Inquiry", "Logos", "Metrics", "Order", "Pricing", "Report", "Sample",
+    "Services", "Sources", "Spotlight", "Steps", "Styleguide", "Testimonials", "Topics"
+  ]
+}

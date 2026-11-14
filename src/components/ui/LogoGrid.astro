@@ -1,0 +1,27 @@
+---
+// Authorities and bodies: hairline grid of equal cells, colour logos at their optical height (class h-<n> = n * --logo-k).
+interface Props {
+  items: { name: string; image: string; height: number }[];
+}
+const { items } = Astro.props;
+---
+<ul class="cells">
+  {items.map((l) => <li class="cell"><img class={`h-${l.height}`} src={l.image} alt={l.name} title={l.name} loading="lazy" decoding="async" /></li>)}
+</ul>
+
+<style>
+  .cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--bw-1); margin: 0; padding: 0; list-style: none; background: var(--color-border); border: var(--bw-1) solid var(--color-border); }
+  .cell { display: flex; align-items: center; justify-content: center; height: var(--size-cell); padding: var(--s-16); background: var(--color-surface); }
+  .cell img { display: block; width: auto; max-width: 100%; object-fit: contain; }
+  .h-38 { height: calc(38 * var(--logo-k) * var(--logo-unit)); }
+  .h-54 { height: calc(54 * var(--logo-k) * var(--logo-unit)); }
+  .h-56 { height: calc(56 * var(--logo-k) * var(--logo-unit)); }
+  .h-60 { height: calc(60 * var(--logo-k) * var(--logo-unit)); }
+  .h-64 { height: calc(64 * var(--logo-k) * var(--logo-unit)); }
+  .h-66 { height: calc(66 * var(--logo-k) * var(--logo-unit)); }
+  .h-68 { height: calc(68 * var(--logo-k) * var(--logo-unit)); }
+  .h-72 { height: calc(72 * var(--logo-k) * var(--logo-unit)); }
+  @media (min-width: 768px) {
+    .cells { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  }
+</style>

@@ -49,9 +49,12 @@ function verifyRules() {
   const base = fs.readFileSync(path.join(ROOT, 'src/styles/base.css'), 'utf8');
   for (const [name, role] of Object.entries(R.roles)) {
     const cls = name === 'page-title' ? '\\.t-page-title, h1' : name === 'section-title' ? '\\.t-section-title, h2' : name === 'card-title' ? '\\.t-card-title, h3, h4' : `\\.t-${name}`;
-    const m = base.match(new RegExp(`${cls}\\s*\\{[^}]*font-weight:\\s*(\\d+)`));
-    if (!m) problems.push(`base.css has no weight for role ${name}`);
-    else if (Number(m[1]) !== role.weight) problems.push(`role ${name}: base.css weight ${m[1]}, rules.json ${role.weight}`);
+    const m = base.match(new RegExp(`${cls}[^{]*\\{[^}]*font-weight:\\s*(\\d+|var\\(--[\\w-]+\\))`));
+    if (!m) { problems.push(`base.css has no weight for role ${name}`); continue; }
+    // the weight is a number or a token (var(--fw-medium)) defined in tokens.css
+    const tokenCss = fs.readFileSync(path.join(ROOT, 'src/styles/tokens.css'), 'utf8');
+    const resolved = m[1].startsWith('var(') ? Number((tokenCss.match(new RegExp(`${m[1].slice(4, -1)}\\s*:\\s*(\\d+)`)) ?? [])[1]) : Number(m[1]);
+    if (resolved !== role.weight) problems.push(`role ${name}: base.css weight ${m[1]} = ${resolved}, rules.json ${role.weight}`);
   }
   return problems;
 }
@@ -339,6 +342,9 @@ function writeReport({ results, discovered, agg, problems, startedAt, browsers }
   md.push('<details><summary>Matrix (' + rows.length + ' rows)</summary>', '', '| page | screen | width | state | ' + RULES.join(' | ') + ' |', '|---|---|---|---|' + RULES.map(() => '---').join('|') + '|');
   for (const r of rows) md.push(`| ${r.page} | ${r.screen.replace(/\|/g, '/')} | ${r.width} | ${r.state} | ${RULES.map((x) => (r.cells[x].c === 0 ? '-' : `${r.cells[x].c}/${r.cells[x].v}`)).join(' | ')} |`);
   md.push('', '</details>', '');
+  // d) proof: written by `npm run audit -- --prove`; embedded when present
+  const proofFile = path.join(OUT, 'proof.md');
+  if (fs.existsSync(proofFile)) md.push('', '## d) Proof', '', fs.readFileSync(proofFile, 'utf8').replace(/^# .*\n/, '').trim(), '');
   fs.writeFileSync(path.join(OUT, 'report.md'), md.join('\n'));
   return { coverageLine, violations, gaps };
 }
@@ -358,8 +364,9 @@ async function prove(base, discovered) {
         await page.waitForTimeout(150);
         const res = await runMeasure(page, { vw: 1280, state: 'default', path: p.route, only: [rule] });
         const hit = res.violations.filter((v) => v.rule === rule && v.screenIndex === info.index);
-        const sectionOnly = rule === 'R5' && kind === 'last';
-        rows.push({ page: p.route, rule, target: kind, screen: info.name, caught: hit.length > 0, na: sectionOnly, detail: hit[0] ? `${hit[0].measured} (required ${hit[0].required})` : sectionOnly ? 'rule applies to sections only; see last-section' : 'NOT CAUGHT' });
+        // R5 does not apply to the footer; /404 has one screen only, so an extra h1 there is the first screen's h1 (R2 cannot be broken outside it).
+        const sectionOnly = (rule === 'R5' && kind === 'last') || (rule === 'R2' && kind !== 'last' && p.route === '/404');
+        rows.push({ page: p.route, rule, target: kind, screen: info.name, caught: hit.length > 0, na: sectionOnly, detail: hit[0] ? `${hit[0].measured} (required ${hit[0].required})` : sectionOnly ? 'not applicable here (R5: sections only, see last-section; R2 on /404: one screen only)' : 'NOT CAUGHT' });
         await ctx.close();
       }
     }

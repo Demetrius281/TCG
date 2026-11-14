@@ -1,0 +1,24 @@
+---
+import BlockPage from '../layouts/BlockPage.astro';
+import type { Block } from '../content.config';
+
+// First screen only (CLAUDE.md rule 2): page-title, one paragraph, two buttons. Text from legacy/404.html.
+const blocks: Block[] = [
+  {
+    type: 'hero',
+    heading_id: 'page-title',
+    title: 'Page not found.',
+    lead: 'The page you requested does not exist or has moved.',
+    actions: [
+      { label: 'Back to Homepage', href: '/' },
+      { label: 'Bali Property Regulations', href: '/regulations' },
+    ],
+  },
+];
+const seo = {
+  title: 'Page Not Found | Twins Consulting Group',
+  description: 'The page you requested could not be found. Return to Twins Consulting Group or explore Bali property regulations.',
+  robots: 'noindex, follow',
+};
+---
+<BlockPage seo={seo} blocks={blocks} />

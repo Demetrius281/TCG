@@ -7,7 +7,7 @@ const escape = (s: string) =>
  */
 export function inline(text: string): string {
   return escape(text)
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*\*(.+?)\*\*/g, '$1')
     .replace(/~~(.+?)~~/g, '<s>$1</s>')
     .replace(/\^\^(.+?)\^\^/g, '<small>$1</small>')
     .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2">$1</a>');

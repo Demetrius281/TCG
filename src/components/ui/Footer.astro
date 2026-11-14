@@ -56,36 +56,35 @@ import { whatsappHref } from '../../data/whatsapp';
 
 <style>
   .footer {
-    padding-block: var(--space-16) var(--space-10);
+    padding-block: var(--section-y);
     background: var(--color-inverse);
     color: var(--color-on-inverse);
   }
   .inner {
     display: grid;
-    gap: var(--space-12);
+    gap: var(--s-40);
     width: min(100% - 2 * var(--gutter), var(--container));
     margin-inline: auto;
   }
   .muted { color: var(--color-on-inverse-2); }
-  .brandcol { display: grid; gap: var(--space-4); max-width: calc(var(--container-prose) / 2); }
-  .brand { display: block; line-height: var(--lh-reset); }
-  .brand img { height: var(--space-5); width: auto; }
-  .cols { display: grid; gap: var(--space-10); }
-  .col { display: grid; gap: var(--space-4); align-content: start; }
-  .group { display: grid; gap: var(--space-1); }
+  .brandcol { display: grid; gap: var(--s-16); max-width: calc(var(--container-prose) / 2); }
+  .brand { display: block; line-height: 0; }
+  .brand img { height: var(--size-icon); width: auto; }
+  .cols { display: grid; gap: var(--s-40); }
+  .col { display: grid; gap: var(--s-16); align-content: start; }
+  .group { display: grid; gap: var(--s-8); }
   .colhead { color: var(--color-accent-inverse); }
   .grouphead { color: var(--color-on-inverse-2); }
   .flink {
     display: flex;
     align-items: center;
-    min-height: calc(var(--space-10) + var(--space-1));
+    min-height: var(--control-h);
     color: var(--color-on-inverse);
-    font-size: var(--fs-small);
     text-decoration: none;
   }
   .flink:hover { color: var(--color-accent-inverse); text-decoration: underline; }
-  .addr { font-style: normal; padding-block: var(--space-2); }
-  .copy { padding-top: var(--space-6); border-top: var(--bw-1) solid var(--color-border-inverse); }
+  .addr { font-style: normal; padding-block: var(--s-8); }
+  .copy { padding-top: var(--s-24); border-top: var(--bw-1) solid var(--color-border-inverse); }
 
   @media (min-width: 768px) {
     .cols { grid-template-columns: repeat(2, 1fr); }

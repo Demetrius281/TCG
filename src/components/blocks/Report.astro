@@ -1,123 +1,41 @@
 ---
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
+import Card from '../ui/Card.astro';
+import Grid from '../ui/Grid.astro';
+import Stack from '../ui/Stack.astro';
+import Cluster from '../ui/Cluster.astro';
+import Table from '../ui/Table.astro';
+import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'report'>, 'type'>;
 const { title, lead, line, document: doc, tone, id } = Astro.props;
+const rows = doc.rows.map((r) => ({ cells: [r.category, r.finding, r.source, r.status_label] }));
 ---
-<Section id={id} tone={tone} labelledby="report-title">
-  <div class="rp">
-    <div class="copy">
-      <SectionHead title={title} lead={lead} id="report-title" />
-      <p class="t-small line">{line}</p>
-    </div>
-    <figure class="doc" aria-label={doc.aria_label}>
-      <div class="doc-head">
-        <span class="t-label brand">{doc.brand}</span>
-        <h3 class="t-card-title dtitle">{doc.title}</h3>
-        <span class="t-small meta">{doc.meta}</span>
-      </div>
-      <div class="th t-label" aria-hidden="true">
-        {doc.columns.map((c) => <span>{c}</span>)}
-      </div>
-      <ul class="tb" aria-label={doc.findings_label}>
-        {
-          doc.rows.map((r) => (
-            <li>
-              <span class="f">
-                <b class="cat">{r.category}</b>
-                <span class="t-small ft">{r.finding}</span>
-              </span>
-              <span class="t-small src">{r.source}</span>
-              <span class={`t-label chip chip-${r.status}`}>
-                <i aria-hidden="true"></i>{r.status_label}
-              </span>
-            </li>
-          ))
-        }
-      </ul>
-      <div class="act">
-        <div class="risk">
-          <span class="t-label k">{doc.risk.label}</span>
-          <p class="t-small">{doc.risk.text}</p>
-        </div>
-        <div class="do">
-          <span class="t-label k">{doc.action.label}</span>
-          <p class="t-small">{doc.action.text}</p>
-        </div>
-      </div>
-      <p class="t-small inc">{doc.includes}</p>
-      <p class="t-small disc">{doc.disclaimer}</p>
-    </figure>
-  </div>
+<Section id={id} tone={tone} labelledby="report-title" layout="split">
+  <SectionHead slot="head" title={title} lead={lead} id="report-title" />
+  <Stack gap={24}>
+    <Text role="small" tone="subtle">{line}</Text>
+    <Card as="figure" aria-label={doc.aria_label}>
+      <Cluster justify="between" gap={8} align="baseline">
+        <Text as="span" role="label" tone="accent">{doc.brand}</Text>
+        <Text as="span" role="small" tone="subtle">{doc.meta}</Text>
+      </Cluster>
+      <Text as="h3" role="card-title">{doc.title}</Text>
+      <Table columns={doc.columns} groups={[{ rows }]} label={doc.findings_label} />
+      <Grid as="div" cols={2}>
+        <Card as="div">
+          <Text as="span" role="label" tone="warn">{doc.risk.label}</Text>
+          <Text role="small">{doc.risk.text}</Text>
+        </Card>
+        <Card as="div">
+          <Text as="span" role="label" tone="ok">{doc.action.label}</Text>
+          <Text role="small">{doc.action.text}</Text>
+        </Card>
+      </Grid>
+      <Text role="small" tone="muted">{doc.includes}</Text>
+      <Text role="small" tone="subtle">{doc.disclaimer}</Text>
+    </Card>
+  </Stack>
 </Section>
-
-<style>
-  .rp { display: grid; gap: var(--space-8); align-items: center; }
-  .copy { display: grid; gap: 0; min-width: 0; }
-  .label { color: var(--c-text-3); }
-  .lead { color: var(--c-text-2); }
-  .line { padding-top: var(--space-4); border-top: var(--bw-1) solid var(--c-border-strong); font-family: var(--font-mono); color: var(--c-text-3); }
-  .doc { margin: 0; min-width: 0; background: var(--c-surface); border: var(--bw-1) solid var(--c-border); box-shadow: var(--shadow-menu); }
-  .doc-head { display: grid; gap: var(--space-1); padding: 0; border-bottom: var(--bw-1) solid var(--c-text); }
-  .brand { padding: var(--space-3) var(--space-4); border-bottom: var(--bw-1) solid var(--c-border); color: var(--c-accent); }
-  .dtitle { padding: var(--space-4) var(--space-4) 0; font-weight: 500; }
-  .meta { padding: 0 var(--space-4) var(--space-4); font-family: var(--font-mono); color: var(--c-text-3); }
-  .th { display: none; }
-  .tb { display: grid; }
-  .tb li {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: 'c st' 't t' 's s';
-    gap: var(--space-1) var(--space-3);
-    align-items: center;
-    padding: var(--space-3) var(--space-4);
-    border-top: var(--bw-1) solid var(--c-border);
-  }
-  .tb li:first-child { border-top: 0; }
-  .f { display: contents; }
-  .cat { grid-area: c; font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-text-3); }
-  .ft { grid-area: t; color: var(--c-text); }
-  .src { grid-area: s; font-family: var(--font-mono); color: var(--c-text-3); }
-  .chip { grid-area: st; display: inline-flex; align-items: center; gap: var(--space-2); white-space: nowrap; font-weight: 400; letter-spacing: 0; text-transform: none; }
-  .chip i { flex: none; width: var(--space-2); height: var(--space-2); border-radius: var(--radius-full); box-sizing: border-box; }
-  .chip-ok { color: var(--color-ok); }
-  .chip-ok i { background: var(--color-ok); }
-  .chip-risk { color: var(--color-warn); }
-  .chip-risk i { background: var(--color-warn); }
-  .chip-unverified { color: var(--c-text-3); }
-  .chip-unverified i { border: var(--bw-2) dashed var(--c-text-3); }
-  .act { display: grid; border-top: var(--bw-1) solid var(--c-text); }
-  .act > div { display: grid; gap: var(--space-2); padding: var(--space-4); }
-  .do { border-top: var(--bw-1) solid var(--c-border); }
-  .k { display: inline-flex; align-items: center; gap: var(--space-2); }
-  .risk .k { color: var(--color-warn); }
-  .do .k { color: var(--color-ok); }
-  .inc { margin: 0; padding: var(--space-3) var(--space-4); background: var(--c-bg); border-top: var(--bw-1) solid var(--c-border); font-family: var(--font-mono); color: var(--c-text-2); }
-  .disc { padding: var(--space-3) var(--space-4) var(--space-4); color: var(--c-text-3); }
-
-  @media (min-width: 768px) {
-    .doc-head { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; padding: var(--space-4) var(--space-6) var(--space-4); }
-    .brand { padding: 0; border: 0; }
-    .meta { grid-column: 2; grid-row: 1; padding: 0; text-align: right; }
-    .dtitle { grid-column: 1 / -1; padding: 0; }
-    .th, .tb li { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 0.8fr) calc(var(--space-16) * 1.75); gap: var(--space-1) var(--space-5); align-items: center; padding-inline: var(--space-6); }
-    .th { padding-block: var(--space-3); background: var(--c-bg); border-bottom: var(--bw-1) solid var(--c-border); color: var(--c-text-3); }
-    .th span:last-child { text-align: right; }
-    .tb li { grid-template-areas: none; padding-block: var(--space-3); }
-    .f { display: block; }
-    .cat, .ft, .src, .chip { grid-area: auto; }
-    .cat { font-family: var(--font-sans); font-size: var(--fs-small); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--c-text); }
-    .cat::after { content: ': '; }
-    .ft { color: var(--c-text-2); }
-    .chip { justify-self: end; }
-    .act { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .act > div { padding-inline: var(--space-6); }
-    .do { border-top: 0; border-left: var(--bw-1) solid var(--c-border); }
-    .inc, .disc { padding-inline: var(--space-6); }
-  }
-  @media (min-width: 1024px) {
-    .rp { grid-template-columns: minmax(0, 37fr) minmax(0, 63fr); gap: var(--space-16); }
-  }
-</style>

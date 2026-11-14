@@ -306,7 +306,7 @@ function measure(vp) {
     if (s.classList.contains('tone-inverse') && [...s.querySelectorAll('.btn-primary')].some(dark)) fail('8-inverse-primary', s, 'btn-primary on a dark surface', 'btn-inverse (mint)');
   });
   // A text link under a button is centred on the button's width (shared ActionStack)
-  main.querySelectorAll('.stack').forEach((st) => {
+  main.querySelectorAll('.action-stack').forEach((st) => {
     const btn = st.querySelector('.btn'); const link = st.querySelector(':scope > a:not(.btn)');
     if (!btn || !link || !visible(btn) || !visible(link)) return;
     const b = btn.getBoundingClientRect(); const l = link.getBoundingClientRect();

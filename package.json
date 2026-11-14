@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run check && astro build",
+    "build": "npm run lock && npm run check && astro build",
     "preview": "astro preview",
+    "lock": "node scripts/lock.mjs",
+    "lock:selftest": "node scripts/lock-selftest.mjs",
+    "gen:scale": "node scripts/gen-scale.mjs",
     "check": "node scripts/check-design.mjs",
     "check:layout": "node qa/rules/layout.mjs",
-    "audit": "node scripts/audit.mjs"
+    "audit": "node scripts/audit.mjs",
+    "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
     "astro": "7.4.11"
@@ -19,6 +23,7 @@
   },
   "devDependencies": {
     "playwright": "^1.65.0",
-    "yaml": "^2.9.1"
+    "yaml": "^2.9.1",
+    "postcss": "^8.5.0"
   }
 }

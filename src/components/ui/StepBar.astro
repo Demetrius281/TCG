@@ -1,0 +1,15 @@
+---
+// Progress bar of the order form (mobile): one segment per step. The form script adds the class "on".
+interface Props { count: number; }
+const { count } = Astro.props;
+---
+<div class="bar pc-bar" aria-hidden="true">{Array.from({ length: count }, () => <i></i>)}</div>
+
+<style>
+  .bar { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--s-8); }
+  i { height: var(--bw-2); background: var(--c-border-strong); transition: background-color var(--ease); }
+  i.on { background: var(--c-accent); }
+  @media (min-width: 1024px) {
+    .bar { display: none; }
+  }
+</style>

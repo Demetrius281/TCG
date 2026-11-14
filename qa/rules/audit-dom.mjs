@@ -129,7 +129,7 @@ export function measure(R, ctx) {
       // the text starts at an edge, or the element's own box (a padded link or pill) does
       let ok = edges.some((x) => near(left, x)) || edges.some((x) => near(boxLeft, x));
       let req = `container ${Math.round(cLeft * 10) / 10} or a column/card edge`;
-      const stack = e.closest('.stack');
+      const stack = e.closest('.action-stack');
       if (stack && e.matches('a:not(.btn)')) { const b = stack.querySelector('.btn'); const br = rc(b); ok = near((rc(e).left + rc(e).right) / 2, (br.left + br.right) / 2, 1); req = 'centred on the button'; }
       bump(e, 'blk');
       chk('R1', e, ok, Math.round(left * 10) / 10, req);
@@ -229,7 +229,7 @@ export function measure(R, ctx) {
           else if (stacked && /^H[12]$/.test(a.tagName) && !btnB) { want = R.spacing.headingText; name = 'heading -> text'; }
           else if (stacked && a.tagName === 'H3' && !btnB && !a.closest('.hero')) { want = cardLike(a) ? R.spacing.cardTitleText : R.spacing.headingText; name = cardLike(a) ? 'card-title -> text' : 'heading -> text'; }
           else if (stacked && a.tagName === 'P' && b.tagName === 'P') { want = R.spacing.paragraph; name = 'paragraph -> paragraph'; }
-          else if (stacked && b.matches('.btn, .ei-btn, .actions, .stack') && !a.matches('.btn, .ei-btn') && !a.closest('form, .card, li')) { want = R.spacing.textButtons; name = 'text -> buttons'; }
+          else if (stacked && b.matches('.btn, .ei-btn, .actions, .action-stack') && !a.matches('.btn, .ei-btn') && !a.closest('form, .card, li')) { want = R.spacing.textButtons; name = 'text -> buttons'; }
           else if (stacked && a.matches('header.head') && !a.closest('.hero, .card, li')) { want = a.classList.contains('next-actions') ? R.spacing.textButtons : R.spacing.headContent; name = 'heading block -> content'; }
           else if (a.matches('li') && b.matches('li') && P.matches('.list')) { want = R.spacing.listItems; name = 'list items'; }
         }
@@ -249,7 +249,7 @@ export function measure(R, ctx) {
         const s = cs(c); const p = [s.paddingTop, s.paddingRight, s.paddingBottom, s.paddingLeft].map(parseFloat);
         chk('R4', c, p.every((x) => near(x, R.spacing.cardPadding)), p.join('/'), `card padding ${R.spacing.cardPadding}`);
       });
-      document.querySelectorAll('.stack').forEach((st) => {
+      document.querySelectorAll('.action-stack').forEach((st) => {
         const b = st.querySelector('.btn'); const l = st.querySelector(':scope > a:not(.btn)');
         if (!b || !l || !visible(b) || !visible(l)) return;
         const rb = rc(b); const rl = rc(l);
@@ -325,7 +325,7 @@ export function measure(R, ctx) {
       chk('R8', b, near(r.height, R.button.height, 0.75), Math.round(r.height * 10) / 10, `height ${R.button.height}`);
       chk('R8', b, parseFloat(cs(b).borderTopLeftRadius) === R.button.radius, cs(b).borderTopLeftRadius, `radius ${R.button.radius}`);
       const pw = rc(b.parentElement).width;
-      if (vw < R.button.fullWidthBelow && !b.closest('.stack, header.header, .pc-nav, .ei-form, form')) chk('R8', b, near(r.width, pw, 2), Math.round(r.width), `full width ${Math.round(pw)} below ${R.button.fullWidthBelow}`);
+      if (vw < R.button.fullWidthBelow && !b.closest('.action-stack, header.header, .pc-nav, .ei-form, form')) chk('R8', b, near(r.width, pw, 2), Math.round(r.width), `full width ${Math.round(pw)} below ${R.button.fullWidthBelow}`);
     }
     const bySection = new Map();
     for (const b of btns) { const s = screenOf(b); if (!bySection.has(s)) bySection.set(s, []); bySection.get(s).push(b); }
@@ -444,7 +444,7 @@ export function mutate(rule, kind, idx) {
   if (rule === 'R3') add('<p style="font-family:Geist,sans-serif;font-size:13px;font-weight:400;margin:0">Audit probe R3</p>');
   if (rule === 'R4') add(`<div><p style="${P}">Audit probe R4 a</p><p style="${P}">Audit probe R4 b</p></div>`);
   if (rule === 'R5') { target.style.paddingTop = '7px'; if (target.tagName !== 'SECTION') target.setAttribute('data-probe-r5', '1'); }
-  if (rule === 'R6') add(`<p style="${P}width:900px">Audit probe R6</p>`);
+  if (rule === 'R6') add(`<p style="${P}width:900px;max-width:none">Audit probe R6</p>`);
   if (rule === 'R7') add('<ul class="grid cols-3" style="display:grid;grid-template-columns:repeat(2,1fr);gap:5px;margin:0;padding:0;list-style:none"><li><p style="margin:0">a</p></li><li><p style="margin:0">b</p></li></ul>');
   if (rule === 'R8') add('<a class="btn btn-primary" style="display:inline-flex;height:40px;border-radius:8px;background:rgb(1,2,3);color:#fff;font-size:15px">Audit probe R8</a>');
   if (rule === 'R9') add('<ul style="list-style:disc;margin:0;padding-left:20px"><li style="font-size:17px">Audit probe R9</li></ul>');

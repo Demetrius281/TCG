@@ -1,0 +1,71 @@
+---
+// One labelled form control: label (+ tag), optional help, the control, optional error line.
+// Ids follow the pattern the form scripts rely on: <id>-help, <id>-err.
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  tag?: string;
+  help?: string;
+  err?: boolean;
+  kind?: 'input' | 'select' | 'textarea';
+  type?: string;
+  inputmode?: string;
+  autocomplete?: string;
+  placeholder?: string;
+  required?: boolean;
+  rows?: number;
+  options?: { value?: string; label: string }[];
+  hidden?: boolean;
+  full?: boolean;
+  [attr: string]: unknown;
+}
+const { id, name, label, tag, help, err = false, kind = 'input', type = 'text', inputmode, autocomplete = 'off', placeholder, required = false, rows = 4, options = [], hidden, full = false, ...rest } = Astro.props;
+const described = [help && `${id}-help`, err && `${id}-err`].filter(Boolean).join(' ') || undefined;
+---
+<div class:list={['fld', full && 'full']} id={rest['data-wrap'] as string | undefined} hidden={hidden}>
+  <div class="fld-h"><label for={id}>{label}</label>{tag && <span class="tag t-label" aria-hidden="true">{tag}</span>}</div>
+  {help && <p class="t-small help" id={`${id}-help`}>{help}</p>}
+  {
+    kind === 'select' ? (
+      <select id={id} name={name} required={required} aria-required={required ? 'true' : undefined} aria-describedby={described}>
+        {options.map((o) => (o.value ? <option value={o.value}>{o.label}</option> : <option>{o.label}</option>))}
+      </select>
+    ) : kind === 'textarea' ? (
+      <textarea id={id} name={name} rows={rows} placeholder={placeholder}></textarea>
+    ) : (
+      <input id={id} name={name} type={type} inputmode={inputmode} autocomplete={autocomplete} placeholder={placeholder} required={required} aria-required={required ? 'true' : undefined} aria-describedby={described} autocapitalize={type === 'text' && inputmode === 'url' ? 'off' : undefined} spellcheck={inputmode === 'url' ? 'false' : undefined} />
+    )
+  }
+  {err && <p class="t-small err" id={`${id}-err`}></p>}
+</div>
+
+<style>
+  .fld { display: grid; gap: var(--s-8); min-width: 0; }
+  .fld[hidden] { display: none; }
+  .fld-h { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-12); }
+  label { font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--c-text); }
+  .tag { color: var(--c-text-3); }
+  .help { color: var(--c-text-3); }
+  input, select, textarea {
+    width: 100%;
+    min-height: var(--control-h);
+    padding: var(--s-12) var(--s-16);
+    background: var(--c-bg);
+    border: var(--bw-1) solid var(--c-border-strong);
+    border-radius: var(--radius);
+    color: var(--c-text);
+    font: inherit;
+    font-size: var(--fs-text);
+    transition: border-color var(--ease);
+  }
+  textarea { min-height: var(--size-media); resize: vertical; line-height: var(--lh-small); }
+  select { cursor: pointer; }
+  select.empty { color: var(--c-text-3); }
+  ::placeholder { color: var(--c-text-3); opacity: 1; }
+  input:hover, select:hover, textarea:hover { border-color: var(--c-text-3); }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-1); border-color: var(--c-accent); }
+  [aria-invalid='true'] { border-color: var(--color-danger); }
+  .err { color: var(--color-danger); }
+  .err:empty { display: none; }
+</style>

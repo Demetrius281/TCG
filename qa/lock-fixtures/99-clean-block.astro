@@ -1,0 +1,13 @@
+<!-- lock-path: src/components/blocks/Cta.astro; expect: none -->
+---
+import Section from "../ui/Section.astro";
+import Stack from "../ui/Stack.astro";
+import Text from "../ui/Text.astro";
+---
+<Section>
+  <Stack gap={16}><Text role="card-title" as="h3">a</Text><Text>b</Text></Stack>
+  <div class="row"><Text>c</Text></div>
+</Section>
+<style>
+  .row { display: flex; align-items: center; border-top: var(--bw-1) solid var(--c-border); color: var(--c-text); }
+</style>

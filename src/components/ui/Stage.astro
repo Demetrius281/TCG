@@ -1,0 +1,21 @@
+---
+// Numbered stage list beside a form: label + text per row. The form script marks the current (aria-current) and done rows.
+interface Props {
+  items: { label: string; text: string }[];
+  /** Hidden from assistive tech when the form already shows the step. */
+  decorative?: boolean;
+  dataS?: boolean;
+}
+const { items, decorative = false, dataS = false } = Astro.props;
+---
+<div class="stage" aria-hidden={decorative ? 'true' : undefined}>
+  {items.map((s, i) => <p class="t-small" data-s={dataS ? i + 1 : undefined}><span class="t-label">{s.label}</span>{s.text}</p>)}
+</div>
+
+<style>
+  .stage { display: grid; border-top: var(--bw-1) solid var(--c-border-strong); }
+  .stage p { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-8); padding: var(--s-12) 0; border-bottom: var(--bw-1) solid var(--c-border-strong); color: var(--c-text-3); transition: color var(--ease); }
+  .stage p span { color: var(--c-accent); }
+  .stage p[aria-current='step'] { color: var(--c-text); }
+  .stage p.done { color: var(--c-text-2); }
+</style>

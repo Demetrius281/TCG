@@ -21,48 +21,25 @@ const attrs = href
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
+    gap: var(--s-8);
     width: 100%;
     height: var(--control-h);
-    padding: 0 var(--space-6);
+    padding: 0 var(--s-24);
     border: var(--bw-1) solid transparent;
     border-radius: var(--radius);
-    font-family: var(--font-sans);
-    font-size: var(--fs-small);
-    font-weight: 500;
-    line-height: var(--lh-tight);
     text-decoration: none;
     cursor: pointer;
-    transition:
-      background var(--ease),
-      color var(--ease),
-      border-color var(--ease),
-      transform var(--ease),
-      box-shadow var(--ease);
+    transition: background var(--ease), color var(--ease), border-color var(--ease), box-shadow var(--ease);
   }
-  .btn:hover {
-    transform: translateY(calc(var(--space-1) / -2));
-    box-shadow: var(--shadow-lift);
-  }
+  .btn:hover { box-shadow: var(--shadow-lift); }
   .btn-primary { background: var(--color-accent); color: var(--color-surface); }
   .btn-primary:hover { background: var(--color-accent-hover); }
-  .btn-secondary {
-    background: transparent;
-    color: var(--color-text);
-    border-color: var(--color-border-strong);
-  }
+  .btn-secondary { background: transparent; color: var(--color-text); border-color: var(--color-border-strong); }
   .btn-secondary:hover { background: var(--color-accent-hover); color: var(--color-surface); border-color: var(--color-accent-hover); }
   .btn-inverse { background: var(--color-accent-inverse); color: var(--color-inverse); }
   .btn-inverse:hover { background: var(--color-surface); color: var(--color-inverse); }
-  .btn-text {
-    width: auto;
-    padding: 0;
-    background: transparent;
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-  .btn-text:hover { color: var(--color-accent-hover); box-shadow: none; transform: none; }
+  .btn-text { width: auto; padding: 0; background: transparent; color: var(--c-accent, var(--color-accent)); text-decoration: underline; text-underline-offset: var(--underline-offset); }
+  .btn-text:hover { color: var(--color-accent-hover); box-shadow: none; }
 
   @media (min-width: 768px) {
     .btn { width: auto; }

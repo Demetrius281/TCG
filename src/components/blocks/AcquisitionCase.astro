@@ -1,93 +1,54 @@
 ---
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
+import Card from '../ui/Card.astro';
+import Cluster from '../ui/Cluster.astro';
+import Stack from '../ui/Stack.astro';
+import Media from '../ui/Media.astro';
+import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'acquisition_case'>, 'type'>;
 const { title, paragraphs, profit, case: c, tone, id, nav } = Astro.props;
 ---
-<Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`}>
-  <div class="layout">
-    <div class="copy">
-      <SectionHead title={title} lead={paragraphs} id={`${id}-h`} />
-      <div class="profit">
-        <span class="picon">
-          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 24l8-8 6 5 10-12"></path><path d="M20 9h8v8"></path></svg>
-        </span>
-        <div><strong class="t-label">{profit.title}</strong><span class="t-text">{profit.text}</span></div>
-      </div>
-    </div>
-    <article class="case">
-      <div class="top t-label"><span>{c.top[0]}</span><span class="tag">{c.top[1]}</span></div>
-      <div class="photo"><img src={c.photo.src} alt={c.photo.alt} width={c.photo.width} height={c.photo.height} loading="lazy" decoding="async" /></div>
-      <div class="prices">
-        {c.prices.map((p) => <div class:list={[p.discount && 'discount']}><span class="t-label plabel">{p.label}</span><strong>{p.value}</strong></div>)}
-      </div>
-      <div class="facts">
+<Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`} layout="split">
+  <SectionHead slot="head" title={title} lead={paragraphs} id={`${id}-h`} />
+  <Stack gap={24}>
+    <Cluster align="start" gap={16} nowrap>
+      <span class="icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 24l8-8 6 5 10-12"></path><path d="M20 9h8v8"></path></svg>
+      </span>
+      <Stack gap={8} as="div">
+        <Text as="span" role="label">{profit.title}</Text>
+        <Text as="span" tone="muted">{profit.text}</Text>
+      </Stack>
+    </Cluster>
+    <Card as="article">
+      <Cluster justify="between" gap={8}>
+        <Text as="span" role="label">{c.top[0]}</Text>
+        <Text as="span" role="label" tone="accent">{c.top[1]}</Text>
+      </Cluster>
+      <Media src={c.photo.src} alt={c.photo.alt} width={c.photo.width} height={c.photo.height} />
+      <Cluster gap={24} align="start">
+        {c.prices.map((p) => <Stack gap={8} as="div"><Text as="span" role="label" tone={p.discount ? 'accent' : 'subtle'}>{p.label}</Text><Text as="span" role="card-title" tone={p.discount ? 'accent' : 'default'}>{p.value}</Text></Stack>)}
+      </Cluster>
+      <Stack as="ul" gap={12}>
         {
-          c.facts.map((f, i) => (
-            <div>
-              <span class="fname t-small">
-                {i === 0 ? (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.2"></circle><path d="M5 20v-2c0-3.2 3-5 7-5s7 1.8 7 5v2"></path></svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-5 9 5-9 5-9-5zM3 14l9 5 9-5M3 18l9 5 9-5"></path></svg>
-                )}
-                {f.title}
-              </span>
-              <span class="t-small ftext">{f.text}</span>
-            </div>
+          c.facts.map((f) => (
+            <li>
+              <Cluster justify="between" gap={8}>
+                <Text as="span" role="small">{f.title}</Text>
+                <Text as="span" role="small" tone="subtle">{f.text}</Text>
+              </Cluster>
+            </li>
           ))
         }
-      </div>
-      <p class="t-small disclaimer">{c.disclaimer}</p>
-    </article>
-  </div>
+      </Stack>
+      <Text role="small" tone="subtle">{c.disclaimer}</Text>
+    </Card>
+  </Stack>
 </Section>
 
 <style>
-  .layout { display: grid; gap: var(--space-8); align-items: center; }
-  .copy { display: flex; flex-direction: column; gap: 0; min-width: 0; }
-  .copy h2 { max-width: 13.2ch; }
-  .label { color: var(--c-text-3); }
-  .lead { color: var(--c-text-2); }
-  .intro { color: var(--c-text); font-weight: 500; }
-  .profit { display: flex; gap: var(--space-4); align-items: flex-start; margin-top: 0; padding-top: var(--space-5); border-top: var(--bw-1) solid var(--c-text-3); }
-  .picon { display: flex; flex: none; align-items: center; justify-content: center; width: var(--space-10); height: var(--space-10); background: var(--c-accent); color: var(--c-surface); border-radius: var(--radius); }
-  .picon svg { width: var(--space-6); height: var(--space-6); }
-  .profit div { display: flex; flex-direction: column; gap: var(--space-1); }
-  .profit strong { font-weight: 600; }
-  .profit span.t-text { color: var(--c-text-2); }
-  .case { display: flex; flex-direction: column; min-width: 0; padding: var(--space-4); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); box-shadow: var(--shadow-menu); }
-  .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-4); color: var(--c-text); font-weight: 600; }
-  .tag { padding: var(--space-2); background: var(--color-sunken); color: var(--c-accent); font-weight: 400; white-space: nowrap; }
-  .photo { height: calc(var(--space-16) * 3.5); overflow: hidden; background: var(--color-sunken); }
-  .photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-  .prices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) var(--space-3); margin-top: var(--space-5); padding-bottom: var(--space-5); border-bottom: var(--bw-1) solid var(--c-border); }
-  .prices > div { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
-  .plabel { color: var(--c-text-3); }
-  .prices strong { font-size: var(--fs-card-title); font-weight: 500; letter-spacing: -0.03em; line-height: var(--lh-card-title); white-space: nowrap; }
-  .prices .discount { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; padding: var(--space-3); background: var(--color-sunken); }
-  .discount .plabel { color: var(--c-accent); }
-  .discount strong { font-size: var(--fs-card-title); line-height: var(--lh-card-title); color: var(--c-accent); }
-  .facts { display: flex; flex-direction: column; }
-  .facts > div { display: flex; flex-direction: column; gap: var(--space-2); padding-block: var(--space-3); border-bottom: var(--bw-1) solid var(--c-border); }
-  .facts > div:last-child { border-bottom: 0; }
-  .fname { display: inline-flex; align-items: center; gap: var(--space-3); font-weight: 500; }
-  .fname svg { width: var(--space-5); height: var(--space-5); color: var(--c-accent); flex: none; }
-  .ftext { color: var(--c-text-3); }
-  .disclaimer { margin-top: var(--space-1); padding-top: var(--space-3); border-top: var(--bw-1) solid var(--c-border); color: var(--c-text-3); }
-  @media (min-width: 768px) {
-    .layout { grid-template-columns: minmax(0, 1.02fr) minmax(0, 1.08fr); gap: var(--space-10); }
-    .case { padding: var(--space-5); }
-    .facts > div { flex-direction: row; align-items: center; justify-content: space-between; }
-    .ftext { text-align: right; }
-  }
-  @media (min-width: 1024px) {
-    .layout { gap: var(--space-16); }
-    .prices { grid-template-columns: 1fr 1fr 0.78fr; }
-    .prices .discount { grid-column: auto; flex-direction: column; align-items: stretch; justify-content: flex-start; margin-block: calc(var(--space-2) * -1) calc(var(--space-1) * -1); }
-    .prices > div:not(.discount) + div:not(.discount) { padding-left: var(--space-3); border-left: var(--bw-1) solid var(--c-border); }
-    .discount strong { line-height: var(--lh-metric); }
-  }
+  .icon { display: flex; color: var(--c-accent); }
 </style>
