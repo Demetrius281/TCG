@@ -92,7 +92,11 @@ const { mode, hub = '', spheres = [], columns, inputs = [], core, outputs = [], 
 
   /* converge */
   .is-converge { display: grid; justify-items: center; gap: var(--s-40); }
-  .hub { position: relative; isolation: isolate; overflow: hidden; padding: var(--s-24) var(--s-32); background: var(--color-inverse); color: var(--color-on-inverse); }
+  .hub { position: relative; isolation: isolate; padding: var(--s-24) var(--s-32); background: var(--color-inverse); color: var(--color-on-inverse); }
+  /* glow once the hub is full: fades in (opacity), breathes while full (filter), fades out when the fill resets */
+  .hub::after { content: ''; position: absolute; inset: 0; z-index: -1; box-shadow: var(--shadow-glow); opacity: 0; pointer-events: none; transition: opacity var(--motion-slow) var(--motion-ease); }
+  .hub.is-full::after { opacity: 1; animation: hub-breathe calc(var(--motion-slow) * 2) var(--motion-ease) var(--motion-slow) infinite alternate; }
+  @keyframes hub-breathe { from { filter: opacity(1); } to { filter: opacity(0.6); } }
   .fill { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; }
   .fill rect { fill: var(--c-accent); }
   .hub-name { display: block; transition: color var(--ease); }
@@ -121,8 +125,13 @@ const { mode, hub = '', spheres = [], columns, inputs = [], core, outputs = [], 
   .foot-item { display: grid; align-content: start; gap: var(--s-12); min-width: 0; padding-top: var(--s-24); border-top: var(--bw-1) solid var(--c-border); }
   .is-layers .flow-lines { display: none; }
 
+  @media (prefers-reduced-motion: reduce) {
+    .hub::after, .hub.is-full::after { transition: none; animation: none; }
+  }
   @media (min-width: 768px) {
     .spheres { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    /* approved exception to rule 1 (TASK home): converge outputs centred under their dots when they stand in one row */
+    .sphere { justify-items: center; text-align: center; }
     .is-layers { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-32); row-gap: var(--s-40); }
     .is-layers .flow-lines { display: block; }
   }

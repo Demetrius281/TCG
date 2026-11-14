@@ -66,7 +66,8 @@ export const servicesBlock = obj({
       obj({
         id: text.optional(),
         name: text.optional(),
-        items: z.array(obj({ title: text, text: text, meta: text, href: text })).min(1),
+        lead: text.optional(),
+        items: z.array(obj({ title: text, text: text, meta: text.optional(), href: text })).min(1),
       }),
     )
     .min(1),

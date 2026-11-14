@@ -22,7 +22,7 @@ blocks:
     hub: TCG
     outputs:
       - title: Intelligence
-        text: "For buyers and owners: a verified legal and technical picture of a property before money moves."
+        text: "For buyers and owners: the verified legal and technical picture before money moves."
       - title: Advisory
         text: "For owners and developers: a plan to buy, finish, legalise, sell or launch, built on that picture."
       - title: Capital
@@ -215,29 +215,26 @@ blocks:
     groups:
       - id: buyers
         name: For buyers
+        lead: Verification and representation before capital is committed.
         items:
           - title: Preliminary Due Diligence
             text: An online check of the property before you pay a deposit.
-            meta: From US$90
             href: /due-diligence
           - title: Acquisition Advisory
             text: Guidance on a complex purchase, from price to final decision.
-            meta: Individually scoped
             href: /acquisition-advisory
       - id: owners
         name: For owners and developers
+        lead: Clear exit and growth routes for an existing asset.
         items:
           - title: Distressed Property Buyout
             text: A firm offer for a stalled project or unsold stock.
-            meta: Individually scoped
             href: /distressed-property-buyout
           - title: Go-to-Market for Developers
             text: Positioning, pricing, sales setup for new or launched projects.
-            meta: Individually scoped
             href: /go-to-market
           - title: Land Monetization Strategy
             text: A profitable plan for your land.
-            meta: Individually scoped
             href: /land
     start:
       title: Not sure where to start?

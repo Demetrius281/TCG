@@ -17,11 +17,19 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   <SectionHead title={title} lead={lead} id={headId} />
   <Stack gap={40}>
     {
-      groups.map((g) => (
-        <Stack gap={16} id={g.id}>
-          {g.name && <Text as="h3" role="card-title">{g.name}</Text>}
-          <Rows bleed items={g.items.map((item) => ({ href: item.href, title: item.title, text: item.text, meta: item.meta, go: explore }))} />
-        </Stack>
+      groups.map((g, i) => (
+        <>
+          {i > 0 && <div class="rule" aria-hidden="true"></div>}
+          <Stack gap={16} id={g.id}>
+            {(g.name || g.lead) && (
+              <Stack gap={12}>
+                {g.name && <Text as="h3" role="card-title">{g.name}</Text>}
+                {g.lead && <Text tone="muted">{g.lead}</Text>}
+              </Stack>
+            )}
+            <Rows items={g.items.map((item) => ({ href: item.href, title: item.title, text: item.text, meta: item.meta, go: explore }))} />
+          </Stack>
+        </>
       ))
     }
   </Stack>
@@ -33,3 +41,8 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
     <Cluster gap="buttons"><Action action={start.action} fallbackVariant="inverse" /></Cluster>
   </Cluster>
 </Section>
+
+<style>
+  /* the hairline between groups: full container width; the Stack gap gives 40 above and below */
+  .rule { border-top: var(--bw-1) solid var(--c-border); }
+</style>
