@@ -1,15 +1,13 @@
 ---
 import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'architecture'>, 'type'>;
 const { label, title, head, columns, inputs, engine, outputs, foot, note, tone, id, nav } = Astro.props;
 ---
 <Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`}>
-  <div class="intro">
-    <p class="t-label label">{label}</p>
-    <h2 id={`${id}-h`}>{title}</h2>
-  </div>
+  <SectionHead label={label} title={title} id={`${id}-h`} />
   <figure class="arch">
     <div class="head t-label"><span>{head[0]}</span><span class="cp">{head[1]}</span></div>
     <div class="body">

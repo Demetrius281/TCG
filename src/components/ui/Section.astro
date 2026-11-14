@@ -1,14 +1,31 @@
 ---
+// The only way to write a section (CLAUDE.md rules 1 and 5, variation B).
+//   stacked (default): head and content in one column.
+//   split: slot "head" 5/12 left, content 7/12 right from 1024px, gap --split-gap.
+//   article: slot "nav" (--article-nav) left, text column (--container-prose) right from 1024px.
 interface Props {
   tone?: 'default' | 'sunken' | 'inverse';
   id?: string;
   labelledby?: string;
   nav?: string;
+  layout?: 'stacked' | 'split' | 'article';
 }
-const { tone = 'default', id, labelledby, nav } = Astro.props;
+const { tone = 'default', id, labelledby, nav, layout = 'stacked' } = Astro.props;
+const twoCol = layout !== 'stacked';
 ---
 <section class:list={['section', `tone-${tone}`, tone === 'inverse' && 'on-inverse']} id={id} data-nav={nav} aria-labelledby={labelledby}>
-  <div class="inner"><slot /></div>
+  <div class:list={['inner', twoCol && `layout-${layout}`]}>
+    {
+      twoCol ? (
+        <>
+          <div class="side">{layout === 'split' ? <slot name="head" /> : <slot name="nav" />}</div>
+          <div class="body"><slot /></div>
+        </>
+      ) : (
+        <slot />
+      )
+    }
+  </div>
 </section>
 
 <style>
@@ -37,8 +54,16 @@ const { tone = 'default', id, labelledby, nav } = Astro.props;
     --c-border-strong: var(--color-border-inverse);
     --c-accent: var(--color-accent-inverse);
   }
+  /* Page top: the first section starts --page-top below the header (rule 2). */
+  :global(main > section.section:first-of-type) { padding-top: var(--page-top); }
   .inner {
     width: min(100% - 2 * var(--gutter), var(--container));
     margin-inline: auto;
+  }
+  .side, .body { min-width: 0; }
+  .layout-split, .layout-article { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-10); }
+  @media (min-width: 1024px) {
+    .layout-split { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--split-gap); }
+    .layout-article { grid-template-columns: var(--article-nav) minmax(0, var(--container-prose)); gap: var(--split-gap); }
   }
 </style>

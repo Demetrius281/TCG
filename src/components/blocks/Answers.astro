@@ -1,5 +1,6 @@
 ---
 import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
 import Button from '../ui/Button.astro';
 import { isPlaceholder } from '../../lib/placeholder';
 import type { BlockOf } from '../../content.config';
@@ -12,8 +13,7 @@ const leadText = launch && !isPlaceholder(launch) ? `${lead} ${launch}` : lead;
 <Section id={id} tone={tone} labelledby={headId}>
   <div class="answers">
     <div class="copy">
-      <h2 id={headId}>{title}</h2>
-      <p class="t-lead lead">{leadText}</p>
+      <SectionHead title={title} lead={leadText} id={headId} next="actions" />
       {
         links && (
           <ul class="links">
@@ -33,9 +33,9 @@ const leadText = launch && !isPlaceholder(launch) ? `${lead} ${launch}` : lead;
 
 <style>
   .answers { display: grid; gap: var(--space-10); }
-  .copy { display: grid; gap: var(--space-4); align-content: start; max-width: var(--container-prose); }
+  .copy { display: grid; gap: 0; align-content: start; max-width: var(--container-prose); }
   .lead { color: var(--c-text-2); }
-  .links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-6); margin-top: var(--space-4); }
+  .links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-6); margin: 0; }
   .panel { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); border-top: var(--bw-2) solid var(--c-accent); }
   .panel-title { color: var(--c-text-3); }
   .list { counter-reset: q; display: grid; }

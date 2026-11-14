@@ -1,5 +1,6 @@
 ---
 import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
 import { inline } from '../../lib/inline';
 import type { BlockOf } from '../../content.config';
 
@@ -9,21 +10,14 @@ const text = (v: string | { title: string; text: string }) => (typeof v === 'str
 ---
 <Section id={id} nav={nav} tone={tone} labelledby={heading_id}>
   {
-    (label || title) && (
-      <div class="sec-head">
-        {
-          label && (
-            <div class="eyebrow-row">
-              <span class="t-label eyebrow">{label}</span>
-              {chain && <span class="chainpos">{[1, 2, 3, 4, 5, 6].map((n) => <i class={chain.includes(n) ? 'on' : undefined}></i>)}</span>}
-            </div>
-          )
-        }
-        {title && <h2 id={heading_id}>{title}</h2>}
+    label && (
+      <div class="eyebrow-row">
+        <span class="t-label eyebrow">{label}</span>
+        {chain && <span class="chainpos">{[1, 2, 3, 4, 5, 6].map((n) => <i class={chain.includes(n) ? 'on' : undefined}></i>)}</span>}
       </div>
     )
   }
-  {lead && <p class="t-lead lead">{lead}</p>}
+  <SectionHead title={title} lead={lead} id={heading_id} />
   {answer && <p class="answer">{answer}</p>}
 
   {
@@ -195,22 +189,22 @@ const text = (v: string | { title: string; text: string }) => (typeof v === 'str
 </Section>
 
 <style>
-  .sec-head { display: grid; gap: var(--space-5); max-width: calc(var(--container-prose) * 1.2); margin-bottom: var(--space-6); }
-  .eyebrow-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); }
+  .sec-head { display: grid; gap: var(--space-5); max-width: var(--container-prose); margin-bottom: var(--space-6); }
+  .eyebrow-row { margin-bottom: var(--space-4); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); }
   .eyebrow { color: var(--c-text-3); }
   .chainpos { display: inline-flex; gap: var(--space-1); }
   .chainpos i { display: block; width: var(--space-4); height: var(--bw-2); background: var(--c-border-strong); }
   .chainpos i.on { background: var(--c-accent); }
   .lead { color: var(--c-text-2); max-width: var(--container-prose); margin-bottom: var(--space-8); }
-  .answer { max-width: calc(var(--container-prose) * 1.2); margin-bottom: var(--space-6); padding: var(--space-5) 0 var(--space-5) var(--space-6); border-left: var(--bw-2) solid var(--c-accent); font-size: var(--fs-lead); line-height: var(--lh-lead); font-weight: 500; color: var(--c-text); }
+  .answer { max-width: var(--container-prose); margin-bottom: var(--space-6); padding: var(--space-5) 0 var(--space-5) var(--space-6); border-left: var(--bw-2) solid var(--c-accent); font-size: var(--fs-lead); line-height: var(--lh-lead); font-weight: 500; color: var(--c-text); }
   .prose { display: grid; gap: var(--space-4); max-width: var(--container-prose); margin-bottom: var(--space-6); color: var(--c-text-2); }
   .prose :global(strong) { color: var(--c-text); font-weight: 600; }
   .prose :global(a), .tl :global(a), .answer :global(a) { color: var(--c-accent); }
   .h3, .base-h { margin: var(--space-12) 0 var(--space-6); }
-  .pull { max-width: calc(var(--container-prose) * 1.25); margin-top: var(--space-10); padding: var(--space-6); border: var(--bw-1) solid var(--c-border); border-left: var(--bw-2) solid var(--c-accent); background: var(--c-surface); font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 500; color: var(--c-text); }
-  .tbl-note { margin-top: var(--space-4); max-width: calc(var(--container-prose) * 1.2); font-family: var(--font-mono); font-size: var(--fs-label); line-height: var(--lh-small); color: var(--c-text-3); }
-  .sub-lead { margin: var(--space-8) 0 var(--space-4); color: var(--c-text-2); }
-  .colour-note { margin-block: var(--space-4) var(--space-6); padding: var(--space-4) var(--space-5); background: var(--c-bg); border: var(--bw-1) solid var(--c-border); }
+  .pull { max-width: var(--container-prose); margin-top: var(--space-10); padding: var(--space-6); border: var(--bw-1) solid var(--c-border); border-left: var(--bw-2) solid var(--c-accent); background: var(--c-surface); font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 500; color: var(--c-text); }
+  .tbl-note { margin-top: var(--space-4); max-width: var(--container-prose); font-family: var(--font-mono); font-size: var(--fs-label); line-height: var(--lh-small); color: var(--c-text-3); }
+  .sub-lead { max-width: var(--container-prose); margin: var(--space-8) 0 var(--space-4); color: var(--c-text-2); }
+  .colour-note { max-width: var(--container-prose); margin-block: var(--space-4) var(--space-6); padding: var(--space-4) var(--space-5); background: var(--c-bg); border: var(--bw-1) solid var(--c-border); }
   .colour-note strong { display: block; margin-bottom: var(--space-1); }
 
   /* Hairline-divided grids (legacy "seam"): cells share 1px rules instead of having gaps. */
@@ -260,7 +254,7 @@ const text = (v: string | { title: string; text: string }) => (typeof v === 'str
   .restr li, .checks li { display: flex; align-items: baseline; gap: var(--space-3); margin-right: var(--space-8); padding-block: var(--space-4); border-bottom: var(--bw-1) solid var(--c-border); color: var(--c-text); }
   .restr li::before, .checks li::before { content: ''; flex: none; width: var(--space-2); height: var(--space-2); background: var(--c-accent); }
   .checks { margin-bottom: var(--space-10); }
-  .feas { max-width: calc(var(--container-prose) * 1.15); counter-reset: f; }
+  .feas { max-width: var(--container-prose); counter-reset: f; }
   .feas li { counter-increment: f; display: grid; grid-template-columns: var(--space-10) minmax(0, 1fr); padding-block: var(--space-4); border-bottom: var(--bw-1) solid var(--c-border); color: var(--c-text); }
   .feas li::before { content: counter(f, decimal-leading-zero); font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-3); padding-top: var(--space-1); }
   .steps4 { display: grid; gap: var(--space-6); border-top: 0; counter-reset: s; }

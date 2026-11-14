@@ -1,16 +1,19 @@
 ---
 import Section from '../ui/Section.astro';
+import Grid from '../ui/Grid.astro';
 import Button from '../ui/Button.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'cards'>, 'type'>;
 const { label, title, lead, columns, variant, items, note, link, fineprint, tone, id } = Astro.props;
+const Wrap: any = variant === 'card' ? Grid : 'ul';
+const wrapProps = variant === 'card' ? { cols: columns } : { class: `grid cols-${columns} v-${variant}` };
 const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead label={label} title={title} lead={lead} id={headId} />
-  <ul class:list={['grid', `cols-${columns}`, `v-${variant}`]}>
+  <Wrap {...wrapProps}>
     {
       items.map((item) => {
         const Tag = item.href ? 'a' : 'div';
@@ -27,8 +30,8 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
         );
       })
     }
-  </ul>
-  {link && <p class="link"><Button href={link.href} variant="secondary">{link.label}</Button></p>}
+  </Wrap>
+  {link && <div class="link"><Button href={link.href} variant="secondary">{link.label}</Button></div>}
   {fineprint && <p class="t-small fineprint"><a href={fineprint.href}>{fineprint.label}</a></p>}
   {
     note && (
@@ -42,7 +45,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
 
 <style>
   .link { margin-top: var(--space-8); }
-  .fineprint { margin-top: var(--space-6); }
+  .fineprint { max-width: var(--container-prose); margin-top: var(--space-6); }
   .fineprint a { color: var(--c-text-2); text-decoration: underline; text-underline-offset: var(--space-1); }
   .grid { display: grid; gap: var(--grid-gap); }
   .card {

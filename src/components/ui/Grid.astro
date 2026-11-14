@@ -1,0 +1,22 @@
+---
+// The only card grid (CLAUDE.md rule 7): 1 column on mobile, 2 from 768px, `cols` from 1024px.
+// Gap is --grid-gap. Cards and cells inside it are not allowed to change the gap.
+interface Props {
+  cols?: 2 | 3 | 4;
+  as?: 'ul' | 'div' | 'ol';
+  class?: string;
+}
+const { cols = 3, as: Tag = 'ul', class: className } = Astro.props;
+---
+<Tag class:list={['grid', `cols-${cols}`, className]}><slot /></Tag>
+
+<style>
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--grid-gap); margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 768px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+</style>

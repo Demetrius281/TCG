@@ -1,5 +1,6 @@
 ---
 import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
 import { whatsappHref } from '../../data/whatsapp';
 import type { BlockOf } from '../../content.config';
 
@@ -8,7 +9,7 @@ const { title, items, tone, id } = Astro.props;
 const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
-  <h2 id={headId} class="title">{title}</h2>
+  <SectionHead title={title} id={headId} />
   <ul class="list">
     {
       items.map((item) => {

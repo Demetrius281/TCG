@@ -226,5 +226,57 @@ No team block. No staff names.
 - No invented facts, numbers, clients or quotes. Use [TEXT] where copy is missing.
 - Reuse text from the current site only where it fits the new section.
 
-## 11. Out of scope until after launch
+## 11. Layout rules
+Enforced by CLAUDE.md, `npm run check` (static), `npm run check:layout` (measured at 375 and 1280px) and the /styleguide page. Tokens for these values: --page-top, --hero-title-max, --split-gap, --article-nav, --section-y, --grid-gap, --container-prose in src/styles/tokens.css.
+
+### Universal rules (every page, no exceptions)
+1. Edge. Container 1200px, gutter 20px mobile / 40px desktop. Every label, heading,
+   lead and paragraph starts at the container's left edge. In two-column layouts the
+   left column starts at that edge. Mobile: one column, left-aligned.
+2. Page top. Header 56px mobile / 76px desktop. Header bottom -> first element of the
+   page: 48px mobile / 80px desktop, on every page (token --page-top).
+3. Type. Only these roles (mobile/desktop px): display 36/60 (home, /platform H1),
+   h1 32/48 (other H1), h2 28/40 (section title), h3 20/24 (card, step, FAQ question),
+   h4 17/18 (subhead in long text), lead 18/20, body 16/17, small 14/15, caption 13,
+   label 12 mono uppercase. No other font sizes anywhere.
+4. Text spacing (px): label->title 16; title->lead 16; lead->buttons 32;
+   between buttons 12 mobile / 16 desktop; section head->content 40;
+   paragraph->paragraph 16; card title->card text 12; h4 in long text 32 above,
+   12 below; list items 8.
+5. Sections. Padding top and bottom 56px mobile / 112px desktop (--section-y).
+   Background: light, sunken or inverse only.
+6. Text width. h2, lead, paragraphs max 720px (--container-prose).
+   Hero H1 max 900px (--hero-title-max). Tables, card grids, forms use full container.
+7. Cards. Gap 16px mobile / 32px desktop (--grid-gap). Card padding 24px.
+   Columns: 1 mobile, 2 tablet, 2/3/4 desktop.
+8. Buttons. Height 52px; full width on mobile, auto on desktop. One primary per screen.
+   Mint primary on inverse sections. Radius 0.
+
+### Allowed variations (only these)
+A. Hero: display (home, /platform; animation right, desktop only) | page (no art) |
+   page with art (text and art 50/50 from 1024px).
+B. Section layout: stacked (head above, content full width) | split (head 5/12 left,
+   content 7/12 right from 1024px, gap 64px) | article (nav 280px left, text column
+   720px; only /regulations, legal pages, blog posts).
+C. Section tone chosen per page; two inverse sections never adjacent.
+D. Blocks and their order come from the page-type template in docs/site-spec.md:
+   home, service, due-diligence, platform, guide, legal, blog post.
+E. Illustrations: hero only, desktop only (>=768px), never loaded on mobile,
+   static under prefers-reduced-motion.
+
+### Shared elements that implement the rules
+Section (tone, layout: stacked | split | article), SectionHead (label, title, lead; `next` = content 40px or actions 32px; hero mode), Grid (cols 2, 3, 4), Button / WhatsAppLink (Action). Blocks use them and cannot override their spacing, width, gap or type.
+
+### Page-type templates (block order)
+- home: section 8.
+- service: section 9.
+- due-diligence: hero → cards → report → comparison → pricing → steps → order → faq → cta.
+- platform: hero → features → spotlight → acquisition_case → architecture → inquiry.
+- guide (/regulations): hero → guide_nav → topics → guide (one per section) → cta → faq → sources.
+- legal and blog post: article layout; block order to be set by the owner before these pages are built.
+
+### Known deviations (burn-down list)
+qa/baseline/design.json (static) and qa/baseline/layout.json (measured) list what the pages that are not migrated yet still break. New violations fail; the baseline can only shrink. `.t-metric` (48/72px) is used by the metrics block and is allowed by the measured check although rule 3 does not list it; the owner decides whether to keep it.
+
+## 12. Out of scope until after launch
 Blog pipeline, payments, document upload, owner application form, tests (Lighthouse CI, Playwright), /styleguide, language versions.

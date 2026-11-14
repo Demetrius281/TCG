@@ -13,7 +13,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
     {
       groups.map((g) => (
         <div class="group" id={g.id}>
-          {g.name && <h2 class="t-h2 name">{g.name}</h2>}
+          {g.name && <SectionHead title={g.name} />}
           <ul class="list">
             {g.items.map((item) => (
               <li>
@@ -35,7 +35,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
 
 <style>
   .groups { display: grid; gap: var(--space-10); }
-  .group { display: grid; gap: var(--space-4); }
+  .group { display: grid; gap: 0; }
   .name { max-width: var(--container-prose); }
   .list { border-top: var(--bw-1) solid var(--c-border-strong); }
   .row {

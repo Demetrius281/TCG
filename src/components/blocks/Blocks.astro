@@ -1,0 +1,71 @@
+---
+import Hero from './Hero.astro';
+import Cards from './Cards.astro';
+import Sample from './Sample.astro';
+import Services from './Services.astro';
+import Disclosure from './Disclosure.astro';
+import Metrics from './Metrics.astro';
+import Testimonials from './Testimonials.astro';
+import Logos from './Logos.astro';
+import Steps from './Steps.astro';
+import Faq from './Faq.astro';
+import Cta from './Cta.astro';
+import Report from './Report.astro';
+import Comparison from './Comparison.astro';
+import Pricing from './Pricing.astro';
+import Order from './Order.astro';
+import Features from './Features.astro';
+import Spotlight from './Spotlight.astro';
+import AcquisitionCase from './AcquisitionCase.astro';
+import Architecture from './Architecture.astro';
+import Inquiry from './Inquiry.astro';
+import GuideNav from './GuideNav.astro';
+import Topics from './Topics.astro';
+import Guide from './Guide.astro';
+import Flow from './Flow.astro';
+import Answers from './Answers.astro';
+import Choices from './Choices.astro';
+import Sources from './Sources.astro';
+import type { Block } from '../../content.config';
+
+interface Props {
+  blocks: Block[];
+}
+const { blocks } = Astro.props;
+
+const registry = {
+  hero: Hero,
+  cards: Cards,
+  sample: Sample,
+  services: Services,
+  disclosure: Disclosure,
+  metrics: Metrics,
+  testimonials: Testimonials,
+  logos: Logos,
+  steps: Steps,
+  faq: Faq,
+  cta: Cta,
+  report: Report,
+  comparison: Comparison,
+  pricing: Pricing,
+  order: Order,
+  features: Features,
+  spotlight: Spotlight,
+  acquisition_case: AcquisitionCase,
+  architecture: Architecture,
+  inquiry: Inquiry,
+  guide_nav: GuideNav,
+  topics: Topics,
+  guide: Guide,
+  sources: Sources,
+  flow: Flow,
+  answers: Answers,
+  choices: Choices,
+} as const;
+---
+{
+  blocks.map(({ type, ...props }) => {
+    const Component = registry[type] as any;
+    return <Component {...props} />;
+  })
+}

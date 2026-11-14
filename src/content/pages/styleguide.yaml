@@ -1,0 +1,29 @@
+# /styleguide: not indexed, not in the sitemap, menu or footer.
+# Most samples are taken from the real page content at build time (see src/pages/styleguide.astro).
+# The two blocks below have no copy on the live pages yet; their text comes from the sample report on /due-diligence.
+seo:
+  title: Styleguide | TCG
+  description: Design rules and every block of the TCG site, built from real page content.
+  robots: noindex, nofollow
+blocks:
+  - type: sample
+    title: Report excerpt
+    lead: Informational screening, not a legal opinion.
+    document_title: Preliminary due diligence
+    rows:
+      - label: Zoning
+        value: Tourism zone
+        status: ok
+      - label: PBG · SLF
+        value: Function differs
+        status: warn
+      - label: Company · AHU
+        value: Director match
+        status: ok
+      - label: Licence · OSS
+        value: No KBLI record
+        status: danger
+    note: Sample data. An informational screening, not a legal opinion.
+  - type: disclosure
+    title: How we disclose our interest in a property
+    href: /terms#conflict-of-interest

@@ -1,5 +1,6 @@
 ---
 import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'acquisition_case'>, 'type'>;
@@ -8,9 +9,7 @@ const { label, title, paragraphs, profit, case: c, tone, id, nav } = Astro.props
 <Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`}>
   <div class="layout">
     <div class="copy">
-      <p class="t-label label">{label}</p>
-      <h2 id={`${id}-h`}>{title}</h2>
-      {paragraphs.map((p, i) => <p class:list={['t-lead lead', i === 0 && 'intro']}>{p}</p>)}
+      <SectionHead label={label} title={title} lead={paragraphs} id={`${id}-h`} />
       <div class="profit">
         <span class="picon">
           <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 24l8-8 6 5 10-12"></path><path d="M20 9h8v8"></path></svg>
@@ -48,12 +47,12 @@ const { label, title, paragraphs, profit, case: c, tone, id, nav } = Astro.props
 
 <style>
   .layout { display: grid; gap: var(--space-8); align-items: center; }
-  .copy { display: flex; flex-direction: column; gap: var(--space-5); min-width: 0; }
+  .copy { display: flex; flex-direction: column; gap: 0; min-width: 0; }
   .copy h2 { max-width: 13.2ch; }
   .label { color: var(--c-text-3); }
   .lead { color: var(--c-text-2); }
   .intro { color: var(--c-text); font-weight: 500; }
-  .profit { display: flex; gap: var(--space-4); align-items: flex-start; margin-top: var(--space-1); padding-top: var(--space-5); border-top: var(--bw-1) solid var(--c-text-3); }
+  .profit { display: flex; gap: var(--space-4); align-items: flex-start; margin-top: 0; padding-top: var(--space-5); border-top: var(--bw-1) solid var(--c-text-3); }
   .picon { display: flex; flex: none; align-items: center; justify-content: center; width: var(--space-10); height: var(--space-10); background: var(--c-accent); color: var(--c-surface); border-radius: var(--radius); }
   .picon svg { width: var(--space-6); height: var(--space-6); }
   .profit div { display: flex; flex-direction: column; gap: var(--space-1); }

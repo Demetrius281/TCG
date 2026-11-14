@@ -1,5 +1,6 @@
 ---
 import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
 import Action from '../ui/Action.astro';
 import type { BlockOf } from '../../content.config';
 
@@ -7,7 +8,7 @@ type Props = Omit<BlockOf<'comparison'>, 'type'>;
 const { title, highlight, other, closing, tone = 'inverse', id } = Astro.props;
 ---
 <Section id={id} tone={tone} labelledby="compare-title">
-  <h2 id="compare-title" class="title">{title}</h2>
+  <SectionHead title={title} id="compare-title" />
   <div class="cmp">
     <div class="on">
       <div class="top">
@@ -32,7 +33,6 @@ const { title, highlight, other, closing, tone = 'inverse', id } = Astro.props;
 </Section>
 
 <style>
-  .title { max-width: var(--container-prose); margin-bottom: var(--space-10); }
   .cmp { display: grid; gap: var(--space-4); align-items: stretch; }
   .cmp > div { position: relative; display: flex; flex-direction: column; gap: var(--space-5); min-width: 0; padding: var(--space-6); }
   .on { background: var(--color-surface); color: var(--color-text); }
@@ -50,7 +50,7 @@ const { title, highlight, other, closing, tone = 'inverse', id } = Astro.props;
   .off .facts dd { font-size: var(--fs-h2); color: var(--c-text-2); }
   .on .text { color: var(--color-text-2); }
   .cta { display: flex; margin-top: auto; }
-  .closing { margin-top: var(--space-6); padding-top: var(--space-6); border-top: var(--bw-1) solid var(--c-border); font-size: var(--fs-h3); font-weight: 500; letter-spacing: -0.015em; line-height: var(--lh-h3); color: var(--c-text); }
+  .closing { max-width: var(--container-prose); margin-top: var(--space-6); padding-top: var(--space-6); border-top: var(--bw-1) solid var(--c-border); font-size: var(--fs-h3); font-weight: 500; letter-spacing: -0.015em; line-height: var(--lh-h3); color: var(--c-text); }
 
   @media (min-width: 768px) {
     .cmp { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--grid-gap); }

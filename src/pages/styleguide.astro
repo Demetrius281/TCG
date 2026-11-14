@@ -1,0 +1,168 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Blocks from '../components/blocks/Blocks.astro';
+import Cards from '../components/blocks/Cards.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHead from '../components/ui/SectionHead.astro';
+import Button from '../components/ui/Button.astro';
+import type { Block } from '../content.config';
+
+// Every sample below is real TCG content, read from the content files at build time.
+const home = await getEntry('home', 'index');
+const pages = await getCollection('pages');
+const guideEntry = await getEntry('pages', 'styleguide');
+if (!home || !guideEntry) throw new Error('Missing content entries for /styleguide');
+const all: Block[] = [...home.data.blocks, ...pages.flatMap((p) => p.data.blocks)];
+const first = <T extends Block['type']>(type: T) => all.find((b) => b.type === type) as Extract<Block, { type: T }>;
+
+const hero = first('hero');
+const ddHero = (pages.find((p) => p.id === 'due-diligence')!.data.blocks[0]) as Extract<Block, { type: 'hero' }>;
+const flow = first('flow');
+const advisory = (home.data.blocks.find((b) => b.type === 'cards') ?? first('cards')) as Extract<Block, { type: 'cards' }>;
+const capital = home.data.blocks.filter((b) => b.type === 'cards')[1] as Extract<Block, { type: 'cards' }>;
+const metrics = first('metrics');
+const answers = first('answers');
+const cta = first('cta');
+const faq = first('faq');
+const cardPool = [...advisory.items, ...capital.items];
+const grid = (n: 2 | 3 | 4): Extract<Block, { type: 'cards' }> => ({ type: 'cards', columns: n, variant: 'card', items: cardPool.slice(0, n === 2 ? 2 : n) });
+
+// Block samples: hero in three variants, every other type once, every guide block.
+const heroVariants: Block[] = [
+  { ...hero, heading_id: 'sg-hero-display' },
+  { ...ddHero, id: undefined, heading_id: 'sg-hero-art' },
+  { ...ddHero, id: undefined, illustration: undefined, heading_id: 'sg-hero-page' },
+];
+const types = Array.from(new Set(all.map((b) => b.type)));
+const singles: Block[] = types
+  .filter((t) => t !== 'hero' && t !== 'guide' && t !== 'guide_nav')
+  .map((t) => all.find((b) => b.type === t)!);
+const guides = all.filter((b) => b.type === 'guide');
+let prev = '';
+const samples: Block[] = [...heroVariants, ...singles, ...guides].map((b) => {
+  const out = { ...b } as Block;
+  if (out.tone === 'inverse' && prev === 'inverse') out.tone = 'default';
+  prev = out.tone ?? 'default';
+  return out;
+});
+const markOf = (b: Block, i: number) => (b.type === 'hero' ? `hero ${['display', 'page with art', 'page'][i]}` : b.type === 'guide' ? `guide · ${b.heading_id ?? b.title ?? ''}` : b.type);
+
+const roles = [
+  { name: 'display 36/60', cls: 't-display', text: hero.title },
+  { name: 'h1 32/48', cls: 't-h1', text: ddHero.title },
+  { name: 'h2 28/40', cls: 't-h2', text: flow.title },
+  { name: 'h3 20/24', cls: 't-h3', text: advisory.items[0].title },
+  { name: 'h4 17/18', cls: 't-h4', text: capital.items[0].title },
+  { name: 'lead 18/20', cls: 't-lead', text: hero.lead! },
+  { name: 'body 16/17', cls: 't-body', text: advisory.items[0].text },
+  { name: 'small 14/15', cls: 't-small', text: capital.items[0].text },
+  { name: 'caption 13', cls: 't-caption', text: faq.items[0]?.question ?? metrics.items[0].label },
+  { name: 'label 12 mono uppercase', cls: 't-label', text: flow.sources.title },
+];
+const navItems = answers.items.slice(0, 4);
+---
+<Base title="Styleguide | TCG" description="Design rules and every block of the TCG site, built from real page content." robots="noindex, nofollow">
+  <Section>
+    <SectionHead level={1} label="Styleguide" title="Design rules" lead={flow.lead} />
+  </Section>
+
+  <Section tone="sunken">
+    <SectionHead title="Type roles" />
+    <ul class="roles">
+      {roles.map((r) => (
+        <li class="role">
+          <p class="t-label name">{r.name}</p>
+          <p class={r.cls}>{r.text}</p>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Section>
+    <SectionHead label={flow.sources.title} title={answers.title} lead={answers.lead} />
+    <p class="t-body prose-p">{answers.list_title}</p>
+  </Section>
+
+  <Section tone="default">
+    <SectionHead title="Section tones" />
+    <p class="t-body prose-p">default</p>
+  </Section>
+  <Section tone="sunken">
+    <SectionHead title={cta.title} lead={cta.text} next="actions" />
+    <div class="buttons"><Button href="/due-diligence" variant="secondary">sunken</Button></div>
+  </Section>
+  <Section tone="inverse">
+    <SectionHead title={cta.title} lead={cta.text} next="actions" />
+    <div class="buttons"><Button href="/due-diligence" variant="inverse">inverse</Button></div>
+  </Section>
+
+  <Section>
+    <SectionHead title="Layout: stacked" lead={flow.lead} />
+    <Cards title={undefined} columns={3} variant="card" items={cardPool.slice(0, 3)} />
+  </Section>
+  <Section tone="sunken" layout="split">
+    <SectionHead slot="head" title="Layout: split" lead={flow.lead} />
+    <p class="t-body prose-p">{advisory.items[0].text}</p>
+  </Section>
+  <Section layout="article">
+    <nav slot="nav" aria-label="Article">
+      <ul class="anav">
+        {navItems.map((n) => <li class="t-small">{n}</li>)}
+      </ul>
+    </nav>
+    <div class="prose">
+      <SectionHead title="Layout: article" lead={answers.lead} />
+      <p class="t-body">{advisory.items[0].text}</p>
+      <h4>{capital.items[0].title}</h4>
+      <p class="t-body">{capital.items[0].text}</p>
+    </div>
+  </Section>
+
+  <Cards {...grid(2)} title="Grid: 2 columns" tone="sunken" />
+  <Cards {...grid(3)} title="Grid: 3 columns" />
+  <Cards {...grid(4)} title="Grid: 4 columns" tone="sunken" />
+
+  <Section>
+    <SectionHead title="Buttons on light" next="actions" />
+    <div class="buttons">
+      <Button href="/due-diligence" variant="primary">{hero.actions[0].label}</Button>
+      <Button href="/due-diligence" variant="secondary">{hero.actions[1].label}</Button>
+      <Button href="/due-diligence" variant="text">{cta.action.label}</Button>
+    </div>
+  </Section>
+  <Section tone="inverse">
+    <SectionHead title="Buttons on dark" next="actions" />
+    <div class="buttons">
+      <Button href="/due-diligence" variant="inverse">{hero.actions[0].label}</Button>
+      <Button href="/due-diligence" variant="secondary">{hero.actions[1].label}</Button>
+    </div>
+  </Section>
+
+  {
+    samples.map((b, i) => (
+      <>
+        <div class="mark"><p class="t-label">{`block: ${markOf(b, i)}`}</p></div>
+        <Blocks blocks={[b]} />
+      </>
+    ))
+  }
+</Base>
+
+<style>
+  .roles { display: grid; gap: var(--space-8); margin: 0; padding: 0; list-style: none; }
+  .role { display: grid; gap: var(--space-2); }
+  .role p { margin: 0; max-width: var(--hero-title-max); }
+  .name { color: var(--color-text-3); }
+  .buttons { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .anav { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+  .prose { max-width: var(--container-prose); }
+  .prose p { margin: 0 0 var(--space-4); }
+  .prose :global(h4) { margin: var(--space-8) 0 var(--space-3); }
+  .prose-p { max-width: var(--container-prose); margin: 0; }
+  .mark { width: min(100% - 2 * var(--gutter), var(--container)); margin: var(--space-10) auto 0; color: var(--color-accent); }
+  .mark p { margin: 0; }
+  @media (min-width: 768px) {
+    .buttons { gap: var(--space-4); }
+  }
+</style>

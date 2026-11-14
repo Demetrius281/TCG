@@ -1,0 +1,53 @@
+name: design-check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  design-check:
+    name: design-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # A pull request into main cannot weaken its own checks: the check scripts come from main
+      # (when they exist there), and changes to the protected files need the label "rules-approved".
+      - name: Use the checks from main
+        if: github.event_name == 'pull_request' && github.base_ref == 'main'
+        run: |
+          git fetch origin main
+          for p in scripts/check-design.mjs qa/rules; do
+            if git cat-file -e "origin/main:$p" 2>/dev/null; then
+              git checkout origin/main -- "$p"
+              echo "using $p from main"
+            fi
+          done
+
+      - name: Protected files
+        if: github.event_name == 'pull_request' && github.base_ref == 'main'
+        env:
+          APPROVED: ${{ contains(github.event.pull_request.labels.*.name, 'rules-approved') }}
+        run: |
+          changed=$(git diff --name-only "origin/main...${{ github.event.pull_request.head.sha }}" -- CLAUDE.md .claude .github scripts/check-design.mjs qa/rules qa/baseline)
+          if [ -n "$changed" ] && [ "$APPROVED" != "true" ]; then
+            echo "This pull request changes protected files and has no 'rules-approved' label:"
+            echo "$changed"
+            exit 1
+          fi
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run check
+      - run: npm run build
+      - run: npm run check:layout

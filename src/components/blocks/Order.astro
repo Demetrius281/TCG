@@ -1,5 +1,6 @@
 ---
 import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'order'>, 'type'>;
@@ -9,9 +10,7 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
 <Section id={id} tone={tone} labelledby="order-title">
   <div class="ei-grid">
     <div class:list={['ei-copy', sticky_copy && 'sticky-copy']}>
-      <p class="t-label label">{label}</p>
-      <h2 id="order-title">{title}</h2>
-      <p class="t-lead lead">{lead}</p>
+      <SectionHead label={label} title={title} lead={lead} id="order-title" />
       <div class="stage" aria-hidden="true">
         {stages.map((s, i) => <p data-s={i + 1}><span class="t-label">{stepText(i + 1)}</span>{s}</p>)}
       </div>
@@ -253,7 +252,7 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
 <style>
   [hidden] { display: none !important; }
   .ei-grid { display: grid; gap: var(--space-10); align-items: start; }
-  .ei-copy { display: grid; gap: var(--space-5); }
+  .ei-copy { display: grid; gap: 0; }
   .label { color: var(--c-text-3); }
   .lead { color: var(--c-text-2); max-width: var(--container-prose); }
   .stage, .ord-sum { display: none; }
@@ -262,7 +261,7 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
   .stage p[aria-current='step'] { color: var(--c-text); }
   .stage p[aria-current='step'] span, .stage p.done span { color: var(--c-accent); }
   .stage p.done { color: var(--c-text-2); }
-  .ord-sum { gap: var(--space-2); padding: var(--space-4); border: var(--bw-1) solid var(--c-border-strong); background: var(--c-surface); }
+  .ord-sum { margin-top: var(--space-5); gap: var(--space-2); padding: var(--space-4); border: var(--bw-1) solid var(--c-border-strong); background: var(--c-surface); }
   .ord-sum .k { color: var(--c-text-3); }
   .ord-sum .v { font-size: var(--fs-h4); font-weight: 500; }
   .ord-sum .d { color: var(--c-text-2); }
@@ -378,7 +377,7 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
   .pc-done h3 { font-size: var(--fs-h2); line-height: var(--lh-h2); }
   .pc-done .note { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--c-text-2); overflow-wrap: anywhere; }
   .pc-done .note b { font-weight: 500; color: var(--c-text); }
-  .ei-disc { padding-top: var(--space-4); border-top: var(--bw-1) solid var(--c-border-strong); font-family: var(--font-mono); color: var(--c-text-3); max-width: calc(var(--container-prose) * 1.2); }
+  .ei-disc { padding-top: var(--space-4); border-top: var(--bw-1) solid var(--c-border-strong); font-family: var(--font-mono); color: var(--c-text-3); max-width: var(--container-prose); }
 
   @media (min-width: 480px) {
     .pc-opts2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }

@@ -45,6 +45,11 @@
   --control-h-lg: 3rem;
   --header-h: 3.5rem;
   --header-h-lg: 4.75rem;
+  /* Layout rules (CLAUDE.md, docs/site-spec.md "Layout rules") */
+  --page-top: 3rem;
+  --hero-title-max: 56.25rem;
+  --split-gap: 4rem;
+  --article-nav: 17.5rem;
   --shadow-menu: 0 18px 40px -24px rgba(15, 20, 19, 0.45);
   --shadow-lift: 0 10px 24px -14px rgba(15, 20, 19, 0.6);
   --ease: 200ms ease;
@@ -65,6 +70,12 @@
   --lh-metric: 1;
   --lh-tight: 1.2;
   --lh-reset: 0;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-top: 5rem;
+  }
 }
 
 @media (min-width: 768px) {

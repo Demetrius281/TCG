@@ -1,12 +1,13 @@
 ---
 import Section from '../ui/Section.astro';
+import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'topics'>, 'type'>;
 const { title, items, tone, id, nav } = Astro.props;
 ---
 <Section id={id} nav={nav} tone={tone} labelledby="idx-h">
-  <h2 id="idx-h" class="head">{title}</h2>
+  <SectionHead title={title} id="idx-h" />
   <ol class="topics">
     {
       items.map((t) => (

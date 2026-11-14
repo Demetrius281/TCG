@@ -1,32 +1,6 @@
 ---
 import Base from './Base.astro';
-import Hero from '../components/blocks/Hero.astro';
-import Cards from '../components/blocks/Cards.astro';
-import Sample from '../components/blocks/Sample.astro';
-import Services from '../components/blocks/Services.astro';
-import Disclosure from '../components/blocks/Disclosure.astro';
-import Metrics from '../components/blocks/Metrics.astro';
-import Testimonials from '../components/blocks/Testimonials.astro';
-import Logos from '../components/blocks/Logos.astro';
-import Steps from '../components/blocks/Steps.astro';
-import Faq from '../components/blocks/Faq.astro';
-import Cta from '../components/blocks/Cta.astro';
-import Report from '../components/blocks/Report.astro';
-import Comparison from '../components/blocks/Comparison.astro';
-import Pricing from '../components/blocks/Pricing.astro';
-import Order from '../components/blocks/Order.astro';
-import Features from '../components/blocks/Features.astro';
-import Spotlight from '../components/blocks/Spotlight.astro';
-import AcquisitionCase from '../components/blocks/AcquisitionCase.astro';
-import Architecture from '../components/blocks/Architecture.astro';
-import Inquiry from '../components/blocks/Inquiry.astro';
-import GuideNav from '../components/blocks/GuideNav.astro';
-import Topics from '../components/blocks/Topics.astro';
-import Guide from '../components/blocks/Guide.astro';
-import Flow from '../components/blocks/Flow.astro';
-import Answers from '../components/blocks/Answers.astro';
-import Choices from '../components/blocks/Choices.astro';
-import Sources from '../components/blocks/Sources.astro';
+import Blocks from '../components/blocks/Blocks.astro';
 import type { Action, Block } from '../content.config';
 
 interface Props {
@@ -46,36 +20,6 @@ interface Props {
   pageClass?: string;
 }
 const { seo, blocks, headerCta, pageClass } = Astro.props;
-
-const registry = {
-  hero: Hero,
-  cards: Cards,
-  sample: Sample,
-  services: Services,
-  disclosure: Disclosure,
-  metrics: Metrics,
-  testimonials: Testimonials,
-  logos: Logos,
-  steps: Steps,
-  faq: Faq,
-  cta: Cta,
-  report: Report,
-  comparison: Comparison,
-  pricing: Pricing,
-  order: Order,
-  features: Features,
-  spotlight: Spotlight,
-  acquisition_case: AcquisitionCase,
-  architecture: Architecture,
-  inquiry: Inquiry,
-  guide_nav: GuideNav,
-  topics: Topics,
-  guide: Guide,
-  sources: Sources,
-  flow: Flow,
-  answers: Answers,
-  choices: Choices,
-} as const;
 ---
 <Base
   title={seo.title}
@@ -90,10 +34,5 @@ const registry = {
   extra={seo.meta}
   jsonLd={seo.json_ld}
 >
-  {
-    blocks.map(({ type, ...props }) => {
-      const Component = registry[type] as any;
-      return <Component {...props} />;
-    })
-  }
+  <Blocks blocks={blocks} />
 </Base>
