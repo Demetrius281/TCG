@@ -1025,7 +1025,7 @@ blocks:
       data_cta: guide_cta
     secondary:
       label: View Property Compliance Audit
-      href: /services/property-legal-audit
+      href: /regulations
     side:
       title: What to send for an initial property audit
       items:

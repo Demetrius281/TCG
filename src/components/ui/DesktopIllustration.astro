@@ -1,6 +1,6 @@
 ---
 interface Props {
-  name: 'regulations' | 'platform';
+  name: 'property-check' | 'regulations' | 'platform';
 }
 const { name } = Astro.props;
 ---
@@ -8,8 +8,10 @@ const { name } = Astro.props;
 
 <style>
   .host { display: none; min-width: 0; }
+  /* The slot reserves the illustration's size before the fragment loads (no layout shift). */
   @media (min-width: 768px) {
-    .host { display: block; }
+    .host { display: block; aspect-ratio: 460 / 512; }
+    .host[data-illustration='property-check'] { aspect-ratio: auto; min-height: calc(var(--space-16) * 8); }
   }
 </style>
 

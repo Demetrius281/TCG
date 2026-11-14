@@ -27,14 +27,12 @@ export const heroBlock = obj({
   variant: z.enum(['display', 'page']),
   heading_id: text.optional(),
   label: text.optional(),
-  hide_label_mobile: z.boolean().optional(),
   title: text,
   subtitle: text.optional(),
   lead: text.optional(),
   actions: z.array(action).default([]),
   meta: text.optional(),
   fee_note: text.optional(),
-  intro: obj({ title: text, text }).optional(),
   illustration: z.enum(['property-check', 'regulations', 'platform']).optional(),
   metrics: z.array(obj({ value: text, label: text })).optional(),
 });
@@ -320,6 +318,7 @@ const formField = obj({ label: text, tag: text });
 export const inquiryBlock = obj({
   type: z.literal('inquiry'),
   ...base,
+  sticky_copy: z.boolean().optional(),
   label: text,
   title: text,
   lead: text,
@@ -410,6 +409,7 @@ const option = obj({ value: text, label: text, detail: text.optional() });
 export const orderBlock = obj({
   type: z.literal('order'),
   ...base,
+  sticky_copy: z.boolean().optional(),
   label: text,
   title: text,
   lead: text,

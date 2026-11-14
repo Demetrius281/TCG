@@ -1,6 +1,7 @@
 // Desktop-only illustrations. Markup + styles live in /public/illustrations/<name>.html and the
 // animation script is its own chunk, so nothing is requested below the desktop breakpoint.
 const loaders: Record<string, () => Promise<unknown>> = {
+  'property-check': () => import('./property-check.js'),
   regulations: () => import('./regulations.js'),
   platform: () => import('./platform.js'),
 };

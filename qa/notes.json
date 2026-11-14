@@ -1,14 +1,14 @@
 {
-  "due-diligence/0": "match. Intentional difference: type sizes, container width and button colours come from the system scale.",
+  "due-diligence/0": "match. Intentional difference: type sizes, container width and button colours come from the system scale. The illustration now loads through the desktop loader (nothing is requested below 768px) and its slot reserves its size.",
   "due-diligence/1": "fixed: cards are now a hairline-divided grid (cells share 1px rules, no gaps) and the note stacks its link under the text, as in legacy. New variant: cards `seam`.",
   "due-diligence/2": "match. Intentional difference: card shadow and tint use system tokens; heading size from the system scale.",
   "due-diligence/3": "match. Intentional difference: featured card and traditional card keep the system surface colours.",
   "due-diligence/4": "match. Intentional difference: highlighted tier uses the system accent border instead of legacy's pale green fill (no token for it).",
   "due-diligence/5": "fixed: section was tinted (sunken) but legacy is plain; steps are now a hairline-divided 2x2 grid with the accent rule on step 01. Steps `grid` layout restyled.",
-  "due-diligence/6": "fixed: section is now dark (inverse tone) as in legacy; button text and hover colours follow the active tone. Intentional difference: primary button is mint (system inverse accent), legacy used white.",
+  "due-diligence/6": "fixed: section is now dark (inverse tone) as in legacy; the left column stays in view below the header while the form scrolls (shared `sticky_copy` option); button text and hover colours follow the active tone. Intentional difference: primary button is mint (system inverse accent), legacy used white.",
   "due-diligence/7": "fixed: section was tinted but legacy is plain; FAQ is two columns (title left, list right) as in legacy. New faq `layout: split`.",
   "due-diligence/8": "match. Intentional difference: button is mint (system inverse button), legacy used a white button.",
-  "regulations/0": "fixed: title is display size with the subtitle as a lighter second line. Hero columns 1:1 as in legacy.",
+  "regulations/0": "fixed: title is display size with the subtitle as a lighter second line. Hero columns 1:1 as in legacy. The illustration slot reserves its size before it loads.",
   "regulations/1": "fixed: section is tinted (sunken) as in legacy; question index is a hairline-divided grid.",
   "regulations/2": "fixed: compliance chain is one row of six items numbered 01\u201306 with top rules and a short accent mark (was a 3x2 grid with circles). Tablet 3 columns, mobile 2, as in legacy.",
   "regulations/3": "fixed: tinted (sunken) as in legacy; table is ruled with no outer box and mono column labels; working-question callout is left-border.",
@@ -24,10 +24,10 @@
   "regulations/13": "fixed: two columns; documents list on the right with an accent top rule, numbered rows and a mono note. Intentional difference: button is mint (system inverse button), legacy used white. New: cta layout when `side` is set.",
   "regulations/14": "fixed: tinted; FAQ list is full width below the title. New faq `layout: stack`. Intentional difference: the + icons are drawn with CSS.",
   "regulations/15": "match. Intentional difference: type sizes from the system scale.",
-  "platform/0": "fixed: the intro text above the illustration is hidden at every width, exactly as legacy hides it, so the left column is no longer pushed down; hero columns are 2:1; the eyebrow is hidden on mobile as in legacy (hero `hide_label_mobile`).",
+  "platform/0": "fixed: the hidden intro text was removed from the markup and content (no hidden text on the page); hero columns are 2:1; the eyebrow now shows on mobile too (owner: no hidden text). The illustration slot reserves its size before it loads.",
   "platform/1": "match. Intentional difference: cards are white with a system accent top rule (legacy used a cream card).",
   "platform/2": "fixed: the check panel is a ruled panel with no box (accent top rule, big accent number), columns 1.08:0.92 from 768px. The focus ring shows only on keyboard focus.",
   "platform/3": "fixed: price columns have dividers and a tinted discount cell, the profit line has a filled icon square and the case card has the menu shadow token; columns 1.02:1.08.",
-  "platform/4": "fixed: section is dark (inverse tone) as in legacy.",
-  "platform/5": "fixed: section is dark (inverse tone) as in legacy; form fields and button follow the active tone."
+  "platform/4": "fixed: section is dark (inverse tone) as in legacy. On mobile the three layer labels (Input, Processing, Output) are now shown above their groups instead of hidden.",
+  "platform/5": "fixed: section is dark (inverse tone) as in legacy; form fields and button follow the active tone. New shared block option `sticky_copy`: from 1024px the left column stays in view below the header while the form scrolls (as in the order section); stacked on mobile."
 }

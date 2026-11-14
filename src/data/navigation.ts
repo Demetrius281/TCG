@@ -48,11 +48,11 @@ export const headerCta: { label: string; message: WhatsAppKey } = {
 export const footerServices: NavGroup[] = [
   buyers,
   { label: 'Owners and Developers', items: owners.items },
-  { label: 'Investors', items: [{ label: 'Platform', href: '/platform' }] },
 ];
 
 export const footerResources: NavLink[] = [
   { label: 'Regulations', href: '/regulations' },
+  { label: 'Platform', href: '/platform' },
   { label: 'Blog', href: '/blog' },
 ];
 

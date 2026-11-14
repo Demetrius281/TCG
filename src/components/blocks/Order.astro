@@ -3,12 +3,12 @@ import Section from '../ui/Section.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'order'>, 'type'>;
-const { label, title, lead, step_label, stages, summary_label, panel_aria, buttons, plan, property, documents, details, done, disclaimer, tone = 'sunken', id } = Astro.props;
+const { label, title, lead, step_label, stages, summary_label, panel_aria, buttons, plan, property, documents, details, done, disclaimer, sticky_copy = true, tone = 'sunken', id } = Astro.props;
 const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{total}', '4');
 ---
 <Section id={id} tone={tone} labelledby="order-title">
   <div class="ei-grid">
-    <div class="ei-copy">
+    <div class:list={['ei-copy', sticky_copy && 'sticky-copy']}>
       <p class="t-label label">{label}</p>
       <h2 id="order-title">{title}</h2>
       <p class="t-lead lead">{lead}</p>
@@ -390,7 +390,6 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
   }
   @media (min-width: 1024px) {
     .ei-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: var(--space-16); }
-    .ei-copy { position: sticky; top: var(--space-6); align-self: start; }
     .stage, .ord-sum { display: grid; }
     .pc-bar { display: none; }
     .ei-disc.scope { grid-column: 2; }

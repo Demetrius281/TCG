@@ -225,8 +225,7 @@ blocks:
           - title: Land Monetization Strategy
             text: Understand your land’s development potential, compare monetization options and prepare a clear strategy for investors, developers or buyers.
             href: /land
-      - name: Investors
-        items:
+      - items:
           - title: Platform
             text: "[TEXT]"
             href: /platform

@@ -51,9 +51,15 @@ Header: Platform · Buyers · Owners · Regulations · Blog. Buyers and Owners a
 | Blog | List + articles | /blog, /blog/<slug> | After launch |
 | Footer | Privacy Policy, Terms | /privacy-policy, /terms | Terms is new and includes a Conflict of Interest Policy section |
 
+Internal links point to the new paths (/due-diligence, /regulations); the 301 redirects exist only for old external links.
+
+Owner decisions (2026-11): where the system and legacy differ, the system wins everywhere: the smaller system heading scale, the mint primary button on dark sections, radius 0 and the 1200px container all stay. Legacy defines composition only.
+
+Two-column form blocks (order, inquiry) share the option `sticky_copy` (default true): from 1024px the copy column stays in view below the sticky header (class `.sticky-copy` in base.css); on mobile the columns stack.
+
 "Port as is" means content and logic stay the same, and the page is rebuilt on the shared tokens and components.
 Prices appear only on /due-diligence ($90 / $150 / $250).
-Footer: services grouped as Buyers / Owners and Developers / Investors; Platform, Regulations, Blog; Privacy Policy, Terms, Conflict of Interest Policy; contacts (WhatsApp, email, address).
+Footer: services grouped as Buyers / Owners and Developers (no Investors group); Resources column: Regulations, Platform, Blog; Privacy Policy, Terms, Conflict of Interest Policy; contacts (WhatsApp, email, address).
 
 301 redirects (vercel.json):
 - /services/property-legal-audit → /regulations
@@ -149,7 +155,7 @@ Minimum text size: 12px, label level only.
 Layout rule for migrated pages: the legacy page defines composition (order, columns, alignment, element type, what is hidden on mobile); this system defines every value (spacing, type, line-height, colour, border width, container, radius). Section tone follows the legacy page (default, sunken = legacy sand, inverse = legacy dark). Variants are preferred over new blocks. Layout parity is checked with `qa/shots.mjs` and `qa/report.mjs` (output in `qa/output/`, never committed or deployed).
 | type | Fields |
 |---|---|
-| hero | variant (display, page), heading_id, label, title, subtitle, lead, intro, actions[], meta, fee_note, illustration (property-check, regulations, platform), metrics[]. With `illustration` the copy and the art sit in two columns from 1024px; the ratio follows the illustration (property-check 1.45:1, regulations 1:1, platform 2:1). `intro` stays in the markup but is hidden at every width, as on the legacy page. `subtitle` renders as a lighter second line under a display-size title |
+| hero | variant (display, page), heading_id, label, title, subtitle, lead, actions[], meta, fee_note, illustration (property-check, regulations, platform), metrics[]. With `illustration` the copy and the art sit in two columns from 1024px; the ratio follows the illustration (property-check 1.45:1, regulations 1:1, platform 2:1). Illustrations load only from 768px, through the `DesktopIllustration` loader (fragment in /public/illustrations, script chunk in src/scripts/illustrations); the slot reserves its size (aspect ratio of the artwork) so nothing shifts. The legacy platform intro ("One Platform. Complete Market Intelligence.") was hidden at every width and was dropped from markup and content: no hidden text on the page. `subtitle` renders as a lighter second line under a display-size title |
 | cards | label, title, lead, columns (2,3,4), variant (card, seam), items[]: label, title, text, tag, href; note: text, link. `seam` = cells share 1px rules with no gaps and the note stacks its link under the text |
 | services | title, lead, groups[]: name, items[]: title, text, href |
 | steps | label, title, layout (row, list, grid), items[]: label, title, text, timing, first. `grid` = 2x2 hairline-divided cells, first step has an accent top rule |
@@ -162,14 +168,14 @@ Layout rule for migrated pages: the legacy page defines composition (order, colu
 | text | title, body (Markdown) |
 | cta | label, title, text, action, secondary, next_steps[], side: title, items[]: label, text, note. With `side` the block is two columns from 768px (copy and buttons left, documents list right) and the list is hidden on mobile |
 | pricing | title, tiers[]: name, price, term, features[], featured |
-| order | title, lead (+ the staged order form fields; see src/content/pages/due-diligence.yaml) |
+| order | sticky_copy (default true), title, lead (+ the staged order form fields; see src/content/pages/due-diligence.yaml) |
 | report | label, title, lead, chips[], sample report card (rows, key risk, recommended action, footnote) |
 | comparison | title, two plans side by side (featured + traditional), closing line |
 | features | label, title, lead[], items[]: icon, title, text. Copy left, 2x2 cards right from 768px |
 | spotlight | label, title, lead, panel: kicker, time, result, comparison, cta, note. Copy left, ruled panel (no box) right from 768px |
 | acquisition_case | label, title, paragraphs[], profit, case: top, photo, prices[], facts[], disclaimer. 3 price columns with dividers and a tinted discount cell from 1024px |
 | architecture | label, title, head, columns, inputs[], engine, outputs[], foot[], note. Flow dots are desktop-only and off with prefers-reduced-motion |
-| inquiry | label, title, lead, stage[], panel, fields, interest_options, submit, disclaimer |
+| inquiry | sticky_copy (default true), label, title, lead, stage[], panel, fields, interest_options, submit, disclaimer |
 | guide_nav | brand, title, links[], jump, to_top. Fixed bar; same height as the shared header (bar + border) so it fully covers it |
 | topics | label, title, items[]: n, title, hint, href. Hairline-divided grid |
 | guide | label, chain[], heading_id, title, lead, answer, parts[]. `answer` = left-border callout. Parts: prose, heading, note (pull, callout, tbl-note, sub-lead), terms (defs, coef), codes, list (restr, checks = 3-column square-bullet lists; feas, steps4 = zero-padded numbering; facts, tools = ruled two-column rows; base = hairline grid), cards (rules, plan, imb), table (layers, scenarios, kbli, pma, audit: ruled, no box), compare, path (rows from 768px, swipe cards on mobile), chain (01–06 with top rules; 2 columns mobile, 3 tablet, 6 desktop), kbli_shift, split, formula, taxbox, screen, results, timeline (zero-padded numbers, dot tags) |

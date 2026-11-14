@@ -83,3 +83,13 @@ button { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* Shared option of two-column form blocks (order, inquiry): the copy column stays in view while the form scrolls.
+   The offset clears the sticky site header. */
+@media (min-width: 1024px) {
+  .sticky-copy {
+    position: sticky;
+    top: calc(var(--header-h-lg) + var(--space-6));
+    align-self: start;
+  }
+}

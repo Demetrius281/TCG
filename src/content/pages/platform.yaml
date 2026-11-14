@@ -9,7 +9,6 @@ blocks:
   - type: hero
     variant: display
     id: top
-    hide_label_mobile: true
     label: FROM MARKET DATA TO ACQUISITIONS
     title: Bali's Real Estate Intelligence Platform
     lead: By combining proprietary market intelligence with official Indonesian records, we uncover undervalued assets and gain a decisive advantage in every negotiation.
@@ -23,9 +22,6 @@ blocks:
     actions:
       - label: Explore Investment Opportunities
         href: "#ei-form"
-    intro:
-      title: One Platform. Complete Market Intelligence.
-      text: TCG brings together government information systems and proprietary property research. One intelligence database supports paid verification reports, risk assessments and distressed-asset investment opportunities.
     illustration: platform
   - type: features
     id: land-zoning
@@ -65,7 +61,7 @@ blocks:
       cta:
         label: Explore Due Diligence
         arrow: →
-        href: /services/due-diligence
+        href: /due-diligence
       note: From US$90. Advanced reports take 24–48 hours. Online screening does not replace formal legal due diligence.
   - type: acquisition_case
     id: portfolio-monitoring
