@@ -206,16 +206,14 @@ blocks:
     title: "[TEXT]"
     items: []
 
-  # 8. Start where you are (replaces the choices and the all-services screens). Anchors #buyers and #owners.
+  # 8. Start where you are: four service rows (full-width bands), then the closing block.
   - type: services
     tone: inverse
     title: Start where you are
     lead: Choose the service that fits your situation, or talk it through with us first.
     explore: Explore
     groups:
-      - id: buyers
-        name: For buyers
-        lead: Verification and representation before capital is committed.
+      - id: services
         items:
           - title: Preliminary Due Diligence
             text: An online check of the property before you pay a deposit.
@@ -223,19 +221,12 @@ blocks:
           - title: Acquisition Advisory
             text: Guidance on a complex purchase, from price to final decision.
             href: /acquisition-advisory
-      - id: owners
-        name: For owners and developers
-        lead: Clear exit and growth routes for an existing asset.
-        items:
           - title: Distressed Property Buyout
             text: A firm offer for a stalled project or unsold stock.
             href: /distressed-property-buyout
           - title: Go-to-Market for Developers
             text: Positioning, pricing, sales setup for new or launched projects.
             href: /go-to-market
-          - title: Land Monetization Strategy
-            text: A profitable plan for your land.
-            href: /land
     start:
       title: Not sure where to start?
       text: Tell us about your property and the issue you're facing. We'll help identify the next step.

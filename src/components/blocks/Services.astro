@@ -1,5 +1,5 @@
 ---
-// "Start where you are": one inverse screen of service rows in two groups, then a closing block.
+// "Start where you are": the screen head, the service rows as full-width bands (Rows bleed), then a closing block.
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import Rows from '../ui/Rows.astro';
@@ -12,27 +12,11 @@ import type { BlockOf } from '../../content.config';
 type Props = Omit<BlockOf<'services'>, 'type'>;
 const { title, lead, groups, explore, start, tone = 'inverse', id } = Astro.props;
 const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
+const items = groups.flatMap((g) => g.items);
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} lead={lead} id={headId} />
-  <Stack gap={40}>
-    {
-      groups.map((g, i) => (
-        <>
-          {i > 0 && <div class="rule" aria-hidden="true"></div>}
-          <Stack gap={16} id={g.id}>
-            {(g.name || g.lead) && (
-              <Stack gap={12}>
-                {g.name && <Text as="h3" role="card-title">{g.name}</Text>}
-                {g.lead && <Text tone="muted">{g.lead}</Text>}
-              </Stack>
-            )}
-            <Rows items={g.items.map((item) => ({ href: item.href, title: item.title, text: item.text, meta: item.meta, go: explore }))} />
-          </Stack>
-        </>
-      ))
-    }
-  </Stack>
+  <Rows bleed items={items.map((item) => ({ href: item.href, title: item.title, text: item.text, meta: item.meta, go: explore }))} />
   <Cluster gap={32} justify="between">
     <Stack gap={16}>
       <Text as="h3" role="card-title">{start.title}</Text>
@@ -41,8 +25,3 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
     <Cluster gap="buttons"><Action action={start.action} fallbackVariant="inverse" /></Cluster>
   </Cluster>
 </Section>
-
-<style>
-  /* the hairline between groups: full container width; the Stack gap gives 40 above and below */
-  .rule { border-top: var(--bw-1) solid var(--c-border); }
-</style>

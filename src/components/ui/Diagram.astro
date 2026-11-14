@@ -225,6 +225,7 @@ const { mode, hub = '', spheres = [], columns, inputs = [], core, outputs = [], 
     let lens: number[] = [];
     let routes: number[][] = [];
     let entered = false;
+    let done = false;
     const setFill = (l: number) => fill.setAttribute('transform', `matrix(1 0 0 ${f(l)} 0 ${f(1 - l)})`);
 
     const layout = () => {
@@ -279,7 +280,9 @@ const { mode, hub = '', spheres = [], columns, inputs = [], core, outputs = [], 
         entered = true;
         wires.forEach(showWire);
       }
-      const c = (t - ENTRY) % CYCLE;
+      // One pass only: once the hub is full it stays full and keeps glowing for the rest of the page view.
+      if (done) return;
+      const c = Math.min(t - ENTRY, CYCLE - 1);
       dots.forEach((dot, i) => {
         const on = within(c, i * 600, 1200);
         dot.classList.toggle('is-on', on);
@@ -296,8 +299,17 @@ const { mode, hub = '', spheres = [], columns, inputs = [], core, outputs = [], 
       else level = 1 - easeInOut(prog(c, 4400, 1000));
       setFill(level);
       const full = arrive(n - 1) + 400;
-      hub.classList.toggle('is-full', c >= full && c < 4900);
-      root.classList.toggle('is-pulse', within(c, full, 600));
+      if (c >= full) {
+        done = true;
+        setFill(1);
+        hub.classList.add('is-full');
+        dots.forEach((dot) => dot.classList.remove('is-on'));
+        wires.forEach((w) => w.classList.remove('is-lit'));
+        root.classList.add('is-pulse');
+        window.setTimeout(() => root.classList.remove('is-pulse'), 600);
+        return;
+      }
+      root.classList.remove('is-pulse');
     });
   }
 
