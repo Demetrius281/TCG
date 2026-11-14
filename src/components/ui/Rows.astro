@@ -24,8 +24,9 @@ interface Props {
   newTab?: string;
 }
 const { items, titleRole = 'card-title', as: Tag = 'ul', bleed = false, cols = 1, newTab = 'opens in a new tab' } = Astro.props;
+const labelled = cols === 1 && items.some((it) => it.label);
 ---
-<Tag class:list={['rows', bleed && 'is-bleed', cols === 2 && 'is-two']}>
+<Tag class:list={['rows', bleed && 'is-bleed', cols === 2 && 'is-two', labelled && 'has-labels']}>
   {
     items.map((it) => {
       const Row = it.href ? 'a' : 'div';
@@ -76,7 +77,9 @@ const { items, titleRole = 'card-title', as: Tag = 'ul', bleed = false, cols = 1
   .down { color: var(--c-accent); transition: transform var(--ease); }
   .is-link:hover .arr { transform: translateX(var(--s-8)); }
   .is-link:hover .down { transform: translateY(var(--s-8)); }
-  .is-link:hover, .is-link:focus-visible { background: var(--c-surface); }
+  /* hover band: never starts at the text edge; it extends --s-24 beyond the row on both sides (the screen clips it) */
+  .is-link::before { content: ''; position: absolute; inset: 0 calc(var(--s-24) * -1); z-index: -1; transition: background-color var(--ease); }
+  .is-link:hover::before, .is-link:focus-visible::before { background: var(--c-surface); }
 
   /* bleed: hairlines and the hover band run to the viewport edges */
   .is-bleed .item { border-bottom: 0; }
@@ -98,6 +101,13 @@ const { items, titleRole = 'card-title', as: Tag = 'ul', bleed = false, cols = 1
   .is-two .item { border: 0; background: var(--c-bg); }
   .is-two .row { padding: var(--s-24); }
 
+  /* labelled rows on mobile: the label stacks above the title (no squeezed side column) */
+  .has-labels .has-label { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-8); }
+  /* labelled rows: one shared label column for the whole list (widest label), so every column starts at the same x */
+  @media (min-width: 768px) {
+    .has-labels { grid-template-columns: max-content minmax(0, 1fr) auto; column-gap: var(--s-40); }
+    .has-labels .item, .has-labels .row { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; }
+  }
   @media (min-width: 768px) {
     .row { grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--s-40); }
     .has-label { grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto; align-items: baseline; }
