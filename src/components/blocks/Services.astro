@@ -3,7 +3,7 @@
 // Row: name (card-title) · text · meta (small) · Explore link. The whole row is the link.
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
-import Action from '../ui/Action.astro';
+import ActionStack from '../ui/ActionStack.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'services'>, 'type'>;
@@ -12,7 +12,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} lead={lead} id={headId} />
-  <div class="bleed groups">
+  <div class="bleed screen-gap groups">
     {
       groups.map((g) => (
         <div class="group" id={g.id}>
@@ -42,21 +42,17 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
       <h3 class="t-card-title">{start.title}</h3>
       <p class="t-text">{start.text}</p>
     </div>
-    <div class="act">
-      <Action action={start.action} fallbackVariant="inverse" />
-      <a class="t-small link" href={start.link.href}>{start.link.label}</a>
-    </div>
+    <ActionStack action={start.action} link={start.link} fallbackVariant="inverse" />
   </div>
 </Section>
 
 <style>
   /* Hairlines and the hover band run edge to edge of the viewport (approved variation); the screen clips the overflow. */
   :global(.section:has(.bleed)) { overflow-x: clip; }
-  .groups { display: grid; gap: var(--space-10); }
   .group { display: grid; gap: var(--space-4); }
   .gname { color: var(--c-text); }
   .rows, .start { position: relative; }
-  .rows::before, .start::before, .item .row::after {
+  .rows::before, .item .row::after {
     content: '';
     position: absolute;
     left: 50%;
@@ -65,7 +61,9 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
     height: var(--bw-1);
     background: var(--c-border);
   }
-  .rows::before, .start::before { top: 0; }
+  .rows::before { top: 0; }
+  /* Only the last row of the screen keeps a hairline below it; the last row of the first group has none. */
+  .group:not(:last-child) .item:last-child .row::after { display: none; }
   .item .row::after { bottom: 0; }
   .row {
     position: relative;
@@ -90,6 +88,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
     transition: background-color var(--ease), box-shadow var(--ease);
   }
   .item .row::before { bottom: var(--bw-1); }
+  .group:not(:last-child) .item:last-child .row::before { bottom: 0; }
   .item:first-child .row::before { top: var(--bw-1); }
   .body { display: grid; gap: var(--space-3); min-width: 0; }
   .name { color: var(--c-text); }
@@ -102,12 +101,9 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   .row:focus-visible { outline: none; }
   .row:focus-visible::before { outline: var(--bw-2) solid var(--c-accent); outline-offset: calc(var(--bw-2) * -1); }
 
-  .start { display: grid; gap: var(--space-6); margin-top: var(--space-10); padding-top: var(--space-10); }
+  .start { display: grid; gap: var(--space-6); margin-top: var(--space-10); }
   .copy { display: grid; gap: var(--space-3); max-width: var(--container-prose); }
   .copy p { color: var(--c-text-2); }
-  .act { display: grid; gap: var(--space-4); justify-items: start; }
-  .act :global(.btn) { justify-self: stretch; }
-  .link { display: inline-flex; align-items: center; min-height: var(--space-8); color: var(--c-accent); font-weight: 500; }
 
   /* From 560px: text left, Explore on the right. Below: one column, Explore under the meta. */
   @media (min-width: 560px) {
@@ -115,7 +111,6 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   }
   @media (min-width: 1024px) {
     .start { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-10); }
-    .act :global(.btn) { justify-self: start; }
   }
   @media (prefers-reduced-motion: reduce) {
     .row:hover .arr, .row:focus-visible .arr { transform: none; }

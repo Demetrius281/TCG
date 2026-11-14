@@ -3,17 +3,25 @@
 // Nothing else is rendered here. Meta strips, metric lists and extra links go to the next block.
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
+import List from '../ui/List.astro';
 import Action from '../ui/Action.astro';
 import DesktopIllustration from '../ui/DesktopIllustration.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'hero'>, 'type'>;
-const { heading_id = 'hero-title', title, lead, actions, illustration, tone, id } = Astro.props;
+const { heading_id = 'hero-title', title, lead, actions, illustration, points, tone, id } = Astro.props;
 ---
 <Section id={id} tone={tone} labelledby={heading_id}>
   <div class:list={['hero', illustration && 'has-art']} data-art={illustration}>
     <div class="copy">
       <SectionHead level={1} hero title={title} lead={lead} id={heading_id} next="actions" />
+      {
+        points && (
+          <List class="points">
+            {points.map((x) => <li><span class="t-text strong">{x.title}</span><span class="t-small cap">{x.text}</span></li>)}
+          </List>
+        )
+      }
       {
         actions.length > 0 && (
           <div class="actions">
@@ -39,6 +47,10 @@ const { heading_id = 'hero-title', title, lead, actions, illustration, tone, id 
   .copy { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; max-width: var(--hero-title-max); }
   .actions { display: grid; gap: var(--space-3); width: 100%; }
   .art { display: none; min-width: 0; }
+  .copy :global(.points) { margin-bottom: var(--space-8); }
+  .copy :global(.points .strong), .copy :global(.points .cap) { display: block; }
+  .copy :global(.points .strong) { font-weight: 500; }
+  .copy :global(.points .cap) { color: var(--c-text-2); }
 
   @media (min-width: 768px) {
     .art { display: block; }

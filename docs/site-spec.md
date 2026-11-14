@@ -238,9 +238,11 @@ Section (tone, layout: stacked | split | article), SectionHead (title, text, sma
 
 ### Where the old first-screen extras went
 - /due-diligence: meta strip "Land · Villas · Developers" is the small meta line of the first `cards` block (`meta`).
-- /platform: the three metrics are a bulleted list (`highlights`) in the first `features` block.
+- /platform: two of the former metrics are the `points` list of the first screen (A2); "2 Revenue Streams" is removed.
 - /regulations: the second line of the page-title (`subtitle`) is a span of the h1 in the same role.
 - Secondary hero buttons are always secondary buttons (no text links in the hero).
+- /platform only (variation A2): the first screen holds a bulleted list of 2 items (`points`) between the text and the buttons, 32px above and below.
+- A text link under a button is rendered by the shared `ActionStack`, centred on the button's width.
 
 ### Page-type templates (block order)
 - home: section 8.

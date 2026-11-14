@@ -119,3 +119,6 @@ small { font-size: var(--fs-small); }
   line-height: inherit;
   color: var(--c-accent, var(--color-accent));
 }
+
+/* A block inside a screen that starts like a new screen: the gap between its parts equals the screen padding (rule 5). */
+.screen-gap { display: grid; gap: var(--section-y); }

@@ -119,6 +119,7 @@ for (const file of yamls) {
     // Rule 3: no eyebrow label on a block; rule 2: the hero carries nothing beyond title, text, buttons, illustration
     if ('label' in b && b.type !== 'guide_nav') add(file, 'eyebrow', `${b.type}: label ${String(b.label).slice(0, 40)}`);
     if (b.type === 'hero') for (const k of ['meta', 'metrics', 'fee_note', 'intro']) if (k in b) add(file, 'hero-extra', `${k}`);
+    if (b.type === 'hero' && 'points' in b && (!file.endsWith('pages/platform.yaml') || b.points.length > 2)) add(file, 'hero-extra', 'points: only /platform, up to 2 items (CLAUDE.md A2)');
     if (b.type === 'hero' && (b.actions ?? []).length > 2) add(file, 'hero-extra', 'more than 2 buttons');
   }
 }

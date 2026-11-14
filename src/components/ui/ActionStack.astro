@@ -1,0 +1,25 @@
+---
+// A button with a text link under it. The link is centred on the button's width at every width (CLAUDE.md rule 8).
+// The link never widens the stack: its width follows the button, long labels wrap.
+import Action from './Action.astro';
+import type { Action as ActionType } from '../../content.config';
+
+interface Props {
+  action: ActionType;
+  link: { label: string; href: string };
+  fallbackVariant?: 'primary' | 'secondary' | 'inverse';
+}
+const { action, link, fallbackVariant = 'primary' } = Astro.props;
+---
+<div class="stack">
+  <Action action={action} fallbackVariant={fallbackVariant} />
+  <a class="t-small link" href={link.href}>{link.label}</a>
+</div>
+
+<style>
+  .stack { display: grid; gap: var(--space-4); justify-items: stretch; width: 100%; }
+  .link { display: block; inline-size: 0; min-inline-size: 100%; text-align: center; color: var(--c-accent); font-weight: 500; }
+  @media (min-width: 768px) {
+    .stack { width: fit-content; }
+  }
+</style>

@@ -2,6 +2,7 @@
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import Action from '../ui/Action.astro';
+import ActionStack from '../ui/ActionStack.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'cta'>, 'type'>;
@@ -13,8 +14,13 @@ const { title, text, action, secondary, side, next_steps, tone = 'inverse', id, 
       <SectionHead title={title} lead={text} id="cta-title" next="actions" />
     </div>
     <div class="side">
-      <Action action={action} fallbackVariant={tone === 'inverse' ? 'inverse' : 'primary'} />
-      {secondary && <a class="t-small secondary" href={secondary.href}>{secondary.label}</a>}
+      {
+        secondary ? (
+          <ActionStack action={action} link={secondary} fallbackVariant={tone === 'inverse' ? 'inverse' : 'primary'} />
+        ) : (
+          <Action action={action} fallbackVariant={tone === 'inverse' ? 'inverse' : 'primary'} />
+        )
+      }
       {
         next_steps && (
           <ol class="next">
@@ -44,7 +50,6 @@ const { title, text, action, secondary, side, next_steps, tone = 'inverse', id, 
   .text { color: var(--c-text-2); }
   .side { display: grid; gap: var(--space-6); justify-items: start; align-content: start; }
   .next { display: grid; gap: var(--space-2); color: var(--c-text-2); }
-  .secondary { display: inline-flex; align-items: center; min-height: calc(var(--space-10) + var(--space-1)); color: var(--c-accent); font-weight: 500; }
   /* The optional documents column stays hidden on small screens, as on the legacy page. */
   .side-docs { display: none; gap: var(--space-4); align-content: start; }
   .side-docs h3 { padding-bottom: var(--space-3); border-bottom: var(--bw-2) solid var(--c-accent); font-weight: 400; }

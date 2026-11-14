@@ -89,7 +89,11 @@ function measure(vp) {
       const btns = [...copy.querySelectorAll('.btn')].filter(visible);
       if (paras.length !== 1) fail('2-first-screen-content', hero, `${paras.length} paragraphs`, 1);
       if (btns.length < 1 || btns.length > 2) fail('2-first-screen-content', hero, `${btns.length} buttons`, '1-2');
-      const stray = [...copy.querySelectorAll('ul, ol, dl, table, .t-label, a:not(.btn), small, time, figure, img, svg')].filter((e) => visible(e) && !e.closest('.btn'));
+      const onPlatform = location.pathname === '/platform';
+      const points = copy.querySelector('.points');
+      // CLAUDE.md A2: only /platform may hold a bulleted list of up to 2 items between the text and the buttons
+      if (points && (!onPlatform || points.querySelectorAll(':scope > li').length > 2)) fail('2-first-screen-list', points, onPlatform ? 'more than 2 items' : 'list outside /platform', 'A2: /platform only, up to 2 items');
+      const stray = [...copy.querySelectorAll('ul, ol, dl, table, .t-label, a:not(.btn), small, time, figure, img, svg')].filter((e) => visible(e) && !e.closest('.btn') && !(onPlatform && e.closest('.points')));
       if (stray.length) fail('2-first-screen-content', stray[0], stray.map((e) => e.tagName.toLowerCase()).join(','), 'nothing but title, text, buttons');
       if (copy.querySelectorAll('h2, h3').length) fail('2-first-screen-content', copy, 'subheading in the first screen', 'none');
       const lead = paras[0];
@@ -97,7 +101,15 @@ function measure(vp) {
         const g = lead.getBoundingClientRect().top - hr.bottom;
         meta.titleToText = Math.round(g * 10) / 10;
         if (!near(g, 16)) fail('4-title-text', h1, Math.round(g * 10) / 10, 16);
-        if (btns[0]) {
+        if (btns[0] && points && visible(points)) {
+          const pr = points.getBoundingClientRect();
+          const gl = pr.top - lead.getBoundingClientRect().bottom;
+          const gb = btns[0].getBoundingClientRect().top - pr.bottom;
+          meta.textToList = Math.round(gl * 10) / 10;
+          meta.listToButtons = Math.round(gb * 10) / 10;
+          if (!near(gl, 32)) fail('2-text-list', lead, Math.round(gl * 10) / 10, 32);
+          if (!near(gb, 32)) fail('2-list-buttons', points, Math.round(gb * 10) / 10, 32);
+        } else if (btns[0]) {
           const g2 = btns[0].getBoundingClientRect().top - lead.getBoundingClientRect().bottom;
           meta.textToButtons = Math.round(g2 * 10) / 10;
           if (!near(g2, 32)) fail('4-text-buttons', lead, Math.round(g2 * 10) / 10, 32);
@@ -293,6 +305,14 @@ function measure(vp) {
     const dark = (b) => { for (let e = b.parentElement; e; e = e.parentElement) { const c = getComputedStyle(e).backgroundColor.match(/[\d.]+/g)?.map(Number); if (c && (c[3] ?? 1) > 0.5) return (c[0] + c[1] + c[2]) / 3 < 128; } return false; };
     if (s.classList.contains('tone-inverse') && [...s.querySelectorAll('.btn-primary')].some(dark)) fail('8-inverse-primary', s, 'btn-primary on a dark surface', 'btn-inverse (mint)');
   });
+  // A text link under a button is centred on the button's width (shared ActionStack)
+  main.querySelectorAll('.stack').forEach((st) => {
+    const btn = st.querySelector('.btn'); const link = st.querySelector(':scope > a:not(.btn)');
+    if (!btn || !link || !visible(btn) || !visible(link)) return;
+    const b = btn.getBoundingClientRect(); const l = link.getBoundingClientRect();
+    if (!near((b.left + b.right) / 2, (l.left + l.right) / 2, 1)) fail('8-link-centred', link, `link centre ${Math.round((l.left + l.right) / 2)}`, `button centre ${Math.round((b.left + b.right) / 2)}`);
+    if (!near(b.width, l.width, 1)) fail('8-link-width', link, Math.round(l.width), `button width ${Math.round(b.width)}`);
+  });
   // Rule 9: lists. Only ui/List markers: bulleted = diamond 8px (accent; mint on inverse), 12px to the text, 8px between items,
   // aligned to the first text line; numbered = label role "01". No list-style, no other li markers.
   const rgbOf = (v) => { const d = document.createElement('i'); d.style.color = v; document.body.appendChild(d); const c = getComputedStyle(d).color; d.remove(); return c; };
@@ -361,7 +381,7 @@ server.close();
 // Cross-page: page-title size and left x identical on every page; same illustration frame ratio; table on request
 for (const vp of VIEWPORTS) {
   const m = metas.filter((x) => x.vp === vp && x.titleSize !== undefined);
-  for (const k of ['titleSize', 'titleX', 'headerToTitle', 'titleToText', 'textToButtons']) {
+  for (const k of ['titleSize', 'titleX', 'headerToTitle', 'titleToText']) {
     const vals = [...new Set(m.map((x) => x[k]).filter((v) => v !== undefined))];
     if (vals.length > 1) found.push({ page: 'all', vp, rule: `X-same-${k}`, desc: m.map((x) => `${x.page}=${x[k]}`).join(' '), measured: vals.join('/'), expected: 'identical' });
   }

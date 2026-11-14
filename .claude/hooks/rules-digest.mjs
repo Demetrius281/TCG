@@ -2,7 +2,7 @@
 const digest = `RULES CHECK REQUIRED. Read CLAUDE.md, docs/site-spec.md and src/styles/tokens.css before any change.
 Start every reply that changes code with "Rules check:" and name the rules that apply.
 1 Edges: container 1200, gutter 20/40, everything starts at the left edge; two columns: left column on the edge.
-2 First screen (same on every page): page-title (h1), ONE paragraph, 1-2 buttons, optional illustration (desktop only). No eyebrow, list, meta strip, metric or extra link. Header bottom -> title 48/80; title->text 16; text->buttons 32; buttons 12/16. With art from 1024px: 50/50, gap 64, top-aligned, same frame ratio.
+2 First screen (same on every page): page-title (h1), ONE paragraph, 1-2 buttons, optional illustration (desktop only). No eyebrow, list, meta strip, metric or extra link. Header bottom -> title 48/80; title->text 16; text->buttons 32; buttons 12/16. With art from 1024px: 50/50, gap 64, top-aligned, same frame ratio. Exception A2: /platform only, a bulleted list of up to 2 items between the text and the buttons (text->list 32, list->buttons 32).
 3 Type, 7 roles: page-title 32/48 (h1, first screen only), section-title 28/40 (h2), card-title 20/24 (h3), text 16/17, small 14/15, label 12 mono uppercase (numbers, statuses, tags; never above headings), metric 48/72. No other sizes, no eyebrows.
 4 Spacing: heading->text 16, text->buttons 32, buttons 12/16, head->content 40, paragraph 16, card title->text 12, cards gap 16/32, card padding 24, list items 8.
 5 Screens: padding 56/112; same-background neighbours share the gap (no top padding on the second); light/sunken/inverse only; never two inverse in a row.

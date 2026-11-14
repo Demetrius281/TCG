@@ -29,6 +29,8 @@ export const heroBlock = obj({
   lead: text.optional(),
   actions: z.array(action).default([]),
   illustration: z.enum(['home', 'property-check', 'regulations', 'platform']).optional(),
+  /** /platform only (CLAUDE.md variation A2): up to 2 bulleted items between the text and the buttons. */
+  points: z.array(obj({ title: text, text })).max(2).optional(),
 });
 
 export const cardsBlock = obj({
@@ -261,7 +263,6 @@ export const featuresBlock = obj({
   ...base,
   title: text,
   paragraphs: z.array(text).min(1),
-  highlights: z.array(obj({ title: text, text })).optional(),
   items: z.array(obj({ icon: z.enum(['network', 'spark', 'layers', 'target']), title: text, text })).min(1),
 });
 

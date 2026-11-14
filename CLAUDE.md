@@ -69,6 +69,7 @@ No other markers.
 
 ## Allowed variations (only these)
 A. First screen: with or without illustration (rule 2).
+A2. /platform only: the first screen may hold a bulleted list of up to 2 items between the text and the buttons. Text -> list 32px, list -> buttons 32px, list rule 9 applies.
 B. Screen layout: stacked | split (head 5/12 left, content 7/12 right, gap 64,
    from 1024px) | article (nav 280px + text 720px; /regulations, legal, blog).
 C. Background per screen within rule 5.

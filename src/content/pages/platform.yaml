@@ -13,15 +13,13 @@ blocks:
     actions:
       - label: Explore Investment Opportunities
         href: "#ei-form"
-    illustration: platform
-  - type: features
-    highlights:
+    points:
       - title: 1,000+ Properties Tracked
         text: A proprietary database covering Bali's property market.
       - title: 55 Undervalued Assets · 37% Average Discount
         text: Identified and available for acquisition.
-      - title: 2 Revenue Streams
-        text: Verification services and strategic investments.
+    illustration: platform
+  - type: features
     id: land-zoning
     title: Bali's Entire Property Market in the Palm of Your Hand
     paragraphs:
