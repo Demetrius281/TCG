@@ -76,6 +76,7 @@ button { font: inherit; color: inherit; }
   line-height: var(--lh-label);
   text-transform: uppercase;
 }
+small { font-size: var(--fs-small); }
 .t-metric { font-size: var(--fs-metric); font-weight: 300; letter-spacing: -0.04em; line-height: var(--lh-metric); }
 
 @media (prefers-reduced-motion: reduce) {

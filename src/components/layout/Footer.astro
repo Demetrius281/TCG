@@ -14,11 +14,11 @@ import { whatsappHref } from '../../data/whatsapp';
 
     <nav class="cols" aria-label="Footer">
       <div class="col">
-        <h3 class="t-label colhead">Services</h3>
+        <p class="t-label colhead">Services</p>
         {
           footerServices.map((g) => (
             <div class="group">
-              <h3 class="t-small grouphead">{g.label}</h3>
+              <p class="t-small grouphead">{g.label}</p>
               <ul>
                 {g.items.map((l) => (
                   <li><a class="flink" href={l.href}>{l.label}</a></li>
@@ -29,19 +29,19 @@ import { whatsappHref } from '../../data/whatsapp';
         }
       </div>
       <div class="col">
-        <h3 class="t-label colhead">Resources</h3>
+        <p class="t-label colhead">Resources</p>
         <ul>
           {footerResources.map((l) => <li><a class="flink" href={l.href}>{l.label}</a></li>)}
         </ul>
       </div>
       <div class="col">
-        <h3 class="t-label colhead">Legal</h3>
+        <p class="t-label colhead">Legal</p>
         <ul>
           {footerLegal.map((l) => <li><a class="flink" href={l.href}>{l.label}</a></li>)}
         </ul>
       </div>
       <div class="col">
-        <h3 class="t-label colhead">Contact</h3>
+        <p class="t-label colhead">Contact</p>
         <ul>
           <li><a class="flink" href={whatsappHref('consultation')} target="_blank" rel="noopener">WhatsApp: {site.whatsappDisplay}</a></li>
           <li><a class="flink" href={`mailto:${site.email}`}>{site.email}</a></li>

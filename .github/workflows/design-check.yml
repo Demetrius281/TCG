@@ -48,6 +48,10 @@ jobs:
 
       - run: npm ci
       - run: npx playwright install --with-deps chromium
+      - name: Baselines are empty
+        run: |
+          test "$(node -e "console.log(Object.keys(require('./qa/baseline/design.json')).length)")" = "0"
+          test "$(node -e "console.log(require('./qa/baseline/layout.json').length)")" = "0"
       - run: npm run check
       - run: npm run build
       - run: npm run check:layout

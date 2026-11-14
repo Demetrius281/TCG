@@ -180,21 +180,22 @@ function measure(vp) {
   const allowed = desktop ? [48, 40, 24, 17, 15, 12, 72] : [32, 28, 20, 16, 14, 12, 48];
   const roleSize = { H2: desktop ? 40 : 28, H3: desktop ? 24 : 20 };
   const seenSize = new Set();
-  main.querySelectorAll('*').forEach((el) => {
-    if (el.closest('svg') || ['SCRIPT', 'STYLE'].includes(el.tagName)) return;
+  // Every visible text element of the page (header, main, footer) must render exactly one of the 7 role sizes (tolerance 0.1px).
+  document.body.querySelectorAll('*').forEach((el) => {
+    if (el.closest('svg') || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'IFRAME'].includes(el.tagName)) return;
     const hasText = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
     if (!hasText || !visible(el)) return;
     const fs = parseFloat(getComputedStyle(el).fontSize);
-    const ok = allowed.some((a) => near(fs, a, 0.6));
+    const ok = allowed.some((a) => near(fs, a, 0.1));
     if (!ok) { const k = `${el.tagName}.${el.className}.${Math.round(fs * 10)}`; if (!seenSize.has(k)) { seenSize.add(k); fail('3-font-size', el, fs, allowed.join('/')); } }
     const want = el.tagName === 'H2' ? roleSize.H2 : el.tagName === 'H3' ? roleSize.H3 : el.tagName === 'H1' ? (desktop ? 48 : 32) : 0;
-    if (want && !near(fs, want, 0.6)) fail('3-heading-role', el, fs, want);
+    if (want && !near(fs, want, 0.1)) fail('3-heading-role', el, fs, want);
   });
   main.querySelectorAll('h1').forEach((el) => {
     if (!visible(el)) return;
     const fs = parseFloat(getComputedStyle(el).fontSize);
     const okSizes = desktop ? [48] : [32];
-    if (!okSizes.some((a) => near(fs, a, 0.6))) fail('3-h1', el, fs, okSizes.join('/'));
+    if (!okSizes.some((a) => near(fs, a, 0.1))) fail('3-h1', el, fs, okSizes.join('/'));
     // Rule 6: hero H1 max 900
     if (el.getBoundingClientRect().width > 900.5) fail('6-h1-width', el, el.getBoundingClientRect().width, 900);
   });
