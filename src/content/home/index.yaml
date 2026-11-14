@@ -59,7 +59,7 @@ blocks:
   - type: cards
     tone: sunken
     title: Experience from both sides of Indonesian property deals
-    lead: Five years across Indonesia, 150+ hectares of land sold, cross-border deals with investors from the UAE, Singapore, Hong Kong. The same experience protects a buyer's money or shapes an owner's exit.
+    lead: Five years across Indonesia, from land sales to cross-border investment deals. The same experience protects a buyer's money or shapes an owner's exit.
     columns: 3
     items:
       - title: Acquisition Advisory
@@ -102,11 +102,18 @@ blocks:
         label: years of total experience
       - value: "58"
         label: properties assessed
-    # Placeholders: nothing below is rendered until the quote, names and URLs are filled in.
+      - value: 150+
+        label: hectares of land sold
+    reach:
+      title: Indonesia · UAE · Singapore · Hong Kong
+      text: Deal structuring for cross-border investors.
+    # Placeholders: the two cards below are not rendered until the quote, names and URLs are filled in.
     letter:
+      title: Letter of thanks
       org: Sumbawa Property Trust
       quote: "[quote]"
       href: "[SPT website URL]"
+    partners_title: Partners
     partners:
       - group: Notaries
         name: "[name]"
@@ -143,74 +150,88 @@ blocks:
     title: Government Authorities & Regulatory Bodies
     items:
       - image: /assets/img/logos/logo-d7a21937e0.webp
+        height: 64
         name: Provincial Government of Bali
       - image: /assets/img/logos/logo-8e18101765.webp
+        height: 64
         name: Badung Regency Government
       - image: /assets/img/logos/logo-b5b9a1a914.webp
+        height: 72
         name: Ministry of Agrarian Affairs and Spatial Planning / National Land Agency (ATR/BPN)
       - image: /assets/img/logos/logo-0ac2df6d61.webp
+        height: 56
         name: Ministry of Investment and Downstream Industry / BKPM
       - image: /assets/img/logos/logo-7782e3c92f.webp
+        height: 38
         name: Online Single Submission (OSS)
       - image: /assets/img/logos/logo-dc1ca2ae33.webp
+        height: 60
         name: Ministry of Tourism of the Republic of Indonesia
       - image: /assets/img/logos/logo-a8e14bb403.webp
+        height: 54
         name: Ministry of Law of the Republic of Indonesia
       - image: /assets/img/logos/logo-335bc15c73.webp
+        height: 68
         name: Ministry of Environment / Environmental Control Agency
       - image: /assets/img/logos/logo-dc2865df38.webp
+        height: 68
         name: Ministry of Forestry of the Republic of Indonesia
       - image: /assets/img/logos/logo-eab2de1599.webp
+        height: 66
         name: Satpol PP (Civil Service Police Unit)
     disclaimer: TCG is an independent private consulting company. The government authorities shown are relevant to property-related regulatory and administrative procedures. Their logos are displayed for identification purposes only and do not imply any official partnership, affiliation, endorsement or guarantee of approval.
-
-  # 8. How to start
-  - type: choices
-    title: Start where you are
-    items:
-      - title: I'd rather talk first.
-        text: Describe your situation on WhatsApp. We suggest a route; you decide whether to take it.
-        message: book
-      - title: I'm buying.
-        href: "#buyers"
-      - title: I own or develop property.
-        href: "#owners"
-      - title: I'm an investor.
-        href: /platform
 
   # 9. FAQ: new questions to be provided. An empty list keeps the block here and renders nothing.
   - type: faq
     title: "[TEXT]"
     items: []
 
-  # 10. All services
+  # 8. Start where you are (replaces the choices and the all-services screens). Anchors #buyers and #owners.
   - type: services
-    tone: sunken
+    tone: inverse
+    title: Start where you are
+    lead: Choose the service that fits your situation, or talk it through with us first.
+    explore: Explore
     groups:
       - id: buyers
-        name: Planning to buy property in Bali?
+        name: For buyers
         items:
           - title: Preliminary Due Diligence
             text: An online check of the property before you pay a deposit.
+            meta: From US$90
             href: /due-diligence
           - title: Acquisition Advisory
             text: Guidance on a complex purchase, from price to final decision.
+            meta: Individually scoped
             href: /acquisition-advisory
       - id: owners
-        name: Own a property or developing a project?
+        name: For owners and developers
         items:
           - title: Distressed Property Buyout
             text: A firm offer for a stalled project or unsold stock.
+            meta: Individually scoped
             href: /distressed-property-buyout
           - title: Go-to-Market for Developers
             text: Positioning, pricing, sales setup for new or launched projects.
+            meta: Individually scoped
             href: /go-to-market
           - title: Land Monetization Strategy
             text: A profitable plan for your land.
+            meta: Individually scoped
             href: /land
+    start:
+      title: Not sure where to start?
+      text: Tell us about your property and the issue you're facing. We'll help identify the next step.
+      action:
+        label: Message us on WhatsApp
+        message: book
+      link:
+        label: Investing? See the platform
+        href: /platform
 
   # 11. Final CTA
   - type: cta
+    tone: default
     title: Ask us anything about your property
     text: Send a message on WhatsApp. You get a straight answer from our team, with no commitment to continue.
     action:

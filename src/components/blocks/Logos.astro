@@ -1,4 +1,6 @@
 ---
+// Authorities and bodies: hairline grid of equal white cells, colour logos at their optical height.
+// `height` per logo comes from the content file; the classes below are the heights in use (legacy --h values).
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
@@ -9,10 +11,10 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} id={headId} />
-  <ul class="logos">
+  <ul class="cells">
     {
       items.map((l) => (
-        <li><img src={l.image} alt={l.name} title={l.name} loading="lazy" decoding="async" /></li>
+        <li class="cell"><img class={`h-${l.height}`} src={l.image} alt={l.name} title={l.name} loading="lazy" decoding="async" /></li>
       ))
     }
   </ul>
@@ -20,7 +22,19 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 </Section>
 
 <style>
-  .logos { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-6) var(--space-8); }
-  .logos img { height: var(--space-12); width: auto; filter: grayscale(1); opacity: 0.75; }
-  .disclaimer { margin-top: var(--space-8); max-width: var(--container-prose); color: var(--c-text-3); }
+  .cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--bw-1); margin: 0; padding: 0; background: var(--color-border); border: var(--bw-1) solid var(--color-border); }
+  .cell { display: flex; align-items: center; justify-content: center; height: var(--logo-cell); padding: var(--space-4); background: var(--color-surface); }
+  .cell img { display: block; width: auto; max-width: 100%; object-fit: contain; }
+  .h-38 { height: calc(38 * var(--logo-k) * 0.0625rem); }
+  .h-54 { height: calc(54 * var(--logo-k) * 0.0625rem); }
+  .h-56 { height: calc(56 * var(--logo-k) * 0.0625rem); }
+  .h-60 { height: calc(60 * var(--logo-k) * 0.0625rem); }
+  .h-64 { height: calc(64 * var(--logo-k) * 0.0625rem); }
+  .h-66 { height: calc(66 * var(--logo-k) * 0.0625rem); }
+  .h-68 { height: calc(68 * var(--logo-k) * 0.0625rem); }
+  .h-72 { height: calc(72 * var(--logo-k) * 0.0625rem); }
+  .disclaimer { margin-top: var(--space-6); max-width: var(--container-prose); color: var(--c-text-2); }
+  @media (min-width: 768px) {
+    .cells { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  }
 </style>

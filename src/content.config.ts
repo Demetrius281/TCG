@@ -65,10 +65,14 @@ export const servicesBlock = obj({
       obj({
         id: text.optional(),
         name: text.optional(),
-        items: z.array(obj({ title: text, text: text, href: text })).min(1),
+        items: z.array(obj({ title: text, text: text, meta: text, href: text })).min(1),
       }),
     )
     .min(1),
+  /** Link label on every row ("Explore"). */
+  explore: text,
+  /** Closing block under a hairline: title, text, the only button of the screen and one link. */
+  start: obj({ title: text, text: text, action: action, link: obj({ label: text, href: text }) }),
 });
 
 export const stepsBlock = obj({
@@ -86,11 +90,14 @@ export const metricsBlock = obj({
   ...base,
   title: text.optional(),
   items: z.array(obj({ value: text, label: text })).min(1),
+  /** Row under the metrics: the places (card-title) and one line of text. */
+  reach: obj({ title: text, text: text }).optional(),
   notes: z.array(text).optional(),
   /** Letter of thanks. Not rendered while the quote or the link is a [placeholder]. */
-  letter: obj({ org: text, quote: text, href: text }).optional(),
+  letter: obj({ title: text, org: text, quote: text, href: text }).optional(),
   /** Partner names with links. Entries with a [placeholder] name or link are not rendered. */
   partners: z.array(obj({ group: text, name: text, href: text })).optional(),
+  partners_title: text.optional(),
 });
 
 export const testimonialsBlock = obj({
@@ -106,7 +113,8 @@ export const logosBlock = obj({
   type: z.literal('logos'),
   ...base,
   title: text,
-  items: z.array(obj({ image: text, name: text })).min(1),
+  /** `height` is the optical height of the logo in the cell (legacy --h), scaled by --logo-k. */
+  items: z.array(obj({ image: text, name: text, height: z.number() })).min(1),
   disclaimer: text,
 });
 
@@ -463,15 +471,6 @@ export const answersBlock = obj({
 });
 
 /** Large link rows: a link to a page, an anchor or a WhatsApp message. */
-export const choicesBlock = obj({
-  type: z.literal('choices'),
-  ...base,
-  title: text,
-  items: z
-    .array(obj({ title: text, text: text.optional(), href: text.optional(), message: messageKey.optional() }))
-    .min(1),
-});
-
 export const block = z.discriminatedUnion('type', [
   heroBlock,
   cardsBlock,
@@ -486,7 +485,6 @@ export const block = z.discriminatedUnion('type', [
   disclosureBlock,
   flowBlock,
   answersBlock,
-  choicesBlock,
   reportBlock,
   comparisonBlock,
   pricingBlock,

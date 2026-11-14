@@ -38,6 +38,8 @@
   --radius: 0;
   --radius-full: 999px;
   --control-h: 3.25rem;
+  --logo-cell: 6.5rem;
+  --logo-k: 0.9;
   --control-h-lg: 3rem;
   --header-h: 3.5rem;
   --header-h-lg: 4.75rem;
@@ -62,6 +64,13 @@
   --lh-metric: 1;
   --lh-tight: 1.2;
   --lh-reset: 0;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --logo-cell: 7.5rem;
+    --logo-k: 1.15;
+  }
 }
 
 @media (min-width: 1024px) {

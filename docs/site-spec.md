@@ -185,7 +185,6 @@ Layout rule for migrated pages: the legacy page defines composition (order, colu
 | disclosure | title, text, href |
 | flow | title, lead, sources: title, items[]; hub; outputs[]: title, text; closing. Sources, hub and outputs are HTML text (once in the DOM). From 768px the loader draws SVG connector lines over them (draw-in once; static with prefers-reduced-motion). Below 768px: source chips, hub, stacked cards, no SVG |
 | answers | title, lead, launch, list_title, items[], links[]. `launch` is appended to the lead and is not rendered while it is a [placeholder] |
-| choices | title, items[]: title, text, href or message. Large ruled link rows; `message` opens WhatsApp |
 | related | title, items[]: title, text, href |
 
 ## 8. Home — src/content/home/index.yaml
@@ -197,12 +196,11 @@ No eyebrows on any screen. A value in square brackets is a placeholder: it stays
 | 3 | Platform | answers | Questions the platform answers; links to /platform and /due-diligence. Launch date sentence is a placeholder |
 | 4 | Advisory | cards (3, linked) | Acquisition Advisory, Go-to-Market for Developers, Land Monetization Strategy |
 | 5 | Capital | cards (2, linked) + link + fineprint | Stalled projects, Developer stock → /distressed-property-buyout; "Invest alongside TCG" → /platform; disclosure line → /terms#conflict-of-interest |
-| 6 | Proof | metrics | 5+ years in Indonesia, 10+ years of total experience, 58 properties assessed. Letter of thanks and partners are placeholders (not rendered); external links open in a new tab with rel="noopener" |
+| 6 | Proof | metrics | Row of 4 metrics (5+, 10+, 58, 150+), `reach` line, then letter and partners cards (rendered only when filled). Letter of thanks and partners are placeholders (not rendered); external links open in a new tab with rel="noopener" |
 | 7 | Testimonials and logos | testimonials + logos | Unchanged from legacy; continuous carousel |
-| 8 | How to start | choices | WhatsApp, #buyers, #owners, /platform |
+| 8 | Start where you are | services (inverse) | Numbered rows in groups #buyers and #owners, then the closing block (WhatsApp `book`, link to /platform). Replaces the choices and the all-services screens |
 | 9 | FAQ | faq (empty) | Kept in the file; renders nothing until new questions are provided |
-| 10 | All services | services | Groups #buyers and #owners, full-width rows |
-| 11 | Final CTA | cta | "Message us on WhatsApp" |
+| 10 | Final CTA | cta | "Message us on WhatsApp" |
 
 ## 9. Service page template — src/content/services/<slug>.yaml
 Used by Acquisition Advisory, Distressed Property Buyout, Go-to-Market for Developers. /due-diligence, /platform and /land keep their current structure.
