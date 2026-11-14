@@ -56,6 +56,16 @@ const twoCol = layout !== 'stacked';
   }
   /* Page top: the first section starts --page-top below the header (rule 2). */
   :global(main > section.section:first-of-type) { padding-top: var(--page-top); }
+  /* Rule 5: the gap between two screens is always --section-y. Neighbours with the same background share it. */
+  :global(.section.tone-default + .section.tone-default),
+  :global(.section.tone-default + script + .section.tone-default),
+  :global(.section.tone-sunken + .section.tone-sunken),
+  :global(.section.tone-sunken + script + .section.tone-sunken),
+  :global(.section.tone-inverse + .section.tone-inverse),
+  :global(.section.tone-inverse + script + .section.tone-inverse) { padding-top: 0; }
+  /* Nothing inside a screen adds space after its last element: the screen's bottom padding is the whole gap. */
+  :global(main .section .inner :last-child) { margin-bottom: 0; }
+  :global(main .section .inner :first-child) { margin-top: 0; }
   .inner {
     width: min(100% - 2 * var(--gutter), var(--container));
     margin-inline: auto;

@@ -1,15 +1,16 @@
 ---
 import Section from '../ui/Section.astro';
+import List from '../ui/List.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import Button from '../ui/Button.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'pricing'>, 'type'>;
-const { label, title, hint, note, result_label, tiers, tone, id } = Astro.props;
+const { title, hint, note, result_label, tiers, tone, id } = Astro.props;
 ---
 <Section id={id} tone={tone} labelledby="pricing-title">
-  <SectionHead label={label} title={title} id="pricing-title" />
-  {hint && <p class="t-caption hint">{hint}</p>}
+  <SectionHead title={title} id="pricing-title" />
+  {hint && <p class="t-small hint">{hint}</p>}
   <div class="tiers" tabindex="0" aria-label="Pricing plans">
     {
       tiers.map((t) => (
@@ -20,14 +21,14 @@ const { label, title, hint, note, result_label, tiers, tone, id } = Astro.props;
           </div>
           <div class="price">
             <span class="v">{t.price}</span>
-            <span class="t-caption del">
+            <span class="t-small del">
               <span>{t.scope}</span>
               <span>{t.delivery}</span>
             </span>
           </div>
-          <ul class="list">
+          <List>
             {t.features.map((f) => <li class:list={['t-small', f.inherited && 'inh']}>{f.text}</li>)}
-          </ul>
+          </List>
           <div class="res">
             <span class="t-label rlab">{result_label}</span>
             <p class="t-small rtext">{t.result}</p>
@@ -39,7 +40,7 @@ const { label, title, hint, note, result_label, tiers, tone, id } = Astro.props;
       ))
     }
   </div>
-  {note && <p class="t-caption note">{note}</p>}
+  {note && <p class="t-small note">{note}</p>}
 </Section>
 
 <style>
@@ -61,17 +62,11 @@ const { label, title, hint, note, result_label, tiers, tone, id } = Astro.props;
   .top { order: -2; background: var(--c-surface); border-color: var(--c-accent); box-shadow: inset 0 0 0 var(--bw-1) var(--c-accent); }
   .std { order: -1; }
   .ttop { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4); min-height: var(--space-6); }
-  .name { font-size: var(--fs-h4); font-weight: 500; letter-spacing: -0.01em; color: var(--c-accent); }
+  .name { font-size: var(--fs-card-title); font-weight: 500; letter-spacing: -0.01em; color: var(--c-accent); }
   .tag { padding: var(--space-1) var(--space-3); border: var(--bw-1) solid var(--c-accent); color: var(--c-accent); }
   .price { display: grid; gap: var(--space-3); padding-bottom: var(--space-5); border-bottom: var(--bw-1) solid var(--c-text); }
-  .v { font-size: var(--fs-h1); font-weight: 300; letter-spacing: -0.03em; line-height: var(--lh-metric); }
+  .v { font-size: var(--fs-metric); font-weight: 300; letter-spacing: -0.03em; line-height: var(--lh-metric); }
   .del { display: grid; gap: var(--space-1); font-family: var(--font-mono); color: var(--c-text-3); }
-  .list { display: grid; }
-  .list li { position: relative; padding: var(--space-3) 0 var(--space-3) var(--space-5); border-bottom: var(--bw-1) solid var(--c-border); }
-  .list li:first-child { padding-top: 0; }
-  .list li:last-child { padding-bottom: 0; border-bottom: 0; }
-  .list li::before { content: ''; position: absolute; left: 0; top: calc(var(--space-3) + 0.72em); width: var(--space-3); height: var(--bw-1); background: var(--c-accent); }
-  .list li:first-child::before { top: 0.72em; }
   .inh { color: var(--c-text-3); }
   .res { display: grid; gap: var(--space-2); padding-top: var(--space-5); border-top: var(--bw-1) solid var(--c-border); }
   .rlab { color: var(--c-text-3); }

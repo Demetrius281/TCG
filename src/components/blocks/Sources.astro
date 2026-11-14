@@ -1,5 +1,6 @@
 ---
 import Section from '../ui/Section.astro';
+import List from '../ui/List.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
@@ -10,10 +11,10 @@ const { title, intro, review, items, new_tab, notice, tone, id, nav } = Astro.pr
   <div class="src-intro">
     <SectionHead title={title} id="src-h" />
     <div>
-      <p class="t-body">{intro.lead}</p>
-      <ul class="intro-list">
-        {intro.items.map((i) => <li class="t-body">{i}</li>)}
-      </ul>
+      <p class="t-text">{intro.lead}</p>
+      <List class="intro-list">
+        {intro.items.map((i) => <li class="t-text">{i}</li>)}
+      </List>
     </div>
   </div>
   <div class="review-meta">
@@ -42,7 +43,7 @@ const { title, intro, review, items, new_tab, notice, tone, id, nav } = Astro.pr
 
 <style>
   .src-intro { display: grid; gap: 0; margin-bottom: var(--space-8); }
-  .intro-list { display: grid; gap: var(--space-2); margin-top: var(--space-3); padding-left: var(--space-5); list-style: disc; color: var(--c-text-2); }
+  :global(.intro-list) { margin-top: var(--space-3); color: var(--c-text-2); }
   .review-meta { display: grid; gap: var(--space-4); padding: var(--space-5); margin-bottom: var(--space-8); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); }
   .review-meta p { max-width: var(--container-prose); color: var(--c-text-2); }
   .src-intro p { max-width: var(--container-prose); }

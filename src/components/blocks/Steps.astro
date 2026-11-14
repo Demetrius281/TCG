@@ -4,11 +4,11 @@ import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'steps'>, 'type'>;
-const { label, title, layout, items, tone, id } = Astro.props;
+const { title, layout, items, tone, id } = Astro.props;
 const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
-  <SectionHead label={label} title={title} id={headId} />
+  <SectionHead title={title} id={headId} />
   <ol class:list={['steps', `layout-${layout}`]}>
     {
       items.map((s, i) => (
@@ -18,7 +18,7 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
             {s.timing && layout === 'grid' && <p class:list={['t-label tag', s.first && 'tag-on']}>{s.timing}</p>}
           </div>
           <h3>{s.title}</h3>
-          <p class="t-body text">{s.text}</p>
+          <p class="t-text text">{s.text}</p>
           {s.timing && layout !== 'grid' && <p class="t-label timing">{s.timing}</p>}
         </li>
       ))

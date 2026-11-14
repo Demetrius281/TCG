@@ -6,14 +6,12 @@ import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'cards'>, 'type'>;
-const { label, title, lead, columns, variant, items, note, link, fineprint, tone, id } = Astro.props;
-const Wrap: any = variant === 'card' ? Grid : 'ul';
-const wrapProps = variant === 'card' ? { cols: columns } : { class: `grid cols-${columns} v-${variant}` };
+const { title, lead, meta, columns, items, note, link, fineprint, tone, id } = Astro.props;
 const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
-  <SectionHead label={label} title={title} lead={lead} id={headId} />
-  <Wrap {...wrapProps}>
+  <SectionHead title={title} lead={lead} meta={meta} id={headId} />
+  <Grid cols={columns}>
     {
       items.map((item) => {
         const Tag = item.href ? 'a' : 'div';
@@ -22,7 +20,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
             <Tag class="card" href={item.href}>
               {item.label && <p class="t-label label">{item.label}</p>}
               <h3>{item.title}</h3>
-              <p class="t-body text">{item.text}</p>
+              <p class="t-text text">{item.text}</p>
               {item.tag && <p class="t-label tag">{item.tag}</p>}
               {item.href && <span class="arrow" aria-hidden="true">→</span>}
             </Tag>
@@ -30,13 +28,13 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
         );
       })
     }
-  </Wrap>
+  </Grid>
   {link && <div class="link"><Button href={link.href} variant="secondary">{link.label}</Button></div>}
   {fineprint && <p class="t-small fineprint"><a href={fineprint.href}>{fineprint.label}</a></p>}
   {
     note && (
-      <div class:list={['note', `v-${variant}`]}>
-        <p class="t-lead note-text">{note.text}</p>
+      <div class="note">
+        <p class="t-text note-text">{note.text}</p>
         {note.link && <a class="t-small note-link" href={note.link.href}>{note.link.label}</a>}
       </div>
     )
@@ -47,7 +45,6 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   .link { margin-top: var(--space-8); }
   .fineprint { max-width: var(--container-prose); margin-top: var(--space-6); }
   .fineprint a { color: var(--c-text-2); text-decoration: underline; text-underline-offset: var(--space-1); }
-  .grid { display: grid; gap: var(--grid-gap); }
   .card {
     display: grid;
     gap: var(--space-3);
@@ -69,32 +66,9 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   .label { color: var(--c-accent); }
   .text { color: var(--c-text-2); }
   .tag { margin-top: auto; padding-top: var(--space-3); border-top: var(--bw-1) solid var(--c-border); color: var(--c-accent); }
-  .note {
-    display: grid;
-    gap: var(--space-2) var(--space-8);
-    margin-top: var(--grid-gap);
-    padding: var(--space-5) var(--space-6);
-    background: var(--c-surface);
-    border: var(--bw-1) solid var(--c-border);
-    border-left: var(--bw-2) solid var(--c-accent);
-  }
+  .note { display: grid; gap: var(--space-3); justify-items: start; margin-top: var(--space-10); max-width: var(--container-prose); }
   .note-text { font-weight: 500; }
-  .note-link { display: inline-flex; align-items: center; min-height: calc(var(--space-10) + var(--space-1)); font-weight: 500; }
-  .arrow { color: var(--c-accent); font-size: var(--fs-lead); }
+  .note-link { font-weight: 500; }
+  .arrow { color: var(--c-accent); font-size: var(--fs-text); }
 
-  /* Hairline-divided grid (cells share 1px rules) with a stacked callout below */
-  .v-seam.grid { gap: var(--bw-1); background: var(--c-border-strong); border: var(--bw-1) solid var(--c-border-strong); }
-  .v-seam .card { background: var(--c-bg); border: 0; box-shadow: none; transform: none; }
-  .note.v-seam { margin-top: var(--space-6); background: var(--c-surface); }
-
-  @media (min-width: 768px) {
-    .cols-2, .cols-3, .cols-4 { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (min-width: 1280px) {
-    .note:not(.v-seam) { grid-template-columns: 1fr auto; align-items: center; }
-  }
-  @media (min-width: 1024px) {
-    .cols-3 { grid-template-columns: repeat(3, 1fr); }
-    .cols-4 { grid-template-columns: repeat(4, 1fr); }
-  }
 </style>

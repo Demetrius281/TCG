@@ -19,7 +19,7 @@ const isCurrent = (href: string) => current === href || current.startsWith(href 
         groups.map((g, i) => (
           <li>
             <button
-              class="row t-h3"
+              class="row t-card-title"
               type="button"
               aria-expanded="false"
               aria-controls={`mm-${i}`}
@@ -44,7 +44,7 @@ const isCurrent = (href: string) => current === href || current.startsWith(href 
       {
         links.map((l) => (
           <li>
-            <a class="row t-h3" href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>
+            <a class="row t-card-title" href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>
               {l.label}
             </a>
           </li>
@@ -102,7 +102,7 @@ const isCurrent = (href: string) => current === href || current.startsWith(href 
     align-items: center;
     min-height: var(--control-h);
     color: var(--color-text-2);
-    font-size: var(--fs-body);
+    font-size: var(--fs-text);
     text-decoration: none;
   }
   .subrow[aria-current] { color: var(--color-accent); }

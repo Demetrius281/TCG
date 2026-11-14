@@ -6,7 +6,7 @@ import { inline } from '../../lib/inline';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'faq'>, 'type'>;
-const { label, json_ld, layout, heading_id, title, items, tone, id, nav } = Astro.props;
+const { json_ld, layout, heading_id, title, items, tone, id, nav } = Astro.props;
 const headId = heading_id ?? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 // Placeholder entries stay out of structured data.
 const published = items.filter((i) => !i.question.includes('[TEXT]') && !i.answer.includes('[TEXT]'));
@@ -23,19 +23,19 @@ const jsonLd = {
 {items.length > 0 && (
 <Section id={id} nav={nav} tone={tone} labelledby={headId}>
   <div class:list={['wrap', layout && `l-${layout}`]}>
-  <SectionHead label={label} title={title} id={headId} />
+  <SectionHead title={title} id={headId} />
   <ul class="faq">
     {
       items.map((item, i) => (
         <li class="item">
           <h3 class="q">
             <button class="trigger" type="button" aria-expanded="false" aria-controls={`faq-${i}`} data-faq>
-              <span class="t-h3 qt">{item.question}</span>
+              <span class="t-card-title qt">{item.question}</span>
               <span class="icon" aria-hidden="true"></span>
             </button>
           </h3>
           <div class="panel" id={`faq-${i}`} hidden>
-            <p class="t-body a" set:html={inline(item.answer)} />
+            <p class="t-text a" set:html={inline(item.answer)} />
             {item.href && item.linkText && <a class="more t-small" href={item.href}>{item.linkText} →</a>}
           </div>
         </li>

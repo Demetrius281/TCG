@@ -18,7 +18,7 @@ const { title, highlight, other, closing, tone = 'inverse', id } = Astro.props;
       <dl class="facts">
         {highlight.facts.map((f) => <div><dt class="t-label">{f.label}</dt><dd>{f.value}</dd></div>)}
       </dl>
-      <p class="t-body text">{highlight.text}</p>
+      <p class="t-text text">{highlight.text}</p>
       <div class="cta"><Action action={highlight.action} /></div>
     </div>
     <div class="off">
@@ -41,18 +41,19 @@ const { title, highlight, other, closing, tone = 'inverse', id } = Astro.props;
   .off h3 { color: var(--c-text); }
   .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4); }
   .tag { padding: var(--space-1) var(--space-3); border: var(--bw-1) solid var(--color-accent); color: var(--color-accent); }
-  .facts { display: grid; grid-template-columns: auto auto; justify-content: start; gap: var(--space-4) var(--space-8); padding-block: var(--space-5); border-block: var(--bw-1) solid var(--color-border); margin: 0; }
+  .facts { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: start; gap: var(--space-4) var(--space-8); padding-block: var(--space-5); border-block: var(--bw-1) solid var(--color-border); margin: 0; }
   .off .facts { border-color: var(--c-border); }
   .facts dt { margin-bottom: var(--space-2); color: var(--color-text-3); }
   .off .facts dt { color: var(--c-text-3); }
-  .facts dd { margin: 0; white-space: nowrap; font-size: var(--fs-h2); font-weight: 300; letter-spacing: -0.03em; line-height: var(--lh-metric); }
-  .on .facts dd { color: var(--color-accent); font-size: var(--fs-h1); }
-  .off .facts dd { font-size: var(--fs-h2); color: var(--c-text-2); }
+  .facts dd { margin: 0; white-space: nowrap; font-size: var(--fs-card-title); font-weight: 300; letter-spacing: -0.03em; line-height: var(--lh-metric); }
+  .on .facts dd { color: var(--color-accent); font-size: var(--fs-metric); }
+  .off .facts dd { font-size: var(--fs-card-title); color: var(--c-text-2); }
   .on .text { color: var(--color-text-2); }
   .cta { display: flex; margin-top: auto; }
-  .closing { max-width: var(--container-prose); margin-top: var(--space-6); padding-top: var(--space-6); border-top: var(--bw-1) solid var(--c-border); font-size: var(--fs-h3); font-weight: 500; letter-spacing: -0.015em; line-height: var(--lh-h3); color: var(--c-text); }
+  .closing { max-width: var(--container-prose); margin-top: var(--space-6); padding-top: var(--space-6); border-top: var(--bw-1) solid var(--c-border); font-size: var(--fs-card-title); font-weight: 500; letter-spacing: -0.015em; line-height: var(--lh-card-title); color: var(--c-text); }
 
   @media (min-width: 768px) {
+    .facts { grid-template-columns: auto auto; }
     .cmp { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--grid-gap); }
     .cmp > div { padding: var(--space-8); }
   }

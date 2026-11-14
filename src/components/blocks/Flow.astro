@@ -12,24 +12,24 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
   <SectionHead title={title} lead={lead} id={headId} />
   <div class="flow" data-flow>
     <div class="src">
-      <p class="t-label src-title">{sources.title}</p>
+      <p class="t-small src-title">{sources.title}</p>
       <ul class="src-list">
-        {sources.items.map((s) => <li class="t-body" data-flow-src>{s}</li>)}
+        {sources.items.map((s) => <li class="t-text" data-flow-src>{s}</li>)}
       </ul>
     </div>
-    <p class="hub t-h3" data-flow-hub>{hub}</p>
+    <p class="hub t-card-title" data-flow-hub>{hub}</p>
     <ul class="outs">
       {
         outputs.map((o) => (
           <li class="out" data-flow-out>
-            <h3 class="t-h3">{o.title}</h3>
-            <p class="t-body text">{o.text}</p>
+            <h3 class="t-card-title">{o.title}</h3>
+            <p class="t-text text">{o.text}</p>
           </li>
         ))
       }
     </ul>
   </div>
-  {closing && <p class="t-lead closing">{closing}</p>}
+  {closing && <p class="t-text closing">{closing}</p>}
 </Section>
 <!-- The loader script draws the connector lines on desktop only; nothing is fetched below 768px. -->
 <DesktopIllustration name="flow" />

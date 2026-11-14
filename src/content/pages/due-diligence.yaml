@@ -8,11 +8,8 @@ seo:
 blocks:
   # Hero
   - type: hero
-    variant: page
-    label: TCG Preliminary Due Diligence
     title: Preliminary Due Diligence for Bali Property.
     lead: Before paying a deposit or committing to expensive legal due diligence, check the risks first. TCG reviews zoning, building permits, seller company records, and the land documents you provide. Get your report in as little as 12 hours.
-    meta: Land · Villas · Developers
     illustration: property-check
     actions:
       - label: Check a Property
@@ -24,8 +21,7 @@ blocks:
   # 01 What we check
   - type: cards
     id: check
-    variant: seam
-    label: 01 / What We Check
+    meta: Land · Villas · Developers
     title: Know the Risks Before You Pay.
     columns: 3
     items:
@@ -63,7 +59,6 @@ blocks:
   - type: report
     id: report
     tone: sunken
-    label: 02 / Your Report
     title: Everything We Find. Clearly Explained.
     lead: Get a clear picture of what we could verify, what may put your investment at risk, and what needs further investigation — with supporting sources and practical next steps.
     line: Clear findings · Supporting evidence · Recommended actions
@@ -139,7 +134,6 @@ blocks:
   # 03 Pricing
   - type: pricing
     id: pricing
-    label: 03 / Pricing
     title: Choose the Depth of Your Check.
     hint: "Swipe to compare plans →"
     result_label: Result
@@ -195,7 +189,6 @@ blocks:
   # 04 How it works
   - type: steps
     id: process
-    label: 04 / How It Works
     title: From Order to Report in Four Steps.
     layout: grid
     items:
@@ -221,7 +214,6 @@ blocks:
   - type: order
     id: order
     tone: inverse
-    label: 05 / Order
     title: Check a Property.
     lead: Choose a plan, add the property and tell us which documents you have, then send your order via WhatsApp.
     step_label: Step {n} of {total}
@@ -336,7 +328,6 @@ blocks:
     id: faq
     layout: split
     json_ld: false
-    label: 06 / FAQ
     title: Questions Buyers Ask Before Ordering.
     items:
       - question: Does Preliminary Due Diligence replace a full legal review?
@@ -356,7 +347,6 @@ blocks:
   - type: cta
     id: property-check-cta
     tone: inverse
-    label: 07 / Preliminary Due Diligence
     title: Check the Property Before You Pay a Deposit.
     text: Zoning, permits, land title and the seller’s company, reviewed against official Indonesian records within 12–48 hours.
     action:

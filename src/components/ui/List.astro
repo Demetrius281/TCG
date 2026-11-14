@@ -1,0 +1,11 @@
+---
+// The only list (CLAUDE.md rule 9). Markers are drawn by base.css (.list): bulleted = green diamond 8px
+// (mint on inverse), 12px to the text, 8px between items; numbered = label role "01", "02". No other markers.
+interface Props {
+  numbered?: boolean;
+  class?: string;
+}
+const { numbered = false, class: className } = Astro.props;
+const Tag = numbered ? 'ol' : 'ul';
+---
+<Tag class:list={['list', numbered ? 'is-numbered' : 'is-bulleted', className]}><slot /></Tag>

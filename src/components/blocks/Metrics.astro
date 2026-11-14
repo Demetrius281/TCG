@@ -28,7 +28,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
       <div class="proof">
         {showLetter && (
           <figure class="letter">
-            <blockquote class="t-lead">{letter!.quote}</blockquote>
+            <blockquote class="t-text">{letter!.quote}</blockquote>
             <figcaption class="t-small"><a href={letter!.href} {...ext(letter!.href)}>{letter!.org}</a></figcaption>
           </figure>
         )}
@@ -43,7 +43,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   {
     notes && (
       <ul class="notes">
-        {notes.map((n) => <li class="t-body note">{n}</li>)}
+        {notes.map((n) => <li class="t-text note">{n}</li>)}
       </ul>
     )
   }

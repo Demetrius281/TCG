@@ -5,20 +5,20 @@ import Button from '../ui/Button.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'spotlight'>, 'type'>;
-const { label, title, lead, panel, tone, id, nav } = Astro.props;
+const { title, lead, panel, tone, id, nav } = Astro.props;
 ---
 <Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`}>
   <div class="layout">
     <div class="copy">
-      <SectionHead label={label} title={title} lead={lead} id={`${id}-h`} next="actions" />
+      <SectionHead title={title} lead={lead} id={`${id}-h`} next="actions" />
     </div>
     <div class="panel">
       <span class="t-label kicker">{panel.kicker}</span>
       <div class="time"><strong>{panel.time.value}</strong><span class="t-label">{panel.time.unit}</span></div>
-      <p class="t-body result">{panel.result}</p>
+      <p class="t-text result">{panel.result}</p>
       <div class="comparison"><span class="t-small">{panel.comparison.label}</span><strong>{panel.comparison.value}</strong></div>
       <Button href={panel.cta.href}>{panel.cta.label} <span>{panel.cta.arrow}</span></Button>
-      <p class="t-caption note">{panel.note}</p>
+      <p class="t-small note">{panel.note}</p>
     </div>
   </div>
 </Section>
@@ -36,7 +36,7 @@ const { label, title, lead, panel, tone, id, nav } = Astro.props;
   .time span { font-family: var(--font-mono); }
   .result { color: var(--c-text-2); }
   .comparison { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2) var(--space-4); width: 100%; margin: var(--space-6) 0 var(--space-5); padding-top: var(--space-4); border-top: var(--bw-1) solid var(--c-border-strong); color: var(--c-text-3); }
-  .comparison strong { font-size: var(--fs-h4); font-weight: 500; white-space: nowrap; color: var(--c-text); }
+  .comparison strong { font-size: var(--fs-text); font-weight: 500; white-space: nowrap; color: var(--c-text); }
   .note { max-width: 48ch; margin-top: var(--space-4); color: var(--c-text-3); }
   @media (min-width: 768px) {
     .layout { grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: var(--space-10); }

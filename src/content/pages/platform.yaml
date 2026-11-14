@@ -7,25 +7,22 @@ seo:
 page_class: platform-page
 blocks:
   - type: hero
-    variant: display
     id: top
-    label: FROM MARKET DATA TO ACQUISITIONS
     title: Bali's Real Estate Intelligence Platform
     lead: By combining proprietary market intelligence with official Indonesian records, we uncover undervalued assets and gain a decisive advantage in every negotiation.
-    metrics:
-      - value: 1,000+ Properties Tracked
-        label: A proprietary database covering Bali's property market.
-      - value: 55 Undervalued Assets · 37% Average Discount
-        label: Identified and available for acquisition.
-      - value: 2 Revenue Streams
-        label: Verification services and strategic investments.
     actions:
       - label: Explore Investment Opportunities
         href: "#ei-form"
     illustration: platform
   - type: features
+    highlights:
+      - title: 1,000+ Properties Tracked
+        text: A proprietary database covering Bali's property market.
+      - title: 55 Undervalued Assets · 37% Average Discount
+        text: Identified and available for acquisition.
+      - title: 2 Revenue Streams
+        text: Verification services and strategic investments.
     id: land-zoning
-    label: 01 / FUTURES
     title: Bali's Entire Property Market in the Palm of Your Hand
     paragraphs:
       - A continuously evolving intelligence system combining government records, property histories, developer activity and market data into one powerful platform.
@@ -46,7 +43,6 @@ blocks:
   - type: spotlight
     id: property-dossier
     tone: sunken
-    label: 02 / ONLINE DUE DILIGENCE
     title: Online Property Due Diligence
     lead: Why wait a week to uncover the first red flags? Our online property screening delivers a source-linked risk report in as little as 12 hours — before you pay a deposit or commission a full legal review.
     panel:
@@ -65,7 +61,6 @@ blocks:
       note: From US$90. Advanced reports take 24–48 hours. Online screening does not replace formal legal due diligence.
   - type: acquisition_case
     id: portfolio-monitoring
-    label: 03 / DISTRESSED PROPERTY INVESTMENTS
     title: An Unmatched Advantage in Every Negotiation
     paragraphs:
       - We don't just find undervalued properties. We know what other buyers don't.
@@ -100,7 +95,6 @@ blocks:
   - type: architecture
     id: technology
     tone: inverse
-    label: 04 / Business Model & Technology
     title: Infrastructure Behind Property Intelligence.
     head:
       - Data flow · Input → Processing → Output
@@ -143,8 +137,7 @@ blocks:
     note: "One intelligence infrastructure supports two revenue streams: paid verification and property investments. Research and verification are human-assisted; automated government integrations require development and authorized access."
   - type: inquiry
     id: express-interest
-    tone: inverse
-    label: 05 / Strategic Investment Opportunity
+    tone: sunken
     title: Invest in Bali's Property Intelligence.
     lead: TCG combines proprietary data, legal expertise and distressed-asset sourcing to identify opportunities across Bali. We seek strategic investors to expand our intelligence infrastructure and pursue selected acquisitions through dedicated investment structures.
     stage:

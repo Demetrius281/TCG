@@ -4,27 +4,27 @@ import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'architecture'>, 'type'>;
-const { label, title, head, columns, inputs, engine, outputs, foot, note, tone, id, nav } = Astro.props;
+const { title, head, columns, inputs, engine, outputs, foot, note, tone, id, nav } = Astro.props;
 ---
 <Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`}>
-  <SectionHead label={label} title={title} id={`${id}-h`} />
+  <SectionHead title={title} id={`${id}-h`} />
   <figure class="arch">
-    <div class="head t-label"><span>{head[0]}</span><span class="cp">{head[1]}</span></div>
+    <div class="diag-head t-label"><span>{head[0]}</span><span class="cp">{head[1]}</span></div>
     <div class="body">
       <span class="t-label colh in">{columns[0]}</span>
       <span class="t-label colh pr">{columns[1]}</span>
       <span class="t-label colh out">{columns[2]}</span>
-      {inputs.map((n, i) => <div class={`node i r${i + 1}`}>{n.title}<small class="t-caption">{n.text}</small></div>)}
+      {inputs.map((n, i) => <div class={`node i r${i + 1}`}>{n.title}<small class="t-small">{n.text}</small></div>)}
       {inputs.map((_, i) => <span class={`link a r${i + 1}`}></span>)}
       <div class="engine">
         <span class="t-label en-s">{engine.kicker}</span>
         <span class="en-t">{engine.title}</span>
         <div class="mods">
-          {engine.modules.map((m) => <div class="mod">{m.title}<small class="t-caption">{m.text}</small></div>)}
+          {engine.modules.map((m) => <div class="mod">{m.title}<small class="t-small">{m.text}</small></div>)}
         </div>
       </div>
       {outputs.map((_, i) => <span class={`link b r${i + 1}`}></span>)}
-      {outputs.map((n, i) => <div class={`node o r${i + 1}`}>{n.title}<small class="t-caption">{n.text}</small></div>)}
+      {outputs.map((n, i) => <div class={`node o r${i + 1}`}>{n.title}<small class="t-small">{n.text}</small></div>)}
     </div>
     <div class="foot">
       {foot.map((f) => <div class="af"><b>{f.title}</b><span class="t-small">{f.text}</span></div>)}
@@ -37,7 +37,7 @@ const { label, title, head, columns, inputs, engine, outputs, foot, note, tone, 
   .intro { display: grid; gap: var(--space-3); max-width: var(--container-prose); margin-bottom: var(--space-8); }
   .label { color: var(--c-accent); }
   .arch { margin: 0; min-width: 0; background: var(--c-surface); border: var(--bw-1) solid var(--c-border); }
-  .head { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); border-bottom: var(--bw-1) solid var(--c-border); color: var(--c-text-3); }
+  .diag-head { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); border-bottom: var(--bw-1) solid var(--c-border); color: var(--c-text-3); }
   .cp { color: var(--c-accent); }
   .body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3); padding: var(--space-5) var(--space-4); }
   .colh { color: var(--c-text-3); }
@@ -53,7 +53,7 @@ const { label, title, head, columns, inputs, engine, outputs, foot, note, tone, 
   .link { display: none; }
   .engine { display: grid; gap: var(--space-3); padding: var(--space-4); background: var(--c-surface); border: var(--bw-2) solid var(--c-accent); }
   .en-s { color: var(--c-accent); }
-  .en-t { font-size: var(--fs-h4); font-weight: 600; }
+  .en-t { font-size: var(--fs-text); font-weight: 600; }
   .mods { display: grid; gap: var(--space-2); }
   .mod { display: grid; gap: var(--space-1); padding: var(--space-3); background: var(--c-bg); border: var(--bw-1) solid var(--c-border); font-size: var(--fs-small); font-weight: 500; }
   .mod small { font-weight: 400; color: var(--c-text-3); }
@@ -65,7 +65,7 @@ const { label, title, head, columns, inputs, engine, outputs, foot, note, tone, 
 
   /* Desktop: three columns with flow connectors; the dots animate only here. */
   @media (min-width: 768px) {
-    .head { flex-direction: row; justify-content: space-between; padding-inline: var(--space-6); }
+    .diag-head { flex-direction: row; justify-content: space-between; padding-inline: var(--space-6); }
     .body { grid-template-columns: 1fr var(--space-10) 1.4fr var(--space-10) 1fr; grid-auto-flow: row; align-items: center; padding: var(--space-6); gap: var(--space-3) 0; }
     .colh, .node, .engine { order: 0; }
     .colh.in { grid-column: 1; grid-row: 1; }

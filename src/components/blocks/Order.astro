@@ -4,13 +4,13 @@ import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'order'>, 'type'>;
-const { label, title, lead, step_label, stages, summary_label, panel_aria, buttons, plan, property, documents, details, done, disclaimer, sticky_copy = true, tone = 'sunken', id } = Astro.props;
+const { title, lead, step_label, stages, summary_label, panel_aria, buttons, plan, property, documents, details, done, disclaimer, sticky_copy = true, tone = 'sunken', id } = Astro.props;
 const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{total}', '4');
 ---
 <Section id={id} tone={tone} labelledby="order-title">
   <div class="ei-grid">
     <div class:list={['ei-copy', sticky_copy && 'sticky-copy']}>
-      <SectionHead label={label} title={title} lead={lead} id="order-title" />
+      <SectionHead title={title} lead={lead} id="order-title" />
       <div class="stage" aria-hidden="true">
         {stages.map((s, i) => <p data-s={i + 1}><span class="t-label">{stepText(i + 1)}</span>{s}</p>)}
       </div>
@@ -245,7 +245,7 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
         <p class="note">{done.retry.before}<a id="pc-wa-link" href="https://wa.me/6281337973097" target="_blank" rel="noopener">{done.retry.link_text}</a>{done.retry.after}</p>
       </div>
     </div>
-    <p class="t-caption ei-disc scope">{disclaimer}</p>
+    <p class="t-small ei-disc scope">{disclaimer}</p>
   </div>
 </Section>
 
@@ -263,7 +263,7 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
   .stage p.done { color: var(--c-text-2); }
   .ord-sum { margin-top: var(--space-5); gap: var(--space-2); padding: var(--space-4); border: var(--bw-1) solid var(--c-border-strong); background: var(--c-surface); }
   .ord-sum .k { color: var(--c-text-3); }
-  .ord-sum .v { font-size: var(--fs-h4); font-weight: 500; }
+  .ord-sum .v { font-size: var(--fs-text); font-weight: 500; }
   .ord-sum .d { color: var(--c-text-2); }
 
   .ei-panel { display: grid; gap: var(--space-5); padding: var(--space-6); background: var(--c-surface); border: var(--bw-1) solid var(--c-border-strong); }
@@ -280,7 +280,7 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
   .fld label, .pc-set legend { font-size: var(--fs-small); font-weight: 500; color: var(--c-text); }
   .tag { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 400; color: var(--c-text-3); }
   .pc-set legend .tag { margin-left: var(--space-2); }
-  .pc-help { font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--c-text-3); }
+  .pc-help { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--c-text-3); }
   .pc-lead { font-size: var(--fs-small); color: var(--c-text-2); }
   .fld input {
     width: 100%;
@@ -291,14 +291,14 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
     border-radius: var(--radius);
     color: var(--c-text);
     font: inherit;
-    font-size: var(--fs-body);
+    font-size: var(--fs-text);
     transition: border-color var(--ease);
   }
   .fld input::placeholder { color: var(--c-text-3); opacity: 1; }
   .fld input:hover { border-color: var(--c-text-3); }
   .fld input:focus-visible { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-1); border-color: var(--c-accent); }
   [aria-invalid='true'] { border-color: var(--color-danger); }
-  .err { font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--color-danger); }
+  .err { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--color-danger); }
   .err:empty { display: none; }
 
   .pc-set { display: grid; gap: var(--space-2); margin: 0; padding: 0; border: 0; min-width: 0; }
@@ -335,7 +335,7 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
   .pc-opt:has(input:focus-visible) { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-1); }
   .pc-opt .t { display: flex; flex-direction: column; gap: var(--space-1); flex: 1 1 auto; min-width: 0; }
   .pc-opt .t small { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--c-text-3); }
-  .pc-opt .p { font-family: var(--font-mono); font-size: var(--fs-caption); color: var(--c-text-3); white-space: nowrap; }
+  .pc-opt .p { font-family: var(--font-mono); font-size: var(--fs-small); color: var(--c-text-3); white-space: nowrap; }
   .pc-opt:has(input:checked) .p { color: var(--c-accent); }
   .pc-set[aria-invalid='true'] .pc-opt { border-color: var(--color-danger); }
   .pc-grp { display: grid; gap: var(--space-5); }
@@ -374,7 +374,7 @@ const stepText = (n: number) => step_label.replace('{n}', String(n)).replace('{t
   .pc-done-rows b { font-weight: 500; overflow-wrap: anywhere; }
   .pc-review .pc-done-rows p { display: grid; grid-template-columns: calc(var(--space-16) * 1.5) minmax(0, 1fr); gap: var(--space-3); align-items: baseline; }
   .pc-done { display: grid; gap: var(--space-5); }
-  .pc-done h3 { font-size: var(--fs-h2); line-height: var(--lh-h2); }
+  .pc-done h3 { font-size: var(--fs-card-title); line-height: var(--lh-card-title); }
   .pc-done .note { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--c-text-2); overflow-wrap: anywhere; }
   .pc-done .note b { font-weight: 500; color: var(--c-text); }
   .ei-disc { padding-top: var(--space-4); border-top: var(--bw-1) solid var(--c-border-strong); font-family: var(--font-mono); color: var(--c-text-3); max-width: var(--container-prose); }

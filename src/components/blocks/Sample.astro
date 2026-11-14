@@ -4,12 +4,12 @@ import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'sample'>, 'type'>;
-const { label, title, lead, document_title, rows, note, tone, id } = Astro.props;
+const { title, lead, document_title, rows, note, tone, id } = Astro.props;
 const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 const statusText = { ok: 'Clear', warn: 'Attention', danger: 'Issue' } as const;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
-  <SectionHead label={label} title={title} lead={lead} id={headId} />
+  <SectionHead title={title} lead={lead} id={headId} />
   <figure class="doc">
     <figcaption class="t-label doctitle">{document_title}</figcaption>
     <ul>
@@ -19,12 +19,12 @@ const statusText = { ok: 'Clear', warn: 'Attention', danger: 'Issue' } as const;
             <span class={`dot dot-${r.status}`} aria-hidden="true"></span>
             <span class="sr-only">{statusText[r.status]}:</span>
             <span class="t-small k">{r.label}</span>
-            <span class="t-body v">{r.value}</span>
+            <span class="t-text v">{r.value}</span>
           </li>
         ))
       }
     </ul>
-    {note && <p class="t-caption note">{note}</p>}
+    {note && <p class="t-small note">{note}</p>}
   </figure>
 </Section>
 

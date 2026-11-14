@@ -1,4 +1,6 @@
 ---
+// The first screen of every page (CLAUDE.md rule 2): page-title, one paragraph, 1-2 buttons, optional illustration.
+// Nothing else is rendered here. Meta strips, metric lists and extra links go to the next block.
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import Action from '../ui/Action.astro';
@@ -6,46 +8,21 @@ import DesktopIllustration from '../ui/DesktopIllustration.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'hero'>, 'type'>;
-const { variant, heading_id = 'hero-title', label, title, subtitle, lead, actions, meta, fee_note, illustration, metrics, tone, id } = Astro.props;
-const display = variant === 'display';
+const { heading_id = 'hero-title', title, subtitle, lead, actions, illustration, tone, id } = Astro.props;
 ---
 <Section id={id} tone={tone} labelledby={heading_id}>
   <div class:list={['hero', illustration && 'has-art']} data-art={illustration}>
     <div class="copy">
-      <SectionHead
-        level={1}
-        hero
-        display={display || Boolean(subtitle)}
-        label={label}
-        title={title}
-        subtitle={subtitle}
-        lead={lead}
-        id={heading_id}
-        next={meta || metrics ? 'content' : 'actions'}
-      />
-      {meta && <p class="t-label meta">{meta}</p>}
-      {
-        metrics && (
-          <dl class="metrics">
-            {metrics.map((m) => (
-              <div class="m">
-                <dt class="value">{m.value}</dt>
-                <dd class="t-small mlabel">{m.label}</dd>
-              </div>
-            ))}
-          </dl>
-        )
-      }
+      <SectionHead level={1} hero title={title} subtitle={subtitle} lead={lead} id={heading_id} next="actions" />
       {
         actions.length > 0 && (
           <div class="actions">
-            {actions.map((a, i) => (
-              <Action action={a} fallbackVariant={i === 0 ? 'primary' : 'secondary'} />
+            {actions.slice(0, 2).map((a, i) => (
+              <Action action={{ ...a, variant: i === 0 ? a.variant ?? 'primary' : 'secondary' }} fallbackVariant="primary" />
             ))}
           </div>
         )
       }
-      {fee_note && <p class="t-small note">{fee_note}</p>}
     </div>
     {
       illustration && (
@@ -59,27 +36,16 @@ const display = variant === 'display';
 
 <style>
   .hero { display: grid; gap: var(--space-10); }
-  .copy { display: flex; flex-direction: column; align-items: flex-start; max-width: var(--hero-title-max); }
-  .copy > .metrics { margin-bottom: var(--space-8); }
+  .copy { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; max-width: var(--hero-title-max); }
   .actions { display: grid; gap: var(--space-3); width: 100%; }
-  .note { margin-top: var(--space-4); max-width: var(--container-prose); color: var(--c-text-3); }
-  .meta { width: 100%; margin: 0 0 var(--space-8); padding-block: var(--space-4); border-top: var(--bw-1) solid var(--c-text); border-bottom: var(--bw-1) solid var(--c-border); color: var(--c-text-3); }
   .art { display: none; min-width: 0; }
-  .metrics { display: grid; gap: var(--space-4); width: 100%; margin: 0; }
-  .m { display: grid; gap: var(--space-1); position: relative; padding-left: var(--space-5); }
-  .m::before { content: ''; position: absolute; left: var(--bw-2); top: var(--space-2); width: var(--space-2); height: var(--space-2); background: var(--c-accent); transform: rotate(45deg); }
-  .value { font-weight: 600; }
-  .mlabel { color: var(--c-text-2); }
 
   @media (min-width: 768px) {
     .art { display: block; }
     .actions { display: flex; flex-wrap: wrap; width: auto; gap: var(--space-4); }
-    .metrics { grid-template-columns: 1fr; }
   }
+  /* With an illustration: text left, illustration right, 50/50, gap 64, both top-aligned. */
   @media (min-width: 1024px) {
-    .has-art { grid-template-columns: 1fr 1fr; align-items: center; gap: var(--space-16); }
-    .has-art[data-art='home'] { grid-template-columns: 1.32fr 1fr; gap: var(--space-12); }
-    .has-art[data-art='property-check'] { grid-template-columns: 1.45fr 1fr; }
-    .has-art[data-art='platform'] { grid-template-columns: 2fr 1fr; gap: var(--space-12); }
+    .has-art { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--space-16); }
   }
 </style>

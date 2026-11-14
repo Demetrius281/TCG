@@ -1,4 +1,4 @@
-// PreToolUse (Edit|Write): block edits to the files that enforce the design rules.
+// PreToolUse (Edit|Write): the files that enforce the design rules need the owner's confirmation (permissionDecision "ask").
 import path from 'node:path';
 
 let input = '';
@@ -13,7 +13,14 @@ const root = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 const rel = path.relative(root, path.resolve(root, file)).split(path.sep).join('/');
 const protectedPaths = ['CLAUDE.md', '.claude/', '.github/', 'scripts/check-design.mjs', 'qa/rules/', 'qa/baseline/'];
 if (protectedPaths.some((p) => (p.endsWith('/') ? rel.startsWith(p) : rel === p))) {
-  console.error(`Blocked: ${rel} is protected. Editing CLAUDE.md, .claude/, .github/, scripts/check-design.mjs, qa/rules/ or qa/baseline/ needs owner approval.`);
-  process.exit(2);
+  process.stdout.write(
+    JSON.stringify({
+      hookSpecificOutput: {
+        hookEventName: 'PreToolUse',
+        permissionDecision: 'ask',
+        permissionDecisionReason: `${rel} is a protected file (CLAUDE.md, .claude/, .github/, scripts/check-design.mjs, qa/rules/, qa/baseline/). Owner confirmation required.`,
+      },
+    }),
+  );
 }
 process.exit(0);

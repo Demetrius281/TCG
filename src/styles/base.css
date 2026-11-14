@@ -30,8 +30,8 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
+  font-size: var(--fs-text);
+  line-height: var(--lh-text);
   text-align: left;
   -webkit-font-smoothing: antialiased;
 }
@@ -60,18 +60,14 @@ button { font: inherit; color: inherit; }
   border: 0;
 }
 
-/* Type scale (spec section 5). Sizes come from tokens; line-height and tracking per scale. */
-.t-display, .t-h1, .t-h2, .t-h3, .t-h4 { font-family: var(--font-sans); text-wrap: balance; }
+/* Type: 7 roles only (CLAUDE.md rule 3). page-title, section-title, card-title, text, small, label, metric. */
+.t-page-title, .t-section-title, .t-card-title { font-family: var(--font-sans); text-wrap: balance; }
 
-.t-display { font-size: var(--fs-display); font-weight: 500; letter-spacing: -0.025em; line-height: var(--lh-display); }
-.t-h1, h1 { font-size: var(--fs-h1); font-weight: 500; letter-spacing: -0.025em; line-height: var(--lh-h1); }
-.t-h2, h2 { font-size: var(--fs-h2); font-weight: 500; letter-spacing: -0.02em; line-height: var(--lh-h2); }
-.t-h3, h3 { font-size: var(--fs-h3); font-weight: 500; letter-spacing: -0.012em; line-height: var(--lh-h3); }
-.t-h4, h4 { font-size: var(--fs-h4); font-weight: 600; letter-spacing: 0; line-height: var(--lh-h4); }
-.t-lead { font-size: var(--fs-lead); font-weight: 400; line-height: var(--lh-lead); }
-.t-body { font-size: var(--fs-body); font-weight: 400; line-height: var(--lh-body); }
+.t-page-title, h1 { font-size: var(--fs-page-title); font-weight: 500; letter-spacing: -0.025em; line-height: var(--lh-page-title); }
+.t-section-title, h2 { font-size: var(--fs-section-title); font-weight: 500; letter-spacing: -0.02em; line-height: var(--lh-section-title); }
+.t-card-title, h3, h4 { font-size: var(--fs-card-title); font-weight: 500; letter-spacing: -0.012em; line-height: var(--lh-card-title); }
+.t-text { font-size: var(--fs-text); font-weight: 400; line-height: var(--lh-text); }
 .t-small { font-size: var(--fs-small); font-weight: 400; line-height: var(--lh-small); }
-.t-caption { font-size: var(--fs-caption); font-weight: 400; line-height: var(--lh-caption); }
 .t-label {
   font-family: var(--font-mono);
   font-size: var(--fs-label);
@@ -81,7 +77,6 @@ button { font: inherit; color: inherit; }
   text-transform: uppercase;
 }
 .t-metric { font-size: var(--fs-metric); font-weight: 300; letter-spacing: -0.04em; line-height: var(--lh-metric); }
-
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -95,4 +90,31 @@ button { font: inherit; color: inherit; }
     top: calc(var(--header-h-lg) + var(--space-6));
     align-self: start;
   }
+}
+
+/* Lists (CLAUDE.md rule 9): the only list markers on the site. Rendered through ui/List. */
+.list { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; counter-reset: item; }
+.list > li { position: relative; min-width: 0; padding-left: var(--space-5); counter-increment: item; }
+.list.is-bulleted > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc((1lh - var(--space-2)) / 2);
+  width: var(--space-2);
+  height: var(--space-2);
+  background: var(--c-accent, var(--color-accent));
+  transform: rotate(45deg);
+}
+.list.is-numbered > li { padding-left: var(--space-8); }
+.list.is-numbered > li::before {
+  content: counter(item, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: inherit;
+  color: var(--c-accent, var(--color-accent));
 }

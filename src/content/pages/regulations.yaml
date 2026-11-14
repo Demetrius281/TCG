@@ -113,7 +113,6 @@ header_cta:
   data_cta: guide_header
 blocks:
   - type: hero
-    variant: page
     heading_id: page-title
     title: "Bali Villa Regulations 2026: Protect Your Investment."
     subtitle: Zoning, PBG, SLF & Rental Licensing
@@ -225,7 +224,6 @@ blocks:
   - type: guide
     nav: short-answer
     tone: inverse
-    label: 01 / The Compliance Chain
     title: "Bali Property Legality: The Short Answer"
     heading_id: sa-h
     lead: A Bali property is assessed through six connected layers. Each document confirms one layer, and legal rental requires all six.
@@ -290,7 +288,6 @@ blocks:
   - type: guide
     id: short-term-legal
     nav: short-answer
-    label: 02 / Overview
     title: Is short‑term rental legal in Bali?
     heading_id: stl-h
     answer: Yes. Short‑term accommodation is a regulated business activity in Indonesia.
@@ -303,7 +300,6 @@ blocks:
     id: zoning
     tone: sunken
     nav: zoning
-    label: 03 / Zoning
     chain:
       - 2
     title: Zoning, RDTR, RTRW and KKPR
@@ -478,7 +474,6 @@ blocks:
   - type: guide
     id: building
     nav: building
-    label: 04 / Building
     chain:
       - 3
     title: PBG, SLF and legacy IMB
@@ -537,7 +532,6 @@ blocks:
     id: existing
     nav: existing
     tone: sunken
-    label: 05 / Existing Properties
     chain:
       - 2
       - 3
@@ -639,7 +633,6 @@ blocks:
     id: nib-kbli
     tone: sunken
     nav: nib-kbli
-    label: 06 / Business Licensing
     chain:
       - 4
       - 5
@@ -711,7 +704,6 @@ blocks:
   - type: guide
     id: foreign-owners
     nav: foreign-owners
-    label: 07 / PT PMA and Foreign Owners
     chain:
       - 4
     title: What a PT PMA can register in Bali in 2026
@@ -823,7 +815,6 @@ blocks:
     id: operator
     nav: foreign-owners
     tone: sunken
-    label: 08 / Operator and Tax
     chain:
       - 4
       - 6
@@ -842,7 +833,6 @@ blocks:
           - =
           - Operational compliance
       - part: taxbox
-        label: Operation
         title: Local tax registration
         paragraphs:
           - Local tax registration and reporting form their own compliance layer, alongside the national NIB.
@@ -852,7 +842,6 @@ blocks:
     id: changes-2026
     nav: changes-2026
     tone: inverse
-    label: 09 / 2026 Updates
     title: What changed in 2026
     heading_id: chg-h
     lead: New provincial and national rules, the PT PMA closure and active enforcement now shape every property audit.
@@ -926,7 +915,6 @@ blocks:
   - type: guide
     id: audit
     nav: audit
-    label: 10 / Property Compliance Audit
     chain:
       - 1
       - 2
@@ -1016,7 +1004,6 @@ blocks:
     id: review
     nav: audit
     tone: inverse
-    label: Free Review
     title: Unsure Whether Your Bali Property Can Be Rented Legally?
     text: Send the property location and the documents you have. TCG reviews them free of charge and sets out the first compliance questions to resolve before a legalization or operating strategy is designed.
     action:
@@ -1042,7 +1029,6 @@ blocks:
     nav: faq
     tone: sunken
     json_ld: false
-    label: 11 / FAQ
     heading_id: faq-h
     title: Quick answers
     items:

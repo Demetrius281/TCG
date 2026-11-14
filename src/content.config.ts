@@ -24,27 +24,21 @@ const base = { tone, id: text.optional(), nav: text.optional() };
 export const heroBlock = obj({
   type: z.literal('hero'),
   ...base,
-  variant: z.enum(['display', 'page']),
   heading_id: text.optional(),
-  label: text.optional(),
   title: text,
   subtitle: text.optional(),
   lead: text.optional(),
   actions: z.array(action).default([]),
-  meta: text.optional(),
-  fee_note: text.optional(),
   illustration: z.enum(['home', 'property-check', 'regulations', 'platform']).optional(),
-  metrics: z.array(obj({ value: text, label: text })).optional(),
 });
 
 export const cardsBlock = obj({
   type: z.literal('cards'),
   ...base,
-  label: text.optional(),
+  meta: text.optional(),
   title: text.optional(),
   lead: text.optional(),
   columns: z.union([z.literal(2), z.literal(3), z.literal(4)]).default(3),
-  variant: z.enum(['card', 'seam']).default('card'),
   items: z
     .array(obj({
         label: text.optional(),
@@ -80,7 +74,6 @@ export const servicesBlock = obj({
 export const stepsBlock = obj({
   type: z.literal('steps'),
   ...base,
-  label: text.optional(),
   title: text,
   layout: z.enum(['row', 'list', 'grid']).default('row'),
   items: z
@@ -120,7 +113,6 @@ export const logosBlock = obj({
 export const faqBlock = obj({
   type: z.literal('faq'),
   ...base,
-  label: text.optional(),
   json_ld: z.boolean().default(true),
   layout: z.enum(['split', 'stack']).optional(),
   heading_id: text.optional(),
@@ -132,7 +124,6 @@ export const faqBlock = obj({
 export const ctaBlock = obj({
   type: z.literal('cta'),
   ...base,
-  label: text.optional(),
   title: text,
   text: text,
   action,
@@ -144,7 +135,6 @@ export const ctaBlock = obj({
 export const sampleBlock = obj({
   type: z.literal('sample'),
   ...base,
-  label: text.optional(),
   title: text,
   lead: text.optional(),
   document_title: text,
@@ -223,7 +213,7 @@ export const guidePart = z.discriminatedUnion('part', [
   }),
   obj({ part: z.literal('split'), items: z.array(obj({ id: text.optional(), title: text, paragraphs: z.array(text).min(1) })).length(2) }),
   obj({ part: z.literal('formula'), items: z.array(text).min(3) }),
-  obj({ part: z.literal('taxbox'), id: text.optional(), label: text, title: text, paragraphs: z.array(text).min(1) }),
+  obj({ part: z.literal('taxbox'), id: text.optional(), title: text, paragraphs: z.array(text).min(1) }),
   obj({ part: z.literal('screen'), columns: z.array(obj({ title: text, items: z.array(text).min(1) })).length(2) }),
   obj({ part: z.literal('results'), items: z.array(obj({ kind: z.enum(['ok', 'cd', 'mi']), title: text, text })).length(3) }),
   obj({
@@ -236,7 +226,6 @@ export const guidePart = z.discriminatedUnion('part', [
 export const guideBlock = obj({
   type: z.literal('guide'),
   ...base,
-  label: text.optional(),
   chain: z.array(z.number().int().min(1).max(6)).optional(),
   heading_id: text.optional(),
   title: text.optional(),
@@ -263,9 +252,9 @@ export const sourcesBlock = obj({
 export const featuresBlock = obj({
   type: z.literal('features'),
   ...base,
-  label: text,
   title: text,
   paragraphs: z.array(text).min(1),
+  highlights: z.array(obj({ title: text, text })).optional(),
   items: z.array(obj({ icon: z.enum(['network', 'spark', 'layers', 'target']), title: text, text })).min(1),
 });
 
@@ -273,7 +262,6 @@ export const featuresBlock = obj({
 export const spotlightBlock = obj({
   type: z.literal('spotlight'),
   ...base,
-  label: text,
   title: text,
   lead: text,
   panel: obj({
@@ -290,7 +278,6 @@ export const spotlightBlock = obj({
 export const acquisitionCaseBlock = obj({
   type: z.literal('acquisition_case'),
   ...base,
-  label: text,
   title: text,
   paragraphs: z.array(text).min(1),
   profit: obj({ title: text, text }),
@@ -309,7 +296,6 @@ const archNode = obj({ title: text, text });
 export const architectureBlock = obj({
   type: z.literal('architecture'),
   ...base,
-  label: text,
   title: text,
   head: z.tuple([text, text]),
   columns: z.tuple([text, text, text]),
@@ -326,7 +312,6 @@ export const inquiryBlock = obj({
   type: z.literal('inquiry'),
   ...base,
   sticky_copy: z.boolean().optional(),
-  label: text,
   title: text,
   lead: text,
   stage: z.array(obj({ label: text, text })).length(2),
@@ -342,7 +327,6 @@ export const inquiryBlock = obj({
 export const reportBlock = obj({
   type: z.literal('report'),
   ...base,
-  label: text,
   title: text,
   lead: text,
   line: text,
@@ -387,7 +371,6 @@ export const comparisonBlock = obj({
 export const pricingBlock = obj({
   type: z.literal('pricing'),
   ...base,
-  label: text.optional(),
   title: text,
   hint: text.optional(),
   note: text.optional(),
@@ -417,7 +400,6 @@ export const orderBlock = obj({
   type: z.literal('order'),
   ...base,
   sticky_copy: z.boolean().optional(),
-  label: text,
   title: text,
   lead: text,
   step_label: text,

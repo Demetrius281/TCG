@@ -10,7 +10,7 @@ const { title, text, href, tone, id } = Astro.props;
     {
       text ? (
         <>
-          <h3 class="t-h4 title">{href ? <a href={href}>{title}</a> : title}</h3>
+          <h3 class="t-card-title title">{href ? <a href={href}>{title}</a> : title}</h3>
           <p class="t-small text">{text}</p>
         </>
       ) : (

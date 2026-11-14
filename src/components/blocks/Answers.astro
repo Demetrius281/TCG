@@ -1,6 +1,7 @@
 ---
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
+import List from '../ui/List.astro';
 import Button from '../ui/Button.astro';
 import { isPlaceholder } from '../../lib/placeholder';
 import type { BlockOf } from '../../content.config';
@@ -23,10 +24,10 @@ const leadText = launch && !isPlaceholder(launch) ? `${lead} ${launch}` : lead;
       }
     </div>
     <div class="panel">
-      <h3 class="t-label panel-title">{list_title}</h3>
-      <ul class="list">
-        {items.map((q) => <li class="t-lead">{q}</li>)}
-      </ul>
+      <h3 class="panel-title">{list_title}</h3>
+      <List numbered>
+        {items.map((q) => <li class="t-text">{q}</li>)}
+      </List>
     </div>
   </div>
 </Section>
@@ -37,10 +38,6 @@ const leadText = launch && !isPlaceholder(launch) ? `${lead} ${launch}` : lead;
   .lead { color: var(--c-text-2); }
   .links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-6); margin: 0; }
   .panel { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6); background: var(--c-surface); border: var(--bw-1) solid var(--c-border); border-top: var(--bw-2) solid var(--c-accent); }
-  .panel-title { color: var(--c-text-3); }
-  .list { counter-reset: q; display: grid; }
-  .list li { counter-increment: q; display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); padding-block: var(--space-4); border-top: var(--bw-1) solid var(--c-border); color: var(--c-text); }
-  .list li::before { content: counter(q, decimal-leading-zero); font-family: var(--font-mono); font-size: var(--fs-label); line-height: var(--lh-lead); color: var(--c-accent); }
 
   @media (min-width: 1024px) {
     .answers { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-16); align-items: start; }

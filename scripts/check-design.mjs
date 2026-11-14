@@ -1,5 +1,6 @@
 // Static design check (CLAUDE.md "How to build"). Run: npm run check
-// Fails on: hex colours or px outside tokens.css, inline styles, font-size outside base.css,
+// Fails on: hex colours or px outside tokens.css, inline styles, font-size that is not one of the 7 type roles,
+// removed roles (display, h4, lead, caption), eyebrows, list markers outside ui/List, `list-style` other than none,
 // <h2> outside SectionHead, raw <section>, overrides of Section/SectionHead/Grid spacing from blocks,
 // unknown block types in the content files.
 // Known exceptions: theme-color meta, matchMedia strings, min-width media queries, env() insets,
@@ -65,14 +66,32 @@ for (const file of [...src, ...frags]) {
     }
     // Rule: no inline styles
     if (/\sstyle\s*=/.test(line) || /\bstyle=\{/.test(line)) add(file, 'inline-style', line);
-    // Rule: font-size only in base.css roles (SVG illustration fragments are exempt)
-    if (!isBase && !isTokens && !isFrag && /(^|[;{\s])font-size\s*:/.test(line)) add(file, 'font-size-outside-base', line);
+    // Rule 3: font-size only through the 7 roles. Outside base.css the value must be exactly a role token.
+    if (!isBase && !isTokens && !isFrag) {
+      for (const m of line.matchAll(/(^|[;{\s])font-size\s*:\s*([^;}]*)/g)) {
+        const v = m[2].trim();
+        if (!/^(var\(--fs-(page-title|section-title|card-title|text|small|label|metric)\)|inherit)$/.test(v)) add(file, 'font-size-outside-roles', line);
+      }
+      for (const m of line.matchAll(/(^|[;{\s])font\s*:\s*([^;}]*)/g)) if (m[2].trim() !== 'inherit') add(file, 'font-shorthand', line);
+    }
+    // Removed roles: display, h4, lead, caption (and their tokens)
+    if (!isTokens && /(\bt-(display|h1|h2|h3|h4|lead|caption|body)\b|--(fs|lh)-(display|h1|h2|h3|h4|lead|caption|body)\b)/.test(line)) add(file, 'removed-role', line);
+    // Rule 3: no eyebrows above headings
+    if (!isFrag && /eyebrow/i.test(line) && !/aria-|data-/.test(line)) add(file, 'eyebrow', line);
+    // Rule 9: no list-style other than none; markers are drawn by base.css .list only
+    for (const m of line.matchAll(/list-style(?:-type)?\s*:\s*([^;}\s]+)/g)) if (!isBase && m[1] !== 'none') add(file, 'list-style', line);
   });
 
   if (name.endsWith('.astro')) {
     const isHead = name === 'src/components/ui/SectionHead.astro';
     const isSection = name === 'src/components/ui/Section.astro';
     if (!isHead) for (const l of lines) if (/<h2[\s>]/.test(l)) add(file, 'h2-outside-sectionhead', l);
+    if (/<SectionHead[^>]*\blabel=/.test(text)) add(file, 'eyebrow', 'label passed to SectionHead');
+    // Rule 9: no li::before / li::after markers in components (ui/List and base.css own the markers)
+    const cssAll = [...text.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join('\n');
+    for (const m of cssAll.matchAll(/([^{}@]+)\{([^{}]*)\}/g)) {
+      if (/\bli\b[^,{]*::(before|after)/.test(m[1]) && /content\s*:/.test(m[2])) add(file, 'list-marker', `${m[1].trim()} { content }`);
+    }
     if (!isSection) for (const l of lines) if (/<section[\s>]/.test(l)) add(file, 'raw-section', l);
     // Rule: blocks cannot override Section, SectionHead or Grid spacing
     if (name.startsWith('src/components/blocks/')) {
@@ -97,6 +116,10 @@ for (const file of yamls) {
   try { doc = YAML.parse(fs.readFileSync(file, 'utf8')); } catch (e) { add(file, 'yaml-parse', String(e.message).slice(0, 80)); continue; }
   for (const b of doc?.blocks ?? []) {
     if (!regKeys.has(b.type) || !schemaTypes.has(b.type)) add(file, 'unknown-block-type', String(b.type));
+    // Rule 3: no eyebrow label on a block; rule 2: the hero carries nothing beyond title, text, buttons, illustration
+    if ('label' in b && b.type !== 'guide_nav') add(file, 'eyebrow', `${b.type}: label ${String(b.label).slice(0, 40)}`);
+    if (b.type === 'hero') for (const k of ['meta', 'metrics', 'fee_note', 'intro']) if (k in b) add(file, 'hero-extra', `${k}`);
+    if (b.type === 'hero' && (b.actions ?? []).length > 2) add(file, 'hero-extra', 'more than 2 buttons');
   }
 }
 

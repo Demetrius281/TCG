@@ -5,7 +5,6 @@ seo:
 blocks:
   # 1. Hero
   - type: hero
-    variant: display
     illustration: home
     title: Verified data, capital access and development strategy for property investors in Bali
     lead: From the first document check to the closing, one accountable team carries your property decision.

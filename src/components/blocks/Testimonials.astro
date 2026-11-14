@@ -18,12 +18,12 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
         items.map((t) => (
           <li class="item">
             <figure class="card">
-              <blockquote class="t-body quote">“{t.quote}”</blockquote>
+              <blockquote class="t-text quote">“{t.quote}”</blockquote>
               <figcaption class="who">
                 {t.photo && <img class="photo" src={t.photo} alt="" width="48" height="48" loading="lazy" decoding="async" />}
                 <span class="id">
-                  <span class="t-h4 name">{t.name}</span>
-                  {t.meta && <span class="t-caption meta">{t.meta}</span>}
+                  <span class="t-card-title name">{t.name}</span>
+                  {t.meta && <span class="t-small meta">{t.meta}</span>}
                 </span>
               </figcaption>
             </figure>
@@ -47,7 +47,7 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
     cursor: pointer;
   }
   .pause[hidden] { display: none; }
-  .viewport { margin-top: var(--space-10); overflow-x: auto; padding-bottom: var(--space-2); }
+  .viewport { margin-top: var(--space-10); overflow-x: auto; }
   .viewport.auto { overflow: hidden; }
   .track { display: flex; width: max-content; }
   .item { flex: none; width: min(85vw, calc(var(--container-prose) / 2)); margin-inline-end: var(--grid-gap); }

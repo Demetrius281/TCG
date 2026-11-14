@@ -16,7 +16,7 @@ const { title, items, tone, id, nav } = Astro.props;
             <span class="t-label n">{t.number}</span>
             <span class="q">
               <strong>{t.question}</strong>
-              <span class="t-caption hint">{t.hint}</span>
+              <span class="t-small hint">{t.hint}</span>
             </span>
             <svg class="go" viewBox="0 0 28 28" aria-hidden="true"><path d="M14 5v17M7 15l7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.5"></path></svg>
           </a>
@@ -43,7 +43,7 @@ const { title, items, tone, id, nav } = Astro.props;
   .topics a:hover { background: var(--c-surface); }
   .n { color: var(--c-accent); }
   .q { display: grid; gap: var(--space-1); }
-  .q strong { font-size: var(--fs-body); font-weight: 500; line-height: var(--lh-small); }
+  .q strong { font-size: var(--fs-text); font-weight: 500; line-height: var(--lh-small); }
   .hint { font-family: var(--font-mono); color: var(--c-text-3); }
   .go { width: var(--space-5); height: var(--space-5); color: var(--c-accent); transition: transform var(--ease); }
   .topics a:hover .go { transform: translateY(var(--space-1)); }

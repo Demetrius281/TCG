@@ -4,12 +4,12 @@ import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'inquiry'>, 'type'>;
-const { label, title, lead, stage, panel, fields: f, interest_options, message_placeholder, submit, disclaimer, sticky_copy = true, tone = 'sunken', id, nav } = Astro.props;
+const { title, lead, stage, panel, fields: f, interest_options, message_placeholder, submit, disclaimer, sticky_copy = true, tone = 'sunken', id, nav } = Astro.props;
 ---
 <Section id={id} nav={nav} tone={tone} labelledby="ei-title">
   <div class="ei-grid">
     <div class:list={['ei-copy', sticky_copy && 'sticky-copy']}>
-      <SectionHead label={label} title={title} lead={lead} id="ei-title" />
+      <SectionHead title={title} lead={lead} id="ei-title" />
       <div class="stage">
         {stage.map((s) => <p><span class="t-label">{s.label}</span>{s.text}</p>)}
       </div>
@@ -54,7 +54,7 @@ const { label, title, lead, stage, panel, fields: f, interest_options, message_p
           <p class="ei-status" id="ei-status" role="status" aria-live="polite"></p>
         </div>
       </form>
-      <p class="t-caption ei-disc">{disclaimer}</p>
+      <p class="t-small ei-disc">{disclaimer}</p>
     </div>
   </div>
 </Section>
@@ -83,7 +83,7 @@ const { label, title, lead, stage, panel, fields: f, interest_options, message_p
     border-radius: var(--radius);
     color: var(--c-text);
     font: inherit;
-    font-size: var(--fs-body);
+    font-size: var(--fs-text);
     transition: border-color var(--ease);
   }
   .fld textarea { min-height: calc(var(--space-16) * 2); resize: vertical; line-height: var(--lh-small); }
@@ -93,7 +93,7 @@ const { label, title, lead, stage, panel, fields: f, interest_options, message_p
   .fld input:hover, .fld select:hover, .fld textarea:hover { border-color: var(--c-text-3); }
   .fld input:focus-visible, .fld select:focus-visible, .fld textarea:focus-visible { outline: var(--bw-2) solid var(--c-accent); outline-offset: var(--bw-1); border-color: var(--c-accent); }
   .fld [aria-invalid='true'] { border-color: var(--color-danger); }
-  .err { font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--color-danger); }
+  .err { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--color-danger); }
   .err:empty { display: none; }
   .ei-submit { display: grid; gap: var(--space-3); align-items: stretch; margin-top: var(--space-1); }
   .ei-btn { min-height: var(--control-h); padding: 0 var(--space-6); background: var(--c-accent); border: 0; border-radius: var(--radius); color: var(--c-bg); font: inherit; font-size: var(--fs-small); font-weight: 500; cursor: pointer; transition: background-color var(--ease), transform var(--ease), box-shadow var(--ease); }

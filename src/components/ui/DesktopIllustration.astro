@@ -11,7 +11,6 @@ const { name } = Astro.props;
   /* The slot reserves the illustration's size before the fragment loads (no layout shift). */
   @media (min-width: 768px) {
     .host { display: block; aspect-ratio: 460 / 512; }
-    .host[data-illustration='property-check'] { aspect-ratio: auto; min-height: calc(var(--space-16) * 8); }
   }
 </style>
 

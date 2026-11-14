@@ -19,8 +19,8 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
           <li>
             <a class="row" href={href} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>
               <span class="main">
-                <span class="t-h3 t">{item.title}</span>
-                {item.text && <span class="t-body text">{item.text}</span>}
+                <span class="t-card-title t">{item.title}</span>
+                {item.text && <span class="t-text text">{item.text}</span>}
               </span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
@@ -38,7 +38,7 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
   .main { display: grid; gap: var(--space-2); max-width: var(--container-prose); }
   .t { font-weight: 500; }
   .text { color: var(--c-text-2); }
-  .arrow { color: var(--c-accent); font-size: var(--fs-lead); transition: transform var(--ease); }
+  .arrow { color: var(--c-accent); font-size: var(--fs-text); transition: transform var(--ease); }
   .row:hover .t { color: var(--c-accent); }
   .row:hover .arrow { transform: translateX(var(--space-1)); }
 </style>
