@@ -1,0 +1,221 @@
+seo:
+  title: Acquisition Advisory for Bali Property | TCG
+  og_title: Acquisition Advisory for Bali Property
+  description: Buy-side advisory for prime villas, bulk purchases from developers and complex Bali properties. Verification, valuation and negotiation through to notarial close.
+  robots: index, follow
+  og_image: /tcg-bali-social-20261027.jpg
+
+blocks:
+  # 1 Hero
+  - type: hero
+    title: Buy Bali Property at a Defensible Price.
+    lead: TCG represents investors in prime villa transactions, bulk buyouts from developers and complex projects. We verify title, zoning and permits, resolve risks before signing and negotiate through to notarial close.
+    illustration: property-check
+    actions:
+      - label: Discuss an Acquisition
+        message: book
+
+  # 2 Mandates
+  - type: cards
+    id: mandates
+    title: Four Acquisition Mandates.
+    lead: "Every engagement runs on TCG property data: zoning by coordinates, PBG and SLF status, corporate filings and past project delivery."
+    columns: 2
+    items:
+      - title: Prime Villas
+        text: Single-asset deals from US$1M. Title, zoning and licensing are checked for your intended use, with pricing set against recent comparable sales.
+        tag: Up to 15% below list
+      - title: Bulk Purchases from Developers
+        text: Multiple units or an entire inventory bought at source, with checks on the builder's track record, unit-level verification and volume-based pricing.
+        tag: Up to 20% volume discount
+      - title: Unfinished Projects
+        text: Stalled construction with the budget spent or the contractor gone. Costs to finish and value on completion are quantified before any offer.
+        tag: Up to 50% below asking
+      - title: Assets with Legal Defects
+        text: Permit gaps, zoning conflicts and title defects on finished buildings. Each defect is costed, its remedy mapped and the outcome negotiated.
+        tag: Priced on verified findings
+    note:
+      text: Evaluating a villa on your own first? Preliminary Due Diligence reviews zoning, permits and ownership online.
+      link:
+        label: "Check a Property →"
+        href: /due-diligence#pricing
+
+  # 3 Deliverables
+  - type: cards
+    id: deliverables
+    tone: sunken
+    title: Everything Required for an Investment Decision.
+    lead: Every mandate concludes with an Acquisition Memorandum and a negotiated transaction ready for notarial close.
+    columns: 2
+    items:
+      - title: Recommendation
+        text: Proceed, renegotiate or withdraw, with the evidence behind each finding and the risks that would still remain after closing.
+      - title: Verified Asset File
+        text: Title, zoning, permits and owner records, with a structural engineer's comparison of the building against its approved plans.
+      - title: Valuation and Price Targets
+        text: Worth today and after rectification from a licensed appraiser, the costs to legalise and complete, and the walk-away figure.
+      - title: Agreed Terms
+        text: A contract reviewed by our notary and legal counsel, final conditions in writing and a post-acquisition plan for licensing and rental.
+    note:
+      text: Zoning, PBG and SLF requirements are explained in the TCG regulations guide.
+      link:
+        label: "Explore the Guide →"
+        href: /regulations#building
+
+  # 4 Sample (example until a real redacted memorandum is supplied)
+  - type: sample
+    id: sample
+    title: A Redacted Acquisition Memorandum.
+    lead: How findings, costs and price position are presented in the document delivered with every engagement.
+    document_title: Example · Unfinished villa, Badung
+    rows:
+      - label: Recommendation
+        value: Renegotiate
+        status: warn
+      - label: Land title
+        value: HGB held by PT PMA, verified
+        status: ok
+      - label: Zoning
+        value: Tourism zone, short-term rental permitted
+        status: ok
+      - label: PBG · SLF
+        value: As-built exceeds approved plans, SLF pending
+        status: warn
+      - label: Developer
+        value: Two delayed projects on record
+        status: danger
+      - label: Price position
+        value: Target below asking, rectification included
+        status: ok
+    note: Example layout. A redacted memorandum from a real engagement will replace it.
+
+  # 5 Process
+  - type: steps
+    id: process
+    tone: sunken
+    title: From Mandate to Notarial Close.
+    layout: row
+    items:
+      - label: "01"
+        title: Mandate
+        text: Objectives and scope agreed in writing, with 50% of the fee paid on engagement.
+      - label: "02"
+        title: Data Review
+        text: Zoning, permits, title and company records checked through the TCG platform.
+      - label: "03"
+        title: Verification
+        text: Site inspection with a structural engineer and document review with a notary.
+      - label: "04"
+        title: Memorandum
+        text: Findings, valuation, rectification costs and target price, with a recommendation.
+      - label: "05"
+        title: Negotiation
+        text: TCG leads talks with the seller, and every term needs your approval.
+      - label: "06"
+        title: Closing
+        text: Notarial deed and escrow with remote signing. Final 50% paid on completion.
+
+  # 6 How fees are set
+  - type: cards
+    id: fees
+    tone: inverse
+    title: How Fees Are Set.
+    lead: TCG is retained and paid by the buyer alone, so every negotiation is conducted for your price.
+    columns: 2
+    items:
+      - title: Scope
+        text: Mandate type, asset complexity, transaction size and the verification depth each case needs.
+      - title: Payment
+        text: 50% on engagement and 50% on completion, on a written schedule agreed before any work begins.
+      - title: Third-Party Costs
+        text: Notary charges, taxes and partner counsel in Jakarta, settled separately from the advisory fee.
+      - title: Independence
+        text: No commission from sellers or developers, and TCG's own pipeline is never offered to clients.
+    note:
+      text: How TCG keeps advisory work independent of its own deals.
+      link:
+        label: "Conflict of Interest Policy →"
+        href: /terms#conflict-of-interest
+
+  # 7 Selected transactions (template: case)
+  - type: cards
+    id: transactions
+    title: Selected Transactions.
+    lead: Outcomes of deals led by TCG across residential and land markets in Bali.
+    columns: 2
+    items:
+      - title: Stalled Development
+        text: Five villas bought out of a 25-unit complex left unfinished, then completed and let after title and permit verification.
+        tag: 12% annual rental yield
+      - title: Off-Plan Purchase
+        text: Three homes secured at 15% below list for their buyers, then resold to investors well before construction had finished.
+        tag: 50% gain before completion
+      - title: Abandoned Build Recovery
+        text: A villa from a deserted project legalised and finished for an investor failed by its builder, with minimal further loss.
+        tag: Asset recovered
+      - title: Land Subdivision
+        text: A large parcel bought, subdivided and resold, turning one undervalued holding into separate plots for incoming owners.
+        tag: 500% return
+    link:
+      label: Invest Alongside TCG
+      href: /platform
+
+  # 8 FAQ
+  - type: faq
+    id: faq
+    tone: sunken
+    layout: split
+    json_ld: true
+    title: Questions Buyers Ask Before Retaining TCG.
+    items:
+      - question: Why buy an unfinished asset?
+        answer: Incomplete properties trade at the deepest discounts in Bali. Once the costs to legalise and complete are established before signing, that discount becomes measurable value. TCG has acquired such projects at up to 50% below asking.
+        href: /regulations#existing
+        linkText: "Legalising an Existing Building →"
+      - question: Can a stalled project be legalised and completed?
+        answer: In many cases, depending on zoning, the permits in place and how far the building departs from its approved plans. The memorandum states which issues can be resolved, at what cost and over what timeline.
+        href: /regulations#legalization-steps
+        linkText: "View the Legal Pathway →"
+      - question: How is a bulk discount negotiated with a developer?
+        answer: Through volume, payment terms and the seller's unsold inventory position. TCG verifies the builder and each unit before agreeing the package price. Reductions of up to 20% have been achieved.
+      - question: How long does an acquisition take?
+        answer: A clean asset can close within days. Complex cases take the time their issues require, with partner counsel in Jakarta engaged where needed.
+      - question: Does the notary protect the buyer?
+        answer: The notary (PPAT) is a neutral official who executes and registers the deed. Verifying the asset and negotiating price on your behalf lie outside that role.
+      - question: I already have a lawyer. Where does TCG fit?
+        answer: TCG works alongside your counsel and supplies the asset data, technical assessment, valuation and negotiation that a legal review relies on.
+      - question: Which ownership structures are open to foreign buyers?
+        answer: Hak Pakai, leasehold, or holding through an eligible PT PMA, depending on residency and intended use. TCG works with lawful arrangements only.
+        href: /regulations#foreign-owners
+        linkText: "Rules for Foreign Investors →"
+      - question: Can I check a property before retaining TCG?
+        answer: Yes. For villas and land in Badung Regency, Preliminary Due Diligence reviews zoning, permits, land rights and the developer online.
+        href: /due-diligence#pricing
+        linkText: "See Plans and Pricing →"
+      - question: Can the acquisition be completed remotely?
+        answer: Yes. TCG handles inspections, document reviews and negotiation on the ground, and the deed can be signed under power of attorney where the law permits.
+      - question: What if the recommendation is to withdraw?
+        answer: You keep the memorandum and avoid the liability. For many buyers, this finding is the most valuable outcome of the mandate.
+
+  # 9 Final CTA
+  - type: cta
+    id: acquisition-cta
+    tone: inverse
+    title: Tell Us What You Are Considering.
+    text: Send the listing or location, available documents and your target price. TCG replies within one business day.
+    action:
+      label: Discuss an Acquisition
+      message: book
+    side:
+      title: What to Prepare
+      items:
+        - label: Location
+          text: A listing link or Google Maps pin.
+        - label: Documents
+          text: Land certificate, lease, PBG or SLF, where available.
+        - label: Price
+          text: The asking figure and your target.
+    next_steps:
+      - A mandate call to agree objectives and scope.
+      - A written proposal with the fee and schedule.
+      - Data review begins once the engagement payment is received.
