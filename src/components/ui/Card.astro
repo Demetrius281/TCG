@@ -56,5 +56,6 @@ const cls = [variant === 'note' ? 'note' : 'card', `v-${variant}`, accent && 'is
     .is-link:hover { transform: none; }
   }
   .actions { margin-top: calc(var(--s-32) - var(--s-12)); }
-  .foot { display: flex; flex-direction: column; gap: var(--s-12); padding-top: var(--s-12); border-top: var(--bw-1) solid var(--c-border); }
+  /* the divider and what follows it sit at the card bottom; free space stays above it */
+  .foot { display: flex; flex-direction: column; gap: var(--s-12); margin-top: auto; padding-top: var(--s-12); border-top: var(--bw-1) solid var(--c-border); }
 </style>

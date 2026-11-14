@@ -1,77 +1,362 @@
 ---
-// Sources -> hub -> outputs. The three columns are centred on each other; the connector lines are drawn by
-// src/scripts/illustrations/flow.ts from the data-flow-* markers (they meet the items exactly). Desktop only.
-//   hub: the central box. A plain hub is a dark label; with `modules` it is an accent-framed card.
-//   outputs: cards with an accent line on top (card) or plain boxes (node).
+// Animated diagrams, one source for every page that shows them. Connector paths are computed from the real
+// element boxes (getBoundingClientRect) and recomputed on resize, so they meet the items exactly at every width.
+//   converge: a hub node (TCG) above a row of spheres; everything flows from the spheres UP into the hub,
+//             which fills with the accent colour. Mobile: one vertical chain on the centre axis, drawn in the gaps only.
+//   layers:   inputs -> core -> outputs in three equal columns (mirrored about the core axis), particles run
+//             inputs -> core -> outputs, the core modules light up in turn. `foot` items sit in the same three columns.
+// Motion lives here only. prefers-reduced-motion: no motion, the final state is shown.
 interface Node { title: string; text?: string }
 interface Props {
-  sourcesTitle?: string;
-  sources: Node[];
-  outputsTitle?: string;
-  outputs: Node[];
-  hub: { kicker?: string; title: string; modules?: Node[] };
-  outputStyle?: 'card' | 'node';
-  /** Column titles as labels and items aligned left (architecture) instead of right-aligned sources (data flow). */
-  layers?: boolean;
+  mode: 'converge' | 'layers';
+  /** converge: the hub word. */
+  hub?: string;
+  /** converge: the spheres under the hub. */
+  spheres?: Node[];
+  /** layers: column titles (input, processing, output). */
+  columns?: [string, string, string];
+  inputs?: Node[];
+  core?: { kicker?: string; title: string; modules: Node[] };
+  outputs?: Node[];
+  foot?: Node[];
 }
-const { sourcesTitle, sources, outputsTitle, outputs, hub, outputStyle = 'card', layers = false } = Astro.props;
+const { mode, hub = '', spheres = [], columns, inputs = [], core, outputs = [], foot = [] } = Astro.props;
 ---
-<div class:list={['diagram', layers && 'is-layers']} data-flow>
-  <div class="col src">
-    {sourcesTitle && <p class:list={[layers ? 't-label' : 't-small', 'col-title']}>{sourcesTitle}</p>}
-    <ul class="list-col">
-      {sources.map((s) => <li class="node" data-flow-src><span class="t-text">{s.title}</span>{s.text && <span class="t-small sub">{s.text}</span>}</li>)}
-    </ul>
-  </div>
-  <div class:list={['hub', hub.modules && 'is-card']} data-flow-hub>
-    {hub.kicker && <span class="t-label kicker">{hub.kicker}</span>}
-    <span class="t-card-title">{hub.title}</span>
-    {hub.modules && (
-      <ul class="mods">
-        {hub.modules.map((m) => <li class="mod"><span class="t-small">{m.title}</span>{m.text && <span class="t-small sub">{m.text}</span>}</li>)}
-      </ul>
-    )}
-  </div>
-  <div class="col out">
-    {outputsTitle && <p class:list={[layers ? 't-label' : 't-small', 'col-title']}>{outputsTitle}</p>}
-    <ul class="list-col">
-      {
-        outputs.map((o) => (
-          <li class:list={['node', outputStyle === 'card' && 'is-card']} data-flow-out>
-            {outputStyle === 'card' ? <h3 class="t-card-title">{o.title}</h3> : <span class="t-text">{o.title}</span>}
-            {o.text && <span class="t-text sub">{o.text}</span>}
+{
+  mode === 'converge' ? (
+    <div class="diagram is-converge" data-diagram="converge" data-flow>
+      <div class="hub" data-hub>
+        <svg class="fill" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true" focusable="false"><rect width="1" height="1" transform="matrix(1 0 0 0 0 1)" data-fill></rect></svg>
+        <span class="t-card-title hub-name">{hub}</span>
+      </div>
+      <ul class="spheres">
+        {spheres.map((s, i) => (
+          <li class="sphere" data-sphere={i}>
+            <h3 class="t-card-title">{s.title}</h3>
+            {s.text && <p class="t-text sphere-text">{s.text}</p>}
           </li>
-        ))
-      }
-    </ul>
-  </div>
-</div>
+        ))}
+      </ul>
+      <svg class="flow-lines" aria-hidden="true" focusable="false">
+        {spheres.map((_, i) => <path class="wire" data-wire={i}></path>)}
+        {spheres.map((_, i) => <circle class="start" data-start={i} r="0"></circle>)}
+        {spheres.map((_, i) => <circle class="dot" data-dot={i} r="0"></circle>)}
+      </svg>
+    </div>
+  ) : (
+    <div class="diagram is-layers" data-diagram="layers" data-flow>
+      <div class="col" data-col="in">
+        {columns && <p class="t-label col-title">{columns[0]}</p>}
+        <ul class="list-col">
+          {inputs.map((n, i) => <li class="node" data-in={i}><span class="t-text">{n.title}</span>{n.text && <span class="t-small sub">{n.text}</span>}</li>)}
+        </ul>
+      </div>
+      <div class="col" data-col="core">
+        {columns && <p class="t-label col-title">{columns[1]}</p>}
+        {core && (
+          <div class="core" data-core>
+            {core.kicker && <span class="t-label kicker">{core.kicker}</span>}
+            <span class="t-card-title">{core.title}</span>
+            <ul class="mods">
+              {core.modules.map((m, i) => <li class="mod" data-mod={i}><span class="t-small mod-title">{m.title}</span>{m.text && <span class="t-small sub">{m.text}</span>}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+      <div class="col" data-col="out">
+        {columns && <p class="t-label col-title">{columns[2]}</p>}
+        <ul class="list-col">
+          {outputs.map((n, i) => <li class="node" data-out={i}><span class="t-text">{n.title}</span>{n.text && <span class="t-small sub">{n.text}</span>}</li>)}
+        </ul>
+      </div>
+      {foot.map((f) => <div class="foot-item" data-foot><span class="t-card-title">{f.title}</span>{f.text && <span class="t-small sub">{f.text}</span>}</div>)}
+      <svg class="flow-lines" aria-hidden="true" focusable="false">
+        {inputs.map((_, i) => <path class="wire" data-wire-in={i}></path>)}
+        {outputs.map((_, i) => <path class="wire" data-wire-out={i}></path>)}
+        {inputs.map((_, i) => <circle class="dot" data-dot-in={i} r="0"></circle>)}
+        {outputs.map((_, i) => <circle class="dot" data-dot-out={i} r="0"></circle>)}
+      </svg>
+    </div>
+  )
+}
 
 <style>
-  .diagram { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-24); align-items: center; }
-  .col, .hub { min-width: 0; }
-  .col { display: grid; gap: var(--s-12); }
-  .list-col { display: grid; gap: var(--s-12); margin: 0; padding: 0; list-style: none; }
-  .col-title { color: var(--c-text-3); }
-  .node, .hub, .mod { overflow-wrap: anywhere; }
-  .node { display: grid; gap: var(--s-8); padding: var(--s-12) var(--s-16); background: var(--c-surface); border: var(--bw-1) solid var(--c-border-strong); }
-  .node.is-card { gap: var(--s-12); padding: var(--s-16) var(--s-24); border-color: var(--c-border); border-top: var(--bw-2) solid var(--c-accent); }
+  .diagram { position: relative; min-width: 0; }
+  .flow-lines { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .wire { fill: none; stroke: var(--c-accent); stroke-width: var(--bw-1); }
+  .wire.is-lit { stroke: var(--c-accent); }
+  .start, .dot { fill: var(--c-accent); }
+  .dot { visibility: hidden; }
+  .dot.is-on { visibility: visible; }
   .sub { color: var(--c-text-2); }
-  .hub { display: grid; justify-self: start; gap: var(--s-12); padding: var(--s-16) var(--s-32); background: var(--color-inverse); color: var(--color-on-inverse); }
-  .hub.is-card { justify-self: stretch; padding: var(--s-24); background: var(--c-surface); color: var(--c-text); border: var(--bw-2) solid var(--c-accent); }
+
+  /* converge */
+  .is-converge { display: grid; justify-items: center; gap: var(--s-40); }
+  .hub { position: relative; isolation: isolate; overflow: hidden; padding: var(--s-24) var(--s-32); background: var(--color-inverse); color: var(--color-on-inverse); }
+  .fill { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; }
+  .fill rect { fill: var(--c-accent); }
+  .hub-name { display: block; transition: color var(--ease); }
+  .hub.is-full .hub-name { color: var(--color-surface); }
+  .spheres { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--grid-gap); justify-self: stretch; margin: 0; padding: 0; list-style: none; }
+  .sphere { display: grid; align-content: start; gap: var(--s-12); min-width: 0; padding-top: var(--s-24); border-top: var(--bw-1) solid var(--c-accent); transition: opacity var(--motion-slow) var(--motion-ease), border-color var(--ease); }
+  .sphere-text { color: var(--c-text-2); }
+  .is-armed:not(.is-in) .sphere, .is-armed:not(.is-in) .start { opacity: 0; }
+  .is-pulse .sphere { border-top-color: var(--c-accent); }
+
+  /* layers */
+  .is-layers { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-24); }
+  .col { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: var(--s-12); min-width: 0; }
+  .col-title { color: var(--c-text-3); }
+  .list-col { display: grid; grid-auto-rows: minmax(0, 1fr); gap: var(--s-12); margin: 0; padding: 0; list-style: none; }
+  .node, .core, .mod { overflow-wrap: anywhere; }
+  .node { display: grid; align-content: center; gap: var(--s-8); padding: var(--s-12) var(--s-16); background: var(--c-surface); border: var(--bw-1) solid var(--c-border-strong); transition: border-color var(--ease); }
+  .node.is-flash { border-color: var(--c-accent); }
+  .core { display: grid; align-content: start; gap: var(--s-12); padding: var(--s-24); background: var(--c-surface); color: var(--c-text); border: var(--bw-2) solid var(--c-accent); }
   .kicker { color: var(--c-accent); }
   .mods { display: grid; gap: var(--s-8); margin: 0; padding: 0; list-style: none; }
-  .mod { display: grid; gap: var(--s-8); padding: var(--s-12); background: var(--c-bg); border: var(--bw-1) solid var(--c-border); }
+  .mod { display: grid; gap: var(--s-8); padding: var(--s-12); background: var(--c-bg); border: var(--bw-1) solid var(--c-border); transition: border-color var(--ease); }
+  .mod-title { transition: color var(--ease); }
+  .mod.is-hl { border-color: var(--c-accent); }
+  .mod.is-hl .mod-title { color: var(--c-accent); }
+  .foot-item { display: grid; align-content: start; gap: var(--s-12); min-width: 0; padding-top: var(--s-24); border-top: var(--bw-1) solid var(--c-border); }
+  .is-layers .flow-lines { display: none; }
+
   @media (min-width: 768px) {
-    .diagram { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.3fr); gap: var(--s-32); }
-    .src { text-align: right; }
-    .src .node { justify-items: end; }
-    .is-layers .src { text-align: left; }
-    .is-layers .src .node { justify-items: start; }
-    .hub { justify-self: center; }
+    .spheres { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .is-layers { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-32); row-gap: var(--s-40); }
+    .is-layers .flow-lines { display: block; }
   }
   @media (min-width: 1024px) {
-    .diagram { gap: var(--split-gap); }
-    .hub.is-card { min-width: var(--size-slide); }
+    .is-layers { column-gap: var(--split-gap); }
   }
 </style>
+
+<script>
+  // Timeline values are durations in ms (the motion spec of the diagrams); sizes come from tokens.
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const easeInOut = (p: number) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
+  const easeOut = (p: number) => 1 - Math.pow(1 - p, 3);
+  const prog = (t: number, start: number, dur: number) => Math.min(1, Math.max(0, (t - start) / dur));
+  const within = (t: number, start: number, dur: number) => t >= start && t < start + dur;
+  type Box = { left: number; right: number; top: number; bottom: number; width: number; height: number; cx: number; cy: number };
+
+  function tokenPx(el: Element, name: string) {
+    const v = getComputedStyle(el).getPropertyValue(name).trim();
+    const n = parseFloat(v);
+    return v.endsWith('rem') ? n * parseFloat(getComputedStyle(document.documentElement).fontSize) : n;
+  }
+  function boxIn(el: Element, host: DOMRect): Box {
+    const r = el.getBoundingClientRect();
+    const left = r.left - host.left;
+    const top = r.top - host.top;
+    return { left, top, right: left + r.width, bottom: top + r.height, width: r.width, height: r.height, cx: left + r.width / 2, cy: top + r.height / 2 };
+  }
+  const f = (n: number) => Math.round(n * 100) / 100;
+  // a hidden (display: none) svg can throw on geometry queries
+  const len = (p: SVGPathElement) => { try { return p.getTotalLength(); } catch { return 0; } };
+  const vertical = (ax: number, ay: number, bx: number, by: number) => {
+    if (Math.abs(ax - bx) < 0.5) return `M${f(ax)} ${f(ay)} L${f(ax)} ${f(by)}`;
+    const my = (ay + by) / 2;
+    return `M${f(ax)} ${f(ay)} C${f(ax)} ${f(my)} ${f(bx)} ${f(my)} ${f(bx)} ${f(by)}`;
+  };
+  const horizontal = (ax: number, ay: number, bx: number, by: number) => {
+    const mx = (ax + bx) / 2;
+    return `M${f(ax)} ${f(ay)} C${f(mx)} ${f(ay)} ${f(mx)} ${f(by)} ${f(bx)} ${f(by)}`;
+  };
+
+  // A clock that starts when 30% of the diagram is visible and only advances while it is on screen.
+  function run(root: HTMLElement, frame: (t: number) => void) {
+    let started = false;
+    let visible = false;
+    let t = 0;
+    let last = 0;
+    new IntersectionObserver((e) => {
+      if (e.some((x) => x.isIntersecting && x.intersectionRatio >= 0.3)) started = true;
+    }, { threshold: [0.3] }).observe(root);
+    new IntersectionObserver((e) => (visible = e[e.length - 1].isIntersecting)).observe(root);
+    const tick = (now: number) => {
+      if (started && visible) {
+        t += last ? Math.min(now - last, 100) : 0;
+        last = now;
+        frame(t);
+      } else last = 0;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function pointOn(paths: SVGPathElement[], lens: number[], p: number) {
+    const total = lens.reduce((a, b) => a + b, 0);
+    let d = p * total;
+    for (let i = 0; i < paths.length; i++) {
+      if (d <= lens[i] || i === paths.length - 1) return paths[i].getPointAtLength(Math.max(0, Math.min(d, lens[i])));
+      d -= lens[i];
+    }
+    return paths[0].getPointAtLength(0);
+  }
+  function hideWire(w: SVGPathElement, len: number, p: number) {
+    w.setAttribute('stroke-dasharray', `${f(len)} ${f(len)}`);
+    w.setAttribute('stroke-dashoffset', String(f(len * (1 - p))));
+  }
+  function showWire(w: SVGPathElement) {
+    w.removeAttribute('stroke-dasharray');
+    w.removeAttribute('stroke-dashoffset');
+  }
+
+  // ---------- converge: spheres -> hub
+  function converge(root: HTMLElement) {
+    const svg = root.querySelector<SVGSVGElement>('svg.flow-lines')!;
+    const hub = root.querySelector<HTMLElement>('[data-hub]')!;
+    const fill = root.querySelector<SVGRectElement>('[data-fill]')!;
+    const spheres = Array.from(root.querySelectorAll<HTMLElement>('[data-sphere]'));
+    const wires = Array.from(root.querySelectorAll<SVGPathElement>('[data-wire]'));
+    const starts = Array.from(root.querySelectorAll<SVGCircleElement>('[data-start]'));
+    const dots = Array.from(root.querySelectorAll<SVGCircleElement>('[data-dot]'));
+    const n = spheres.length;
+    let lens: number[] = [];
+    let routes: number[][] = [];
+    let entered = false;
+    const setFill = (l: number) => fill.setAttribute('transform', `matrix(1 0 0 ${f(l)} 0 ${f(1 - l)})`);
+
+    const layout = () => {
+      const host = root.getBoundingClientRect();
+      svg.setAttribute('viewBox', `0 0 ${f(host.width)} ${f(host.height)}`);
+      const h = boxIn(hub, host);
+      const s = spheres.map((el) => boxIn(el, host));
+      const stacked = n > 1 && s[1].top >= s[0].bottom - 1;
+      const axis = h.cx;
+      const r = tokenPx(root, '--size-mark') / 2;
+      s.forEach((b, i) => {
+        let d: string;
+        let sx: number;
+        if (stacked) {
+          sx = axis;
+          d = vertical(axis, b.top, axis, i === 0 ? h.bottom : s[i - 1].bottom);
+        } else {
+          sx = b.cx;
+          d = vertical(b.cx, b.top, axis + ((i - (n - 1) / 2) * h.width) / 6, h.bottom);
+        }
+        wires[i].setAttribute('d', d);
+        starts[i].setAttribute('cx', String(f(sx)));
+        starts[i].setAttribute('cy', String(f(b.top)));
+        starts[i].setAttribute('r', String(r));
+        dots[i].setAttribute('r', String(r));
+      });
+      lens = wires.map(len);
+      routes = spheres.map((_, i) => (stacked ? Array.from({ length: i + 1 }, (_, k) => i - k) : [i]));
+      if (!entered && !reduced) wires.forEach((w, i) => hideWire(w, lens[i], 0));
+    };
+    layout();
+    new ResizeObserver(layout).observe(root);
+    document.fonts?.ready.then(layout);
+
+    if (reduced) {
+      setFill(1);
+      hub.classList.add('is-full');
+      return;
+    }
+    root.classList.add('is-armed');
+    const ENTRY = 1400;
+    const CYCLE = 6000;
+    const arrive = (i: number) => i * 600 + 1200;
+    run(root, (t) => {
+      root.classList.add('is-in');
+      if (t < ENTRY) {
+        const p = easeInOut(prog(t, 600, 800));
+        wires.forEach((w, i) => hideWire(w, lens[i], p));
+        return;
+      }
+      if (!entered) {
+        entered = true;
+        wires.forEach(showWire);
+      }
+      const c = (t - ENTRY) % CYCLE;
+      dots.forEach((dot, i) => {
+        const on = within(c, i * 600, 1200);
+        dot.classList.toggle('is-on', on);
+        if (on) {
+          const route = routes[i].map((k) => wires[k]);
+          const pt = pointOn(route, routes[i].map((k) => lens[k]), easeInOut(prog(c, i * 600, 1200)));
+          dot.setAttribute('cx', String(f(pt.x)));
+          dot.setAttribute('cy', String(f(pt.y)));
+        }
+        wires[i].classList.toggle('is-lit', within(c, arrive(i), 300));
+      });
+      let level = 0;
+      if (c < 4400) for (let k = 0; k < n; k++) level += easeOut(prog(c, arrive(k), 400)) / n;
+      else level = 1 - easeInOut(prog(c, 4400, 1000));
+      setFill(level);
+      const full = arrive(n - 1) + 400;
+      hub.classList.toggle('is-full', c >= full && c < 4900);
+      root.classList.toggle('is-pulse', within(c, full, 600));
+    });
+  }
+
+  // ---------- layers: inputs -> core -> outputs
+  function layers(root: HTMLElement) {
+    const svg = root.querySelector<SVGSVGElement>('svg.flow-lines')!;
+    const core = root.querySelector<HTMLElement>('[data-core]');
+    if (!core) return;
+    const ins = Array.from(root.querySelectorAll<HTMLElement>('[data-in]'));
+    const outs = Array.from(root.querySelectorAll<HTMLElement>('[data-out]'));
+    const mods = Array.from(root.querySelectorAll<HTMLElement>('[data-mod]'));
+    const wIn = Array.from(root.querySelectorAll<SVGPathElement>('[data-wire-in]'));
+    const wOut = Array.from(root.querySelectorAll<SVGPathElement>('[data-wire-out]'));
+    const dIn = Array.from(root.querySelectorAll<SVGCircleElement>('[data-dot-in]'));
+    const dOut = Array.from(root.querySelectorAll<SVGCircleElement>('[data-dot-out]'));
+    let lIn: number[] = [];
+    let lOut: number[] = [];
+    let entered = false;
+    // the core edge point for row i: the matching module's centre (or the core centre)
+    const edgeY = (c: Box, i: number, host: DOMRect) => (mods[i] ? boxIn(mods[i], host).cy : c.cy);
+    const layout = () => {
+      const host = root.getBoundingClientRect();
+      svg.setAttribute('viewBox', `0 0 ${f(host.width)} ${f(host.height)}`);
+      const c = boxIn(core, host);
+      const r = tokenPx(root, '--size-mark') / 2;
+      ins.forEach((el, i) => { const b = boxIn(el, host); wIn[i].setAttribute('d', horizontal(b.right, b.cy, c.left, edgeY(c, i, host))); dIn[i].setAttribute('r', String(r)); });
+      outs.forEach((el, i) => { const b = boxIn(el, host); wOut[i].setAttribute('d', horizontal(c.right, edgeY(c, i, host), b.left, b.cy)); dOut[i].setAttribute('r', String(r)); });
+      lIn = wIn.map(len);
+      lOut = wOut.map(len);
+      if (!entered && !reduced) { wIn.forEach((w, i) => hideWire(w, lIn[i], 0)); wOut.forEach((w, i) => hideWire(w, lOut[i], 0)); }
+    };
+    layout();
+    new ResizeObserver(layout).observe(root);
+    document.fonts?.ready.then(layout);
+    if (reduced) return;
+
+    const ENTRY = 1600;
+    const CYCLE = 7000;
+    const move = (dot: SVGCircleElement, wire: SVGPathElement, total: number, c: number, start: number) => {
+      const on = within(c, start, 1200) && total > 0;
+      dot.classList.toggle('is-on', on);
+      if (on) {
+        const pt = wire.getPointAtLength(total * easeInOut(prog(c, start, 1200)));
+        dot.setAttribute('cx', String(f(pt.x)));
+        dot.setAttribute('cy', String(f(pt.y)));
+      }
+    };
+    run(root, (t) => {
+      if (t < ENTRY) {
+        wIn.forEach((w, i) => hideWire(w, lIn[i], easeInOut(prog(t, 0, 800))));
+        wOut.forEach((w, i) => hideWire(w, lOut[i], easeInOut(prog(t, 800, 800))));
+        return;
+      }
+      if (!entered) {
+        entered = true;
+        wIn.forEach(showWire);
+        wOut.forEach(showWire);
+      }
+      const c = (t - ENTRY) % CYCLE;
+      dIn.forEach((d, i) => move(d, wIn[i], lIn[i], c, i * 300));
+      dOut.forEach((d, i) => move(d, wOut[i], lOut[i], c, 3600 + i * 300));
+      mods.forEach((m, i) => m.classList.toggle('is-hl', within(c, 1500 + i * 700, 700)));
+      outs.forEach((o, i) => o.classList.toggle('is-flash', within(c, 4800 + i * 300, 400)));
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-diagram]').forEach((root) => {
+    if (root.dataset.diagram === 'converge') converge(root);
+    else layers(root);
+  });
+</script>

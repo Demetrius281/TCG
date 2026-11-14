@@ -1,28 +1,27 @@
 ---
+// Input -> processing -> output diagram on one shared Diagram (home and /platform render this same block).
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import Card from '../ui/Card.astro';
-import Grid from '../ui/Grid.astro';
 import Cluster from '../ui/Cluster.astro';
 import Diagram from '../ui/Diagram.astro';
-import Stack from '../ui/Stack.astro';
+import Action from '../ui/Action.astro';
 import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'architecture'>, 'type'>;
-const { title, head, columns, inputs, engine, outputs, foot, note, tone, id, nav } = Astro.props;
+const { title, head, columns, inputs, engine, outputs, foot, note, action, tone, id, nav } = Astro.props;
+const headId = `${id ?? 'architecture'}-h`;
 ---
-<Section id={id} nav={nav} tone={tone} labelledby={`${id}-h`}>
-  <SectionHead title={title} id={`${id}-h`} />
+<Section id={id} nav={nav} tone={tone} labelledby={headId}>
+  <SectionHead title={title} id={headId} />
   <Card as="figure">
-    <Cluster justify="between" gap={8}>
+    <Cluster gap={24}>
       <Text as="span" role="label" tone="subtle">{head[0]}</Text>
       <Text as="span" role="label" tone="accent">{head[1]}</Text>
     </Cluster>
-    <Diagram layers sourcesTitle={columns[0]} outputsTitle={columns[2]} sources={inputs} outputs={outputs} outputStyle="node" hub={{ kicker: engine.kicker, title: engine.title, modules: engine.modules }} />
-    <Grid as="div" cols={3}>
-      {foot.map((f) => <Stack gap={8} as="div"><Text as="span" role="card-title">{f.title}</Text><Text as="span" role="small" tone="muted">{f.text}</Text></Stack>)}
-    </Grid>
+    <Diagram mode="layers" columns={columns} inputs={inputs} core={engine} outputs={outputs} foot={foot} />
   </Card>
-  <Text role="small" tone="subtle">{note}</Text>
+  {note && <Text role="small" tone="subtle">{note}</Text>}
+  {action && <Cluster gap="buttons"><Action action={action} fallbackVariant={tone === 'inverse' ? 'inverse' : 'primary'} /></Cluster>}
 </Section>

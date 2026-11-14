@@ -1,0 +1,12 @@
+<!-- lock-path: src/components/blocks/Cta.astro; expect: L10 -->
+---
+import Section from "../ui/Section.astro";
+import Cluster from "../ui/Cluster.astro";
+import Button from "../ui/Button.astro";
+import Text from "../ui/Text.astro";
+const link = { href: "/platform", label: "Investing? See the platform" };
+---
+<Section>
+  <Cluster gap="buttons"><Button href="/due-diligence">Check a Property</Button></Cluster>
+  {link && <Text role="small"><a href={link.href}>{link.label}</a></Text>}
+</Section>

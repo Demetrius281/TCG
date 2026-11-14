@@ -19,7 +19,7 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
       items.map((t) => (
         <Card item as="figure">
           <Text as="blockquote" tone="muted">“{t.quote}”</Text>
-          <Cluster slot="foot" as="figcaption" gap={16} nowrap>
+          <Cluster slot="foot" as="figcaption" gap={16} align="start" nowrap>
             {t.photo && <img src={t.photo} alt="" width="48" height="48" loading="lazy" decoding="async" />}
             <Stack gap={8} as="div">
               <Text as="span" role="card-title">{t.name}</Text>

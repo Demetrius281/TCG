@@ -4,6 +4,7 @@ import SectionHead from '../ui/SectionHead.astro';
 import Card from '../ui/Card.astro';
 import Cluster from '../ui/Cluster.astro';
 import Stack from '../ui/Stack.astro';
+import Grid from '../ui/Grid.astro';
 import Media from '../ui/Media.astro';
 import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
@@ -28,7 +29,7 @@ const { title, paragraphs, profit, case: c, tone, id, nav } = Astro.props;
   </Stack>
   <Stack gap={24}>
     <Card as="article" floating>
-      <Cluster justify="between" gap={8}>
+      <Cluster gap={24}>
         <Text as="span" role="label">{c.top[0]}</Text>
         <Text as="span" role="label" tone="accent">{c.top[1]}</Text>
       </Cluster>
@@ -40,10 +41,10 @@ const { title, paragraphs, profit, case: c, tone, id, nav } = Astro.props;
         {
           c.facts.map((f) => (
             <li>
-              <Cluster justify="between" gap={8}>
+              <Grid as="div" cols={2}>
                 <Text as="span" role="small">{f.title}</Text>
                 <Text as="span" role="small" tone="subtle">{f.text}</Text>
-              </Cluster>
+              </Grid>
             </li>
           ))
         }

@@ -19,11 +19,11 @@ const { title, lead, panel, tone, id, nav } = Astro.props;
       <Text as="span" role="label" tone="accent">{panel.time.unit}</Text>
     </Cluster>
     <Text tone="muted">{panel.result}</Text>
-    <Cluster justify="between" align="baseline" gap={8}>
+    <Cluster align="baseline" gap={8}>
       <Text as="span" role="small" tone="subtle">{panel.comparison.label}</Text>
       <Text as="span" role="control">{panel.comparison.value}</Text>
     </Cluster>
     <Text role="small" tone="subtle">{panel.note}</Text>
-    <Button slot="actions" href={panel.cta.href}>{panel.cta.label} <Text as="span" role="control">{panel.cta.arrow}</Text></Button>
+    <Button slot="actions" href={panel.cta.href}>{panel.cta.label} <Text as="span" role="control" aria-hidden="true">{panel.cta.arrow}</Text></Button>
   </Card>
 </Section>

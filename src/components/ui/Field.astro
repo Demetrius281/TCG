@@ -43,7 +43,7 @@ const described = [help && `${id}-help`, err && `${id}-err`].filter(Boolean).joi
 <style>
   .fld { display: grid; gap: var(--s-8); min-width: 0; }
   .fld[hidden] { display: none; }
-  .fld-h { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-12); }
+  .fld-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-12); }
   label { font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--c-text); }
   .tag { color: var(--c-text-3); }
   .help { color: var(--c-text-3); }

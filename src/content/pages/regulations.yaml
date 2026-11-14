@@ -1009,9 +1009,6 @@ blocks:
       label: Request a Property Review
       message: consultation
       data_cta: guide_cta
-    secondary:
-      label: View Property Compliance Audit
-      href: /regulations
     side:
       title: What to send for an initial property audit
       items:

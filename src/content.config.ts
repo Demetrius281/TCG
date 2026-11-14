@@ -73,7 +73,7 @@ export const servicesBlock = obj({
   /** Link label on every row ("Explore"). */
   explore: text,
   /** Closing block under a hairline: title, text, the only button of the screen and one link. */
-  start: obj({ title: text, text: text, action: action, link: obj({ label: text, href: text }) }),
+  start: obj({ title: text, text: text, action: action }),
 });
 
 export const stepsBlock = obj({
@@ -136,7 +136,6 @@ export const ctaBlock = obj({
   title: text,
   text: text,
   action,
-  secondary: obj({ label: text, href: text }).optional(),
   side: obj({ title: text, items: z.array(obj({ label: text, text })).min(1), note: text.optional() }).optional(),
   next_steps: z.array(text).optional(),
 });
@@ -311,7 +310,9 @@ export const architectureBlock = obj({
   engine: obj({ kicker: text, title: text, modules: z.array(archNode).length(3) }),
   outputs: z.array(archNode).length(3),
   foot: z.array(obj({ title: text, text })).length(3),
-  note: text,
+  note: text.optional(),
+  /** One primary button under the diagram (home). */
+  action: action.optional(),
 });
 
 /** Investment inquiry form that opens WhatsApp. Behaviour lives in src/scripts. */
@@ -446,16 +447,14 @@ export const orderBlock = obj({
   disclaimer: text,
 });
 
-/** Data-flow diagram: sources -> hub -> outputs. Lines are drawn on desktop only. */
+/** Converging diagram: the outputs (spheres) flow up into the hub. Shared Diagram primitive, animated. */
 export const flowBlock = obj({
   type: z.literal('flow'),
   ...base,
   title: text,
   lead: text.optional(),
-  sources: obj({ title: text, items: z.array(text).min(1) }),
   hub: text,
-  outputs: z.array(obj({ title: text, text })).min(1),
-  closing: text.optional(),
+  outputs: z.array(obj({ title: text, text })).length(3),
 });
 
 /** A heading with a lead, a titled list of questions and links. `launch` is not rendered while it is a [placeholder]. */
@@ -467,7 +466,6 @@ export const answersBlock = obj({
   launch: text.optional(),
   list_title: text,
   items: z.array(text).min(1),
-  links: z.array(obj({ label: text, href: text })).optional(),
 });
 
 /** Large link rows: a link to a page, an anchor or a WhatsApp message. */

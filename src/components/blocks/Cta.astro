@@ -2,7 +2,6 @@
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import Action from '../ui/Action.astro';
-import ActionStack from '../ui/ActionStack.astro';
 import Card from '../ui/Card.astro';
 import Cluster from '../ui/Cluster.astro';
 import Grid from '../ui/Grid.astro';
@@ -12,7 +11,7 @@ import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'cta'>, 'type'>;
-const { title, text, action, secondary, side, next_steps, tone = 'inverse', id, nav } = Astro.props;
+const { title, text, action, side, next_steps, tone = 'inverse', id, nav } = Astro.props;
 const fallback = tone === 'inverse' ? 'inverse' : 'primary';
 ---
 <Section id={id} nav={nav} tone={tone} labelledby="cta-title">
@@ -26,7 +25,7 @@ const fallback = tone === 'inverse' ? 'inverse' : 'primary';
         )
       }
     </SectionHead>
-    {secondary ? <ActionStack action={action} link={secondary} fallbackVariant={fallback} /> : <Action action={action} fallbackVariant={fallback} />}
+    <Cluster gap="buttons" class="actions"><Action action={action} fallbackVariant={fallback} /></Cluster>
   </Cluster>
   {
     side && (

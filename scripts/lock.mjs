@@ -190,6 +190,25 @@ function checkSpec(file, text) {
 }
 
 // ---------- one file
+// L10 (TASK 8 Part D): a text link may not directly follow a button / button group / ActionStack.
+// Button ends: </Button>, </WhatsAppLink>, </FormButton>, a self-closing <Action .../>, and </Cluster> of a cluster that holds buttons only.
+// "Directly follows": the next tag after JSX glue ({ } ( ) && ?: and condition names) is <a ...> or a <Text>/<p> that opens with <a ...>.
+function checkCtaLink(file, tpl) {
+  for (const m of tpl.matchAll(/<ActionStack\b/g)) err(file, lineAt(tpl, m.index), 'L10', '<ActionStack> (a button with a text link under it)', 'one button; no alternative text link after it (TASK 8 Part D)');
+  const BTN = /<(Button|WhatsAppLink|FormButton)\b[^>]*>[\s\S]*?<\/\1>|<(?:Action|Button|FormButton)\b[^>]*\/>/g;
+  const ends = [...tpl.matchAll(BTN)].map((m) => m.index + m[0].length);
+  for (const m of tpl.matchAll(/<Cluster\b[^>]*>([\s\S]*?)<\/Cluster>/g)) {
+    if (/<Cluster\b/.test(m[1])) continue;
+    const rest = m[1].replace(BTN, '').replace(/\{[^{}]*\}|[\s(){}]|&&|\?|:/g, '');
+    if (rest === '' && BTN.test(m[1])) ends.push(m.index + m[0].length);
+    BTN.lastIndex = 0;
+  }
+  for (const end of ends) {
+    const after = tpl.slice(end).replace(/^(?:\s|[{}()?:]|&&|\|\||[\w.!]+(?=\s*(?:&&|\?)))*/, '');
+    if (/^<a[\s>]/.test(after) || /^<(Text|p)\b[^>]*>\s*<a[\s>]/.test(after)) err(file, lineAt(tpl, end), 'L10', `text link directly after a button: ${after.slice(0, 60).replace(/\s+/g, ' ')}`, 'remove the alternative link; one button per place (TASK 8 Part D)');
+  }
+}
+
 function checkFile(file, text) {
   const kind = kindOf(file);
   if (kind === 'ui' || kind === 'base' || kind === 'tokens') checkSpec(file, text);
@@ -232,6 +251,8 @@ function checkFile(file, text) {
     if (!/\bclass\s*:\s*\w+/.test(fmText)) err(file, 1, 'L7', '{...rest} forwards class', 'take class explicitly (class: className) before ...rest');
   }
   for (const m of text.matchAll(/\{\s*\.\.\.\s*\{[^}]*\b(style|class)\b/g)) err(file, lineAt(text, m.index), 'L7', 'style/class passed through a spread object', 'no {...{style}} spreads');
+  // TASK 8 Part D: no text link directly after a button, a button group or an ActionStack (an alternative CTA)
+  if (kind === 'block' || kind === 'page') checkCtaLink(file, tpl);
   // gap props must be names from the scale
   for (const m of tpl.matchAll(/<(Stack|Cluster)\b[^>]*?\sgap=(?:\{([^}]*)\}|"([^"]*)")/g)) {
     const v = (m[2] ?? m[3]).trim().replace(/^['"]|['"]$/g, '');

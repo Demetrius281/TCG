@@ -8,12 +8,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { chromium, webkit } from 'playwright';
 import { measure, recount, mutate } from '../qa/rules/audit-dom.mjs';
+import { measureE, runMotion, E_RULES } from '../qa/rules/audit-e.mjs';
 
 const ROOT = process.cwd();
-const DIST = path.join(ROOT, 'dist');
+// AUDIT_DIST: audit another build (e.g. an older commit built elsewhere) with the same checks
+const DIST = process.env.AUDIT_DIST ? path.resolve(process.env.AUDIT_DIST) : path.join(ROOT, 'dist');
 const OUT = path.join(ROOT, 'qa/audit');
 const R = JSON.parse(fs.readFileSync(path.join(ROOT, 'qa/rules/rules.json'), 'utf8'));
-const RULES = ['R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'X', 'D'];
+// E1-E6 (TASK 8) are added after the existing rules; they are measured by qa/rules/audit-e.mjs
+const RULES = ['R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'X', 'D', ...E_RULES];
 const args = new Set(process.argv.slice(2));
 const log = (...a) => console.log(new Date().toISOString().slice(11, 19), ...a);
 
@@ -85,7 +88,21 @@ function serve() {
 }
 
 const MEASURE = measure.toString(); const RECOUNT = recount.toString(); const MUTATE = mutate.toString();
-const runMeasure = (page, ctx) => page.evaluate(`(${MEASURE})(${JSON.stringify(R)}, ${JSON.stringify(ctx)})`);
+const MEASURE_E = measureE.toString();
+// E checks run on the same page in the same state; their violations and per-screen counts are merged into the result
+const mergeE = (res, e) => {
+  res.violations.push(...e.violations);
+  for (const s of res.screens) { const es = e.screens.find((x) => x.index === s.index && x.name === s.name); for (const r of E_RULES) s.counts[r] = es ? es.counts[r] : { c: 0, v: 0 }; }
+  res.counts.checkedPerRule = res.counts.checkedPerRule || {};
+  for (const r of E_RULES) res.counts.checkedPerRule[r] = (res.counts.checkedPerRule[r] || 0) + e.checked[r];
+  return res;
+};
+const runMeasureOnly = (page, ctx) => page.evaluate(`(${MEASURE})(${JSON.stringify(R)}, ${JSON.stringify(ctx)})`);
+const runMeasure = async (page, ctx) => {
+  const res = await runMeasureOnly(page, ctx);
+  if (ctx.only && !ctx.only.some((r) => r.startsWith('E'))) return res;
+  return mergeE(res, await page.evaluate(`(${MEASURE_E})(${JSON.stringify(R)}, ${JSON.stringify(ctx)})`));
+};
 const runRecount = (page) => page.evaluate(`(${RECOUNT})(${JSON.stringify(R)})`);
 
 async function launch(name) {
@@ -354,7 +371,7 @@ async function prove(base, discovered) {
   const browser = await launch('chromium');
   const rows = [];
   for (const p of discovered.pages) {
-    for (const rule of [...RULES.filter((r) => r !== 'D'), 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9']) {
+    for (const rule of [...RULES.filter((r) => r !== 'D' && !E_RULES.includes(r)), 'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9']) {
       for (const kind of ['last', 'last-section', 'middle']) {
         if (kind === 'last-section' && false) continue;
         const rec = { illustrationRequests: [] };
@@ -394,6 +411,42 @@ const base = `http://localhost:${server.address().port}`;
 if (args.has('--prove')) { await prove(base, discovered); server.close(); process.exit(0); }
 
 const browsers = (process.env.AUDIT_BROWSERS || 'chromium,webkit').split(',');
+const motionRoutes = discovered.pages.map((p) => p.route).filter((r) => r === '/' || r === '/platform');
+
+// --e-only: the TASK 8 checks alone (E3-E6 on every page at the full widths, E1/E2/E5 motion), one summary per check
+if (args.has('--e-only')) {
+  // AUDIT_WIDTHS=375,1280 limits this mode to those widths (the full audit always uses rules.json widths)
+  const eWidths = process.env.AUDIT_WIDTHS ? process.env.AUDIT_WIDTHS.split(',').map(Number) : R.widths.full;
+  const rows = [];
+  for (const bname of browsers) {
+    const browser = await launch(bname);
+    for (const p of discovered.pages) for (const w of eWidths) {
+      const { ctx, page } = await load(browser, base, p.route, w, { illustrationRequests: [] });
+      const e = await page.evaluate(`(${MEASURE_E})(${JSON.stringify(R)}, ${JSON.stringify({ vw: w, state: 'default', path: p.route })})`);
+      rows.push({ browser: bname, page: p.route, width: w, state: 'default', res: { violations: e.violations, counts: { checkedPerRule: e.checked } } });
+      await ctx.close();
+    }
+    await browser.close();
+  }
+  rows.push(...await runMotion({ launch, browsers, base, routes: motionRoutes, R, widths: eWidths, log }));
+  server.close();
+  console.log(`\nE checks on ${DIST}`);
+  let bad = 0;
+  for (const r of E_RULES) {
+    const checked = rows.reduce((n, x) => n + (x.res.counts.checkedPerRule[r] || 0), 0);
+    const v = rows.flatMap((x) => x.res.violations.filter((y) => y.rule === r).map((y) => ({ ...y, page: x.page, width: x.width, state: x.state, browser: x.browser })));
+    const uniq = new Map(); for (const y of v) { const k = `${y.page}|${y.screen}|${y.element}|${y.measured}`; if (!uniq.has(k)) uniq.set(k, y); }
+    const pages = [...new Set(v.map((y) => y.page))];
+    bad += uniq.size;
+    console.log(`${r}: ${uniq.size ? 'FAIL' : 'PASS'} · checked ${checked} · violations ${uniq.size}${pages.length ? ' · pages ' + pages.join(', ') : ''}`);
+    for (const y of [...uniq.values()].slice(0, 6)) console.log(`   ${y.page} @${y.width} ${y.browser} ${y.state} | ${y.screen.slice(0, 40)} | ${y.element} | ${y.measured.slice(0, 110)} | required: ${y.required.slice(0, 70)}`);
+    if (uniq.size > 6) console.log(`   … ${uniq.size - 6} more`);
+  }
+  fs.mkdirSync(OUT, { recursive: true });
+  fs.writeFileSync(path.join(OUT, 'e-only.json'), JSON.stringify({ dist: DIST, rows: rows.map((x) => ({ page: x.page, width: x.width, state: x.state, browser: x.browser, violations: x.res.violations, checked: x.res.counts.checkedPerRule })) }, null, 1));
+  process.exit(bad ? 1 : 0);
+}
+
 const results = [];
 await Promise.all(browsers.map(async (bname) => {
   const browser = await launch(bname);
@@ -404,6 +457,8 @@ await Promise.all(browsers.map(async (bname) => {
   }
   await browser.close();
 }));
+// E1, E2 and the carousel after autoplay (E5): real motion, so outside the reduced-motion state runs above
+if (!process.env.AUDIT_NO_MOTION && motionRoutes.length) results.push(...await runMotion({ launch, browsers, base, routes: motionRoutes, R, widths: R.widths.full, log }));
 server.close();
 const agg = aggregate(results, discovered);
 const { coverageLine, violations, gaps } = writeReport({ results, discovered, agg, problems, startedAt, browsers });

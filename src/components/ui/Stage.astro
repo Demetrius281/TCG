@@ -8,14 +8,14 @@ interface Props {
 }
 const { items, decorative = false, dataS = false } = Astro.props;
 ---
-<div class="stage" aria-hidden={decorative ? 'true' : undefined}>
-  {items.map((s, i) => <p class="t-small" data-s={dataS ? i + 1 : undefined}><span class="t-label">{s.label}</span>{s.text}</p>)}
-</div>
+<ul class="stage" aria-hidden={decorative ? 'true' : undefined}>
+  {items.map((s, i) => <li class="t-small" data-s={dataS ? i + 1 : undefined}><span class="t-label">{s.label}</span>{s.text}</li>)}
+</ul>
 
 <style>
-  .stage { display: grid; border-top: var(--bw-1) solid var(--c-border-strong); }
-  .stage p { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-8); padding: var(--s-12) 0; border-bottom: var(--bw-1) solid var(--c-border-strong); color: var(--c-text-3); transition: color var(--ease); }
-  .stage p span { color: var(--c-accent); }
-  .stage p[aria-current='step'] { color: var(--c-text); }
-  .stage p.done { color: var(--c-text-2); }
+  .stage { display: grid; margin: 0; padding: 0; list-style: none; border-top: var(--bw-1) solid var(--c-border-strong); }
+  .stage li { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-8); padding: var(--s-12) 0; border-bottom: var(--bw-1) solid var(--c-border-strong); color: var(--c-text-3); transition: color var(--ease); }
+  .stage li span { color: var(--c-accent); }
+  .stage li[aria-current='step'] { color: var(--c-text); }
+  .stage li.done { color: var(--c-text-2); }
 </style>

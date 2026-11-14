@@ -1,6 +1,8 @@
 ---
-// A row of cards that scrolls by itself, can be dragged, stepped with arrows and paused.
-// Slot: <li> items (Card item). Cards share one height. Motion stops under prefers-reduced-motion (the row stays scrollable).
+// A row of cards that advances by itself one card at a time, can be dragged, stepped with arrows and paused.
+// Every stop snaps a card to the viewport's left edge (the container edge), so no card is ever cut on the left;
+// only the next card may peek on the right. Cards share one height (the tallest).
+// Slot: <li> items (Card item). Motion stops under prefers-reduced-motion (arrows, drag and scroll remain).
 interface Props {
   label: string;
   pause?: string;
@@ -23,10 +25,10 @@ const { label, pause = 'Pause', play = 'Play', previous = 'Previous', next = 'Ne
 
 <style>
   .carousel { display: grid; gap: var(--s-24); min-width: 0; }
-  .viewport { overflow-x: auto; scrollbar-width: none; cursor: grab; }
+  .viewport { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; }
   .viewport::-webkit-scrollbar { display: none; }
-  .viewport.is-drag { cursor: grabbing; user-select: none; }
-  .track { display: flex; gap: var(--grid-gap); width: max-content; margin: 0; padding: 0; list-style: none; }
+  .viewport.is-drag { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+  .track { display: grid; grid-auto-flow: column; grid-auto-columns: min(var(--size-slide), 100%); gap: var(--grid-gap); margin: 0; padding: 0; list-style: none; }
   .controls { display: flex; justify-content: flex-end; gap: var(--s-8); }
   .ctl { display: inline-flex; align-items: center; justify-content: center; min-width: var(--control-h); height: var(--control-h); padding: 0 var(--s-16); background: transparent; border: var(--bw-1) solid var(--c-border-strong); border-radius: var(--radius); color: var(--c-text); cursor: pointer; transition: border-color var(--ease), color var(--ease); }
   .ctl:hover { border-color: var(--c-accent); color: var(--c-accent); }
@@ -34,23 +36,53 @@ const { label, pause = 'Pause', play = 'Play', previous = 'Previous', next = 'Ne
 </style>
 
 <script>
+  // Durations in ms: how long a card rests before the next one slides in.
+  const REST = 4000;
   document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
     const viewport = root.querySelector<HTMLElement>('[data-viewport]')!;
     const track = root.querySelector<HTMLElement>('[data-track]')!;
     const toggle = root.querySelector<HTMLButtonElement>('[data-toggle]')!;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const step = () => (track.firstElementChild as HTMLElement).getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || '0');
-    root.querySelector('[data-prev]')!.addEventListener('click', () => viewport.scrollBy({ left: -step(), behavior: reduced ? 'auto' : 'smooth' }));
-    root.querySelector('[data-next]')!.addEventListener('click', () => viewport.scrollBy({ left: step(), behavior: reduced ? 'auto' : 'smooth' }));
-    if (reduced) return;
+    const count = track.children.length;
+    const behavior: ScrollBehavior = reduced ? 'auto' : 'smooth';
+    const cards = () => Array.from(track.children) as HTMLElement[];
+    // card i's scroll position: its left edge on the viewport's left edge
+    const posOf = (i: number) => cards()[i].offsetLeft - track.offsetLeft;
+    const current = () => {
+      const x = viewport.scrollLeft;
+      let best = 0;
+      cards().forEach((c, i) => { if (Math.abs(posOf(i) - x) < Math.abs(posOf(best) - x)) best = i; });
+      return best;
+    };
+    const maxIndex = () => cards().length - 1;
+    const go = (i: number, how: ScrollBehavior = behavior) => viewport.scrollTo({ left: posOf(Math.max(0, Math.min(i, maxIndex()))), behavior: how });
+
+    let looped = false;
+    const step = (dir: 1 | -1) => {
+      let i = current();
+      // in the looped track the clone of card 0 sits at `count`: jump there invisibly before stepping back
+      if (looped && dir < 0 && i === 0) { go(count, 'auto'); i = count; }
+      go(i + dir);
+    };
+    root.querySelector('[data-prev]')!.addEventListener('click', () => step(-1));
+    root.querySelector('[data-next]')!.addEventListener('click', () => step(1));
+    if (reduced || count < 2) return;
 
     // Clone the cards once so the loop is seamless. Clones are hidden from assistive tech.
-    Array.from(track.children).forEach((li) => {
+    cards().forEach((li) => {
       const clone = li.cloneNode(true) as HTMLElement;
       clone.setAttribute('aria-hidden', 'true');
       clone.querySelectorAll('a, button').forEach((el) => el.setAttribute('tabindex', '-1'));
       track.appendChild(clone);
     });
+    looped = true;
+    // after a stop on a clone, move to the same card in the first set (identical picture)
+    let settle = 0;
+    viewport.addEventListener('scroll', () => {
+      clearTimeout(settle);
+      settle = window.setTimeout(() => { const i = current(); if (i >= count && !dragging) go(i - count, 'auto'); }, 150);
+    }, { passive: true });
+
     let paused = false;
     let hover = false;
     let dragging = false;
@@ -67,7 +99,7 @@ const { label, pause = 'Pause', play = 'Play', previous = 'Previous', next = 'Ne
     root.addEventListener('focusout', () => (hover = false));
     new IntersectionObserver((e) => (visible = e[0].isIntersecting)).observe(root);
 
-    // Drag with the mouse (touch and trackpad scroll natively).
+    // Drag with the mouse (touch and trackpad scroll natively); on release the nearest card snaps to the edge.
     let startX = 0;
     let startLeft = 0;
     viewport.addEventListener('pointerdown', (e) => {
@@ -82,28 +114,18 @@ const { label, pause = 'Pause', play = 'Play', previous = 'Previous', next = 'Ne
       if (dragging) viewport.scrollLeft = startLeft - (e.clientX - startX);
     });
     const end = () => {
+      if (!dragging) return;
       dragging = false;
       viewport.classList.remove('is-drag');
+      go(current());
     };
     viewport.addEventListener('pointerup', end);
     viewport.addEventListener('pointercancel', end);
     viewport.addEventListener('touchstart', () => (hover = true), { passive: true });
     viewport.addEventListener('touchend', () => (hover = false));
 
-    // Sub-pixel scroll positions are rounded by the browser, so keep our own position.
-    let pos = viewport.scrollLeft;
-    let last = viewport.scrollLeft;
-    const tick = () => {
-      if (Math.abs(viewport.scrollLeft - last) > 1.5) pos = viewport.scrollLeft;
-      if (!paused && !hover && !dragging && visible) {
-        const half = track.scrollWidth / 2;
-        pos += 0.5;
-        if (pos >= half) pos -= half;
-        viewport.scrollLeft = pos;
-        last = viewport.scrollLeft;
-      }
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
+    window.setInterval(() => {
+      if (!paused && !hover && !dragging && visible && !document.hidden) step(1);
+    }, REST);
   });
 </script>

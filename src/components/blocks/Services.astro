@@ -6,7 +6,7 @@ import Rows from '../ui/Rows.astro';
 import Stack from '../ui/Stack.astro';
 import Cluster from '../ui/Cluster.astro';
 import Text from '../ui/Text.astro';
-import ActionStack from '../ui/ActionStack.astro';
+import Action from '../ui/Action.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'services'>, 'type'>;
@@ -26,10 +26,10 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
     }
   </Stack>
   <Cluster gap={32} justify="between">
-    <Stack gap={12}>
+    <Stack gap={16}>
       <Text as="h3" role="card-title">{start.title}</Text>
       <Text tone="muted">{start.text}</Text>
     </Stack>
-    <ActionStack action={start.action} link={start.link} fallbackVariant="inverse" />
+    <Cluster gap="buttons"><Action action={start.action} fallbackVariant="inverse" /></Cluster>
   </Cluster>
 </Section>

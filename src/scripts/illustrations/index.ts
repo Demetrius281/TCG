@@ -24,16 +24,10 @@ async function load(host: HTMLElement) {
   }
 }
 
-const flows = Array.from(document.querySelectorAll<HTMLElement>('[data-flow]'));
-let flowLoaded = false;
-
+// Diagram connectors are drawn by the Diagram primitive itself (src/components/ui/Diagram.astro).
 function check() {
   if (!desktop.matches) return;
   hosts.forEach(load);
-  if (flows.length && !flowLoaded) {
-    flowLoaded = true;
-    import('./flow.ts').then((m) => flows.forEach(m.drawFlow));
-  }
 }
 check();
 desktop.addEventListener('change', check);

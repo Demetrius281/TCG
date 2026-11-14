@@ -4,3 +4,6 @@ dist
 .vercel
 .DS_Store
 qa/output/
+# generated screenshots, contact sheets and frame strips (CI artifacts, never committed)
+qa/parity/output/
+qa/audit/e-only.json

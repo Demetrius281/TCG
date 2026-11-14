@@ -2,28 +2,18 @@
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import List from '../ui/List.astro';
-import Button from '../ui/Button.astro';
 import Card from '../ui/Card.astro';
-import Cluster from '../ui/Cluster.astro';
 import Text from '../ui/Text.astro';
 import { isPlaceholder } from '../../lib/placeholder';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'answers'>, 'type'>;
-const { title, lead, launch, list_title, items, links, tone, id } = Astro.props;
+const { title, lead, launch, list_title, items, tone, id } = Astro.props;
 const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 const leadText = launch && !isPlaceholder(launch) ? `${lead} ${launch}` : lead;
 ---
 <Section id={id} tone={tone} labelledby={headId} layout="split">
-  <SectionHead slot="head" title={title} lead={leadText} id={headId}>
-    {
-      links && (
-        <Cluster slot="actions" gap="buttons">
-          {links.map((l, i) => (i === 0 ? <Button href={l.href} variant="secondary">{l.label}</Button> : <a href={l.href}>{l.label}</a>))}
-        </Cluster>
-      )
-    }
-  </SectionHead>
+  <SectionHead slot="head" title={title} lead={leadText} id={headId} />
   <Card as="div" accent>
     <Text as="h3" role="card-title">{list_title}</Text>
     <List numbered>

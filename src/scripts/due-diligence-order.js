@@ -14,7 +14,7 @@
   var panel=document.getElementById('pc-panel');
   var section=document.getElementById('order');
   var steps=form.querySelectorAll('.pc-step');
-  var stageRows=document.querySelectorAll('#order .stage p');
+  var stageRows=document.querySelectorAll('#order .stage li');
   var bars=document.querySelectorAll('.pc-bar i');
   var current=1,paid=false,done=false;
   var pin=null,pinOk=false,map=null,marker=null,mapState='idle',mapQueue=[],locTimer=null;

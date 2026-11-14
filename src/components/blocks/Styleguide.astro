@@ -12,7 +12,6 @@ import Card from '../ui/Card.astro';
 import Text from '../ui/Text.astro';
 import List from '../ui/List.astro';
 import Button from '../ui/Button.astro';
-import ActionStack from '../ui/ActionStack.astro';
 import Table from '../ui/Table.astro';
 import Accordion from '../ui/Accordion.astro';
 import Rows from '../ui/Rows.astro';
@@ -41,7 +40,7 @@ const flow = first('flow');
 const advisory = first('cards');
 const capital = home.data.blocks.filter((b) => b.type === 'cards')[1] as Extract<Block, { type: 'cards' }>;
 const metrics = first('metrics');
-const answers = first('answers');
+const arch = first('architecture');
 const cta = first('cta');
 const faq = first('faq');
 const logos = first('logos');
@@ -71,14 +70,15 @@ const roleSamples: Record<string, string> = {
   'card-title': advisory.items[0].title,
   text: advisory.items[0].text,
   small: capital.items[0].text,
-  label: flow.sources.title,
+  label: arch.columns[0],
   metric: metrics.items[0].value,
   control: 'Button and link text',
 };
-const listItems = answers.items.slice(0, 3);
-const navItems = answers.items.slice(0, 4);
+const archItems = [...arch.inputs, ...arch.outputs].map((n) => n.title);
+const listItems = archItems.slice(0, 3);
+const navItems = archItems.slice(0, 4);
 const tableGroups = [{ rows: [{ cells: [advisory.items[0].title, advisory.items[0].text] }, { cells: [capital.items[0].title, capital.items[0].text], highlight: true }] }];
-const primitives = ['Section', 'SectionHead', 'Stack', 'Cluster', 'Grid', 'Card', 'Text', 'List', 'Button', 'ActionStack', 'Table', 'Accordion', 'Rows', 'Stats', 'LogoGrid', 'Media', 'Field', 'Choices', 'Check', 'FormButton', 'Stage', 'StepBar', 'DataRows', 'Header, Footer, MobileMenu, SkipLink, SectionNav (page chrome)'];
+const primitives = ['Section', 'SectionHead', 'Stack', 'Cluster', 'Grid', 'Card', 'Text', 'List', 'Button', 'Table', 'Accordion', 'Rows', 'Stats', 'LogoGrid', 'Media', 'Field', 'Choices', 'Check', 'FormButton', 'Stage', 'StepBar', 'DataRows', 'Header, Footer, MobileMenu, SkipLink, SectionNav (page chrome)'];
 ---
 <Blocks blocks={[{ type: 'hero', title: 'Design rules', lead: flow.lead, actions: [{ label: 'Type roles', href: '#roles' }], heading_id: 'sg-title' } as Block]} />
 
@@ -114,10 +114,10 @@ const primitives = ['Section', 'SectionHead', 'Stack', 'Cluster', 'Grid', 'Card'
 </Section>
 
 <Section>
-  <SectionHead title="Two screens in a row, same background" lead={answers.lead} />
+  <SectionHead title="Two screens in a row, same background" lead={advisory.lead} />
 </Section>
 <Section>
-  <SectionHead title={answers.title} lead={flow.lead} />
+  <SectionHead title={advisory.title} lead={flow.lead} />
 </Section>
 
 <Section tone="sunken">
@@ -139,7 +139,7 @@ const primitives = ['Section', 'SectionHead', 'Stack', 'Cluster', 'Grid', 'Card'
     <List>{navItems.map((n) => <li><Text as="span" role="small">{n}</Text></li>)}</List>
   </nav>
   <Stack gap={40}>
-    <SectionHead title="Layout: article" lead={answers.lead} />
+    <SectionHead title="Layout: article" lead={advisory.lead} />
     <Stack gap={16}>
       <Text>{advisory.items[0].text}</Text>
       <Text as="h3" role="card-title">{capital.items[0].title}</Text>
@@ -212,7 +212,6 @@ const primitives = ['Section', 'SectionHead', 'Stack', 'Cluster', 'Grid', 'Card'
       <Stage items={[{ label: 'STEP 1', text: 'First' }, { label: 'STEP 2', text: 'Second' }]} />
       <DataRows rows={[{ label: 'Plan', id: 'sg-r1' }, { label: 'Price', id: 'sg-r2' }]} />
       <Cluster gap="buttons"><FormButton>Next</FormButton><FormButton kind="back">Back</FormButton></Cluster>
-      <ActionStack action={{ label: cta.action.label, href: '/due-diligence' }} link={{ label: 'Text link', href: '/' }} fallbackVariant="secondary" />
     </Stack>
   </Card>
 </Section>

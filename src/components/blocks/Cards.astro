@@ -28,8 +28,8 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
       ))
     }
   </Grid>
-  {link && <Cluster gap="buttons"><Button href={link.href} variant="secondary">{link.label}</Button></Cluster>}
   {fineprint && <Text role="small" tone="muted"><a href={fineprint.href}>{fineprint.label}</a></Text>}
+  {link && <Cluster gap="buttons"><Button href={link.href} variant="secondary">{link.label}</Button></Cluster>}
   {
     note && (
       <Stack gap={12} align="start">

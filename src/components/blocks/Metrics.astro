@@ -22,7 +22,7 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   <Stats items={items} />
   {
     reach && (
-      <Stack gap={12}>
+      <Stack gap={16}>
         <Text as="h3" role="card-title">{reach.title}</Text>
         <Text tone="muted">{reach.text}</Text>
       </Stack>

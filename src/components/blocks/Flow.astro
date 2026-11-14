@@ -1,19 +1,14 @@
 ---
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
-import DesktopIllustration from '../ui/DesktopIllustration.astro';
 import Diagram from '../ui/Diagram.astro';
-import Text from '../ui/Text.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'flow'>, 'type'>;
-const { title, lead, sources, hub, outputs, closing, tone, id } = Astro.props;
+const { title, lead, hub, outputs, tone, id } = Astro.props;
 const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} lead={lead} id={headId} />
-  <Diagram sourcesTitle={sources.title} sources={sources.items.map((s) => ({ title: s }))} hub={{ title: hub }} outputs={outputs} />
-  {closing && <Text>{closing}</Text>}
+  <Diagram mode="converge" hub={hub} spheres={outputs} />
 </Section>
-<!-- The loader script draws the connector lines on desktop only; nothing is fetched below 768px. -->
-<DesktopIllustration name="flow" />

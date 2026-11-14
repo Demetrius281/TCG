@@ -84,8 +84,14 @@ a { color: var(--c-accent, var(--color-accent)); text-decoration-thickness: var(
   .grid.cols-4 > :last-child:nth-child(4n + 1) { grid-column: 1 / -1; }
 }
 
-/* Carousel slides (ui/Carousel): one width for every card. */
-[data-track] > * { flex: none; width: var(--size-slide); }
+/* Carousel slides (ui/Carousel): every card snaps to the viewport's left edge; photos are one square size.
+   Two shared rows (content, foot) through subgrid: the free space stays above the divider and every card's divider,
+   photo, name and meta line sit on one line, whatever wraps. */
+[data-track] { grid-template-rows: auto auto; }
+[data-track] > * { grid-row: span 2; display: grid; grid-template-rows: subgrid; min-width: 0; scroll-snap-align: start; }
+[data-track] > .cell > .card { grid-row: span 2; display: grid; grid-template-rows: subgrid; align-content: start; }
+[data-track] > .cell > .card > .foot { margin-top: 0; }
+[data-track] img { flex: none; width: var(--size-avatar); height: var(--size-avatar); object-fit: cover; }
 
 .sr-only {
   position: absolute;
@@ -139,24 +145,6 @@ main > section.section:first-of-type { padding-top: var(--page-top); }
 .section.tone-sunken + script + .section.tone-sunken,
 .section.tone-inverse + .section.tone-inverse,
 .section.tone-inverse + script + .section.tone-inverse { padding-top: 0; }
-
-/* Flow connector lines drawn by src/scripts/illustrations/flow.ts (illustration, excluded from the audit). */
-.flow-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.flow-lines path { fill: none; stroke-width: var(--bw-1); stroke-linecap: round; }
-.flow-lines .in { stroke: var(--c-text-3); }
-.flow-lines .out { stroke: var(--c-accent); }
-@media (prefers-reduced-motion: no-preference) {
-  .flow:not(.drawn) .flow-lines path { stroke-dasharray: 1; stroke-dashoffset: 1; }
-  .flow.drawn:not(.settled) .flow-lines path { stroke-dasharray: 1; animation: flow-draw 900ms cubic-bezier(0.45, 0, 0.2, 1) both; }
-  .flow.drawn:not(.settled) .flow-lines .out { animation-delay: 700ms; }
-  .flow.drawn:not(.settled) .flow-lines .d1 { animation-delay: 80ms; }
-  .flow.drawn:not(.settled) .flow-lines .d2 { animation-delay: 160ms; }
-  .flow.drawn:not(.settled) .flow-lines .d3 { animation-delay: 240ms; }
-  .flow.drawn:not(.settled) .flow-lines .d4 { animation-delay: 320ms; }
-  .flow.drawn:not(.settled) .flow-lines .out.d1 { animation-delay: 780ms; }
-  .flow.drawn:not(.settled) .flow-lines .out.d2 { animation-delay: 860ms; }
-  @keyframes flow-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-}
 
 /* Order form map (Leaflet, loaded on demand by src/scripts/due-diligence-order.js). */
 #pc-map .pc-pin-ic { background: none; border: 0; }

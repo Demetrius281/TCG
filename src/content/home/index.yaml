@@ -14,46 +14,66 @@ blocks:
       - label: Book a Consultation
         message: book
 
-  # 2. How TCG works (no links on this screen)
+  # 2. How TCG works: the three spheres flow up into TCG (no links on this screen)
   - type: flow
     tone: sunken
     title: Every decision we make runs on the same verified data
-    lead: Property records in Indonesia sit in separate government systems with no shared index. TCG reads them together for every asset, then uses the result to advise clients or to invest.
-    sources:
-      title: Sources
-      items:
-        - Zoning
-        - Building permits
-        - Land titles
-        - Company registry (AHU)
-        - Open sources
+    lead: Property records in Indonesia sit in separate government systems. TCG reads them together for every asset and turns the result into three kinds of work.
     hub: TCG
     outputs:
       - title: Intelligence
-        text: A verified picture of the asset, built from all five sources.
+        text: "For buyers and owners: a verified legal and technical picture of a property before money moves."
       - title: Advisory
-        text: A plan to buy, finish, sell or launch, grounded in that picture.
+        text: "For owners and developers: a plan to buy, finish, legalise, sell or launch, built on that picture."
       - title: Capital
-        text: Money placed only into assets that passed the check.
-    closing: "The result is one answer to the question every client brings: should this money go into this property?"
+        text: "For investors: placement only into assets that passed the check."
 
-  # 3. Platform
-  - type: answers
-    title: The legal picture of any Bali property, found by its coordinates
-    lead: The platform turns these registries into one English-language answer. Enter a location to get the facts you need before money moves. Today it runs inside our own checks.
-    launch: "[Launch date] it opens to the market."
-    list_title: Questions the platform answers
-    items:
-      - Can I build here, can I rent it out short-term?
-      - Does the building hold a valid PBG, SLF?
-      - Does the land certificate match this plot?
-      - Who stands behind the company selling it?
-      - Has this developer delayed handovers before?
-    links:
-      - label: Interested in investing in the platform?
-        href: /platform
-      - label: Checking a property now?
-        href: /due-diligence
+  # 3. Platform: the same architecture diagram as /platform (shared block), one button
+  - type: architecture
+    id: infrastructure
+    tone: inverse
+    title: The Infrastructure Behind Property Intelligence.
+    head:
+      - Data flow · Input → Processing → Output
+      - Proprietary Intelligence Architecture
+    columns:
+      - Input layer
+      - Processing layer
+      - Output layer
+    inputs:
+      - title: BATARA + BPN / SIMBG
+        text: Zoning · certificates · PBG / SLF
+      - title: AHU + OSS
+        text: Company records · registrations · licenses
+      - title: TCG Market Data
+        text: Developers · pricing · construction history
+    engine:
+      kicker: Core
+      title: Property Intelligence Engine
+      modules:
+        - title: Data Integration
+          text: Connects property, company and regulatory records
+        - title: Risk Intelligence
+          text: Identifies legal, development and commercial risks
+        - title: Investment Screening
+          text: Detects distressed and undervalued assets
+    outputs:
+      - title: Property Verification Reports
+        text: Paid screening and risk review
+      - title: Investment Opportunities
+        text: Qualified acquisition candidates
+      - title: Distressed Asset Pipeline
+        text: Further investment analysis
+    foot:
+      - title: Traceable Intelligence
+        text: Each finding is linked to available records and supporting evidence.
+      - title: Risk Transparency
+        text: Verified facts, potential risks and unresolved issues are distinguished.
+      - title: Investment Advantage
+        text: Property intelligence supports faster screening and capital allocation.
+    action:
+      label: Explore the platform
+      href: /platform
 
   # 4. Advisory
   - type: cards
@@ -225,9 +245,6 @@ blocks:
       action:
         label: Message us on WhatsApp
         message: book
-      link:
-        label: Investing? See the platform
-        href: /platform
 
   # 11. Final CTA
   - type: cta
