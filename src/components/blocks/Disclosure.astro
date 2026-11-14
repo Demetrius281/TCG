@@ -7,10 +7,16 @@ const { title, text, href, tone, id } = Astro.props;
 ---
 <Section id={id} tone={tone}>
   <aside class="box">
-    <h2 class="t-h4 title">
-      {href ? <a href={href}>{title}</a> : title}
-    </h2>
-    <p class="t-small text">{text}</p>
+    {
+      text ? (
+        <>
+          <h2 class="t-h4 title">{href ? <a href={href}>{title}</a> : title}</h2>
+          <p class="t-small text">{text}</p>
+        </>
+      ) : (
+        <p class="t-small title">{href ? <a href={href}>{title}</a> : title}</p>
+      )
+    }
   </aside>
 </Section>
 
@@ -22,6 +28,6 @@ const { title, text, href, tone, id } = Astro.props;
     padding-left: var(--space-5);
     border-left: var(--bw-2) solid var(--c-accent);
   }
-  .title a { color: inherit; }
+  .title a { color: inherit; text-decoration: underline; text-underline-offset: var(--space-1); }
   .text { color: var(--c-text-2); }
 </style>

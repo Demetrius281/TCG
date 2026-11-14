@@ -1,10 +1,14 @@
 ---
 import Section from '../ui/Section.astro';
+import { isPlaceholder } from '../../lib/placeholder';
 import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'metrics'>, 'type'>;
-const { title, items, notes, tone, id } = Astro.props;
+const { title, items, notes, letter, partners, tone, id } = Astro.props;
+const showLetter = letter && !isPlaceholder(letter.quote) && !isPlaceholder(letter.href) && !isPlaceholder(letter.org);
+const shownPartners = (partners ?? []).filter((p) => !isPlaceholder(p.name) && !isPlaceholder(p.href) && !isPlaceholder(p.group));
+const ext = (href: string) => (/^https?:/.test(href) ? { target: '_blank', rel: 'noopener' } : {});
 const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
@@ -20,6 +24,23 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
     }
   </dl>
   {
+    (showLetter || shownPartners.length > 0) && (
+      <div class="proof">
+        {showLetter && (
+          <figure class="letter">
+            <blockquote class="t-lead">{letter!.quote}</blockquote>
+            <figcaption class="t-small"><a href={letter!.href} {...ext(letter!.href)}>{letter!.org}</a></figcaption>
+          </figure>
+        )}
+        {shownPartners.length > 0 && (
+          <ul class="partners">
+            {shownPartners.map((p) => <li class="t-small"><span class="grp">{p.group}</span> <a href={p.href} {...ext(p.href)}>{p.name}</a></li>)}
+          </ul>
+        )}
+      </div>
+    )
+  }
+  {
     notes && (
       <ul class="notes">
         {notes.map((n) => <li class="t-body note">{n}</li>)}
@@ -33,6 +54,12 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
   .metric { display: flex; flex-direction: column-reverse; gap: var(--space-2); padding-top: var(--space-5); border-top: var(--bw-1) solid var(--c-border-strong); }
   .value { margin: 0; color: var(--c-text); }
   .label { color: var(--c-text-2); }
+  .proof { display: grid; gap: var(--space-6); margin-top: var(--space-10); max-width: var(--container-prose); }
+  .letter { margin: 0; display: grid; gap: var(--space-3); padding-left: var(--space-5); border-left: var(--bw-2) solid var(--c-accent); }
+  .letter blockquote { margin: 0; }
+  .letter a, .partners a { color: var(--c-accent); }
+  .partners { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-8); }
+  .grp { color: var(--c-text-3); }
   .notes { display: grid; gap: var(--space-3); margin-top: var(--space-10); max-width: var(--container-prose); }
   .note { color: var(--c-text-2); }
 

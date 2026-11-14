@@ -1,10 +1,11 @@
 ---
 import Section from '../ui/Section.astro';
+import Button from '../ui/Button.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'cards'>, 'type'>;
-const { label, title, lead, columns, variant, items, note, tone, id } = Astro.props;
+const { label, title, lead, columns, variant, items, note, link, fineprint, tone, id } = Astro.props;
 const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
@@ -27,6 +28,8 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
       })
     }
   </ul>
+  {link && <p class="link"><Button href={link.href} variant="secondary">{link.label}</Button></p>}
+  {fineprint && <p class="t-small fineprint"><a href={fineprint.href}>{fineprint.label}</a></p>}
   {
     note && (
       <div class:list={['note', `v-${variant}`]}>
@@ -38,6 +41,9 @@ const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : 
 </Section>
 
 <style>
+  .link { margin-top: var(--space-8); }
+  .fineprint { margin-top: var(--space-6); }
+  .fineprint a { color: var(--c-text-2); text-decoration: underline; text-underline-offset: var(--space-1); }
   .grid { display: grid; gap: var(--grid-gap); }
   .card {
     display: grid;

@@ -5,15 +5,15 @@ import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'services'>, 'type'>;
 const { title, lead, groups, tone, id } = Astro.props;
-const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} lead={lead} id={headId} />
   <div class="groups">
     {
       groups.map((g) => (
-        <div class="group">
-          {g.name && <h3 class="t-label name">{g.name}</h3>}
+        <div class="group" id={g.id}>
+          {g.name && <h2 class="t-h2 name">{g.name}</h2>}
           <ul class="list">
             {g.items.map((item) => (
               <li>
@@ -36,7 +36,7 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 <style>
   .groups { display: grid; gap: var(--space-10); }
   .group { display: grid; gap: var(--space-4); }
-  .name { color: var(--c-accent); }
+  .name { max-width: var(--container-prose); }
   .list { border-top: var(--bw-1) solid var(--c-border-strong); }
   .row {
     display: flex;
@@ -55,7 +55,4 @@ const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
   .row:hover .t { color: var(--c-accent); }
   .row:hover .arrow { transform: translateX(var(--space-1)); }
 
-  @media (min-width: 1024px) {
-    .group { grid-template-columns: 1fr 3fr; gap: var(--grid-gap); }
-  }
 </style>

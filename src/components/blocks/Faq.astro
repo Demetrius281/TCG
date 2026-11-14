@@ -20,6 +20,7 @@ const jsonLd = {
   })),
 };
 ---
+{items.length > 0 && (
 <Section id={id} nav={nav} tone={tone} labelledby={headId}>
   <div class:list={['wrap', layout && `l-${layout}`]}>
   <SectionHead label={label} title={title} id={headId} />
@@ -44,6 +45,7 @@ const jsonLd = {
   </div>
   {json_ld && published.length > 0 && <JsonLd data={jsonLd} />}
 </Section>
+)}
 
 <style>
   .faq { max-width: calc(var(--container-prose) * 1.2); border-top: var(--bw-1) solid var(--c-border-strong); }

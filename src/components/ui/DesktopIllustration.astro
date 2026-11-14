@@ -1,10 +1,10 @@
 ---
 interface Props {
-  name: 'property-check' | 'regulations' | 'platform';
+  name: 'home' | 'property-check' | 'regulations' | 'platform' | 'flow';
 }
 const { name } = Astro.props;
 ---
-<div class="host" data-illustration={name}></div>
+{name !== 'flow' && <div class="host" data-illustration={name}></div>}
 
 <style>
   .host { display: none; min-width: 0; }

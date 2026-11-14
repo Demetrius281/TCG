@@ -73,6 +73,7 @@ const display = variant === 'display';
   }
   @media (min-width: 1024px) {
     .has-art { grid-template-columns: 1fr 1fr; align-items: center; gap: var(--space-16); }
+    .has-art[data-art='home'] { grid-template-columns: 1.32fr 1fr; gap: var(--space-12); }
     .has-art[data-art='property-check'] { grid-template-columns: 1.45fr 1fr; }
     .has-art[data-art='platform'] { grid-template-columns: 2fr 1fr; gap: var(--space-12); }
   }

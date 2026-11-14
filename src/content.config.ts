@@ -6,7 +6,7 @@ const text = z.string().min(1);
 const obj = <T extends z.ZodRawShape>(shape: T) => z.object(shape).strict();
 
 const tone = z.enum(['default', 'sunken', 'inverse']).optional();
-const messageKey = z.enum(['consultation']);
+const messageKey = z.enum(['consultation', 'book']);
 
 /** A button: either an internal/external link or a WhatsApp message by key. */
 const action = obj({
@@ -33,7 +33,7 @@ export const heroBlock = obj({
   actions: z.array(action).default([]),
   meta: text.optional(),
   fee_note: text.optional(),
-  illustration: z.enum(['property-check', 'regulations', 'platform']).optional(),
+  illustration: z.enum(['home', 'property-check', 'regulations', 'platform']).optional(),
   metrics: z.array(obj({ value: text, label: text })).optional(),
 });
 
@@ -56,16 +56,20 @@ export const cardsBlock = obj({
     )
     .min(1),
   note: obj({ text, link: obj({ label: text, href: text }).optional() }).optional(),
+  link: obj({ label: text, href: text }).optional(),
+  /** Small underlined link under the cards (e.g. a disclosure line). */
+  fineprint: obj({ label: text, href: text }).optional(),
 });
 
 export const servicesBlock = obj({
   type: z.literal('services'),
   ...base,
-  title: text,
+  title: text.optional(),
   lead: text.optional(),
   groups: z
     .array(
       obj({
+        id: text.optional(),
         name: text.optional(),
         items: z.array(obj({ title: text, text: text, href: text })).min(1),
       }),
@@ -90,6 +94,10 @@ export const metricsBlock = obj({
   title: text.optional(),
   items: z.array(obj({ value: text, label: text })).min(1),
   notes: z.array(text).optional(),
+  /** Letter of thanks. Not rendered while the quote or the link is a [placeholder]. */
+  letter: obj({ org: text, quote: text, href: text }).optional(),
+  /** Partner names with links. Entries with a [placeholder] name or link are not rendered. */
+  partners: z.array(obj({ group: text, name: text, href: text })).optional(),
 });
 
 export const testimonialsBlock = obj({
@@ -117,9 +125,8 @@ export const faqBlock = obj({
   layout: z.enum(['split', 'stack']).optional(),
   heading_id: text.optional(),
   title: text,
-  items: z
-    .array(obj({ question: text, answer: text, href: text.optional(), linkText: text.optional() }))
-    .min(1),
+  /** An empty list keeps the block in the content file but renders nothing. */
+  items: z.array(obj({ question: text, answer: text, href: text.optional(), linkText: text.optional() })),
 });
 
 export const ctaBlock = obj({
@@ -151,7 +158,7 @@ export const disclosureBlock = obj({
   type: z.literal('disclosure'),
   ...base,
   title: text,
-  text: text,
+  text: text.optional(),
   href: text.optional(),
 });
 
@@ -449,6 +456,40 @@ export const orderBlock = obj({
   disclaimer: text,
 });
 
+/** Data-flow diagram: sources -> hub -> outputs. Lines are drawn on desktop only. */
+export const flowBlock = obj({
+  type: z.literal('flow'),
+  ...base,
+  title: text,
+  lead: text.optional(),
+  sources: obj({ title: text, items: z.array(text).min(1) }),
+  hub: text,
+  outputs: z.array(obj({ title: text, text })).min(1),
+  closing: text.optional(),
+});
+
+/** A heading with a lead, a titled list of questions and links. `launch` is not rendered while it is a [placeholder]. */
+export const answersBlock = obj({
+  type: z.literal('answers'),
+  ...base,
+  title: text,
+  lead: text,
+  launch: text.optional(),
+  list_title: text,
+  items: z.array(text).min(1),
+  links: z.array(obj({ label: text, href: text })).optional(),
+});
+
+/** Large link rows: a link to a page, an anchor or a WhatsApp message. */
+export const choicesBlock = obj({
+  type: z.literal('choices'),
+  ...base,
+  title: text,
+  items: z
+    .array(obj({ title: text, text: text.optional(), href: text.optional(), message: messageKey.optional() }))
+    .min(1),
+});
+
 export const block = z.discriminatedUnion('type', [
   heroBlock,
   cardsBlock,
@@ -461,6 +502,9 @@ export const block = z.discriminatedUnion('type', [
   ctaBlock,
   sampleBlock,
   disclosureBlock,
+  flowBlock,
+  answersBlock,
+  choicesBlock,
   reportBlock,
   comparisonBlock,
   pricingBlock,

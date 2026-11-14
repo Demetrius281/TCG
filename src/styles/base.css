@@ -17,7 +17,10 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-padding-top: var(--header-h-lg);
+  scroll-padding-top: calc(var(--header-h) + var(--space-4));
+}
+@media (min-width: 1024px) {
+  html { scroll-padding-top: calc(var(--header-h-lg) + var(--space-4)); }
 }
 html.menu-open { overflow: hidden; }
 

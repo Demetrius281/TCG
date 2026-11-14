@@ -1,0 +1,43 @@
+---
+import Section from '../ui/Section.astro';
+import { whatsappHref } from '../../data/whatsapp';
+import type { BlockOf } from '../../content.config';
+
+type Props = Omit<BlockOf<'choices'>, 'type'>;
+const { title, items, tone, id } = Astro.props;
+const headId = `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+---
+<Section id={id} tone={tone} labelledby={headId}>
+  <h2 id={headId} class="title">{title}</h2>
+  <ul class="list">
+    {
+      items.map((item) => {
+        const href = item.message ? whatsappHref(item.message) : item.href;
+        const ext = Boolean(item.message);
+        return (
+          <li>
+            <a class="row" href={href} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>
+              <span class="main">
+                <span class="t-h3 t">{item.title}</span>
+                {item.text && <span class="t-body text">{item.text}</span>}
+              </span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Section>
+
+<style>
+  .title { margin-bottom: var(--space-10); max-width: var(--container-prose); }
+  .list { border-top: var(--bw-1) solid var(--c-border-strong); }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); min-height: var(--control-h); padding-block: var(--space-6); border-bottom: var(--bw-1) solid var(--c-border-strong); color: inherit; text-decoration: none; }
+  .main { display: grid; gap: var(--space-2); max-width: var(--container-prose); }
+  .t { font-weight: 500; }
+  .text { color: var(--c-text-2); }
+  .arrow { color: var(--c-accent); font-size: var(--fs-lead); transition: transform var(--ease); }
+  .row:hover .t { color: var(--c-accent); }
+  .row:hover .arrow { transform: translateX(var(--space-1)); }
+</style>

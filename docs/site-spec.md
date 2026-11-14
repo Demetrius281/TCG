@@ -155,16 +155,16 @@ Minimum text size: 12px, label level only.
 Layout rule for migrated pages: the legacy page defines composition (order, columns, alignment, element type, what is hidden on mobile); this system defines every value (spacing, type, line-height, colour, border width, container, radius). Section tone follows the legacy page (default, sunken = legacy sand, inverse = legacy dark). Variants are preferred over new blocks. Layout parity is checked with `qa/shots.mjs` and `qa/report.mjs` (output in `qa/output/`, never committed or deployed).
 | type | Fields |
 |---|---|
-| hero | variant (display, page), heading_id, label, title, subtitle, lead, actions[], meta, fee_note, illustration (property-check, regulations, platform), metrics[]. With `illustration` the copy and the art sit in two columns from 1024px; the ratio follows the illustration (property-check 1.45:1, regulations 1:1, platform 2:1). Illustrations load only from 768px, through the `DesktopIllustration` loader (fragment in /public/illustrations, script chunk in src/scripts/illustrations); the slot reserves its size (aspect ratio of the artwork) so nothing shifts. The legacy platform intro ("One Platform. Complete Market Intelligence.") was hidden at every width and was dropped from markup and content: no hidden text on the page. `subtitle` renders as a lighter second line under a display-size title |
+| hero | variant (display, page), heading_id, label, title, subtitle, lead, actions[], meta, fee_note, illustration (home, property-check, regulations, platform), metrics[]. With `illustration` the copy and the art sit in two columns from 1024px; the ratio follows the illustration (property-check 1.45:1, regulations 1:1, platform 2:1). Illustrations load only from 768px, through the `DesktopIllustration` loader (fragment in /public/illustrations, script chunk in src/scripts/illustrations); the slot reserves its size (aspect ratio of the artwork) so nothing shifts. The legacy platform intro ("One Platform. Complete Market Intelligence.") was hidden at every width and was dropped from markup and content: no hidden text on the page. `subtitle` renders as a lighter second line under a display-size title |
 | cards | label, title, lead, columns (2,3,4), variant (card, seam), items[]: label, title, text, tag, href; note: text, link. `seam` = cells share 1px rules with no gaps and the note stacks its link under the text |
-| services | title, lead, groups[]: name, items[]: title, text, href |
+| services | title (optional), lead, groups[]: id (anchor), name (rendered as an h2), items[]: title, text, href. Full-width ruled rows; anchors clear the sticky header |
 | steps | label, title, layout (row, list, grid), items[]: label, title, text, timing, first. `grid` = 2x2 hairline-divided cells, first step has an accent top rule |
 | deliverables | title, lead, items[]: title, text |
 | table | title, caption, head[], rows[][] |
-| metrics | title, items[]: value, label; notes[] |
+| metrics | title, items[]: value, label; notes[]; letter: org, quote, href; partners[]: group, name, href. `letter` and each partner are not rendered while the quote, name or link is a [placeholder] |
 | testimonials | title, items[]: quote, name, meta, photo |
 | logos | title, items[]: image, name; disclaimer |
-| faq | label, heading_id, title, layout (split, stack), json_ld, items[]: question, answer, href, linkText. No `layout` = narrow list under the heading (home); `split` = heading left, list right from 768px; `stack` = heading above a full-width list |
+| faq | label, heading_id, title, layout (split, stack), json_ld, items[]: question, answer, href, linkText. No `layout` = narrow list under the heading (home); `split` = heading left, list right from 768px; `stack` = heading above a full-width list. An empty `items` list keeps the block in the file and renders nothing |
 | text | title, body (Markdown) |
 | cta | label, title, text, action, secondary, next_steps[], side: title, items[]: label, text, note. With `side` the block is two columns from 768px (copy and buttons left, documents list right) and the list is hidden on mobile |
 | pricing | title, tiers[]: name, price, term, features[], featured |
@@ -183,22 +183,26 @@ Layout rule for migrated pages: the legacy page defines composition (order, colu
 | sample | label, title, lead, document_title, rows[]: label, value, status (ok, warn, danger); note |
 | case | title, task, approach, roles[], result, quote: text, name, meta |
 | disclosure | title, text, href |
+| flow | title, lead, sources: title, items[]; hub; outputs[]: title, text; closing. Sources, hub and outputs are HTML text (once in the DOM). From 768px the loader draws SVG connector lines over them (draw-in once; static with prefers-reduced-motion). Below 768px: source chips, hub, stacked cards, no SVG |
+| answers | title, lead, launch, list_title, items[], links[]. `launch` is appended to the lead and is not rendered while it is a [placeholder] |
+| choices | title, items[]: title, text, href or message. Large ruled link rows; `message` opens WhatsApp |
 | related | title, items[]: title, text, href |
 
 ## 8. Home — src/content/home/index.yaml
+No eyebrows on any screen. A value in square brackets is a placeholder: it stays in the YAML and the element is not rendered until it is filled. WhatsApp button text comes from the `book` message key ("Hello TCG, I'd like to book a consultation about a property in Bali.").
 | # | Section | Blocks | Content |
 |---|---|---|---|
-| 1 | Hero | hero (display) | Positioning. Buttons: "Check a Property" → /due-diligence#pricing; "Book a Consultation" → WhatsApp with prefilled message |
-| 2 | How it connects | cards (3) | Intelligence: buyers and investors. Advisory: buyers of complex properties, developers, landowners. Capital: sellers of distressed properties and investors. Loop: every check adds data → data drives advisory → advisory finds deals → deals are funded with investors |
-| 3 | Intelligence | cards + sample | Which databases are connected, what is checked automatically, report excerpt. Due Diligence from $90 → /due-diligence |
-| 4 | Advisory | services | Acquisition Advisory, Go-to-Market for Developers, Land Monetization Strategy |
-| 5 | Capital | cards + disclosure | Buyouts of undervalued and unfinished properties with investors. Sellers → /distressed-property-buyout, investors → /platform. TCG interest disclosure line |
-| 6 | Proof | metrics | 5+ years, 58+ properties checked, 150+ ha. Expertise: notary/PPAT, architect, structural engineer, licensed valuer |
-| 7 | Testimonials and logos | testimonials + logos | Client testimonials; government agency logos with disclaimer |
-| 8 | How work starts | steps | Three steps |
-| 9 | FAQ | faq | Questions from buyers, investors, developers, sellers |
-| 10 | All services | services | Grouped: Buyers / Owners and Developers / Investors |
-| 11 | Final CTA | cta | Final call to action; full footer follows |
+| 1 | Hero | hero (display, illustration home) | H1, lead, "Check a Property" → /due-diligence#pricing, "Book a Consultation" → WhatsApp. The legacy hero illustration loads from 768px only |
+| 2 | How TCG works | flow | Sources → TCG → Intelligence, Advisory, Capital. No links |
+| 3 | Platform | answers | Questions the platform answers; links to /platform and /due-diligence. Launch date sentence is a placeholder |
+| 4 | Advisory | cards (3, linked) | Acquisition Advisory, Go-to-Market for Developers, Land Monetization Strategy |
+| 5 | Capital | cards (2, linked) + link + fineprint | Stalled projects, Developer stock → /distressed-property-buyout; "Invest alongside TCG" → /platform; disclosure line → /terms#conflict-of-interest |
+| 6 | Proof | metrics | 5+ years in Indonesia, 10+ years of total experience, 58 properties assessed. Letter of thanks and partners are placeholders (not rendered); external links open in a new tab with rel="noopener" |
+| 7 | Testimonials and logos | testimonials + logos | Unchanged from legacy; continuous carousel |
+| 8 | How to start | choices | WhatsApp, #buyers, #owners, /platform |
+| 9 | FAQ | faq (empty) | Kept in the file; renders nothing until new questions are provided |
+| 10 | All services | services | Groups #buyers and #owners, full-width rows |
+| 11 | Final CTA | cta | "Message us on WhatsApp" |
 
 ## 9. Service page template — src/content/services/<slug>.yaml
 Used by Acquisition Advisory, Distressed Property Buyout, Go-to-Market for Developers. /due-diligence, /platform and /land keep their current structure.

@@ -1,6 +1,7 @@
 // Desktop-only illustrations. Markup + styles live in /public/illustrations/<name>.html and the
 // animation script is its own chunk, so nothing is requested below the desktop breakpoint.
 const loaders: Record<string, () => Promise<unknown>> = {
+  home: () => import('./home.js'),
   'property-check': () => import('./property-check.js'),
   regulations: () => import('./regulations.js'),
   platform: () => import('./platform.js'),
@@ -23,8 +24,16 @@ async function load(host: HTMLElement) {
   }
 }
 
+const flows = Array.from(document.querySelectorAll<HTMLElement>('[data-flow]'));
+let flowLoaded = false;
+
 function check() {
-  if (desktop.matches) hosts.forEach(load);
+  if (!desktop.matches) return;
+  hosts.forEach(load);
+  if (flows.length && !flowLoaded) {
+    flowLoaded = true;
+    import('./flow.ts').then((m) => flows.forEach(m.drawFlow));
+  }
 }
 check();
 desktop.addEventListener('change', check);

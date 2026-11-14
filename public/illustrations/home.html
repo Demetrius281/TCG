@@ -1,0 +1,212 @@
+<style>
+.px{--ly-step:calc(var(--space-16) - var(--space-1) / 2);margin:0;position:relative;min-width:0;width:100%;aspect-ratio:460 / 512}
+.px-svg{display:block;width:100%;height:100%;overflow:hidden}
+.px-grid{fill:none;stroke:var(--color-border);stroke-width:.6}
+.px-svg text{text-rendering:geometricPrecision}
+.px-tag{font-family:var(--font-mono);font-size:calc(var(--fs-label) * 5 / 6);letter-spacing:.08em;fill:var(--color-text-3)}
+.px .site{fill:none;stroke:var(--color-text-3);stroke-width:.8;stroke-dasharray:4 3;animation:px-fade .71s ease-out 0s both}
+.px .e{stroke:var(--color-text);stroke-width:.85;stroke-linejoin:round;stroke-linecap:round;animation:px-draw .83s cubic-bezier(.45,0,.2,1) var(--d,0s) both,px-fill .53s ease-out calc(var(--d,0s) + .47s) both}
+.px .ft,.px .st,.px .rt{fill:var(--color-surface)}
+.px .fy,.px .sy,.px .cy{fill:var(--color-bg)}
+.px .fx,.px .sx,.px .cx{fill:var(--color-sunken)}
+.px .fp{fill:var(--color-sunken)}
+.px .fpy{fill:var(--color-border)}
+.px .fpx{fill:var(--color-border-strong)}
+.px .sy,.px .sx,.px .mu{stroke-width:.6}
+.px .mu{fill:none}
+.px .gl{fill:var(--color-accent);stroke-width:.6}
+.px .pool{fill:var(--color-accent);fill-opacity:.14;stroke-width:.6}
+.px .bg{fill:var(--color-accent);fill-opacity:.32;stroke-width:.55}
+.px .e.xr{fill-opacity:.55;animation:px-draw .83s cubic-bezier(.45,0,.2,1) var(--d,0s) both,px-xray 7.11s linear both}
+.px .e.gl{fill-opacity:.62;animation:px-draw .83s cubic-bezier(.45,0,.2,1) var(--d,0s) both,px-glass 7.11s linear both}
+.px-xr{fill:none;stroke:var(--color-accent);stroke-width:.7;stroke-dasharray:3 2.5;opacity:.6;animation:px-xr 7.11s linear both}
+.px-sweep,.px-scan{animation:px-sweep 1.78s cubic-bezier(.4,0,.6,1) 1.78s both}
+.px-line{stroke:var(--color-accent);stroke-width:1}
+.px-band{fill:var(--color-accent);fill-opacity:.05}
+.px-scan{opacity:0;animation:px-sweep 1.78s cubic-bezier(.4,0,.6,1) 1.78s both,px-scanfade 2.13s linear 1.78s both}
+.px .ld{fill:none;stroke:var(--color-text-3);stroke-width:.7;animation:px-draw .71s cubic-bezier(.45,0,.2,1) var(--d,0s) both}
+.px .lb,.px .lg,.px .sl{font-family:var(--font-mono);font-size:calc(var(--fs-label) * 5 / 6);letter-spacing:.06em;fill:var(--color-text)}
+.px .sl{letter-spacing:.02em;fill:var(--color-text-3)}
+.px .lg{fill:var(--color-text-2)}
+.px .lb.rd{fill:var(--color-danger)}
+.px .lb.am{fill:var(--color-warn)}
+.px .nt{font-size:calc(var(--fs-label) * 11 / 12);fill:var(--color-text-3)}
+.px-l text{animation:px-fade .53s ease-out calc(var(--d,0s) + .36s) both}
+.px .dot{fill:var(--color-text-3);animation:px-fade .36s ease-out var(--d,0s) both}
+.px .dot.ok{fill:var(--color-accent);animation:px-fade .36s ease-out var(--d,0s) both,px-ok 7.11s linear both}
+.px .dot.rd{fill:var(--color-danger)}
+.px-hex{fill:var(--color-danger);fill-opacity:.08;stroke:var(--color-danger);stroke-width:1.3;stroke-linejoin:round;animation:px-draw .95s cubic-bezier(.45,0,.2,1) 3.56s both,px-fill .59s ease-out 4.15s both}
+.px-amb .ring{fill:none;stroke:var(--color-warn);stroke-width:1.2}
+.px-amb .core{fill:var(--color-warn)}
+.px-amb{transform-box:fill-box;transform-origin:center;animation:px-pop .59s cubic-bezier(.2,.7,.3,1) 4.38s both}
+.px-f2{animation:px-fade .53s ease-out 4.68s both}
+.px .rule{fill:none;stroke:var(--color-text);stroke-width:.7;animation:px-draw .83s cubic-bezier(.45,0,.2,1) 5.33s both}
+.px .lg,.px .nt{font-family:var(--font-mono)}
+.px .nt{font-family:var(--font-sans)}
+.px-leg-in{animation:px-fade .71s ease-out 5.69s both}
+@keyframes px-draw{from{stroke-dasharray:1 1;stroke-dashoffset:1}to{stroke-dasharray:1 1;stroke-dashoffset:0}}
+@keyframes px-fill{from{fill-opacity:0}}
+@keyframes px-fade{from{opacity:0}}
+@keyframes px-xray{0%,14%{fill-opacity:0}22%,34%{fill-opacity:1}46%{fill-opacity:.55}}
+@keyframes px-glass{0%,17%{fill-opacity:0}25%,34%{fill-opacity:.9}46%{fill-opacity:.62}}
+@keyframes px-xr{0%,70%{opacity:.95}}
+@keyframes px-sweep{from{transform:translateX(calc(var(--space-16) * -7.4375))}to{transform:translateX(0)}}
+@keyframes px-scanfade{0%,6%{opacity:0}12%,80%{opacity:1}100%{opacity:0}}
+@keyframes px-ok{0%,76%{fill:var(--color-text-3)}82%{fill:var(--color-accent)}}
+@keyframes px-pop{from{opacity:0;transform:scale(.4)}}
+.px-anim{transition:opacity .45s ease}
+.px.px-out .px-anim{opacity:0}
+@media (prefers-reduced-motion: reduce){.px *,.px-sweep{animation:none !important}.px.px-out .px-anim{opacity:1}}
+
+.hx-fill-0e5a55{fill:var(--color-accent)}
+.hx-fill-a23b2a{fill:var(--color-danger)}
+.hx-fill-b07a14{fill:var(--color-warn)}
+.hx-stroke-a23b2a{stroke:var(--color-danger)}
+.hx-stroke-b07a14{stroke:var(--color-warn)}
+.ty-1{--ty:var(--ly-step)}
+.ty-2{--ty:calc(var(--ly-step) * 2)}
+.ty-3{--ty:calc(var(--ly-step) * 3)}
+.d-1_01s{--d:1.01s}
+.d-1_07s{--d:1.07s}
+.d-1_13s{--d:1.13s}
+.d-1_19s{--d:1.19s}
+.d-1_24s{--d:1.24s}
+.d-1_3s{--d:1.3s}
+.d-1_42s{--d:1.42s}
+.d-2_31s{--d:2.31s}
+.d-2_61s{--d:2.61s}
+.d-2_9s{--d:2.9s}
+.d-3_97s{--d:3.97s}
+.d-_18s{--d:.18s}
+.d-_24s{--d:.24s}
+.d-_3s{--d:.3s}
+.d-_41s{--d:.41s}
+.d-_47s{--d:.47s}
+.d-_53s{--d:.53s}
+.d-_59s{--d:.59s}
+.d-_71s{--d:.71s}
+.d-_75s{--d:.75s}
+.d-_77s{--d:.77s}
+.d-_78s{--d:.78s}
+.d-_81s{--d:.81s}
+.d-_82s{--d:.82s}
+.d-_83s{--d:.83s}
+.d-_84s{--d:.84s}
+.d-_85s{--d:.85s}
+.d-_88s{--d:.88s}
+.d-_89s{--d:.89s}
+.d-_91s{--d:.91s}
+.d-_95s{--d:.95s}
+</style>
+<figure class="px">
+<svg class="px-svg" viewBox="0 0 460 512" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="px-t px-d" data-vb-desk="0 0 460 512" data-vb-mob="0 0 460 628">
+<title id="px-t">Illustrative property analysis of a two-storey villa</title>
+<desc id="px-d">Axonometric drawing of a two-storey tropical villa with terraces, columns, a flat roof and a pool on its site. Zoning and building approval are marked as confirmed. The permitted use of the upper floor is marked as requiring verification, and a ground-floor extension is outlined as a design discrepancy between the as-built structure and the approved plans. A legend shows three status categories: confirmed, verification required and issue identified. This is a hypothetical example, not an assessment of a real property.</desc>
+<defs><clipPath id="px-clip"><rect class="px-sweep" x="-10" y="-60" width="476" height="760"/></clipPath></defs>
+<path class="px-grid" d="M-93.4 -715.5L-1271.2 -35.5M495.4 -715.5L1673.2 -35.5M-64.0 -698.5L-1241.8 -18.5M466.0 -698.5L1643.8 -18.5M-34.6 -681.5L-1212.4 -1.5M436.6 -681.5L1614.4 -1.5M-5.1 -664.5L-1182.9 15.5M407.1 -664.5L1584.9 15.5M24.3 -647.5L-1153.5 32.5M377.7 -647.5L1555.5 32.5M53.8 -630.5L-1124.0 49.5M348.2 -630.5L1526.0 49.5M83.2 -613.5L-1094.6 66.5M318.8 -613.5L1496.6 66.5M112.7 -596.5L-1065.1 83.5M289.3 -596.5L1467.1 83.5M142.1 -579.5L-1035.7 100.5M259.9 -579.5L1437.7 100.5M171.6 -562.5L-1006.2 117.5M230.4 -562.5L1408.2 117.5M201.0 -545.5L-976.8 134.5M201.0 -545.5L1378.8 134.5M230.4 -528.5L-947.3 151.5M171.6 -528.5L1349.3 151.5M259.9 -511.5L-917.9 168.5M142.1 -511.5L1319.9 168.5M289.3 -494.5L-888.5 185.5M112.7 -494.5L1290.5 185.5M318.8 -477.5L-859.0 202.5M83.2 -477.5L1261.0 202.5M348.2 -460.5L-829.6 219.5M53.8 -460.5L1231.6 219.5M377.7 -443.5L-800.1 236.5M24.3 -443.5L1202.1 236.5M407.1 -426.5L-770.7 253.5M-5.1 -426.5L1172.7 253.5M436.6 -409.5L-741.2 270.5M-34.6 -409.5L1143.2 270.5M466.0 -392.5L-711.8 287.5M-64.0 -392.5L1113.8 287.5M495.4 -375.5L-682.3 304.5M-93.4 -375.5L1084.3 304.5M524.9 -358.5L-652.9 321.5M-122.9 -358.5L1054.9 321.5M554.3 -341.5L-623.5 338.5M-152.3 -341.5L1025.5 338.5M583.8 -324.5L-594.0 355.5M-181.8 -324.5L996.0 355.5M613.2 -307.5L-564.6 372.5M-211.2 -307.5L966.6 372.5M642.7 -290.5L-535.1 389.5M-240.7 -290.5L937.1 389.5M672.1 -273.5L-505.7 406.5M-270.1 -273.5L907.7 406.5M701.6 -256.5L-476.2 423.5M-299.6 -256.5L878.2 423.5M731.0 -239.5L-446.8 440.5M-329.0 -239.5L848.8 440.5M760.5 -222.5L-417.3 457.5M-358.5 -222.5L819.3 457.5M789.9 -205.5L-387.9 474.5M-387.9 -205.5L789.9 474.5M819.3 -188.5L-358.5 491.5M-417.3 -188.5L760.5 491.5M848.8 -171.5L-329.0 508.5M-446.8 -171.5L731.0 508.5M878.2 -154.5L-299.6 525.5M-476.2 -154.5L701.6 525.5M907.7 -137.5L-270.1 542.5M-505.7 -137.5L672.1 542.5M937.1 -120.5L-240.7 559.5M-535.1 -120.5L642.7 559.5M966.6 -103.5L-211.2 576.5M-564.6 -103.5L613.2 576.5M996.0 -86.5L-181.8 593.5M-594.0 -86.5L583.8 593.5M1025.5 -69.5L-152.3 610.5M-623.5 -69.5L554.3 610.5M1054.9 -52.5L-122.9 627.5M-652.9 -52.5L524.9 627.5M1084.3 -35.5L-93.4 644.5M-682.3 -35.5L495.4 644.5M1113.8 -18.5L-64.0 661.5M-711.8 -18.5L466.0 661.5M1143.2 -1.5L-34.6 678.5M-741.2 -1.5L436.6 678.5M1172.7 15.5L-5.1 695.5M-770.7 15.5L407.1 695.5M1202.1 32.5L24.3 712.5M-800.1 32.5L377.7 712.5M1231.6 49.5L53.8 729.5M-829.6 49.5L348.2 729.5M1261.0 66.5L83.2 746.5M-859.0 66.5L318.8 746.5M1290.5 83.5L112.7 763.5M-888.5 83.5L289.3 763.5M1319.9 100.5L142.1 780.5M-917.9 100.5L259.9 780.5M1349.3 117.5L171.6 797.5M-947.3 117.5L230.4 797.5M1378.8 134.5L201.0 814.5M-976.8 134.5L201.0 814.5M1408.2 151.5L230.4 831.5M-1006.2 151.5L171.6 831.5M1437.7 168.5L259.9 848.5M-1035.7 168.5L142.1 848.5M1467.1 185.5L289.3 865.5M-1065.1 185.5L112.7 865.5M1496.6 202.5L318.8 882.5M-1094.6 202.5L83.2 882.5M1526.0 219.5L348.2 899.5M-1124.0 219.5L53.8 899.5M1555.5 236.5L377.7 916.5M-1153.5 236.5L24.3 916.5M1584.9 253.5L407.1 933.5M-1182.9 253.5L-5.1 933.5M1614.4 270.5L436.6 950.5M-1212.4 270.5L-34.6 950.5M1643.8 287.5L466.0 967.5M-1241.8 287.5L-64.0 967.5M1673.2 304.5L495.4 984.5M-1271.2 304.5L-93.4 984.5"/>
+<text class="px-tag" x="20" y="26">ILLUSTRATIVE ANALYSIS</text>
+<g class="px-anim">
+<g class="px-model">
+<path class="site" d="M201.0 134.5 L436.6 270.5 L259.9 372.5 L24.3 236.5 Z"/>
+<path class="e fpy  d-_18s" d="M61.1 240.8 L252.5 351.2 L252.5 343.6 L61.1 233.1 Z" pathLength="1"/>
+<path class="e fpx  d-_24s" d="M392.4 270.5 L252.5 351.2 L252.5 343.6 L392.4 262.9 Z" pathLength="1"/>
+<path class="e fp  d-_3s" d="M201.0 152.3 L392.4 262.9 L252.5 343.6 L61.1 233.1 Z" pathLength="1"/>
+<path class="e pool d-_53s" d="M123.0 233.1 L240.8 301.1 L220.1 313.0 L102.4 245.0 Z" pathLength="1"/>
+<path class="e mu d-_59s" d="M117.8 236.1 L123.0 233.1 L240.8 301.1" pathLength="1"/>
+<path class="e fy xr d-_41s" d="M134.7 216.1 L245.2 279.9 L245.2 225.4 L134.7 161.7 Z" pathLength="1"/>
+<path class="e fx xr d-_47s" d="M318.8 237.3 L245.2 279.9 L245.2 225.4 L318.8 182.9 Z" pathLength="1"/>
+<path class="e ft xr d-_53s" d="M208.4 119.2 L318.8 182.9 L245.2 225.4 L134.7 161.7 Z" pathLength="1"/>
+<path class="e gl d-_59s" d="M142.1 217.8 L237.8 273.1 L237.8 226.3 L142.1 171.1 Z" pathLength="1"/>
+<path class="e mu d-_71s" d="M165.7 231.4 L165.7 184.6" pathLength="1"/>
+<path class="e mu d-_71s" d="M190.0 245.4 L190.0 198.7" pathLength="1"/>
+<path class="e mu d-_71s" d="M214.3 259.4 L214.3 212.7" pathLength="1"/>
+<path class="e gl d-_59s" d="M273.1 261.2 L249.6 274.8 L249.6 228.0 L273.1 214.4 Z" pathLength="1"/>
+<path class="e mu d-_71s" d="M261.4 267.9 L261.4 221.2" pathLength="1"/>
+<path class="e cy  d-_71s" d="M128.7 222.5 L132.5 224.7 L132.5 170.3 L128.7 168.1 Z" pathLength="1"/>
+<path class="e cx  d-_77s" d="M136.4 222.5 L132.5 224.7 L132.5 170.3 L136.4 168.1 Z" pathLength="1"/>
+<path class="e cy  d-_75s" d="M180.2 252.2 L184.1 254.4 L184.1 200.0 L180.2 197.8 Z" pathLength="1"/>
+<path class="e cx  d-_81s" d="M187.9 252.2 L184.1 254.4 L184.1 200.0 L187.9 197.8 Z" pathLength="1"/>
+<path class="e cy  d-_78s" d="M230.3 281.1 L234.1 283.3 L234.1 228.9 L230.3 226.7 Z" pathLength="1"/>
+<path class="e cx  d-_84s" d="M238.0 281.1 L234.1 283.3 L234.1 228.9 L238.0 226.7 Z" pathLength="1"/>
+<path class="e cy  d-_82s" d="M259.7 298.1 L263.6 300.3 L263.6 245.9 L259.7 243.7 Z" pathLength="1"/>
+<path class="e cx  d-_88s" d="M267.4 298.1 L263.6 300.3 L263.6 245.9 L267.4 243.7 Z" pathLength="1"/>
+<path class="e cy  d-_85s" d="M292.9 279.0 L296.7 281.2 L296.7 226.8 L292.9 224.6 Z" pathLength="1"/>
+<path class="e cx  d-_91s" d="M300.5 279.0 L296.7 281.2 L296.7 226.8 L300.5 224.6 Z" pathLength="1"/>
+<path class="e sy  d-_83s" d="M117.8 164.7 L263.6 248.8 L263.6 243.7 L117.8 159.6 Z" pathLength="1"/>
+<path class="e sx  d-_89s" d="M352.6 197.4 L263.6 248.8 L263.6 243.7 L352.6 192.3 Z" pathLength="1"/>
+<path class="e st  d-_95s" d="M206.9 108.2 L352.6 192.3 L263.6 243.7 L117.8 159.6 Z" pathLength="1"/>
+<path class="e fy xr d-1_01s" d="M159.8 159.2 L262.8 218.7 L262.8 169.4 L159.8 109.9 Z" pathLength="1"/>
+<path class="e fx xr d-1_07s" d="M326.1 182.1 L262.8 218.7 L262.8 169.4 L326.1 132.8 Z" pathLength="1"/>
+<path class="e ft xr d-1_13s" d="M223.1 73.3 L326.1 132.8 L262.8 169.4 L159.8 109.9 Z" pathLength="1"/>
+<path class="e gl d-1_19s" d="M168.6 160.8 L254.0 210.1 L254.0 169.3 L168.6 120.0 Z" pathLength="1"/>
+<path class="e mu d-1_3s" d="M195.1 176.1 L195.1 135.3" pathLength="1"/>
+<path class="e mu d-1_3s" d="M221.6 191.4 L221.6 150.7" pathLength="1"/>
+<path class="e gl d-1_19s" d="M317.3 183.8 L271.7 210.1 L271.7 169.3 L317.3 143.0 Z" pathLength="1"/>
+<path class="e mu d-1_3s" d="M294.5 197.0 L294.5 156.2" pathLength="1"/>
+<path class="e sy  d-1_13s" d="M139.9 111.1 L265.0 183.4 L265.0 178.3 L139.9 106.0 Z" pathLength="1"/>
+<path class="e sx  d-1_19s" d="M348.2 135.4 L265.0 183.4 L265.0 178.3 L348.2 130.2 Z" pathLength="1"/>
+<path class="e rt  d-1_24s" d="M223.1 58.0 L348.2 130.2 L265.0 178.3 L139.9 106.0 Z" pathLength="1"/>
+<path class="e bg d-1_19s" d="M349.7 192.3 L263.6 242.0 L263.6 225.0 L349.7 175.3 Z" pathLength="1"/>
+<path class="e bg d-1_24s" d="M120.8 159.6 L263.6 242.0 L263.6 225.0 L120.8 142.6 Z" pathLength="1"/>
+<path class="e fy an d-1_19s" d="M307.0 279.9 L332.0 294.3 L332.0 244.2 L307.0 229.7 Z" pathLength="1"/>
+<path class="e fx an d-1_24s" d="M376.2 268.8 L332.0 294.3 L332.0 244.2 L376.2 218.6 Z" pathLength="1"/>
+<path class="e ft an d-1_3s" d="M351.2 204.2 L376.2 218.6 L332.0 244.2 L307.0 229.7 Z" pathLength="1"/>
+<path class="e gl d-1_3s" d="M367.4 258.6 L340.9 273.9 L340.9 245.0 L367.4 229.7 Z" pathLength="1"/>
+<path class="e mu d-1_42s" d="M354.1 266.2 L354.1 237.3" pathLength="1"/>
+<path class="e gl d-1_3s" d="M312.9 267.9 L326.1 275.6 L326.1 246.7 L312.9 239.0 Z" pathLength="1"/>
+</g>
+<g class="px-xr" clip-path="url(#px-clip)">
+<path d="M208.4 173.6 L318.8 237.3 L245.2 279.9 L134.7 216.1 Z"/>
+<path d="M208.4 173.6 L208.4 119.2"/>
+<path d="M264.3 205.9 L190.7 248.4 L190.7 194.0"/>
+<path d="M264.3 146.4 L201.0 182.9 L201.0 133.7"/>
+<path d="M258.4 217.8 L262.7 220.2 L262.7 213.4 L266.9 215.9 L266.9 209.1 L271.1 211.5 L271.1 204.7 L275.3 207.2 L275.3 200.4 L279.6 202.8 L279.6 196.0 L283.8 198.5 L283.8 191.7 L288.0 194.1 L288.0 187.3 L292.3 189.8 L292.3 182.9"/>
+<path d="M208.4 178.7 L208.4 124.3"/>
+<path d="M309.9 237.3 L309.9 182.9"/>
+</g>
+<g class="px-scan" aria-hidden="true"><rect class="px-band" x="429" y="36" width="36" height="372"/><line class="px-line" x1="465" y1="36" x2="465" y2="408"/></g>
+
+<g class="px-l px-sec d-2_31s">
+<path class="ld" pathLength="1" d="M89.1 267.1V300H20"/>
+<circle class="dot ok" cx="89.1" cy="267.1" r="2.6"/>
+<text class="lb" x="20" y="290">ZONING</text>
+</g>
+<g class="px-l px-sec d-2_61s">
+<path class="ld" pathLength="1" d="M348.2 130.2L380 70H440"/>
+<circle class="dot ok" cx="348.2" cy="130.2" r="2.6"/>
+<text class="lb" x="440" y="60" text-anchor="end">BUILDING APPROVAL</text>
+</g>
+<g class="px-l d-2_9s">
+<path class="ld" pathLength="1" d="M165.7 144.7L110 88H20"/>
+<circle class="dot" cx="165.7" cy="144.7" r="2.6"/>
+<text class="lb px-permitted" x="20" y="62">PERMITTED USE</text>
+</g>
+
+<g class="px-red">
+<path class="px-hex" pathLength="1" d="M351.2 204.2 L376.2 218.6 L376.2 268.8 L332.0 294.3 L307.0 279.9 L307.0 229.7 Z"/>
+</g>
+<g class="px-l px-f1 d-3_97s">
+<path class="ld" pathLength="1" d="M352.6 273.1L372 350H440"/>
+<circle class="dot rd" cx="352.6" cy="273.1" r="2.6"/>
+<text class="lb rd" x="440" y="369" text-anchor="end">DESIGN DISCREPANCY</text>
+<text class="sl" x="440" y="383" text-anchor="end">As-built vs approved</text>
+</g>
+<g class="px-amb">
+<circle class="ring" cx="165.7" cy="144.7" r="7.5"/>
+<circle class="core" cx="165.7" cy="144.7" r="2.6"/>
+</g>
+<text class="lb am px-f2 px-desktop-verification" x="20" y="78">VERIFICATION REQUIRED</text>
+<text class="lb am px-f2 px-mobile-verification" x="20" y="62"><tspan x="20">VERIFICATION</tspan><tspan x="20" dy="16">REQUIRED</tspan></text>
+
+<g class="px-leg">
+<path class="rule" pathLength="1" d="M20 420H440"/>
+<g class="px-leg-in">
+<g class="lgi"><circle class="hx-fill-0e5a55" cx="24" cy="442.5" r="3.4"/><text class="lg" x="34" y="446">CONFIRMED</text></g>
+<g class="lgi lgi2"><circle class="hx-stroke-b07a14" cx="120" cy="442.5" r="5" fill="none" stroke-width="1.1"/><circle class="hx-fill-b07a14" cx="120" cy="442.5" r="1.9"/><text class="lg" x="131" y="446">VERIFICATION REQUIRED</text></g>
+<g class="lgi lgi3"><rect class="hx-fill-a23b2a hx-stroke-a23b2a" x="282" y="437.5" width="10" height="10" fill-opacity=".1" stroke-width="1.1"/><text class="lg" x="299" y="446">ISSUE IDENTIFIED</text></g>
+<text class="nt" x="20" y="474">Hypothetical example. Not an assessment of a real property.</text>
+</g>
+</g>
+</g>
+</svg>
+    </figure>

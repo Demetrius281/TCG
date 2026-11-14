@@ -23,6 +23,9 @@ import Inquiry from '../components/blocks/Inquiry.astro';
 import GuideNav from '../components/blocks/GuideNav.astro';
 import Topics from '../components/blocks/Topics.astro';
 import Guide from '../components/blocks/Guide.astro';
+import Flow from '../components/blocks/Flow.astro';
+import Answers from '../components/blocks/Answers.astro';
+import Choices from '../components/blocks/Choices.astro';
 import Sources from '../components/blocks/Sources.astro';
 import type { Action, Block } from '../content.config';
 
@@ -69,6 +72,9 @@ const registry = {
   topics: Topics,
   guide: Guide,
   sources: Sources,
+  flow: Flow,
+  answers: Answers,
+  choices: Choices,
 } as const;
 ---
 <Base
