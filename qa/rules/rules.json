@@ -1,0 +1,424 @@
+{
+  "_doc": "Single source of rule values for scripts/audit.mjs. Must agree with CLAUDE.md and src/styles/tokens.css (checked on every audit run). Widths below 'fluid.from' use the mobile value, above 'fluid.to' the desktop value; fluid values are linear in between (the design uses clamp()).",
+  "tolerance": {
+    "px": 1,
+    "font": 0.1,
+    "gap": 1.5,
+    "stuck": 4,
+    "illustrationTop": 2,
+    "ratio": 0.02,
+    "screenGapExtra": 3
+  },
+  "widths": {
+    "full": [
+      375,
+      768,
+      1280,
+      1440
+    ],
+    "sweep": {
+      "from": 320,
+      "to": 1600,
+      "step": 40
+    }
+  },
+  "fluid": {
+    "from": 375,
+    "to": 1280
+  },
+  "breakpoints": {
+    "tablet": 768,
+    "desktop": 1024
+  },
+  "container": {
+    "max": 1200,
+    "gutter": {
+      "mode": "fluid",
+      "mobile": 20,
+      "desktop": 40
+    }
+  },
+  "header": {
+    "mode": "step",
+    "stepAt": 1024,
+    "mobile": 56,
+    "desktop": 76
+  },
+  "pageTop": {
+    "mode": "step",
+    "stepAt": 1024,
+    "mobile": 48,
+    "desktop": 80
+  },
+  "roles": {
+    "page-title": {
+      "mobile": 32,
+      "desktop": 48,
+      "family": "sans",
+      "weight": 500,
+      "case": "none",
+      "tag": "H1"
+    },
+    "section-title": {
+      "mobile": 28,
+      "desktop": 40,
+      "family": "sans",
+      "weight": 500,
+      "case": "none",
+      "tag": "H2"
+    },
+    "card-title": {
+      "mobile": 20,
+      "desktop": 24,
+      "family": "sans",
+      "weight": 500,
+      "case": "none",
+      "tag": "H3"
+    },
+    "text": {
+      "mobile": 16,
+      "desktop": 17,
+      "family": "sans",
+      "weight": 400,
+      "case": "none"
+    },
+    "small": {
+      "mobile": 14,
+      "desktop": 15,
+      "family": "sans",
+      "weight": 400,
+      "case": "none"
+    },
+    "label": {
+      "mobile": 12,
+      "desktop": 12,
+      "family": "mono",
+      "weight": 500,
+      "case": "uppercase"
+    },
+    "metric": {
+      "mobile": 48,
+      "desktop": 72,
+      "family": "sans",
+      "weight": 300,
+      "case": "none"
+    }
+  },
+  "spacing": {
+    "headingText": 16,
+    "cardTitleText": 12,
+    "paragraph": 16,
+    "textButtons": 32,
+    "buttons": {
+      "mode": "step",
+      "stepAt": 768,
+      "mobile": 12,
+      "desktop": 16
+    },
+    "headContent": 40,
+    "cards": {
+      "mode": "fluid",
+      "mobile": 16,
+      "desktop": 32
+    },
+    "cardPadding": 24,
+    "listItems": 8
+  },
+  "screen": {
+    "padding": {
+      "mode": "fluid",
+      "mobile": 56,
+      "desktop": 112
+    },
+    "tones": [
+      "default",
+      "sunken",
+      "inverse"
+    ]
+  },
+  "width": {
+    "text": 720,
+    "pageTitle": 900
+  },
+  "cards": {
+    "tabletColumns": 2,
+    "mobileColumns": 1,
+    "desktopColumns": [
+      2,
+      3,
+      4
+    ]
+  },
+  "button": {
+    "height": 52,
+    "radius": 0,
+    "fullWidthBelow": 768,
+    "primaryClasses": [
+      "btn-primary",
+      "btn-inverse",
+      "ei-btn"
+    ]
+  },
+  "list": {
+    "marker": 8,
+    "gapToText": 12,
+    "itemGap": 8,
+    "numberedRole": "label"
+  },
+  "firstScreen": {
+    "maxButtons": 2,
+    "paragraphs": 1,
+    "illustrationShownFrom": 768,
+    "illustrationSplitFrom": 1024,
+    "illustrationRatio": 0.898,
+    "illustrationGap": 64,
+    "A2": {
+      "page": "/platform",
+      "maxItems": 2,
+      "textToList": 32,
+      "listToButtons": 32
+    }
+  },
+  "exclusions": {
+    "selector": "svg, [data-illustration]",
+    "note": "Content inside illustration SVGs and illustration hosts (loaded fragments) is excluded from every check.",
+    "r1GlyphPattern": "^[\\s→←↑↓↗+−×·•]+$",
+    "r1Note": "R1 only: aria-hidden elements that contain nothing but a glyph (arrow, plus sign) are not treated as text that starts a line. They are still checked by R3."
+  },
+  "sync": {
+    "claudeMd": [
+      {
+        "path": "container.max",
+        "pattern": "Container max (\\d+)px"
+      },
+      {
+        "path": "container.gutter.mobile",
+        "pattern": "Side gutter (\\d+)px mobile"
+      },
+      {
+        "path": "container.gutter.desktop",
+        "pattern": "Side gutter \\d+px mobile / (\\d+)px desktop"
+      },
+      {
+        "path": "header.mobile",
+        "pattern": "Header (\\d+)px mobile"
+      },
+      {
+        "path": "header.desktop",
+        "pattern": "Header \\d+px mobile / (\\d+)px desktop"
+      },
+      {
+        "path": "pageTop.mobile",
+        "pattern": "page-title top: (\\d+)px mobile"
+      },
+      {
+        "path": "pageTop.desktop",
+        "pattern": "page-title top: \\d+px mobile / (\\d+)px desktop"
+      },
+      {
+        "path": "spacing.headingText",
+        "pattern": "page-title -> text (\\d+)px"
+      },
+      {
+        "path": "spacing.textButtons",
+        "pattern": "text -> buttons (\\d+)px"
+      },
+      {
+        "path": "spacing.buttons.mobile",
+        "pattern": "between buttons (\\d+)/\\d+px"
+      },
+      {
+        "path": "spacing.buttons.desktop",
+        "pattern": "between buttons \\d+/(\\d+)px"
+      },
+      {
+        "path": "width.pageTitle",
+        "pattern": "page-title max width (\\d+)px"
+      },
+      {
+        "path": "width.text",
+        "pattern": "text max width (\\d+)px"
+      },
+      {
+        "path": "roles.page-title.mobile",
+        "pattern": "page-title (\\d+)/\\d+ \\(h1"
+      },
+      {
+        "path": "roles.page-title.desktop",
+        "pattern": "page-title \\d+/(\\d+) \\(h1"
+      },
+      {
+        "path": "roles.section-title.mobile",
+        "pattern": "section-title (\\d+)/\\d+ \\(h2"
+      },
+      {
+        "path": "roles.section-title.desktop",
+        "pattern": "section-title \\d+/(\\d+) \\(h2"
+      },
+      {
+        "path": "roles.card-title.mobile",
+        "pattern": "card-title (\\d+)/\\d+ \\(h3"
+      },
+      {
+        "path": "roles.card-title.desktop",
+        "pattern": "card-title \\d+/(\\d+) \\(h3"
+      },
+      {
+        "path": "roles.text.mobile",
+        "pattern": "\\btext (\\d+)/\\d+ \\(all running"
+      },
+      {
+        "path": "roles.text.desktop",
+        "pattern": "\\btext \\d+/(\\d+) \\(all running"
+      },
+      {
+        "path": "roles.small.mobile",
+        "pattern": "small (\\d+)/\\d+ \\(notes"
+      },
+      {
+        "path": "roles.small.desktop",
+        "pattern": "small \\d+/(\\d+) \\(notes"
+      },
+      {
+        "path": "roles.label.mobile",
+        "pattern": "label (\\d+) mono uppercase"
+      },
+      {
+        "path": "roles.metric.mobile",
+        "pattern": "metric (\\d+)/\\d+ \\(big"
+      },
+      {
+        "path": "roles.metric.desktop",
+        "pattern": "metric \\d+/(\\d+) \\(big"
+      },
+      {
+        "path": "spacing.headContent",
+        "pattern": "heading block -> screen content (\\d+)"
+      },
+      {
+        "path": "spacing.cardTitleText",
+        "pattern": "card title -> card text (\\d+)"
+      },
+      {
+        "path": "spacing.cards.mobile",
+        "pattern": "between cards (\\d+) mobile"
+      },
+      {
+        "path": "spacing.cards.desktop",
+        "pattern": "between cards \\d+ mobile / (\\d+) desktop"
+      },
+      {
+        "path": "spacing.cardPadding",
+        "pattern": "card padding (\\d+)"
+      },
+      {
+        "path": "spacing.listItems",
+        "pattern": "list items (\\d+)"
+      },
+      {
+        "path": "screen.padding.mobile",
+        "pattern": "Padding top and bottom (\\d+)px mobile"
+      },
+      {
+        "path": "screen.padding.desktop",
+        "pattern": "Padding top and bottom \\d+px mobile / (\\d+)px desktop"
+      },
+      {
+        "path": "button.height",
+        "pattern": "Height (\\d+)px; full width"
+      },
+      {
+        "path": "list.marker",
+        "pattern": "green diamond (\\d+)px"
+      },
+      {
+        "path": "list.gapToText",
+        "pattern": "(\\d+)px to text"
+      },
+      {
+        "path": "firstScreen.A2.maxItems",
+        "pattern": "list of up to (\\d+) items"
+      },
+      {
+        "path": "firstScreen.A2.textToList",
+        "pattern": "Text -> list (\\d+)px"
+      },
+      {
+        "path": "firstScreen.A2.listToButtons",
+        "pattern": "list -> buttons (\\d+)px"
+      }
+    ],
+    "tokens": [
+      {
+        "token": "--fs-page-title",
+        "path": "roles.page-title"
+      },
+      {
+        "token": "--fs-section-title",
+        "path": "roles.section-title"
+      },
+      {
+        "token": "--fs-card-title",
+        "path": "roles.card-title"
+      },
+      {
+        "token": "--fs-text",
+        "path": "roles.text"
+      },
+      {
+        "token": "--fs-small",
+        "path": "roles.small"
+      },
+      {
+        "token": "--fs-metric",
+        "path": "roles.metric"
+      },
+      {
+        "token": "--gutter",
+        "path": "container.gutter"
+      },
+      {
+        "token": "--section-y",
+        "path": "screen.padding"
+      },
+      {
+        "token": "--grid-gap",
+        "path": "spacing.cards"
+      }
+    ],
+    "tokenPx": [
+      {
+        "token": "--container",
+        "path": "container.max"
+      },
+      {
+        "token": "--container-prose",
+        "path": "width.text"
+      },
+      {
+        "token": "--hero-title-max",
+        "path": "width.pageTitle"
+      },
+      {
+        "token": "--control-h",
+        "path": "button.height"
+      },
+      {
+        "token": "--header-h",
+        "path": "header.mobile"
+      },
+      {
+        "token": "--header-h-lg",
+        "path": "header.desktop"
+      },
+      {
+        "token": "--page-top",
+        "path": "pageTop.mobile"
+      },
+      {
+        "token": "--fs-label",
+        "path": "roles.label.mobile"
+      }
+    ]
+  }
+}

@@ -47,7 +47,7 @@ jobs:
           fi
 
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium webkit
       - name: Baselines are empty
         run: |
           test "$(node -e "console.log(Object.keys(require('./qa/baseline/design.json')).length)")" = "0"
@@ -55,3 +55,11 @@ jobs:
       - run: npm run check
       - run: npm run build
       - run: npm run check:layout
+      - name: Full audit (every page, screen, width, state, browser)
+        run: npm run audit
+      - name: Upload the audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-report
+          path: qa/audit/

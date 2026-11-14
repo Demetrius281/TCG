@@ -11,6 +11,6 @@ Start every reply that changes code with "Rules check:" and name the rules that 
 8 Buttons: 52px, full width on mobile, one primary per screen, mint primary on inverse, radius 0.
 9 Lists: green diamond 8px (mint on inverse), 12px to text, 8px between items, aligned to the first line; numbered = label role "01". Shared List only.
 Only existing blocks and shared elements (Section, SectionHead, Grid, Button, List, Hero). A new block or variation needs owner approval.
-Before done: npm run check, npm run build, npm run check:layout with empty baselines. Protected files need owner approval. Branch next only. Reports in Russian.`;
+Before done: npm run check, npm run build, npm run check:layout with empty baselines, and npm run audit with full coverage and 0 violations (paste its COVERAGE line in the report). Protected files need owner approval. Branch next only. Reports in Russian.`;
 process.stdout.write(JSON.stringify({ hookSpecificOutput: { hookEventName: 'UserPromptSubmit', additionalContext: digest } }));
 process.exit(0);

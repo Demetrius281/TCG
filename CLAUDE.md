@@ -12,6 +12,9 @@
 5. Never edit protected files without owner approval: CLAUDE.md, .claude/,
    .github/, scripts/check-design.mjs, qa/rules/, qa/baseline/.
 6. Branch `next` only. Never touch `main` or /legacy. Reports in Russian.
+7. Work is done only when `npm run audit` passes with full coverage and 0 violations.
+   Paste its COVERAGE line in every report. Never report a page or screen as checked
+   unless the audit checked it.
 
 ## 1. Edges
 Container max 1200px, centred. Side gutter 20px mobile / 40px desktop.

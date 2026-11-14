@@ -8,7 +8,8 @@
     "build": "npm run check && astro build",
     "preview": "astro preview",
     "check": "node scripts/check-design.mjs",
-    "check:layout": "node qa/rules/layout.mjs"
+    "check:layout": "node qa/rules/layout.mjs",
+    "audit": "node scripts/audit.mjs"
   },
   "dependencies": {
     "astro": "7.4.11"
