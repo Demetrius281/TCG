@@ -1,6 +1,6 @@
 ---
-// "Start where you are": one inverse screen of numbered service rows in two groups, then a closing block.
-// Row: number (label) · name (card-title) · text · meta (small) · Explore link. The whole row is the link.
+// "Start where you are": one inverse screen of service rows in two groups, then a closing block.
+// Row: name (card-title) · text · meta (small) · Explore link. The whole row is the link.
 import Section from '../ui/Section.astro';
 import SectionHead from '../ui/SectionHead.astro';
 import Action from '../ui/Action.astro';
@@ -9,22 +9,19 @@ import type { BlockOf } from '../../content.config';
 type Props = Omit<BlockOf<'services'>, 'type'>;
 const { title, lead, groups, explore, start, tone = 'inverse', id } = Astro.props;
 const headId = title ? `h-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : undefined;
-let n = 0;
-const rows = groups.map((g) => ({ ...g, items: g.items.map((item) => ({ ...item, num: String(++n).padStart(2, '0') })) }));
 ---
 <Section id={id} tone={tone} labelledby={headId}>
   <SectionHead title={title} lead={lead} id={headId} />
-  <div class="groups">
+  <div class="bleed groups">
     {
-      rows.map((g) => (
+      groups.map((g) => (
         <div class="group" id={g.id}>
           {g.name && <h3 class="t-card-title gname">{g.name}</h3>}
-          <ul class="list">
+          <ul class="rows">
             {
               g.items.map((item) => (
-                <li>
+                <li class="item">
                   <a class="row" href={item.href}>
-                    <span class="t-label num" aria-hidden="true">{item.num}</span>
                     <span class="body">
                       <span class="t-card-title name">{item.title}</span>
                       <span class="t-text desc">{item.text}</span>
@@ -53,56 +50,71 @@ const rows = groups.map((g) => ({ ...g, items: g.items.map((item) => ({ ...item,
 </Section>
 
 <style>
+  /* Hairlines and the hover band run edge to edge of the viewport (approved variation); the screen clips the overflow. */
+  :global(.section:has(.bleed)) { overflow-x: clip; }
   .groups { display: grid; gap: var(--space-10); }
   .group { display: grid; gap: var(--space-4); }
   .gname { color: var(--c-text); }
-  .list { border-top: var(--bw-1) solid var(--c-border); }
-  .list li { border-bottom: var(--bw-1) solid var(--c-border); }
-  .list li:last-child { border-bottom: 0; }
+  .rows, .start { position: relative; }
+  .rows::before, .start::before, .item .row::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
+    height: var(--bw-1);
+    background: var(--c-border);
+  }
+  .rows::before, .start::before { top: 0; }
+  .item .row::after { bottom: 0; }
   .row {
     position: relative;
     isolation: isolate;
     display: grid;
-    grid-template-columns: var(--space-10) minmax(0, 1fr);
-    gap: var(--space-3) var(--space-4);
+    gap: var(--space-3);
     align-items: start;
     padding-block: var(--space-6);
     color: var(--c-text);
     text-decoration: none;
   }
+  /* The band fills the row exactly between its two hairlines. */
   .row::before {
     content: '';
     position: absolute;
-    inset: 0 calc(var(--space-4) * -1);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    margin-left: -50vw;
     z-index: -1;
     transition: background-color var(--ease), box-shadow var(--ease);
   }
-  .num { padding-top: var(--space-1); color: var(--c-text-2); transition: color var(--ease); }
+  .item .row::before { bottom: var(--bw-1); }
+  .item:first-child .row::before { top: var(--bw-1); }
   .body { display: grid; gap: var(--space-3); min-width: 0; }
   .name { color: var(--c-text); }
   .desc { max-width: var(--container-prose); color: var(--c-text-2); }
-  .meta { color: var(--c-text-2); }
-  .go { grid-column: 2; display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 500; color: var(--c-accent); }
+  .meta { color: var(--color-on-inverse-3); }
+  .go { display: inline-flex; align-items: center; gap: var(--space-2); font-weight: 500; color: var(--c-accent); }
   .arr { display: inline-block; transition: transform var(--ease); }
-  .row:hover::before, .row:focus-visible::before { background: var(--c-surface); box-shadow: inset var(--bw-3) 0 0 var(--c-accent); }
-  .row:hover .num, .row:focus-visible .num { color: var(--c-accent); }
+  .row:hover::before, .row:focus-visible::before { background: var(--color-inverse-hover); box-shadow: inset var(--bw-3) 0 0 var(--c-accent); }
   .row:hover .arr, .row:focus-visible .arr { transform: translateX(calc(var(--space-1) * 1.5)); }
   .row:focus-visible { outline: none; }
   .row:focus-visible::before { outline: var(--bw-2) solid var(--c-accent); outline-offset: calc(var(--bw-2) * -1); }
 
-  .start { display: grid; gap: var(--space-6); margin-top: var(--space-10); padding-top: var(--space-10); border-top: var(--bw-1) solid var(--c-border); }
+  .start { display: grid; gap: var(--space-6); margin-top: var(--space-10); padding-top: var(--space-10); }
   .copy { display: grid; gap: var(--space-3); max-width: var(--container-prose); }
   .copy p { color: var(--c-text-2); }
   .act { display: grid; gap: var(--space-4); justify-items: start; }
   .act :global(.btn) { justify-self: stretch; }
   .link { display: inline-flex; align-items: center; min-height: var(--space-8); color: var(--c-accent); font-weight: 500; }
 
+  /* From 560px: text left, Explore on the right. Below: one column, Explore under the meta. */
+  @media (min-width: 560px) {
+    .row { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-3) var(--space-10); align-items: center; }
+  }
   @media (min-width: 1024px) {
-    .row { grid-template-columns: calc(var(--space-16) + var(--space-2)) minmax(0, 1fr) auto; gap: var(--space-3) var(--space-10); align-items: center; }
-    .num { align-self: start; }
-    .go { grid-column: auto; white-space: nowrap; }
     .start { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-10); }
-    .act { justify-items: start; }
     .act :global(.btn) { justify-self: start; }
   }
   @media (prefers-reduced-motion: reduce) {

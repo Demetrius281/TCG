@@ -26,7 +26,6 @@ export const heroBlock = obj({
   ...base,
   heading_id: text.optional(),
   title: text,
-  subtitle: text.optional(),
   lead: text.optional(),
   actions: z.array(action).default([]),
   illustration: z.enum(['home', 'property-check', 'regulations', 'platform']).optional(),

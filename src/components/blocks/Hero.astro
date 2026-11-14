@@ -8,12 +8,12 @@ import DesktopIllustration from '../ui/DesktopIllustration.astro';
 import type { BlockOf } from '../../content.config';
 
 type Props = Omit<BlockOf<'hero'>, 'type'>;
-const { heading_id = 'hero-title', title, subtitle, lead, actions, illustration, tone, id } = Astro.props;
+const { heading_id = 'hero-title', title, lead, actions, illustration, tone, id } = Astro.props;
 ---
 <Section id={id} tone={tone} labelledby={heading_id}>
   <div class:list={['hero', illustration && 'has-art']} data-art={illustration}>
     <div class="copy">
-      <SectionHead level={1} hero title={title} subtitle={subtitle} lead={lead} id={heading_id} next="actions" />
+      <SectionHead level={1} hero title={title} lead={lead} id={heading_id} next="actions" />
       {
         actions.length > 0 && (
           <div class="actions">
