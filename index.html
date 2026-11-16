@@ -475,7 +475,7 @@ section#top .hero-h1{line-height:1.04 !important}
   #top .btn{width:100%;box-sizing:border-box;justify-content:center}
   #top .ulink{min-height:44px !important;text-decoration:none !important;position:relative}
   #top .ulink::after{content:"";position:absolute;left:0;right:0;bottom:7px;height:1px;background:currentColor}
-  #top .hero-arrow{display:inline-block !important;transform:rotate(90deg)}
+  
   #top .hero-description-desktop,#top .px-leg{display:none}
   #top .hero-description-mobile{display:inline}
   #top .px{grid-row:3;height:auto;aspect-ratio:460 / 360;overflow:hidden}
@@ -538,6 +538,11 @@ section#top .hero-h1{line-height:1.04 !important}
 #technology .wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,40px);box-sizing:border-box;min-width:0}#technology .h2{margin:0;font-size:clamp(32px,4vw,52px);line-height:1.05;font-weight:500;letter-spacing:-.025em;color:#F6F5F1}#technology .split{display:flex;justify-content:space-between;align-items:end;gap:32px}#technology .txt{min-width:0}#technology .arch{max-width:100%;box-sizing:border-box}#technology .arch-body>*{min-width:0}#technology .arch-body{min-width:0}
 @media(max-width:767px){#technology .arch{margin-top:26px;min-width:0}#technology .arch-head{display:flex;flex-direction:column;align-items:flex-start;padding:14px 16px;gap:8px;font-size:10px;line-height:1.5}#technology .arch-body{grid-template-columns:minmax(0,1fr);padding:18px 16px;gap:10px}#technology .node{min-width:0;padding:13px 14px;font-size:15px}#technology .node small{font-size:11px;line-height:1.5}#technology .engine{min-width:0;padding:16px;gap:12px}#technology .mods{grid-template-columns:minmax(0,1fr);gap:8px}#technology .mod{min-width:0}#technology .af{padding:16px}}
 </style>
+
+<style id="tcg-metrics-grid-fix">
+@media(max-width:1023px){#track-record .company-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(min-width:1024px){#track-record .company-metrics{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -553,19 +558,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img class="logo-full" src="/assets/brand/1_logos/horizontal-full/tcg-horizontal-full-color.svg?v=2" alt="Twins Consulting Group" width="293" height="22"><img class="logo-short" src="/assets/brand/1_logos/horizontal-short/tcg-horizontal-short-color.svg?v=2" alt="Twins Consulting Group" width="96" height="24">
     </a>
     <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 28px">
-      <a href="/" class="navlink mobile-home" style="font-size:14px;color:#3E4744;text-decoration:none;padding:12px 0">Home</a>
+      <a href="/" aria-current="page" class="navlink mobile-home" style="font-size:14px;color:#3E4744;text-decoration:none;padding:12px 0">Home</a>
       <a href="/platform" class="navlink" style="font-size: 14px; color: #3E4744; text-decoration: none; padding: 12px 0">Platform</a>
       <div class="dd">
-        <button type="button" class="dd-btn" aria-expanded="false" aria-controls="dd-services" style="color: #0F1413; font-weight: 600">Services <span class="chev" aria-hidden="true">&#9662;</span></button>
+        <button type="button" class="dd-btn" aria-expanded="false" aria-controls="dd-services">Services <span class="chev" aria-hidden="true">&#9662;</span></button>
         <div class="dd-menu" id="dd-services">
           <a href="/due-diligence"><span class="t">Preliminary Due Diligence</span><span class="s">For Property Buyers</span></a>
           <a href="/services/property-legal-audit"><span class="t">Property Compliance Audit</span><span class="s">For Finished Properties</span></a>
-          <a href="/services/distressed-property" aria-current="page"><span class="t">Distressed Property Buyout</span><span class="s">For Stalled Projects</span></a>
+          <a href="/services/distressed-property"><span class="t">Distressed Property Buyout</span><span class="s">For Stalled Projects</span></a>
           <a href="/land"><span class="t">Land Monetization Strategy</span><span class="s">For Land Owners</span></a>
         </div>
       </div>
       <a href="/regulations" class="navlink" style="font-size: 14px; color: #3E4744; text-decoration: none; padding: 12px 0">Regulations</a>
-      <a class="btn" href="https://wa.me/6281337973097?text=Hi%2C%20I'd%20like%20to%20discuss%20a%20buyout%20of%20my%20property.%0ALocation%3A%20%5BGoogle%20Maps%20link%5D%0AStatus%3A%20%5Bunfinished%20villa%20%2F%20stalled%20complex%20%2F%20built%20without%20permits%20%2F%20unsold%20units%5D%0AConstruction%20progress%3A%20%5Bapprox.%20%25%20complete%5D%0ALand%3A%20%5Bleasehold%2C%20years%20remaining%20%2F%20other%20ownership%20rights%5D%0ADocuments%20available%3A%20%5Bcertificate%20or%20lease%20%2F%20PBG%20or%20IMB%20%2F%20drawings%20%2F%20contracts%5D%0APrice%20expectation%3A%0ADeadline%20to%20sell%3A" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500">Request a Property Review</a>
+      <a class="btn" href="https://wa.me/6281337973097?text=Hi%2C%20I%E2%80%99d%20like%20a%20property%20review.%0ALocation%3A%20%5BGoogle%20Maps%20link%5D%0ACurrent%20status%3A%20%5Bfinished%20%2F%20under%20construction%20%2F%20stalled%20%2F%20renting%5D%0AIssue%20to%20resolve%3A%20" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 500">Request a Property Review</a>
     </nav>
   </div>
 </header>
@@ -717,7 +722,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); box-sizing: border-box; display: flex; flex-direction: column; gap: 56px">
     <div style="display: flex; flex-direction: column; gap: 20px">
       <h2 style="margin: 0; font-size: clamp(32px, 4vw, 52px); line-height: 1.05; font-weight: 500; letter-spacing: -0.025em">How TCG Turns Records Into Results.</h2>
-      <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3E4744; max-width: 820px">TCG reads Indonesia's separate property records together and puts the result to work.</p>
+      <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3E4744; max-width: 820px">TCG reads Indonesia's separate property registers side by side and puts the findings to work.</p>
     </div>
     <div class="who-grid">
       <div class="who-card">
@@ -831,7 +836,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="svc-desc">Unfinished villas and permit-constrained properties across Bali, bought in their current condition after full verification. Funding comes from TCG and partner investors.</p>
         <div class="svc-impl"><span class="svc-label">For</span><p>Owners who need to release capital and close the matter.</p></div>
         <div class="svc-actions">
-          <a class="btn" href="https://wa.me/6281337973097?text=Hi%2C%20I'd%20like%20to%20discuss%20a%20buyout%20of%20my%20property.%0ALocation%3A%20%5BGoogle%20Maps%20link%5D%0AStatus%3A%20%5Bunfinished%20villa%20%2F%20stalled%20complex%20%2F%20built%20without%20permits%20%2F%20unsold%20units%5D%0AConstruction%20progress%3A%20%5Bapprox.%20%25%20complete%5D%0ALand%3A%20%5Bleasehold%2C%20years%20remaining%20%2F%20other%20ownership%20rights%5D%0ADocuments%20available%3A%20%5Bcertificate%20or%20lease%20%2F%20PBG%20or%20IMB%20%2F%20drawings%20%2F%20contracts%5D%0APrice%20expectation%3A%0ADeadline%20to%20sell%3A" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Request a Buyout Offer</a>
+          <a class="btn" href="https://wa.me/6281337973097?text=Hi%2C%20I'd%20like%20to%20discuss%20a%20buyout%20of%20my%20property.%0ALocation%3A%20%5BGoogle%20Maps%20link%5D%0AStatus%3A%20%5Bunfinished%20villa%20%2F%20stalled%20complex%20%2F%20built%20without%20permits%5D%0AConstruction%20progress%3A%20%5Bapprox.%20%25%20complete%5D%0ALand%3A%20%5Bleasehold%2C%20years%20remaining%20%2F%20other%20ownership%20rights%5D%0ADocuments%20available%3A%20%5Bcertificate%20or%20lease%20%2F%20PBG%20or%20IMB%20%2F%20drawings%20%2F%20contracts%5D%0APrice%20expectation%3A%0ADeadline%20to%20sell%3A" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Request a Buyout Offer</a>
           <a class="ulink" href="/services/distressed-property" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: #0F1413; text-decoration: none">View Buyout Details&nbsp;&rarr;</a>
         </div>
       </article>
@@ -988,7 +993,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <ul class="ft-list">
           <li><a href="/due-diligence" class="footlink">Preliminary Due Diligence</a></li>
           <li><a href="/services/property-legal-audit" class="footlink">Property Compliance Audit</a></li>
-          <li><a href="/services/distressed-property" class="footlink" aria-current="page">Distressed Property Buyout</a></li>
+          <li><a href="/services/distressed-property" class="footlink">Distressed Property Buyout</a></li>
           <li><a href="/land" class="footlink">Land Monetization Strategy</a></li>
         </ul>
       </nav>
