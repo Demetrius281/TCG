@@ -1332,7 +1332,7 @@ document.querySelectorAll('.dd').forEach(function(d){
     L.push('Hello TCG, I would like to order Preliminary Due Diligence.');
     L.push('');
     L.push('Order: '+id);
-    L.push('Plan: '+PLANS[o.plan].name+' (US
+    L.push('Plan: '+PLANS[o.plan].name+' (US$'+o.amount_usd+', delivery within '+o.delivery_hours+' hours)');
     L.push('Property: '+o.property_type);
     L.push('Location: '+o.location);
     L.push('Map: '+o.map_link);
@@ -1406,85 +1406,6 @@ document.querySelectorAll('.dd').forEach(function(d){
   } else { passed=true; }
   if(!hero){ var t=function(){ passed = window.scrollY > 300; u(); }; window.addEventListener('scroll',t,{passive:true}); t(); }
   if(!('IntersectionObserver' in window)){var checkOrder=function(){var r=document.getElementById('order').getBoundingClientRect();orderVis=r.top<innerHeight&&r.bottom>0;u();};window.addEventListener('scroll',checkOrder,{passive:true});checkOrder();}
-  u();
-  var f=function(e){var x=e.target;return x&&(x.tagName==='INPUT'||x.tagName==='TEXTAREA'||x.tagName==='SELECT');};
-  document.addEventListener('focusin',function(e){if(f(e))document.body.classList.add('m-cta-hidden');});
-  document.addEventListener('focusout',function(e){if(f(e))document.body.classList.remove('m-cta-hidden');});
-})();
-</script>
-</body>
-</html>
-+o.amount_usd+', delivery within '+o.delivery_hours+' hours)');
-    L.push('Property: '+o.property_type);
-    L.push('Location: '+o.location);
-    var pc=parseCoords(o.location);
-    if(o.pin&&!(pc&&pc.lat===o.pin.lat&&pc.lng===o.pin.lng))L.push('Map pin: '+fix(o.pin.lat)+', '+fix(o.pin.lng)+(o.pin.confirmed?' (confirmed)':''));
-    L.push('Intended use: '+o.intended_use.join(', '));
-    if(o.project)L.push('Project: '+o.project);
-    if(o.seller_name)L.push('Seller or developer: '+o.seller_name+(o.seller_type?' ('+o.seller_type+')':''));
-    if(o.legal_company_name)L.push('Legal company name: '+o.legal_company_name);
-    if(o.nib)L.push('NIB: '+o.nib);
-    L.push('Documents: '+(o.documents.length?o.documents.join(', ')+' (I will send them in this chat)':'None'));
-    L.push('');
-    L.push('Name: '+o.name);
-    L.push('Email for the report: '+o.email);
-    return L.join('\n');
-  }
-
-  /* Step 4: send the order via WhatsApp */
-  $('pc-pay').addEventListener('click',function(){
-    if(paid||!validate4())return;
-    var id=orderId();
-    var url='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(waMessage(id));
-    /* ------------------------------------------------------------------
-       PAYMENT GATEWAY INTEGRATION POINT (later)
-       Online payment is not connected yet. Orders go to WhatsApp.
-       When a gateway is added: take payment here, then upload the
-       documents with the order ID to the TCG endpoint only.
-       ------------------------------------------------------------------ */
-    $('pc-wa-link').href=url;
-    paid=true;
-    if(window.dataLayer)window.dataLayer.push({event:'whatsapp_click',location:'due_diligence_order',plan:plan()});
-    var w=window.open(url,'_blank','noopener');
-    if(!w){try{window.location.href=url;}catch(e){}}
-    finish(id);
-  });
-
-  function finish(id){
-    var p=PLANS[plan()],n=docCount();
-    $('pc-d-id').textContent=id;
-    $('pc-d-plan').textContent=p.name;
-    $('pc-d-time').textContent='Within '+p.hours+' hours';
-    $('pc-d-docs').textContent=n?docList().join(', '):'None';
-    $('pc-d-email').textContent=$('pc-email').value.trim();
-    done=true;
-    form.hidden=true;
-    $('pc-done').hidden=false;
-    show(4,false);
-    var top=panel.getBoundingClientRect().top;
-    if(top<0||top>window.innerHeight*0.6)panel.scrollIntoView({block:'start'});
-    $('pc-done').querySelector('h3').focus({preventScroll:true});
-  }
-
-  syncPlan();
-  syncSellerType();
-  show(1,false);
-})();
-</script>
-
-<a class="m-cta" href="https://wa.me/6281337973097?text=Hi%2C%20I%E2%80%99d%20like%20to%20speak%20with%20an%20advisor%20about%20a%20property.%0ALocation%3A%20%5BGoogle%20Maps%20link%5D%0AQuestion%3A%20" target="_blank" rel="noopener">Speak With an Advisor <span aria-hidden="true">&rarr;</span></a>
-<script>
-(function(){
-  var m=document.querySelector('.m-cta'); if(!m) return;
-  var hero=location.pathname==='/' ? document.querySelector('#top .btn') : null;          // homepage hero button (only on index.html)
-  var end=document.querySelector('#property-review');    // homepage final WhatsApp block (only on index.html)
-  var passed=!hero, endVis=false;
-  function u(){ m.classList.toggle('on', passed && !endVis); }
-  if('IntersectionObserver' in window){
-    if(hero) new IntersectionObserver(function(e){ passed = !e[0].isIntersecting && e[0].boundingClientRect.top < 0; u(); }).observe(hero);
-    if(end) new IntersectionObserver(function(e){ endVis = e[0].isIntersecting; u(); }).observe(end);
-  } else { passed=true; }
-  if(!hero){ var t=function(){ passed = window.scrollY > 300; u(); }; window.addEventListener('scroll',t,{passive:true}); t(); }
   u();
   var f=function(e){var x=e.target;return x&&(x.tagName==='INPUT'||x.tagName==='TEXTAREA'||x.tagName==='SELECT');};
   document.addEventListener('focusin',function(e){if(f(e))document.body.classList.add('m-cta-hidden');});
