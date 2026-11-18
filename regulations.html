@@ -179,6 +179,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 @font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/geist-f4634c3b.woff2) format('woff2')}
 @font-face{font-family:'Geist Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/geist-mono-cd5b2578.woff2) format('woff2')}
+
+.m-cta{display:none}
+@media (max-width:720px){
+  .m-cta{display:flex;align-items:center;justify-content:center;position:fixed;left:0;right:0;bottom:0;z-index:50;min-height:56px;padding:0 20px env(safe-area-inset-bottom);background:#0E5A55;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:500;box-shadow:0 -1px 0 rgba(15,20,19,.08)}
+  body{padding-bottom:calc(56px + env(safe-area-inset-bottom))}
+  body.m-cta-hidden .m-cta{display:none}
+}
+@media (max-width:720px){.dd-menu{z-index:60}}
 </style>
 <style>
 body{margin:0;background:#F6F5F1}
@@ -1714,5 +1722,14 @@ document.documentElement.className+=' js';
 </script>
 <!-- END Regulations mobile polish 5 fixes -->
 
+
+<a class="m-cta" href="https://wa.me/6281337973097?text=Hi%2C%20I%E2%80%99d%20like%20to%20speak%20with%20an%20advisor%20about%20a%20property.%0ALocation%3A%20%5BGoogle%20Maps%20link%5D%0AQuestion%3A%20" target="_blank" rel="noopener">Speak With an Advisor</a>
+<script>
+(function(){
+  var f=function(e){var t=e.target;return t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.tagName==='SELECT');};
+  document.addEventListener('focusin',function(e){if(f(e))document.body.classList.add('m-cta-hidden');});
+  document.addEventListener('focusout',function(e){if(f(e))document.body.classList.remove('m-cta-hidden');});
+})();
+</script>
 </body>
 </html>
