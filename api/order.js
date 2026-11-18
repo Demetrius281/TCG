@@ -12,7 +12,7 @@ module.exports=async function(req,res){
  if(b.website)return res.status(200).json({ok:true});
  const plan=typeof b.plan==='string'?b.plan.toLowerCase():'';
  if(!/^DD-[A-Z0-9]{6}$/.test(b.order_id||'')||!Object.prototype.hasOwnProperty.call(PRICES,plan)||!['location','name','email','whatsapp'].every(k=>typeof b[k]==='string'&&b[k].trim()))return res.status(400).json({ok:false});
- const o={...b,plan,price_usd:PRICES[plan],delivery_hours:plan==='comprehensive'?null:plan==='basic'?8:12,delivery_text:plan==='comprehensive'?'Timeline to be confirmed':plan==='basic'?'Delivery within 8 hours':'Delivery within 12 hours',status:'New'},stamp=received(),row=[stamp,...FIELDS.map(([,k])=>clean(o[k]))],tasks=[];
+ const o={...b,plan:plan.charAt(0).toUpperCase()+plan.slice(1),price_usd:PRICES[plan],delivery_hours:plan==='comprehensive'?null:plan==='basic'?8:12,delivery_text:plan==='comprehensive'?'Timeline to be confirmed':plan==='basic'?'Delivery within 8 hours':'Delivery within 12 hours',status:'New'},stamp=received(),row=[stamp,...FIELDS.map(([,k])=>clean(o[k]))],tasks=[];
  if(process.env.TELEGRAM_BOT_TOKEN&&process.env.TELEGRAM_CHAT_ID){const lines=[['Received (Bali time)',stamp],['Delivery',o.delivery_text],...FIELDS.map(([label,k])=>[label,clean(o[k])])];tasks.push(post('https://api.telegram.org/bot'+process.env.TELEGRAM_BOT_TOKEN+'/sendMessage',{chat_id:process.env.TELEGRAM_CHAT_ID,text:lines.map(x=>x[0]+': '+x[1]).join('\n')}));}
  if(process.env.SHEETS_WEBHOOK_URL&&process.env.SHEETS_SECRET)tasks.push(post(process.env.SHEETS_WEBHOOK_URL,{secret:process.env.SHEETS_SECRET,row}));
  if(!tasks.length)return res.status(200).json({ok:true});
