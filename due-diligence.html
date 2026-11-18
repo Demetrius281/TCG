@@ -488,6 +488,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #0E
 /* Property Check vs legal due diligence: separate dark section, 60 / 40 */
 .cmp-sec{background:#0F1413;color:#F6F5F1}
 .cmp-sec .h2{color:#F6F5F1}
+.cmp-sec .sec-head .lead2{color:#B9C0BD}
 .cmpx{display:grid;grid-template-columns:1fr;gap:16px;align-items:stretch}
 @media (min-width:760px){.cmpx{grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:24px}}
 .cmpx>div{position:relative;padding:clamp(24px,3vw,40px);display:flex;flex-direction:column;gap:20px;box-sizing:border-box;min-width:0}
@@ -495,10 +496,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #0E
 .cmpx>.on::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:#0E5A55}
 .cmpx>.off{background:#1C2523;border:1px solid #2F3A38;color:#B9C0BD}
 .cmp-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
-.cmpx dl{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px;padding:18px 0;border-top:1px solid #E2E0D9;border-bottom:1px solid #E2E0D9}
+.cmpx dl{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px clamp(8px,1.5vw,24px);padding:18px 0;border-top:1px solid #E2E0D9;border-bottom:1px solid #E2E0D9}
 .cmpx dt{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5B6461;margin-bottom:8px}
 .cmpx dd{margin:0;white-space:nowrap;font-size:clamp(26px,2.6vw,36px);font-weight:300;letter-spacing:-.03em;line-height:1.05}
 .cmpx>.on dd{color:#0E5A55;font-size:clamp(30px,3.2vw,44px)}
+@media (min-width:560px){.cmpx dl>div{min-width:0}.cmpx dd{min-width:0;white-space:normal;overflow-wrap:normal;font-size:clamp(18px,2vw,30px)}.cmpx>.on dd{font-size:clamp(20px,2.4vw,34px)}}
 .cmpx .body{font-size:15px}
 .cmpx>.on .body{font-size:16px}
 .cmpx>.off .h3{color:#E8E6E0}
@@ -729,7 +731,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hero-txt">
     
     <h1 class="hero-h1">Uncover Hidden Risks in a Bali Property Before the Deposit</h1>
-    <p class="hero-p">Direct access to Indonesian government systems shows what can be built, which company controls the sale and whether short-term letting is allowed.</p>
+    <p class="hero-p">Direct access to government systems shows what can be built, who controls the sale and whether short-term letting is allowed.</p>
     
     <div class="hero-act"><a class="btn cta" href="#order">Online Due Diligence</a><a class="faq-link" href="#pricing">Compare Plans&nbsp;&rarr;</a></div>
   </div>
@@ -864,7 +866,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="ei-copy">
     
     <h2 class="h2" id="order-title">Place Your Order</h2>
-    <p class="lead">Choose a plan and add the property. Documents and payment follow in WhatsApp, and the check starts once payment arrives.</p>
+    <p class="lead">Choose a plan and add the property. Documents and the invoice follow in WhatsApp.</p>
     <div class="stage" aria-hidden="true">
       <p data-s="1"><span>Step 1 of 4</span>Your Plan</p>
       <p data-s="2"><span>Step 2 of 4</span>The Property</p>
@@ -1000,10 +1002,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="pc-done" id="pc-done" hidden>
       <h3 tabindex="-1" id="pc-d-heading"></h3>
       <div class="pc-done-rows">
-        <p><span>Order</span><b id="pc-d-id"></b></p>
         <p><span>Plan</span><b id="pc-d-plan"></b></p>
         <p><span>Delivery</span><b id="pc-d-time"></b></p>
-        <p><span>Documents</span><b id="pc-d-docs"></b></p>
       </div>
       <p class="note">Send the prepared message in WhatsApp to confirm the order. TCG replies with an invoice in US dollars or rupiah, and the check starts once payment arrives. The report will be sent to <b id="pc-d-email"></b>.</p>
       <p class="note">Send these documents in the chat:</p><ul class="pc-confirm-docs" id="pc-confirm-docs"></ul><p class="note">WhatsApp did not open? <a id="pc-wa-link" href="https://wa.me/6281337973097" target="_blank" rel="noopener">Open the message again</a>.</p>
@@ -1273,7 +1273,7 @@ document.querySelectorAll('.dd').forEach(function(d){
     L.push('Hello TCG, I would like to order Preliminary Due Diligence.');
     L.push('');
     L.push('Order: '+id);
-    L.push('Plan: '+PLANS[o.plan].name+' (US$'+o.amount_usd+', '+o.delivery_text+')');
+    L.push('Plan: '+PLANS[o.plan].name+' (US$'+o.amount_usd+', '+o.delivery_text.toLowerCase()+')');
     L.push('Property: '+o.property_type);
     L.push('Location: '+o.location);
     L.push('Map: '+o.map_link);
@@ -1312,11 +1312,9 @@ document.querySelectorAll('.dd').forEach(function(d){
 
   function finish(id){
     var p=PLANS[plan()],n=docCount();
-    $('pc-d-id').textContent=id;
     $('pc-d-heading').textContent='Order '+id+' Received';
     $('pc-d-plan').textContent=p.name;
-    $('pc-d-time').textContent=delivery(p);
-    $('pc-d-docs').textContent=n?docList().join(', '):'None';
+    $('pc-d-time').textContent=p.hours===null?'Timeline to be confirmed':'Within '+p.hours+' hours';
     var ul=$('pc-confirm-docs');ul.textContent='';requiredDocs().forEach(function(d){var li=document.createElement('li');li.textContent=d;ul.appendChild(li);});
     $('pc-d-email').textContent=$('pc-email').value.trim();
     done=true;
