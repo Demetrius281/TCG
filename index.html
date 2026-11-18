@@ -282,15 +282,19 @@ html{scroll-padding-top:24px}
 
 /* Implementation */
 @media (max-width:1023px){.br-d{display:none}}
-.impl-grid{display:grid;grid-template-columns:1fr;gap:1px;background:#D9D6CE;border:1px solid #D9D6CE}
-.impl-card{background:#F6F5F1;padding:24px;display:flex;flex-direction:column;gap:10px}
-.impl-card{position:relative;cursor:pointer}
-.impl-card .faq-link::after{content:"";position:absolute;inset:0;z-index:1}
-.impl-card .faq-link:focus-visible{outline:2px solid #0E5A55;outline-offset:4px}
-@media (min-width:600px){.impl-grid{grid-template-columns:1fr 1fr}.impl-card:last-child{grid-column:span 2}}
-@media (min-width:1024px){.impl-grid{grid-template-columns:repeat(3,1fr)}.impl-card:last-child{grid-column:auto}}
-@media (hover:hover) and (pointer:fine){.impl-grid>.impl-card{position:relative;isolation:isolate}.impl-grid>.impl-card::before,.impl-grid>.impl-card::after{content:"";position:absolute;left:0;right:0;pointer-events:none;opacity:0;transition:opacity 280ms ease}.impl-grid>.impl-card::before{top:0;height:2px;background:#0E5A55}.impl-grid>.impl-card::after{bottom:0;height:45%;z-index:-1;background:radial-gradient(70% 100% at 50% 100%,rgba(14,90,85,.09),rgba(14,90,85,0) 72%)}.impl-grid>.impl-card:hover::before,.impl-grid>.impl-card:hover::after{opacity:1}}
-@media (prefers-reduced-motion:reduce){.svc-grid>.svc-card,.impl-grid>.impl-card::before,.impl-grid>.impl-card::after{transition:none}}
+.oc-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:1024px){.oc-grid{grid-template-columns:repeat(3,1fr);gap:24px}}
+.oc{display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border:1px solid #E2E0D9;padding:clamp(24px,2.6vw,32px);text-decoration:none;color:#0F1413;transition:border-color .28s ease,box-shadow .28s ease}
+.oc-top{display:flex;justify-content:space-between;gap:12px;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5B6461}
+.oc-fact{color:#0E5A55;text-align:right}
+.oc-title{margin:6px 0 0;font-size:22px;line-height:1.25;font-weight:500;letter-spacing:-.015em;color:#0F1413}
+.oc-desc{font-size:16px;line-height:1.6;color:#3E4744}
+.oc-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid #ECEAE4;padding-top:20px}
+.oc-name{font-size:16px;font-weight:500;color:#0E5A55}
+.oc-go{flex:none;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #0E5A55;color:#0E5A55;font-size:18px;transition:background-color .28s ease,color .28s ease}
+@media (hover:hover) and (pointer:fine){.oc:hover{border-color:#0E5A55;box-shadow:0 0 0 1px rgba(14,90,85,.08),0 0 28px rgba(14,90,85,.14)}.oc:hover .oc-go{background:#0E5A55;color:#FFFFFF}}
+.oc:focus-visible{outline:2px solid #0E5A55;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.svc-grid>.svc-card{transition:none}}
 .gov{display:flex;flex-direction:column;gap:14px;padding-top:40px;border-top:1px solid #0F1413}
 
 /* Track record */
@@ -852,13 +856,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 style="margin: 0; font-size: clamp(32px, 4vw, 52px); line-height: 1.05; font-weight: 500; letter-spacing: -0.025em">A Defined Outcome Wherever You Stand</h2>
       <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #3E4744; max-width: 760px">Each engagement has a fixed scope, a set timeline and a written result you can act on</p>
     </div>
-    <div class="impl-grid">
-      <div class="impl-card"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #5B6461">01</span><h3 style="margin: 0; font-size: 18px; font-weight: 500">Buying a Property</h3><p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3E4744">Zoning, permits, land title and the seller checked online</p><p style="margin: 0; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #3E4744">Report within 12 hours</p><a class="faq-link" href="/due-diligence" style="margin-top:auto;align-self:flex-start">Preliminary Due Diligence &rarr;</a></div>
-      <div class="impl-card"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #5B6461">02</span><h3 style="margin: 0; font-size: 18px; font-weight: 500">Owning a Problem Villa</h3><p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3E4744">What prevents short-term rental or sale, and a costed plan to fix it</p><p style="margin: 0; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #3E4744">On-site assessment in 5 days</p><a class="faq-link" href="/services/property-legal-audit" style="margin-top:auto;align-self:flex-start">Property Legalization &rarr;</a></div>
-      <div class="impl-card"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #5B6461">03</span><h3 style="margin: 0; font-size: 18px; font-weight: 500">Holding a Stalled Project</h3><p style="margin: 0; font-size: 14px; line-height: 1.55; color: #3E4744">A purchase proposal for the build as it stands, issued after our review</p><p style="margin: 0; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5; color: #3E4744">Inspection within 48 hours</p><a class="faq-link" href="/services/distressed-property" style="margin-top:auto;align-self:flex-start">Distressed Property Buyout &rarr;</a></div>
-      
-      
-    </div>
+    <div class="oc-grid">
+  <a class="oc" href="/due-diligence">
+    <span class="oc-top"><span>01</span><span class="oc-fact">Report within 12 hours</span></span>
+    <h3 class="oc-title">Buying a Property</h3>
+    <span class="oc-desc">Zoning, permits, land title and the seller checked online</span>
+    <span class="oc-foot"><span class="oc-name">Preliminary Due Diligence</span><span class="oc-go" aria-hidden="true">&rarr;</span></span>
+  </a>
+  <a class="oc" href="/services/property-legal-audit">
+    <span class="oc-top"><span>02</span><span class="oc-fact">On-site assessment in 5 days</span></span>
+    <h3 class="oc-title">Owning a Problem Villa</h3>
+    <span class="oc-desc">What prevents short-term rental or sale, and a costed plan to fix it</span>
+    <span class="oc-foot"><span class="oc-name">Property Legalization</span><span class="oc-go" aria-hidden="true">&rarr;</span></span>
+  </a>
+  <a class="oc" href="/services/distressed-property">
+    <span class="oc-top"><span>03</span><span class="oc-fact">Inspection within 48 hours</span></span>
+    <h3 class="oc-title">Holding a Stalled Project</h3>
+    <span class="oc-desc">A purchase proposal for the build as it stands, issued after our review</span>
+    <span class="oc-foot"><span class="oc-name">Distressed Property Buyout</span><span class="oc-go" aria-hidden="true">&rarr;</span></span>
+  </a>
+</div>div>
     
   </div>
 </section>
