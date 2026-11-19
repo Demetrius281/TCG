@@ -452,6 +452,14 @@ main > section.hero h1{line-height:1.04 !important}
 </style>
 <style>.mobile-home,.platform-how-intro{display:none}.platform-how{display:contents}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
+<style id="tcg-hero-alignment">
+/* Consistent homepage heading scale and top offset across pages */
+#top .hero-txt>h1{margin-top:0 !important}
+@media (min-width:1024px){main > #top.hero{padding-top:96px !important}#top h1{font-size:60px !important;line-height:1.04 !important}}
+@media (min-width:768px) and (max-width:1023px){main > #top.hero{padding-top:clamp(64px,9vw,120px) !important}#top h1{font-size:36px !important;line-height:1.04 !important}}
+@media (max-width:767px){main > #top.hero{padding-top:20px !important}#top h1{font-size:36px !important;line-height:1.04 !important;margin-top:0 !important}}
+@media (min-width:768px){#top .hero-grid{align-items:start !important}}
+</style>
 
 <style>
 /* Approved hero final pass: decisive statement and branded diamond metric markers. */
@@ -606,7 +614,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="top" class="hero">
   <div class="wrap hero-grid">
     <div class="hero-txt">
-      <span class="eyebrow">FROM MARKET DATA TO ACQUISITIONS</span>
       <h1>Bali's Real Estate Intelligence Platform</h1>
       <p class="desc">Market research matched with official Indonesian records. Analyst-run checks are live; automated government connections are planned for Q2 2027.</p>
       <div class="hero-metrics" aria-label="Platform at a glance">
