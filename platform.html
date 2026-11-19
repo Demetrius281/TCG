@@ -695,6 +695,373 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- 2 · MAP CHECK (new screen, inserted after the hero) -->
+<style>
+#map-check.mc-sec{min-height:100vh;display:flex;flex-direction:column;padding:clamp(40px,5vw,64px) 0 clamp(28px,3vw,40px);border-top:1px solid #E2E0D9;box-sizing:border-box}
+#map-check *{box-sizing:border-box;min-width:0}
+#map-check>.wrap{width:100%}
+#map-check .mc-head{display:flex;flex-direction:column;gap:18px}
+#map-check .mc-head>*{max-width:760px}
+#map-check .mc-stage{flex:1;display:flex;margin-top:clamp(28px,3.5vw,44px)}
+#map-check .mc-stage .wrap{display:flex;width:100%}
+#map-check .mc-demo{flex:1;display:flex;flex-direction:column;margin:0;background:#FFFFFF;border:1px solid #E2E0D9;min-height:560px;height:calc(100vh - 260px);max-height:900px}
+#map-check .mc-body{flex:1;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);min-height:0}
+#map-check .mc-map{position:relative;background:#6595B7;border-right:1px solid #E2E0D9;overflow:hidden}
+#map-check .mc-map *{vector-effect:non-scaling-stroke}
+#map-check .mc-tilt{position:absolute;left:-12%;right:-12%;top:-60%;bottom:0;transform-origin:50% 68%;will-change:transform}
+#map-check .mc-tilt svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#map-check .mc-plot{fill:#F4F2EC;fill-opacity:.86;stroke:#C9C3B4;stroke-width:1}
+#map-check .mc-plot.mc-t{fill:#FFFFFF;fill-opacity:1;stroke:#0E5A55;stroke-width:2.2}
+#map-check .mc-zone{fill:url(#mc-hatch);stroke:#B07A14;stroke-width:1.4;stroke-dasharray:6 4}
+#map-check .mc-fp{fill:#E6E2D8;stroke:#0F1413;stroke-width:1.4;stroke-dasharray:5 3}
+#map-check .mc-col{fill:#0F1413}
+#map-check .mc-wall{fill:none;stroke:#0F1413;stroke-width:2.4}
+#map-check .mc-open{fill:url(#mc-open);stroke:none}
+#map-check .mc-pin{stroke:#FFFFFF;stroke-width:1.6}
+#map-check .mc-pin.mc-bad{fill:#A23B2A}
+#map-check .mc-pin.mc-good{fill:#1F6B5A}
+#map-check .mc-ring{fill:none;stroke:#0E5A55;stroke-width:1.6}
+#map-check .mc-lyr{opacity:0;transition:opacity .6s ease}
+#map-check .mc-lyr.mc-on{opacity:1}
+#map-check .mc-chip{position:absolute;left:16px;top:16px;z-index:2;display:flex;flex-direction:column;gap:6px;pointer-events:none}
+#map-check .mc-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;background:#FFFFFF;border:1px solid #E2E0D9;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#3E4744;opacity:0;transform:translateY(-4px);transition:opacity .4s ease,transform .4s ease;white-space:nowrap}
+#map-check .mc-tag.mc-on{opacity:1;transform:none}
+#map-check .mc-tag i{width:8px;height:8px;border-radius:50%;flex:none}
+#map-check .mc-tag.mc-am i{background:#B07A14}
+#map-check .mc-tag.mc-rd i{background:#A23B2A}
+#map-check .mc-tag.mc-ink i{background:#0F1413}
+#map-check .mc-readout{position:absolute;left:16px;bottom:14px;z-index:2;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.04em;color:#5B6461;font-variant-numeric:tabular-nums;background:rgba(251,250,247,.85);padding:4px 6px}
+#map-check .mc-card{display:flex;flex-direction:column;min-height:0;overflow:hidden}
+#map-check .mc-q{padding:14px 20px 12px;border-bottom:1px solid #E2E0D9;display:flex;flex-direction:column;gap:8px}
+#map-check .mc-lbl{font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5B6461}
+#map-check .mc-inp{display:flex;align-items:center;min-height:42px;padding:0 14px;border:1px solid #D2CFC7;background:#FBFAF7;font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#0F1413;overflow:hidden;white-space:nowrap}
+#map-check .mc-ph{color:#9BA3A0}
+#map-check .mc-caret{display:inline-block;width:1px;height:16px;background:#0E5A55;margin-left:2px;animation:mc-blink 1s steps(1) infinite}
+@keyframes mc-blink{50%{opacity:0}}
+#map-check .mc-state{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#5B6461;min-height:18px}
+#map-check .mc-rows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+#map-check .mc-rows li{display:flex;justify-content:space-between;align-items:center;gap:4px 16px;padding:8px 20px;border-bottom:1px solid #ECEAE4;font-size:14px;line-height:1.35;flex-wrap:wrap;opacity:.35;transition:opacity .3s ease}
+#map-check .mc-rows li.mc-live{opacity:1}
+#map-check .mc-k{color:#0F1413}
+#map-check .mc-k small{display:block;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#5B6461;margin-top:2px}
+#map-check .mc-verdict{padding:14px 20px 16px;border-top:1px solid #E2E0D9;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 16px;margin-top:auto;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+#map-check .mc-verdict.mc-on{opacity:1;transform:none}
+#map-check .mc-vrow{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+#map-check .mc-vtxt{display:flex;flex-direction:column;gap:2px}
+#map-check .mc-vbig{font-size:24px;font-weight:500;letter-spacing:-.02em;color:#A23B2A}
+#map-check .mc-vsub{font-size:13px;color:#3E4744;white-space:nowrap}
+#map-check .mc-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;background:#0E5A55;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:500}
+@media (max-width:1023px){
+#map-check .mc-demo{height:auto;max-height:none;min-height:0}
+#map-check .mc-body{grid-template-columns:minmax(0,1fr)}
+#map-check .mc-map{aspect-ratio:4/3;border-right:0;border-bottom:1px solid #E2E0D9}
+}
+@media (max-width:767px){
+#map-check.mc-sec{min-height:0}
+#map-check .ui-top{padding:10px 16px}
+#map-check .mc-rows li{padding:12px 16px;flex-direction:column;align-items:flex-start;gap:4px}
+#map-check .mc-q,#map-check .mc-verdict{padding-left:16px;padding-right:16px}
+#map-check .mc-verdict{grid-template-columns:minmax(0,1fr)}
+#map-check .mc-vbig{font-size:22px}
+#map-check .mc-vsub{white-space:normal}
+#map-check .mc-btn{width:100%}
+#map-check .mc-readout,#map-check .mc-chip{display:none}
+}
+@media (prefers-reduced-motion:reduce){#map-check *{transition:none !important;animation:none !important}}
+</style>
+<section id="map-check" class="mc-sec" aria-labelledby="mc-title">
+  <div class="wrap mc-head">
+    <h2 class="h2" id="mc-title">From a Map Pin to a Legal Verdict</h2>
+    <p class="lead">Paste a Google Maps link or coordinates. The platform locates the plot and shows zoning, permits, construction status and the developer’s record in one view.</p>
+  </div>
+  <div class="mc-stage">
+    <div class="wrap">
+      <figure class="mc-demo" style="margin:0" aria-label="Illustrative property check on a map of Bali">
+        <div class="ui-top"><span>TCG Platform · Property Check</span><span class="cp">Concept preview</span></div>
+        <div class="mc-body">
+          <div class="mc-map">
+            <div class="mc-tilt" id="mc-tilt"><svg id="mc-mapsvg" viewBox="0 0 820 560" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of Bali zooming to a plot on the Bukit peninsula">
+              <defs>
+                <pattern id="mc-hatch" patternUnits="userSpaceOnUse" width="0.16" height="0.16" patternTransform="rotate(45)">
+                  <rect width="0.16" height="0.16" fill="#E0A21C" fill-opacity=".18"/>
+                  <line x1="0" y1="0" x2="0" y2="0.16" stroke="#B07A14" stroke-opacity=".75" stroke-width="0.03"/>
+                </pattern>
+                <pattern id="mc-open" patternUnits="userSpaceOnUse" width="0.08" height="0.08" patternTransform="rotate(-45)">
+                  <line x1="0" y1="0" x2="0" y2="0.08" stroke="#0F1413" stroke-opacity=".35" stroke-width="0.012"/>
+                </pattern>
+              </defs>
+              <rect x="-400" y="-400" width="1700" height="1400" fill="#6595B7"/>
+              <image href="/assets/img/platform-map/bali-terrain.webp" x="0" y="18" width="810" height="552" preserveAspectRatio="none"/>
+              <image href="/assets/img/platform-map/bali-south.webp" x="384" y="372" width="156" height="156" preserveAspectRatio="none"/>
+              
+              <g id="mc-parcel" class="mc-lyr">
+                <rect class="mc-plot" x="422.100" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="423.360" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="424.620" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="425.880" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="427.140" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="428.400" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="429.660" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="430.920" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="432.180" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="433.440" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="434.700" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="435.960" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="437.220" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="438.480" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="439.740" y="483.390" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="422.100" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="423.360" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="424.620" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="425.880" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="427.140" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="428.400" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="429.660" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="430.920" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="432.180" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="433.440" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="434.700" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="435.960" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="437.220" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="438.480" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="439.740" y="484.350" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="422.100" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="423.360" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="424.620" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="425.880" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="427.140" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="428.400" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="429.660" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="430.920" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="432.180" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="433.440" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="434.700" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="435.960" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="437.220" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="438.480" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="439.740" y="485.310" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="422.100" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="423.360" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="424.620" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="425.880" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="427.140" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="428.400" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="429.660" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="430.920" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="432.180" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="433.440" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="434.700" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="435.960" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="437.220" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="438.480" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="439.740" y="486.270" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="422.100" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="423.360" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="424.620" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="425.880" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="427.140" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="428.400" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="429.660" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="432.180" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="433.440" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="434.700" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="435.960" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="437.220" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="438.480" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="439.740" y="487.230" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="422.100" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="423.360" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="424.620" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="425.880" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="427.140" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="428.400" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="429.660" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="430.920" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="432.180" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="433.440" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="434.700" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="435.960" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="437.220" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="438.480" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="439.740" y="488.570" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="422.100" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="423.360" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="424.620" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="425.880" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="427.140" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="428.400" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="429.660" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="430.920" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="432.180" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="433.440" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="434.700" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="435.960" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="437.220" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="438.480" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="439.740" y="489.530" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="422.100" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="423.360" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="424.620" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="425.880" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="427.140" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="428.400" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="429.660" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="430.920" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="432.180" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="433.440" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="434.700" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="435.960" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="437.220" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="438.480" y="490.490" width="1.2" height="0.9"/>
+<rect class="mc-plot" x="439.740" y="490.490" width="1.2" height="0.9"/>
+<line class="mc-road" style="display:none" x1="425.52" y1="488.350" x2="437.52" y2="488.350"/>
+                <rect class="mc-plot mc-t" x="430.920" y="487.230" width="1.2" height="0.9"/>
+              </g>
+              <g id="mc-zone" class="mc-lyr"><rect class="mc-zone" x="425.850" y="485.280" width="7.560" height="2.880"/></g>
+              <g id="mc-ztarget" class="mc-lyr"><rect class="mc-plot mc-t" x="430.920" y="487.230" width="1.2" height="0.9"/></g>
+              <g id="mc-house" class="mc-lyr"><rect class="mc-fp" x="431.140" y="487.430" width="0.760" height="0.500"/>
+<rect class="mc-col" x="431.110" y="487.400" width="0.06" height="0.06"/>
+<rect class="mc-col" x="431.110" y="487.900" width="0.06" height="0.06"/>
+<rect class="mc-col" x="431.490" y="487.400" width="0.06" height="0.06"/>
+<rect class="mc-col" x="431.490" y="487.900" width="0.06" height="0.06"/>
+<rect class="mc-col" x="431.870" y="487.400" width="0.06" height="0.06"/>
+<rect class="mc-col" x="431.870" y="487.900" width="0.06" height="0.06"/>
+<path class="mc-wall" d="M431.140 487.930 L431.140 487.430 L431.520 487.430"/>
+<rect class="mc-open" x="431.520" y="487.430" width="0.380" height="0.500"/></g>
+              <g id="mc-pins" class="mc-lyr"><circle class="mc-pin mc-good" cx="441.00" cy="388.80" r="1.9"/><circle class="mc-pin mc-bad" cx="430.80" cy="381.60" r="1.9"/><circle class="mc-pin mc-bad" cx="459.00" cy="412.80" r="1.9"/><circle class="mc-pin mc-bad" cx="465.60" cy="469.20" r="1.9"/><circle class="mc-pin mc-good" cx="493.20" cy="481.20" r="1.9"/><circle class="mc-pin mc-bad" cx="457.20" cy="501.00" r="1.9"/><circle class="mc-ring" cx="431.52" cy="487.68" r="3.6"/><circle class="mc-pin mc-bad" cx="431.52" cy="487.68" r="1.9"/></g>
+            </svg></div>
+            <div class="mc-chip">
+              <span class="mc-tag mc-am" id="mc-t-zone"><i></i>Yellow zone · Residential</span>
+              <span class="mc-tag mc-ink" id="mc-t-house"><i></i>Unfinished structure</span>
+              <span class="mc-tag mc-rd" id="mc-t-dev"><i></i>PT Sample Developer · 7 projects</span>
+            </div>
+            <div class="mc-readout" id="mc-readout">-8.4500 115.1000 · View 76 km</div>
+          </div>
+          <div class="mc-card">
+            <div class="mc-q">
+              <span class="mc-lbl">Location</span>
+              <div class="mc-inp" id="mc-inp"><span class="mc-ph">Paste a Google Maps link or coordinates</span></div>
+              <div class="mc-state" id="mc-state"></div>
+            </div>
+            <ul class="mc-rows" id="mc-rows"></ul>
+            <div class="mc-verdict" id="mc-verdict">
+              <div class="mc-vrow"><span class="mc-lbl">Verdict</span><span class="st unr"><i></i>4 critical findings</span></div>
+              <div class="mc-vtxt"><div class="mc-vbig">High risk</div><div class="mc-vsub">Not suitable for rental investment</div></div>
+              <a class="btn mc-btn" href="/due-diligence">Get the Full Report</a>
+            </div>
+          </div>
+        </div>
+        <div class="ui-foot"><span>Illustrative example with sample data · Not a legal verification</span><span>Elevation: Copernicus DEM GLO-30 © ESA</span></div>
+      </figure>
+    </div>
+  </div>
+</section>
+<script>
+
+{
+  const svg=document.getElementById('mc-mapsvg');
+  const mapBox=svg.parentElement;
+  const rowsEl=document.getElementById('mc-rows');
+  const inp=document.getElementById('mc-inp');
+  const stateEl=document.getElementById('mc-state');
+  const verdict=document.getElementById('mc-verdict');
+  const readout=document.getElementById('mc-readout');
+  const tiltEl=document.getElementById('mc-tilt');
+  const $=id=>document.getElementById('mc-'+id);
+  const P={x:431.52,y:487.68};
+  const LINK='maps.google.com/?q=-8.8128,115.1192';
+
+  const ROWS=[
+    {k:'Location',s:'Pecatu, South Kuta',c:'ok',v:'-8.8128, 115.1192'},
+    {k:'Zoning',s:'Yellow zone · Residential',c:'unr',v:'No short-term rental'},
+    {k:'Construction',s:'Satellite and site records',c:'rev',v:'Unfinished · Work stopped'},
+    {k:'Building permit',s:'PBG',c:'unr',v:'Not found'},
+    {k:'Certificate of function',s:'SLF',c:'unr',v:'Not found'},
+    {k:'Developer',s:'PT Sample Developer',c:'unr',v:'7 projects · 5 not delivered'}
+  ];
+  rowsEl.innerHTML=ROWS.map((r,i)=>`<li id="mc-r${i}"><span class="mc-k">${r.k}<small>${r.s}</small></span><span class="st scr" id="mc-v${i}"><i></i>Pending</span></li>`).join('');
+
+  const VIEWS={
+    bali:{cx:405,cy:318,w:1060,tl:0},
+    bukit:{cx:452,cy:476,w:150,tl:32},
+    plot:{cx:P.x+0.3,cy:P.y+0.9,w:9,tl:48},
+    south:{cx:456,cy:452,w:225,tl:28}
+  };
+  let cam={...VIEWS.bali};
+  function aspect(){return tiltEl.offsetWidth/Math.max(tiltEl.offsetHeight,1)||1.4}
+  function apply(){
+    const tl=cam.tl||0;tiltEl.style.transform=`perspective(1100px) rotateX(${tl.toFixed(2)}deg) scale(${(1+tl/70).toFixed(3)})`;
+    const a=aspect();
+    let w=cam.w,h=w/a;
+    if(cam.w>=800&&h<840){h=840;w=h*a}
+    svg.setAttribute('viewBox',`${(cam.cx-w/2).toFixed(3)} ${(cam.cy-h*0.68).toFixed(3)} ${w.toFixed(3)} ${h.toFixed(3)}`);
+    const lat=-(cam.cy/600+8),lon=cam.cx/600+114.4,km=w/600*110;
+    readout.textContent=`${lat.toFixed(4)} ${lon.toFixed(4)} · View ${km<1?Math.round(km*1000)+' m':Math.round(km)+' km'}`;
+  }
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  let raf=null;
+  function fly(to,ms){
+    cancelAnimationFrame(raf);
+    const from={...cam},t0=performance.now();
+    const lw0=Math.log(from.w),lw1=Math.log(to.w);
+    const step=now=>{
+      const t=Math.min((now-t0)/ms,1),e=ease(t);
+      cam={cx:from.cx+(to.cx-from.cx)*e,cy:from.cy+(to.cy-from.cy)*e,w:Math.exp(lw0+(lw1-lw0)*e),tl:(from.tl||0)+((to.tl||0)-(from.tl||0))*e};
+      apply();
+      if(t<1)raf=requestAnimationFrame(step);
+    };
+    raf=requestAnimationFrame(step);
+  }
+  const on=(id,v=true)=>$(id).classList.toggle('mc-on',v);
+  function resolve(i){
+    const r=ROWS[i],el=$('v'+i);
+    el.className='st '+r.c;el.innerHTML=`<i></i>${r.v}`;
+    $('r'+i).classList.add('mc-live');
+  }
+  function reset(){
+    cam={...VIEWS.bali};apply();
+    ['parcel','zone','ztarget','house','pins','t-zone','t-house','t-dev'].forEach(id=>on(id,false));
+    ROWS.forEach((r,i)=>{const el=$('v'+i);el.className='st scr';el.innerHTML='<i></i>Pending';$('r'+i).classList.remove('mc-live')});
+    inp.innerHTML='<span class="mc-ph">Paste a Google Maps link or coordinates</span>';
+    stateEl.textContent='';verdict.classList.remove('mc-on');
+  }
+  function final(){
+    cam={...VIEWS.south};apply();
+    ['parcel','zone','ztarget','pins','t-dev'].forEach(id=>on(id,true));
+    ROWS.forEach((r,i)=>resolve(i));
+    inp.textContent=LINK;stateEl.textContent='Plot found · 6 checks complete';
+    verdict.classList.add('mc-on');
+  }
+
+  let timers=[],running=false;
+  const at=(ms,fn)=>timers.push(setTimeout(fn,ms));
+  function stop(){timers.forEach(clearTimeout);timers=[];cancelAnimationFrame(raf);running=false}
+  function play(){
+    stop();running=true;reset();
+    at(500,()=>{let n=0;inp.innerHTML='<span id="mc-typed"></span><span class="mc-caret"></span>';const tp=$('typed');const iv=setInterval(()=>{tp.textContent=LINK.slice(0,++n);if(n>=LINK.length)clearInterval(iv)},38);timers.push(iv)});
+    at(2100,()=>{stateEl.textContent='Locating plot…';fly(VIEWS.bukit,1500)});
+    at(3600,()=>{fly(VIEWS.plot,1400)});at(4300,()=>on('parcel'));
+    at(5000,()=>{stateEl.textContent='Plot found · Running checks';resolve(0)});
+    at(5700,()=>{on('zone');on('ztarget');on('t-zone');resolve(1)});
+    at(6500,()=>{on('house');on('t-house');resolve(2)});
+    at(7200,()=>resolve(3));
+    at(7800,()=>resolve(4));
+    at(8500,()=>{on('house',false);on('t-house',false);on('t-zone',false);fly(VIEWS.south,1500)});
+    at(9300,()=>{on('pins');on('t-dev');resolve(5)});
+    at(10300,()=>{stateEl.textContent='Plot found · 6 checks complete';verdict.classList.add('mc-on')});
+    at(14800,()=>{if(running)play()});
+  }
+
+  const still=matchMedia('(max-width:767px), (prefers-reduced-motion: reduce)');
+  function start(){if(still.matches){stop();final()}else play()}
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){if(!running)start()}else if(!still.matches){stop()}})},{threshold:.35});
+  io.observe(document.querySelector('#map-check .mc-demo'));
+  const ro=new ResizeObserver(()=>apply());ro.observe(mapBox);
+  still.addEventListener('change',start);
+  apply();
+}
+
+</script>
 <!-- 2 · LAND & ZONING INTELLIGENCE -->
 <section id="land-zoning" class="sec" style="border-top: 1px solid #E2E0D9">
   <div class="wrap split">
