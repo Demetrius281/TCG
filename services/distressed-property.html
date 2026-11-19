@@ -472,6 +472,13 @@ main > section.hero .hero-h1{line-height:1.04 !important}
 </style>
 <style>.mobile-home{display:none}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
+<style id="tcg-hero-alignment">
+/* Consistent homepage heading scale and top offset across pages */
+@media (min-width:1024px){main > #top.hero{padding-top:96px !important}#top .hero-h1{font-size:60px !important;line-height:1.04 !important}}
+@media (min-width:768px) and (max-width:1023px){main > #top.hero{padding-top:clamp(64px,9vw,120px) !important}#top .hero-h1{font-size:36px !important;line-height:1.04 !important}}
+@media (max-width:767px){main > #top.hero{padding-top:20px !important}#top .hero-h1{font-size:36px !important;line-height:1.04 !important;margin-top:0 !important}}
+@media (min-width:768px){#top .hero-grid{align-items:start !important}}
+</style>
 <style>@media (min-width:768px){.track-title-mobile,.distressed-copy-mobile,.compliance-title-mobile{display:none}}</style>
 
 <style id="tcg-buyout-asset-grid-fix">
@@ -515,7 +522,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- HERO -->
 <section id="top" class="hero"><div class="hero-grid">
   <div class="hero-txt">
-    <span class="eyebrow">Distressed Property Buyout</span>
     <h1 class="hero-h1">Your Project Has Stalled. Recover Your Capital Through a Direct Buyout</h1>
     <p class="hero-p"><span class="distressed-copy-desktop">Every month on hold adds cost and shortens the lease. We assess unfinished and permit-constrained villas for acquisition, with site visits within 48 hours of initial approval.</span><span class="distressed-copy-mobile">Every month on hold adds cost and shortens the lease. We assess unfinished and permit-constrained villas for acquisition, with site visits within 48 hours of initial approval.</span></p>
     
