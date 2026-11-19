@@ -546,6 +546,13 @@ section#top .hero-h1{line-height:1.04 !important}
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
+<style id="tcg-hero-alignment">
+/* Consistent homepage heading scale and top offset across pages */
+@media (min-width:1024px){#top{padding-top:96px !important}#top .hero-h1{font-size:60px !important;line-height:1.04 !important}}
+@media (min-width:768px) and (max-width:1023px){#top{padding-top:clamp(64px,9vw,120px) !important}#top .hero-h1{font-size:36px !important;line-height:1.04 !important}}
+@media (max-width:767px){#top{padding-top:20px !important}#top .hero-h1{font-size:36px !important;line-height:1.04 !important;margin-top:0 !important}}
+@media (min-width:768px){#top .hero-grid{align-items:start !important}}
+</style>
 <style>@media (min-width:768px){.track-title-mobile,.distressed-eyebrow-mobile,.distressed-copy-mobile,.compliance-title-mobile,.land-eyebrow-mobile{display:none}}</style>
 
 <style id="tcg-home-technology">
