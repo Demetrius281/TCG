@@ -842,9 +842,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 @keyframes mc-blink{50%{opacity:0}}
 #map-check .mc-state{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#5B6461;min-height:18px}
 #map-check .mc-rows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-#map-check .mc-rows li{display:flex;justify-content:space-between;align-items:center;gap:4px 16px;padding:8px 20px;border-bottom:1px solid #ECEAE4;font-size:14px;line-height:1.35;flex-wrap:wrap;opacity:.35;transition:opacity .3s ease}
+#map-check .mc-rows li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);align-items:center;column-gap:12px;padding:8px 20px;border-bottom:1px solid #ECEAE4;font-size:14px;line-height:1.35;opacity:.35;transition:opacity .3s ease}
 #map-check .mc-rows li.mc-live{opacity:1}
-#map-check .mc-rows .st{display:inline-flex;align-items:flex-start;justify-content:flex-start;gap:9px;max-width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere;text-align:left}
+#map-check .mc-rows .st{display:inline-flex;align-items:center;justify-self:end;gap:9px;max-width:100%;min-width:0;white-space:normal;overflow-wrap:break-word;text-align:left}
 #map-check .mc-rows .st i,#map-check .mc-verdict .st i{display:block;flex:0 0 8px;width:8px;height:8px;margin-top:4px}
 #map-check .mc-rows .st.rev{color:#9A6D12}
 #map-check .mc-rows .st.ok{color:#1F6B5A}
@@ -868,7 +868,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 #map-check.mc-sec{min-height:0}
 #map-check .ui-top{padding:10px 16px}
 #map-check .mc-rows li{display:grid;grid-template-columns:minmax(0,1fr);padding:12px 16px;gap:4px;align-items:start;justify-content:start;overflow-wrap:break-word}
-#map-check .mc-rows li .st{display:inline-flex;align-items:flex-start;justify-content:flex-start;gap:9px;max-width:100%;width:fit-content;min-width:0;text-align:left;white-space:normal;overflow-wrap:anywhere}
+#map-check .mc-rows li .st{display:inline-flex;align-items:flex-start;justify-self:start;justify-content:flex-start;gap:9px;max-width:100%;width:fit-content;min-width:0;text-align:left;white-space:normal;overflow-wrap:anywhere}
 #map-check .mc-rows li .mc-k{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
 #map-check .mc-rows li .mc-k small{white-space:normal}
 #map-check .mc-verdict,#map-check .mc-vrow{min-width:0;overflow-wrap:anywhere}
