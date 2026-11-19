@@ -735,7 +735,7 @@ form.addEventListener('submit',function(e){e.preventDefault();
 var loc=form.elements.location,name=form.elements.name,terms=form.elements.terms,details=form.elements.description.value.trim();
 var fields=[{ok:!!name.value.trim(),el:name,id:'lr-name-error',msg:'Add your name.'},{ok:terms.checked,el:terms,id:'lr-terms-error',group:'lr-terms-wrap',msg:'Accept the terms to continue.'}];
 var first=null;fields.forEach(function(f){document.getElementById(f.id).textContent=f.ok?'':f.msg;f.el.setAttribute('aria-invalid',String(!f.ok));if(f.group)document.getElementById(f.group).setAttribute('aria-invalid',String(!f.ok));if(!f.ok&&!first)first=f.el;});if(first){first.focus();return;}
-var message='Hello TCG, I would like a confidential case review for Property Legalization.\\n\\n'+'Name: '+name.value.trim()+(details?'\\nHow can we help?: '+details:'')+(loc.value.trim()?'\\nProperty location: '+loc.value.trim():'');
+var message='Hello TCG, I would like a confidential case review for Property Legalization.\n\n'+'Name: '+name.value.trim()+(details?'\nSituation: '+details:'')+(loc.value.trim()?'\nProperty location: '+loc.value.trim():'');
 var url='https://wa.me/6281337973097?text='+encodeURIComponent(message);var tab=window.open(url,'_blank');if(tab)tab.opener=null;
 if(window.dataLayer)window.dataLayer.push({event:'whatsapp_click',location:'legalization_form'});
 document.getElementById('lr-reopen').href=url;form.hidden=true;done.hidden=false;done.querySelector('h3').focus();});
