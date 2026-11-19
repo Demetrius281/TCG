@@ -225,11 +225,11 @@ a{color:#0E5A55}
 /* Early interest & strategic partnerships (dark, full-bleed) */
 .ei{background:#161D1C;color:#E8E6E0;border-top:1px solid #2A3331;padding:clamp(72px,9vw,120px) 0}
 .ei .eyebrow{color:#9BA3A0}
-.ei .h2{color:#F6F5F1;max-width:16ch}
+.ei .h2{color:#F6F5F1}
 .ei .lead{color:#B9C0BD;max-width:52ch}
 .ei-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:48px;align-items:start}
 @media (min-width:1024px){.ei-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:64px}}
-.ei-copy{display:flex;flex-direction:column;gap:20px}
+.ei-copy{display:flex;flex-direction:column}
 .stage{margin:8px 0 0;padding:0;border-top:1px solid #2F3A38;display:flex;flex-direction:column}
 .stage p{margin:0;padding:12px 0;border-bottom:1px solid #2F3A38;font-size:15px;line-height:1.5;color:#E8E6E0}
 .stage span{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.04em;color:#9BA3A0;margin-right:6px}
@@ -415,10 +415,8 @@ main > section.hero h1{line-height:1.04 !important}
 /* Section 03: investor acquisition showcase */
 #portfolio-monitoring.investment-showcase{padding:clamp(56px,6.5vw,88px) 0;background:#F6F5F1}
 #portfolio-monitoring .investment-showcase-layout{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1.08fr);column-gap:clamp(36px,5vw,72px);align-items:center}
-#portfolio-monitoring .investment-showcase-copy{min-width:0;display:flex;flex-direction:column;gap:22px}
-#portfolio-monitoring .investment-showcase-copy h2{font-size:clamp(35px,3.35vw,48px);max-width:13.2ch}
-#portfolio-monitoring .investment-showcase-copy .lead{font-size:16px;line-height:1.56}
-#portfolio-monitoring .investment-showcase-copy .investment-intro{font-weight:500;color:#0F1413;font-size:17px}
+#portfolio-monitoring .investment-showcase-copy{min-width:0;display:flex;flex-direction:column}
+#portfolio-monitoring .investment-showcase-copy .investment-intro{font-weight:500;color:#0F1413}
 #portfolio-monitoring .investment-profit{display:flex;align-items:flex-start;gap:17px;padding-top:22px;margin-top:5px;border-top:1px solid #8E9692}
 #portfolio-monitoring .investment-profit-icon{flex:0 0 39px;height:39px;display:flex;align-items:center;justify-content:center;background:#0E5A55;color:#fff;border-radius:5px}
 #portfolio-monitoring .investment-profit-icon svg{width:25px;height:25px}
@@ -448,7 +446,7 @@ main > section.hero h1{line-height:1.04 !important}
 #portfolio-monitoring .investment-case-facts>div>span:last-child{font-size:12px;line-height:1.45;text-align:right;color:#5B6461}
 #portfolio-monitoring .investment-case-disclaimer{margin:5px 0 0;padding-top:13px;border-top:1px solid #ECEAE4;color:#6B7470;font-size:10px;line-height:1.5}
 @media (max-width:1100px) and (min-width:768px){#portfolio-monitoring .investment-case-prices strong{font-size:clamp(20px,2.7vw,28px)}#portfolio-monitoring .investment-case-prices>div:nth-child(2){padding-left:16px}}
-@media (max-width:767px){#portfolio-monitoring .investment-showcase-layout{grid-template-columns:1fr;gap:32px}#portfolio-monitoring .investment-showcase-copy{gap:18px}#portfolio-monitoring .investment-showcase-copy h2{max-width:none;font-size:clamp(34px,8.5vw,44px)}#portfolio-monitoring .investment-case{padding:16px}#portfolio-monitoring .investment-case-photo{height:clamp(180px,50vw,260px)}}
+@media (max-width:767px){#portfolio-monitoring .investment-showcase-layout{grid-template-columns:1fr;gap:32px}#portfolio-monitoring .investment-case{padding:16px}#portfolio-monitoring .investment-case-photo{height:clamp(180px,50vw,260px)}}
 @media (max-width:400px){#portfolio-monitoring .investment-case-prices strong{font-size:clamp(17px,5.1vw,21px)}#portfolio-monitoring .investment-case-prices>div:nth-child(2){padding-left:12px}#portfolio-monitoring .investment-case-facts>div{align-items:flex-start;flex-direction:column;gap:7px}#portfolio-monitoring .investment-case-facts>div>span:last-child{text-align:left}}
 </style>
 <style>.mobile-home,.platform-how-intro{display:none}.platform-how{display:contents}</style>
@@ -486,7 +484,6 @@ main > section.hero h1{line-height:1.04 !important}
 #top .hero-cta{margin-top:26px}
 @media (min-width:768px) and (max-width:1023px){
   #portfolio-monitoring .investment-showcase-layout{grid-template-columns:minmax(0,1fr);gap:36px}
-  #portfolio-monitoring .investment-showcase-copy h2{max-width:19ch}
   #portfolio-monitoring .investment-case{max-width:720px}
   #property-dossier .dd-layout{grid-template-columns:minmax(0,1fr);gap:36px}
 }
@@ -496,9 +493,6 @@ main > section.hero h1{line-height:1.04 !important}
   .platform-page .wrap{padding-left:20px!important;padding-right:20px!important;min-width:0}
   .platform-page :is(.split,.hero-grid,.dd-layout,.investment-showcase-layout,.ei-grid){min-width:0}
   .platform-page :is(.sec,.arch-sec,.ei){padding-top:56px!important;padding-bottom:56px!important}
-  .platform-page :is(.sec .h2,.arch-sec .h2,.ei .h2){font-size:30px!important;line-height:1.08;letter-spacing:-.025em;text-wrap:balance}
-  .platform-page .lead{margin:0;font-size:16px;line-height:1.6}
-  .platform-page .txt{gap:18px}
   .platform-page .eyebrow{font-size:11px;line-height:1.5}
   .platform-page section[id]{scroll-margin-top:64px}
   /* No decorative motion or oversized diagram in mobile Hero. */
@@ -531,9 +525,6 @@ main > section.hero h1{line-height:1.04 !important}
   #property-dossier .dd-cta{width:100%;box-sizing:border-box;justify-content:space-between;padding-inline:18px}
   /* Investments: full-width photographic case; avoid narrow price columns. */
   #portfolio-monitoring .investment-showcase-layout{grid-template-columns:minmax(0,1fr);gap:30px}
-  #portfolio-monitoring .investment-showcase-copy{gap:18px}
-  #portfolio-monitoring .investment-showcase-copy h2{max-width:none;font-size:30px!important;line-height:1.08}
-  #portfolio-monitoring .investment-showcase-copy .lead{font-size:16px;line-height:1.6}
   #portfolio-monitoring .investment-profit{margin-top:1px;padding-top:18px}
   #portfolio-monitoring .investment-case{padding:16px}
   #portfolio-monitoring .investment-case-top{flex-wrap:wrap;gap:8px}
@@ -560,7 +551,6 @@ main > section.hero h1{line-height:1.04 !important}
   #technology .note{font-size:13px;line-height:1.55}
   /* Investment form: one column, readable labels and full-width submit. */
   #express-interest .ei-grid{grid-template-columns:minmax(0,1fr);gap:30px}
-  #express-interest .ei-copy{gap:18px}
   #express-interest .ei-panel{padding:20px;gap:20px}
   #express-interest .ei-form{grid-template-columns:minmax(0,1fr);gap:16px}
   #express-interest .ei-form .full{grid-column:1/-1}
@@ -582,11 +572,8 @@ main > section.hero h1{line-height:1.04 !important}
 <style>
 /* Narrow-screen text alignment and overflow safeguards for platform sections */
 @media (max-width:767px){
-  #map-check .mc-demo,#map-check .mc-card,#map-check .mc-rows,#map-check .mc-q{min-width:0;max-width:100%}
-  #map-check .mc-q .mc-inp{max-width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis}
   #land-zoning .txt,#land-zoning .intelligence-grid,#technology .wrap,#governance .wrap,#portfolio-monitoring .wrap{min-width:0;max-width:100%}
   #land-zoning .intelligence-card,#technology .node,#technology .engine,#technology .mod,#portfolio-monitoring .investment-case{min-width:0;overflow-wrap:break-word}
-  #land-zoning h2,#technology h2,#governance h2,#portfolio-monitoring h2{overflow-wrap:break-word;hyphens:auto}
 }
 </style>
 
@@ -602,58 +589,15 @@ main > section.hero h1{line-height:1.04 !important}
 </style>
 
 <style id="platform-typography-consistency">
-/* Third-screen Market Gap is the reference for all section headings except Hero. */
-.platform-page > section:not(#top) .h2{
-  font-size:clamp(32px,4vw,52px)!important;
-  line-height:1.05!important;
-  font-weight:500;
-  letter-spacing:-.025em!important;
-  white-space:normal!important;
-  text-wrap:balance;
-  max-width:100%;
-  overflow-wrap:normal;
-}
-.platform-page > section:not(#top) .lead{
-  font-size:17px!important;
-  line-height:1.6!important;
-  font-weight:400;
-}
-.platform-page #market-gap .mg-head,
-.platform-page #map-check .mc-head,
-.platform-page #governance .gov-intro,
-.platform-page #land-zoning .txt,
-.platform-page #portfolio-monitoring .investment-showcase-copy,
-.platform-page #express-interest .ei-copy{
-  gap:20px;
-}
-.platform-page #portfolio-monitoring .investment-showcase-copy h2{max-width:100%}
+/* Match the Market Gap type scale and spacing across section intros. */
+.platform-page > section:not(#top) .h2{text-wrap:balance}
+.platform-page :is(.mg-head,.mc-head,.gov-intro,.txt,.investment-showcase-copy,.ei-copy){gap:20px}
 .platform-page #top .hero-metric strong{font-size:16px!important;line-height:1.45;white-space:normal!important;overflow-wrap:break-word}
 @media(max-width:767px){
-  .platform-page > section:not(#top) .h2{
-    font-size:30px!important;
-    line-height:1.08!important;
-  }
-  .platform-page > section:not(#top) .lead{
-    font-size:16px!important;
-    line-height:1.6!important;
-  }
-  .platform-page #market-gap .mg-head,
-  .platform-page #map-check .mc-head,
-  .platform-page #governance .gov-intro,
-  .platform-page #land-zoning .txt,
-  .platform-page #portfolio-monitoring .investment-showcase-copy,
-  .platform-page #express-interest .ei-copy{
-    gap:18px;
-  }
+  .platform-page > section:not(#top) .h2{font-size:30px;line-height:1.08}
+  .platform-page > section:not(#top) .lead{font-size:16px}
+  .platform-page :is(.mg-head,.mc-head,.gov-intro,.txt,.investment-showcase-copy,.ei-copy){gap:18px}
   .platform-page #top .hero-metric strong{font-size:15px!important}
-}
-</style>
-<style id="platform-architecture-heading-width">
-/* The architecture heading spans the diagram width, without shrinking its type. */
-#technology .split{display:block}
-#technology .split .txt{width:100%;max-width:none}
-@media(min-width:768px){
-  #technology .split .h2{white-space:nowrap!important;text-wrap:nowrap}
 }
 </style>
 </head>
@@ -775,12 +719,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Market challenge informed by independent 2026 research -->
 <style>
 #market-gap{background:#F6F4EE;border-top:1px solid #E2E0D9}
-#market-gap .mg-head{max-width:860px;display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+#market-gap .mg-head{display:flex;flex-direction:column;align-items:flex-start}
+#market-gap .mg-head .lead{max-width:860px}
 #market-gap .mg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
 #market-gap .mg-card{padding:clamp(20px,2.3vw,30px);background:#FBFAF7;border:1px solid #DAD7CF;min-width:0}
 #market-gap .mg-card h3{font-size:clamp(18px,2vw,22px);font-weight:550;line-height:1.25;letter-spacing:-.03em;margin:0 0 12px;overflow-wrap:break-word}
 #market-gap .mg-card p{font-size:15px;line-height:1.6;color:#46514D;margin:0;overflow-wrap:break-word}
-@media(max-width:767px){#market-gap .mg-head{gap:18px}#market-gap .mg-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:28px}#market-gap .mg-card{padding:20px}#market-gap .mg-card h3{font-size:19px}}
+@media(max-width:767px){#market-gap .mg-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:28px}#market-gap .mg-card{padding:20px}#market-gap .mg-card h3{font-size:19px}}
 </style>
 <section id="market-gap" class="sec" aria-labelledby="mg-title">
 <div class="wrap">
@@ -798,16 +743,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- 2 · MAP CHECK (new screen, inserted after the hero) -->
 <style>
-#map-check.mc-sec{min-height:100vh;display:flex;flex-direction:column;padding:clamp(40px,5vw,64px) 0 clamp(28px,3vw,40px);border-top:1px solid #E2E0D9;box-sizing:border-box}
+#map-check.mc-sec{padding:clamp(40px,5vw,64px) 0 clamp(28px,3vw,40px);border-top:1px solid #E2E0D9}
 #map-check *{box-sizing:border-box;min-width:0}
-#map-check>.wrap{width:100%}
-#map-check .mc-head{display:flex;flex-direction:column;gap:18px}
-#map-check .mc-head>*{max-width:960px}
-@media (min-width:1100px){#map-check .mc-head h2{font-size:clamp(34px,3vw,43px);white-space:nowrap}}
-#map-check .mc-stage{flex:1;display:flex;margin-top:clamp(28px,3.5vw,44px)}
-#map-check .mc-stage .wrap{display:flex;width:100%}
-#map-check .mc-demo{flex:1;display:flex;flex-direction:column;margin:0;background:#FFFFFF;border:1px solid #E2E0D9;min-height:560px;height:auto;max-height:none}
-#map-check .mc-body{flex:1;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);min-height:0}
+#map-check .mc-head{display:flex;flex-direction:column}
+#map-check .mc-head .lead{max-width:960px}
+#map-check .mc-stage{margin-top:clamp(28px,3.5vw,44px)}
+#map-check .mc-demo{--panel-inset:clamp(16px,1.7vw,20px);margin:0;background:#FFFFFF;border:1px solid #E2E0D9}
+#map-check .mc-body{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,1fr)}
 #map-check .mc-map{position:relative;background:#6595B7;border-right:1px solid #E2E0D9;overflow:hidden}
 #map-check .mc-map *{vector-effect:non-scaling-stroke}
 #map-check .mc-tilt{position:absolute;left:-12%;right:-12%;top:-60%;bottom:0;transform-origin:50% 68%;will-change:transform}
@@ -833,57 +775,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 #map-check .mc-tag.mc-rd i{background:#A23B2A}
 #map-check .mc-tag.mc-ink i{background:#0F1413}
 #map-check .mc-readout{position:absolute;left:16px;bottom:14px;z-index:2;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.04em;color:#5B6461;font-variant-numeric:tabular-nums;background:rgba(251,250,247,.85);padding:4px 6px}
-#map-check .mc-card{display:flex;flex-direction:column;min-height:0;overflow:visible}
-#map-check .mc-q{padding:14px 20px 12px;border-bottom:1px solid #E2E0D9;display:flex;flex-direction:column;gap:8px}
-#map-check .mc-lbl{font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5B6461}
-#map-check .mc-inp{display:flex;align-items:center;min-height:42px;padding:0 14px;border:1px solid #D2CFC7;background:#FBFAF7;font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#0F1413;overflow:hidden;white-space:nowrap}
+#map-check .mc-q{padding:14px var(--panel-inset) 12px;border-bottom:1px solid #E2E0D9;display:flex;flex-direction:column;gap:8px}
+#map-check .mc-lbl{line-height:1.4;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5B6461}
+#map-check .mc-inp{display:flex;align-items:center;min-height:42px;padding:0 14px;border:1px solid #D2CFC7;background:#FBFAF7;font-family:'Geist Mono',ui-monospace,monospace;font-size:13px;color:#0F1413;overflow-wrap:anywhere}
 #map-check .mc-ph{color:#9BA3A0}
 #map-check .mc-caret{display:inline-block;width:1px;height:16px;background:#0E5A55;margin-left:2px;animation:mc-blink 1s steps(1) infinite}
 @keyframes mc-blink{50%{opacity:0}}
-#map-check .mc-state{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#5B6461;min-height:18px}
-#map-check .mc-rows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-#map-check .mc-rows li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);align-items:center;column-gap:12px;padding:8px 20px;border-bottom:1px solid #ECEAE4;font-size:14px;line-height:1.35;opacity:.35;transition:opacity .3s ease}
+#map-check .mc-state{line-height:1.5;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#5B6461;min-height:18px}
+#map-check .mc-rows{list-style:none;margin:0;padding:0;display:grid;grid-auto-rows:1fr}
+#map-check .mc-rows li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,240px);align-items:center;gap:12px;padding:7px var(--panel-inset);border-bottom:1px solid #ECEAE4;font-size:14px;line-height:1.35;opacity:.35;transition:opacity .3s ease}
+#map-check .mc-rows li:last-child{border-bottom:0}
 #map-check .mc-rows li.mc-live{opacity:1}
-#map-check .mc-rows .st{display:inline-flex;align-items:center;justify-self:end;gap:9px;max-width:100%;min-width:0;white-space:normal;overflow-wrap:break-word;text-align:left}
-#map-check .mc-rows .st i,#map-check .mc-verdict .st i{display:block;flex:0 0 8px;width:8px;height:8px;margin-top:4px}
+#map-check .mc-rows .st{display:flex;align-items:flex-start;gap:8px;line-height:1.35;white-space:normal;overflow-wrap:anywhere}
+#map-check .mc-rows .st i{margin-top:calc((1lh - 8px) / 2)}
 #map-check .mc-rows .st.rev{color:#9A6D12}
 #map-check .mc-rows .st.ok{color:#1F6B5A}
 #map-check .mc-rows .st.unr{color:#A23B2A}
 #map-check .mc-rows .st.scr{color:#5B6461}
 #map-check .mc-k{color:#0F1413}
 #map-check .mc-k small{display:block;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#5B6461;margin-top:2px}
-#map-check .mc-verdict{padding:18px 20px 20px;border-top:1px solid #D9D5CD;background:#F6F4EE;display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-top:0;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
-#map-check .mc-verdict.mc-on{opacity:1;transform:none}
-#map-check .mc-vrow{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:8px;width:100%}
-#map-check .mc-vtxt{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%}
-#map-check .mc-vbig{font-size:clamp(20px,2vw,24px);font-weight:550;line-height:1.25;letter-spacing:-.025em;color:#A23B2A;overflow-wrap:anywhere}
-#map-check .mc-vsub{margin:0;width:100%;font-size:13px;line-height:1.6;color:#3E4744;white-space:normal;overflow-wrap:break-word;max-width:none}
-#map-check .mc-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;background:#0E5A55;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:500}
+#map-check .mc-verdict{padding:14px var(--panel-inset) 16px;border-top:1px solid #D9D5CD;background:#F6F4EE;display:grid;gap:6px;opacity:0;transition:opacity .4s ease}
+#map-check .mc-verdict.mc-on{opacity:1}
+#map-check .mc-vbig{font-size:20px;font-weight:550;line-height:1.25;letter-spacing:-.025em;color:#A23B2A}
+#map-check .mc-vsub{margin:0;font-size:13px;line-height:1.5;color:#3E4744}
+@media (min-width:1024px) and (max-width:1100px){
+#map-check .mc-body{grid-template-columns:minmax(0,.87fr) minmax(0,1fr)}
+}
 @media (max-width:1023px){
-#map-check .mc-demo{height:auto;max-height:none;min-height:0}
 #map-check .mc-body{grid-template-columns:minmax(0,1fr)}
-#map-check .mc-map{aspect-ratio:4/3;border-right:0;border-bottom:1px solid #E2E0D9}
+#map-check .mc-map{aspect-ratio:16/9;border-right:0;border-bottom:1px solid #E2E0D9}
 }
 @media (max-width:767px){
-#map-check.mc-sec{min-height:0}
-#map-check .ui-top{padding:10px 16px}
-#map-check .mc-rows li{display:grid;grid-template-columns:minmax(0,1fr);padding:12px 16px;gap:4px;align-items:start;justify-content:start;overflow-wrap:break-word}
-#map-check .mc-rows li .st{display:inline-flex;align-items:flex-start;justify-self:start;justify-content:flex-start;gap:9px;max-width:100%;width:fit-content;min-width:0;text-align:left;white-space:normal;overflow-wrap:anywhere}
-#map-check .mc-rows li .mc-k{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
-#map-check .mc-rows li .mc-k small{white-space:normal}
-#map-check .mc-verdict,#map-check .mc-vrow{min-width:0;overflow-wrap:anywhere}
-#map-check .mc-q,#map-check .mc-verdict{padding-left:16px;padding-right:16px}
-#map-check .mc-verdict{grid-template-columns:minmax(0,1fr)}
-#map-check .mc-vbig{font-size:20px}
-#map-check .mc-vsub{white-space:normal}
+#map-check .ui-top{padding:10px var(--panel-inset)}
 #map-check .mc-map{aspect-ratio:16/10;min-height:210px}
-#map-check .mc-head{gap:12px}
-#map-check .mc-head .lead{font-size:16px;line-height:1.5}
-#map-check .mc-demo{width:100%;min-height:0;height:auto;overflow:hidden}
-#map-check .mc-card{overflow:visible}
-#map-check .mc-verdict{margin-top:0;gap:8px}
-#map-check .mc-vrow{align-items:flex-start}
-#map-check .mc-vbig{font-size:22px}
+#map-check .mc-rows{grid-auto-rows:auto}
+#map-check .mc-rows li,#map-check .mc-verdict,#map-check .mc-lyr{transition:none}
+#map-check .mc-rows li{grid-template-columns:minmax(0,1fr);gap:4px;padding-block:10px}
 #map-check .mc-readout,#map-check .mc-chip{display:none}
 }
 @media (prefers-reduced-motion:reduce){#map-check *{transition:none !important;animation:none !important}}
@@ -895,7 +822,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <div class="mc-stage">
     <div class="wrap">
-      <figure class="mc-demo" style="margin:0" aria-label="Illustrative property check on a map of Bali">
+      <figure class="mc-demo" aria-label="Illustrative property check on a map of Bali">
         <div class="ui-top"><span>TCG Platform · Property Check</span><span class="cp">Concept preview</span></div>
         <div class="mc-body">
           <div class="mc-map">
@@ -1064,11 +991,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <ul class="mc-rows" id="mc-rows"></ul>
             <div class="mc-verdict" id="mc-verdict">
-              <div class="mc-vrow"><span class="mc-lbl">Verdict</span></div>
-              <div class="mc-vtxt">
-                <div class="mc-vbig">High risk · Short-term rentals not permitted</div>
-                <p class="mc-vsub">Illustrative scenario: short-term rentals prohibited; long-term use requires approvals. Construction is 70% complete, with no PBG record. SLF is not yet applicable. Five developer projects remain unfinished. Independently verify permits and developer history before investing.</p>
-              </div>
+              <span class="mc-lbl">Verdict</span>
+              <div class="mc-vbig">High risk · Short-term rentals not permitted</div>
+              <p class="mc-vsub">Illustrative scenario: short-term rentals prohibited; long-term use requires approvals. Construction is 70% complete, with no PBG record. SLF is not yet applicable. Five developer projects remain unfinished. Independently verify permits and developer history before investing.</p>
             </div>
           </div>
         </div>
@@ -1172,28 +1097,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     at(7800,()=>resolve(7));
     at(8500,()=>{on('house',false);on('t-house',false);on('t-zone',false);fly(VIEWS.south,1500)});
     at(9300,()=>{on('pins');on('t-dev');resolve(8)});
-    at(10300,()=>{stateEl.textContent='Plot found · 9 checks complete';verdict.classList.add('mc-on')});
-    at(14800,()=>{if(running)play()});
+    at(10300,()=>{stateEl.textContent='Plot found · 9 checks complete';verdict.classList.add('mc-on');stop()});
   }
 
-  const still=matchMedia('(prefers-reduced-motion: reduce)');
-  function start(){if(still.matches){stop();final()}else play()}
-  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){if(!running)start()}else{stop()}})},{threshold:.12});
-  io.observe(document.querySelector('#map-check .mc-demo'));
+  const still=matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)');
+  const io=new IntersectionObserver(entries=>{
+    if(entries.some(entry=>entry.isIntersecting)&&!running&&!verdict.classList.contains('mc-on'))play();
+  });
+  function present(){
+    if(still.matches){io.disconnect();stop();final()}
+    else if(!verdict.classList.contains('mc-on'))io.observe(document.querySelector('#map-check .mc-demo'));
+  }
   const ro=new ResizeObserver(()=>apply());ro.observe(mapBox);
-  still.addEventListener('change',start);
+  still.addEventListener('change',present);
   apply();
+  present();
 }
 
 </script>
 <!-- 2 · LAND & ZONING INTELLIGENCE -->
 <section id="technology" class="arch-sec">
   <div class="wrap">
-    <div class="split" style="align-items: end">
-      <div class="txt">
-        <h2 class="h2">How the Data Layer Works</h2>
-      </div>
-    </div>
+    <h2 class="h2">How the Data Layer Works</h2>
     <figure class="arch" style="margin-left: 0; margin-right: 0; margin-bottom: 0" aria-label="Property intelligence architecture: three input groups feed the core engine, which produces three outputs">
       <div class="arch-head"><span>Data flow &middot; Input &rarr; Processing &rarr; Output</span><span class="cp">Proprietary Intelligence Architecture</span></div>
       <div class="arch-body">
@@ -1269,18 +1194,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Government and community value: proposed future applications -->
 <style>
 #governance{background:#F6F4EE;border-top:1px solid #E2E0D9}
-#governance .gov-intro{max-width:840px;display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+#governance .gov-intro{display:flex;flex-direction:column;align-items:flex-start}
+#governance .gov-intro .lead{max-width:840px}
 #governance .gov-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:40px}
 #governance .gov-card{border:1px solid #DAD7CF;background:#FBFAF7;padding:clamp(20px,2.5vw,32px);min-width:0}
 #governance .gov-card h3{font-size:clamp(18px,2vw,22px);line-height:1.25;font-weight:550;letter-spacing:-.03em;margin:0 0 10px;overflow-wrap:break-word}
 #governance .gov-card p{font-size:15px;line-height:1.6;color:#46514D;margin:0;overflow-wrap:break-word}
 #governance .gov-note{margin-top:24px;font-size:14px;line-height:1.65;color:#46514D;max-width:900px}
 @media(max-width:767px){
-#governance .gov-intro{gap:18px}
 #governance .gov-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:28px}
 #governance .gov-card{padding:20px}
 #governance .gov-card h3{font-size:19px}
-#governance .gov-intro,#governance .gov-note{max-width:100%;overflow-wrap:break-word}
+#governance .gov-note{overflow-wrap:break-word}
 }
 </style>
 <section id="governance" class="sec" aria-labelledby="gov-title">
