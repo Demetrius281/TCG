@@ -783,9 +783,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 @keyframes mc-blink{50%{opacity:0}}
 #map-check .mc-state{line-height:1.5;font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;color:#5B6461;min-height:18px}
 #map-check .mc-rows{list-style:none;margin:0;padding:0;display:grid;grid-auto-rows:1fr}
-#map-check .mc-rows li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,240px);align-items:center;gap:12px;padding:7px var(--panel-inset);border-bottom:1px solid #ECEAE4;font-size:14px;line-height:1.35;opacity:.35;transition:opacity .3s ease}
+#map-check .mc-rows li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,240px);align-items:center;gap:12px;padding:7px var(--panel-inset);border-bottom:1px solid #ECEAE4;font-size:14px;line-height:1.35}
 #map-check .mc-rows li:last-child{border-bottom:0}
-#map-check .mc-rows li.mc-live{opacity:1}
 #map-check .mc-rows .st{display:flex;align-items:flex-start;gap:8px;line-height:1.35;white-space:normal;overflow-wrap:anywhere}
 #map-check .mc-rows .st i{margin-top:calc((1lh - 8px) / 2)}
 #map-check .mc-rows .st.rev{color:#9A6D12}
@@ -794,8 +793,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 #map-check .mc-rows .st.scr{color:#5B6461}
 #map-check .mc-k{color:#0F1413}
 #map-check .mc-k small{display:block;font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#5B6461;margin-top:2px}
-#map-check .mc-verdict{padding:14px var(--panel-inset) 16px;border-top:1px solid #D9D5CD;background:#F6F4EE;display:grid;gap:6px;opacity:0;transition:opacity .4s ease}
-#map-check .mc-verdict.mc-on{opacity:1}
+#map-check .mc-verdict{padding:14px var(--panel-inset) 16px;border-top:1px solid #D9D5CD;background:#F6F4EE;display:none;gap:6px}
+#map-check .mc-verdict.mc-on{display:grid}
 #map-check .mc-vbig{font-size:20px;font-weight:550;line-height:1.25;letter-spacing:-.025em;color:#A23B2A}
 #map-check .mc-vsub{margin:0;font-size:13px;line-height:1.5;color:#3E4744}
 @media (min-width:1024px) and (max-width:1100px){
@@ -807,9 +806,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 }
 @media (max-width:767px){
 #map-check .ui-top{padding:10px var(--panel-inset)}
-#map-check .mc-map{aspect-ratio:16/10;min-height:210px}
+#map-check .mc-map{width:100%;aspect-ratio:16/10;min-height:210px}
 #map-check .mc-rows{grid-auto-rows:auto}
-#map-check .mc-rows li,#map-check .mc-verdict,#map-check .mc-lyr{transition:none}
+#map-check .mc-lyr{transition:none}
 #map-check .mc-rows li{grid-template-columns:minmax(0,1fr);gap:4px;padding-block:10px}
 #map-check .mc-readout,#map-check .mc-chip{display:none}
 }
@@ -989,7 +988,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div class="mc-inp" id="mc-inp"><span class="mc-ph">Google Maps link</span></div>
               <div class="mc-state" id="mc-state"></div>
             </div>
-            <ul class="mc-rows" id="mc-rows"></ul>
+            <ul class="mc-rows" id="mc-rows">
+              <li>
+                <span class="mc-k">Location<small>Pecatu, South Kuta</small></span>
+                <span class="st scr" data-status="ok" data-result="-8.8128, 115.1192"><i></i><span>Pending</span></span>
+              </li>
+              <li>
+                <span class="mc-k">Zoning<small>Yellow zone · Residential</small></span>
+                <span class="st scr" data-status="rev" data-result="Residential zone"><i></i><span>Pending</span></span>
+              </li>
+              <li>
+                <span class="mc-k">Short-term rental<small>Illustrative zoning use</small></span>
+                <span class="st scr" data-status="unr" data-result="Not permitted"><i></i><span>Pending</span></span>
+              </li>
+              <li>
+                <span class="mc-k">Long-term rental<small>Subject to approvals</small></span>
+                <span class="st scr" data-status="ok" data-result="Permitted in scenario"><i></i><span>Pending</span></span>
+              </li>
+              <li>
+                <span class="mc-k">Residential occupation<small>Private residential use</small></span>
+                <span class="st scr" data-status="ok" data-result="Permitted in scenario"><i></i><span>Pending</span></span>
+              </li>
+              <li>
+                <span class="mc-k">Construction<small>Illustrative progress assessment</small></span>
+                <span class="st scr" data-status="rev" data-result="70% complete · Unfinished"><i></i><span>Pending</span></span>
+              </li>
+              <li>
+                <span class="mc-k">Building permit<small>PBG</small></span>
+                <span class="st scr" data-status="unr" data-result="No record found in sample"><i></i><span>Pending</span></span>
+              </li>
+              <li>
+                <span class="mc-k">Function certificate<small>SLF</small></span>
+                <span class="st scr" data-status="rev" data-result="Not yet applicable · Unfinished"><i></i><span>Pending</span></span>
+              </li>
+              <li>
+                <span class="mc-k">Developer<small>PT Sample Developer</small></span>
+                <span class="st scr" data-status="unr" data-result="7 projects · 5 incomplete"><i></i><span>Pending</span></span>
+              </li>
+            </ul>
             <div class="mc-verdict" id="mc-verdict">
               <span class="mc-lbl">Verdict</span>
               <div class="mc-vbig">High risk · Short-term rentals not permitted</div>
@@ -1007,7 +1043,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 {
   const svg=document.getElementById('mc-mapsvg');
   const mapBox=svg.parentElement;
-  const rowsEl=document.getElementById('mc-rows');
+  const statuses=[...document.querySelectorAll('#mc-rows .st')];
   const inp=document.getElementById('mc-inp');
   const stateEl=document.getElementById('mc-state');
   const verdict=document.getElementById('mc-verdict');
@@ -1017,18 +1053,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   const P={x:431.52,y:487.68};
   const LINK='maps.google.com/?q=-8.8128,115.1192';
 
-  const ROWS=[
-    {k:'Location',s:'Pecatu, South Kuta',c:'ok',v:'-8.8128, 115.1192'},
-    {k:'Zoning',s:'Yellow zone · Residential',c:'rev',v:'Residential zone'},
-    {k:'Short-term rental',s:'Illustrative zoning use',c:'unr',v:'Not permitted'},
-    {k:'Long-term rental',s:'Subject to approvals',c:'ok',v:'Permitted in scenario'},
-    {k:'Residential occupation',s:'Private residential use',c:'ok',v:'Permitted in scenario'},
-    {k:'Construction',s:'Illustrative progress assessment',c:'rev',v:'70% complete · Unfinished'},
-    {k:'Building permit',s:'PBG',c:'unr',v:'No record found in sample'},
-    {k:'Function certificate',s:'SLF',c:'rev',v:'Not yet applicable · Unfinished'},
-    {k:'Developer',s:'PT Sample Developer',c:'unr',v:'7 projects · 5 incomplete'}
-  ];
-  rowsEl.innerHTML=ROWS.map((r,i)=>`<li id="mc-r${i}"><span class="mc-k">${r.k}<small>${r.s}</small></span><span class="st scr" id="mc-v${i}"><i></i>Pending</span></li>`).join('');
 
   const VIEWS={
     bali:{cx:405,cy:318,w:1060,tl:0},
@@ -1063,30 +1087,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   const on=(id,v=true)=>$(id).classList.toggle('mc-on',v);
   function resolve(i){
-    const r=ROWS[i],el=$('v'+i);
-    el.className='st '+r.c;el.innerHTML=`<i></i>${r.v}`;
-    $('r'+i).classList.add('mc-live');
-  }
-  function reset(){
-    cam={...VIEWS.bali};apply();
-    ['parcel','zone','ztarget','house','pins','t-zone','t-house','t-dev'].forEach(id=>on(id,false));
-    ROWS.forEach((r,i)=>{const el=$('v'+i);el.className='st scr';el.innerHTML='<i></i>Pending';$('r'+i).classList.remove('mc-live')});
-    inp.innerHTML='<span class="mc-ph">Google Maps link</span>';
-    stateEl.textContent='';verdict.classList.remove('mc-on');
+    const status=statuses[i];
+    status.className='st '+status.dataset.status;
+    status.lastElementChild.textContent=status.dataset.result;
   }
   function final(){
-    cam={...VIEWS.south};apply();
+    stop();
+    io.disconnect();
+    ['house','t-house','t-zone'].forEach(id=>on(id,false));
     ['parcel','zone','ztarget','pins','t-dev'].forEach(id=>on(id,true));
-    ROWS.forEach((r,i)=>resolve(i));
+    statuses.forEach((_,i)=>resolve(i));
     inp.textContent=LINK;stateEl.textContent='Plot found · 9 checks complete';
     verdict.classList.add('mc-on');
+    cam={...VIEWS.south};apply();
   }
 
   let timers=[],running=false;
   const at=(ms,fn)=>timers.push(setTimeout(fn,ms));
   function stop(){timers.forEach(clearTimeout);timers=[];cancelAnimationFrame(raf);running=false}
   function play(){
-    stop();running=true;reset();
+    running=true;
     at(500,()=>{let n=0;inp.innerHTML='<span id="mc-typed"></span><span class="mc-caret"></span>';const tp=$('typed');const iv=setInterval(()=>{tp.textContent=LINK.slice(0,++n);if(n>=LINK.length)clearInterval(iv)},38);timers.push(iv)});
     at(2100,()=>{stateEl.textContent='Locating plot…';fly(VIEWS.bukit,1500)});
     at(3600,()=>{fly(VIEWS.plot,1400)});at(4300,()=>on('parcel'));
@@ -1096,8 +1116,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     at(7200,()=>resolve(6));
     at(7800,()=>resolve(7));
     at(8500,()=>{on('house',false);on('t-house',false);on('t-zone',false);fly(VIEWS.south,1500)});
-    at(9300,()=>{on('pins');on('t-dev');resolve(8)});
-    at(10300,()=>{stateEl.textContent='Plot found · 9 checks complete';verdict.classList.add('mc-on');stop()});
+    at(9300,()=>resolve(8));
+    at(10300,final);
   }
 
   const still=matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)');
@@ -1105,7 +1125,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if(entries.some(entry=>entry.isIntersecting)&&!running&&!verdict.classList.contains('mc-on'))play();
   });
   function present(){
-    if(still.matches){io.disconnect();stop();final()}
+    if(still.matches)final()
     else if(!verdict.classList.contains('mc-on'))io.observe(document.querySelector('#map-check .mc-demo'));
   }
   const ro=new ResizeObserver(()=>apply());ro.observe(mapBox);
