@@ -701,7 +701,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 #map-check *{box-sizing:border-box;min-width:0}
 #map-check>.wrap{width:100%}
 #map-check .mc-head{display:flex;flex-direction:column;gap:18px}
-#map-check .mc-head>*{max-width:760px}
+#map-check .mc-head>*{max-width:960px}
+@media (min-width:1100px){#map-check .mc-head h2{font-size:clamp(34px,3vw,43px);white-space:nowrap}}
 #map-check .mc-stage{flex:1;display:flex;margin-top:clamp(28px,3.5vw,44px)}
 #map-check .mc-stage .wrap{display:flex;width:100%}
 #map-check .mc-demo{flex:1;display:flex;flex-direction:column;margin:0;background:#FFFFFF;border:1px solid #E2E0D9;min-height:560px;height:calc(100vh - 260px);max-height:900px}
@@ -759,20 +760,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 @media (max-width:767px){
 #map-check.mc-sec{min-height:0}
 #map-check .ui-top{padding:10px 16px}
-#map-check .mc-rows li{padding:12px 16px;flex-direction:column;align-items:flex-start;gap:4px}
+#map-check .mc-rows li{padding:11px 16px;flex-direction:row;align-items:center;gap:8px 12px}
+#map-check .mc-rows li .st{max-width:58%;text-align:right;overflow-wrap:anywhere}
+#map-check .mc-rows li .mc-k{flex:1;min-width:0}
 #map-check .mc-q,#map-check .mc-verdict{padding-left:16px;padding-right:16px}
 #map-check .mc-verdict{grid-template-columns:minmax(0,1fr)}
 #map-check .mc-vbig{font-size:22px}
 #map-check .mc-vsub{white-space:normal}
-#map-check .mc-btn{width:100%}
+#map-check .mc-map{aspect-ratio:16/10;min-height:210px}
+#map-check .mc-head{gap:12px}
+#map-check .mc-head .lead{font-size:16px;line-height:1.5}
+#map-check .mc-demo{width:100%;min-height:0;height:auto;overflow:hidden}
+#map-check .mc-card{overflow:visible}
+#map-check .mc-verdict{margin-top:0;gap:8px}
+#map-check .mc-vrow{align-items:center}
+#map-check .mc-vbig{font-size:22px}
 #map-check .mc-readout,#map-check .mc-chip{display:none}
 }
 @media (prefers-reduced-motion:reduce){#map-check *{transition:none !important;animation:none !important}}
 </style>
 <section id="map-check" class="mc-sec" aria-labelledby="mc-title">
   <div class="wrap mc-head">
-    <h2 class="h2" id="mc-title">From a Map Pin to a Legal Verdict</h2>
-    <p class="lead">Paste a Google Maps link or coordinates. The platform locates the plot and shows zoning, permits, construction status and the developer’s record in one view.</p>
+    <h2 class="h2" id="mc-title">From Location to Legal Clarity</h2>
+    <p class="lead">One Google Maps link reveals the property’s zoning, permits, construction status and developer history (where applicable) — together with the legal risks that matter before you buy.</p>
   </div>
   <div class="mc-stage">
     <div class="wrap">
@@ -940,14 +950,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="mc-card">
             <div class="mc-q">
               <span class="mc-lbl">Location</span>
-              <div class="mc-inp" id="mc-inp"><span class="mc-ph">Paste a Google Maps link or coordinates</span></div>
+              <div class="mc-inp" id="mc-inp"><span class="mc-ph">Google Maps link</span></div>
               <div class="mc-state" id="mc-state"></div>
             </div>
             <ul class="mc-rows" id="mc-rows"></ul>
             <div class="mc-verdict" id="mc-verdict">
               <div class="mc-vrow"><span class="mc-lbl">Verdict</span><span class="st unr"><i></i>4 critical findings</span></div>
               <div class="mc-vtxt"><div class="mc-vbig">High risk</div><div class="mc-vsub">Not suitable for rental investment</div></div>
-              <a class="btn mc-btn" href="/due-diligence">Get the Full Report</a>
             </div>
           </div>
         </div>
@@ -1022,7 +1031,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     cam={...VIEWS.bali};apply();
     ['parcel','zone','ztarget','house','pins','t-zone','t-house','t-dev'].forEach(id=>on(id,false));
     ROWS.forEach((r,i)=>{const el=$('v'+i);el.className='st scr';el.innerHTML='<i></i>Pending';$('r'+i).classList.remove('mc-live')});
-    inp.innerHTML='<span class="mc-ph">Paste a Google Maps link or coordinates</span>';
+    inp.innerHTML='<span class="mc-ph">Google Maps link</span>';
     stateEl.textContent='';verdict.classList.remove('mc-on');
   }
   function final(){
@@ -1052,9 +1061,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     at(14800,()=>{if(running)play()});
   }
 
-  const still=matchMedia('(max-width:767px), (prefers-reduced-motion: reduce)');
+  const still=matchMedia('(prefers-reduced-motion: reduce)');
   function start(){if(still.matches){stop();final()}else play()}
-  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){if(!running)start()}else if(!still.matches){stop()}})},{threshold:.35});
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){if(!running)start()}else{stop()}})},{threshold:.12});
   io.observe(document.querySelector('#map-check .mc-demo'));
   const ro=new ResizeObserver(()=>apply());ro.observe(mapBox);
   still.addEventListener('change',start);
