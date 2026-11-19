@@ -665,6 +665,13 @@ main > section[aria-labelledby="page-title"] h1 > span:first-child{line-height:1
 </style>
 <style>.mobile-home{display:none}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
+<style id="tcg-hero-alignment">
+/* Consistent homepage heading scale and top offset across pages */
+@media (min-width:1024px){main > section[aria-labelledby="page-title"]{padding-top:96px !important}#page-title>span:first-child{font-size:60px !important;line-height:1.04 !important}}
+@media (min-width:768px) and (max-width:1023px){main > section[aria-labelledby="page-title"]{padding-top:clamp(64px,9vw,120px) !important}#page-title>span:first-child{font-size:36px !important;line-height:1.04 !important}}
+@media (max-width:767px){main > section[aria-labelledby="page-title"]{padding-top:20px !important}#page-title>span:first-child{font-size:36px !important;line-height:1.04 !important;margin-top:0 !important}}
+@media (min-width:768px){main > section[aria-labelledby="page-title"]>div{align-items:start !important}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
