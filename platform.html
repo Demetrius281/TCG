@@ -431,14 +431,15 @@ main > section.hero h1{line-height:1.04 !important}
 #portfolio-monitoring .investment-case-label{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.04em;color:#0E5A55;background:#E7F0EC;padding:7px 8px;white-space:nowrap}
 #portfolio-monitoring .investment-case-photo{width:100%;height:clamp(170px,16.5vw,222px);overflow:hidden;background:#E4E2DB}
 #portfolio-monitoring .investment-case-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
-#portfolio-monitoring .investment-case-prices{display:grid;grid-template-columns:1fr 1fr .78fr;gap:10px;margin-top:19px;padding-bottom:18px;border-bottom:1px solid #ECEAE4}
-#portfolio-monitoring .investment-case-prices>div{display:flex;flex-direction:column;gap:10px;min-width:0}
-#portfolio-monitoring .investment-case-prices>div+div{border-left:1px solid #ECEAE4;padding-left:12px}
-#portfolio-monitoring .investment-label{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;line-height:1.45;color:#5B6461;letter-spacing:.025em}
-#portfolio-monitoring .investment-case-prices strong{font-size:clamp(19px,2.1vw,27px);font-weight:500;letter-spacing:-.045em;white-space:nowrap}
-#portfolio-monitoring .investment-case-prices .investment-discount{border-left:0;padding:10px 9px 7px;background:#E7F0EC;align-self:stretch;margin:-10px 0 -5px}
-#portfolio-monitoring .investment-discount .investment-label{color:#0E5A55}
-#portfolio-monitoring .investment-discount strong{font-size:clamp(29px,3.5vw,43px);line-height:1;color:#0E5A55}
+#portfolio-monitoring .investment-case-prices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:20px;padding-bottom:16px;border-bottom:1px solid #ECEAE4}
+#portfolio-monitoring .investment-case-prices>div{display:flex;flex-direction:column;gap:12px;min-width:0}
+#portfolio-monitoring .investment-case-prices>div:nth-child(2){border-left:1px solid #ECEAE4;padding-left:24px}
+#portfolio-monitoring .investment-label{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;line-height:1.45;color:#5B6461;letter-spacing:.025em;min-height:30px}
+#portfolio-monitoring .investment-case-prices strong{display:block;font-size:clamp(22px,2.15vw,31px);font-weight:500;letter-spacing:-.045em;line-height:1.15;white-space:nowrap;font-variant-numeric:tabular-nums}
+#portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:20px;padding:15px 20px;background:#E7F0EC}
+#portfolio-monitoring .investment-discount .investment-label{min-height:0;color:#0E5A55;line-height:1.4}
+#portfolio-monitoring .investment-discount strong{font-size:clamp(29px,3.1vw,40px);line-height:1;color:#0E5A55}
+#portfolio-monitoring .investment-case-explanation{margin:0;padding:16px 0 5px;font-size:13px;line-height:1.55;color:#3E4744}
 #portfolio-monitoring .investment-case-facts{display:flex;flex-direction:column}
 #portfolio-monitoring .investment-case-facts>div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #ECEAE4}
 #portfolio-monitoring .investment-case-facts>div:last-child{border-bottom:0}
@@ -446,9 +447,9 @@ main > section.hero h1{line-height:1.04 !important}
 #portfolio-monitoring .investment-fact-name svg{width:20px;height:20px;flex:none;color:#0E5A55}
 #portfolio-monitoring .investment-case-facts>div>span:last-child{font-size:12px;line-height:1.45;text-align:right;color:#5B6461}
 #portfolio-monitoring .investment-case-disclaimer{margin:5px 0 0;padding-top:13px;border-top:1px solid #ECEAE4;color:#6B7470;font-size:10px;line-height:1.5}
-@media (max-width:1100px) and (min-width:768px){#portfolio-monitoring .investment-case-prices{grid-template-columns:1fr 1fr;row-gap:12px}#portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;margin:0;flex-direction:row;align-items:center;justify-content:space-between}#portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:34px}}
+@media (max-width:1100px) and (min-width:768px){#portfolio-monitoring .investment-case-prices strong{font-size:clamp(20px,2.7vw,28px)}#portfolio-monitoring .investment-case-prices>div:nth-child(2){padding-left:16px}}
 @media (max-width:767px){#portfolio-monitoring .investment-showcase-layout{grid-template-columns:1fr;gap:32px}#portfolio-monitoring .investment-showcase-copy{gap:18px}#portfolio-monitoring .investment-showcase-copy h2{max-width:none;font-size:clamp(34px,8.5vw,44px)}#portfolio-monitoring .investment-case{padding:16px}#portfolio-monitoring .investment-case-photo{height:clamp(180px,50vw,260px)}}
-@media (max-width:400px){#portfolio-monitoring .investment-case-prices{grid-template-columns:1fr 1fr;row-gap:15px}#portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between;margin:0}#portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:35px}#portfolio-monitoring .investment-case-facts>div{align-items:flex-start;flex-direction:column;gap:7px}#portfolio-monitoring .investment-case-facts>div>span:last-child{text-align:left}}
+@media (max-width:400px){#portfolio-monitoring .investment-case-prices strong{font-size:clamp(17px,5.1vw,21px)}#portfolio-monitoring .investment-case-prices>div:nth-child(2){padding-left:12px}#portfolio-monitoring .investment-case-facts>div{align-items:flex-start;flex-direction:column;gap:7px}#portfolio-monitoring .investment-case-facts>div>span:last-child{text-align:left}}
 </style>
 <style>.mobile-home,.platform-how-intro{display:none}.platform-how{display:contents}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
@@ -538,12 +539,12 @@ main > section.hero h1{line-height:1.04 !important}
   #portfolio-monitoring .investment-case-top{flex-wrap:wrap;gap:8px}
   #portfolio-monitoring .investment-case-top>span:first-child{font-size:11px}
   #portfolio-monitoring .investment-case-photo{height:clamp(185px,52vw,280px)}
-  #portfolio-monitoring .investment-case-prices{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 10px;margin-top:17px}
-  #portfolio-monitoring .investment-case-prices>div{gap:6px}
-  #portfolio-monitoring .investment-case-prices>div+div{padding-left:10px}
-  #portfolio-monitoring .investment-case-prices strong{font-size:clamp(17px,4.7vw,24px);white-space:nowrap}
-  #portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:12px;margin:0;padding:12px 14px}
-  #portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:36px}
+  #portfolio-monitoring .investment-case-prices{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:17px}
+  #portfolio-monitoring .investment-case-prices>div{gap:10px}
+  #portfolio-monitoring .investment-case-prices>div:nth-child(2){padding-left:14px}
+  #portfolio-monitoring .investment-case-prices strong{font-size:clamp(18px,4.8vw,26px);white-space:nowrap}
+  #portfolio-monitoring .investment-case-prices .investment-discount{grid-column:1/-1;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:12px;margin-top:17px;padding:13px 15px}
+  #portfolio-monitoring .investment-case-prices .investment-discount strong{font-size:34px}
   #portfolio-monitoring .investment-case-facts>div{flex-direction:column;align-items:flex-start;gap:6px;padding:12px 0}
   #portfolio-monitoring .investment-case-facts>div>span:last-child{text-align:left;padding-left:29px}
   /* Architecture: static, vertically ordered and fully readable. */
@@ -797,13 +798,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="investment-showcase-copy">
       <h2 class="h2" id="investment-showcase-title">Know What a Property Is Really Worth</h2>
       <p class="lead investment-intro">The asking price rarely tells the whole story.</p>
-      <p class="lead">TCG combines property records, zoning, permits, ownership information and market data to identify risks and factors that affect an asset's value.</p>
-      <p class="lead">Understand what you're buying, what limitations come with it and where you have room to negotiate — before committing your capital.</p>
+      <p class="lead">TCG checks zoning, permits, ownership and property records to uncover legal risks that can change what a property is worth.</p>
+      <p class="lead">When those issues are documented, buyers have evidence to challenge the asking price and negotiate on facts rather than assumptions.</p>
       <div class="investment-profit">
         <span class="investment-profit-icon" aria-hidden="true">
           <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24l8-8 6 5 10-12"/><path d="M20 9h8v8"/></svg>
         </span>
-        <div><strong>FROM VERIFICATION TO NEGOTIATION</strong><span>Make property decisions based on verified facts, not seller claims.</span></div>
+        <div><strong>FROM VERIFICATION TO NEGOTIATION</strong><span>Identifying legal issues can create a justified basis for a lower purchase price.</span></div>
       </div>
     </div>
     <article class="investment-case" aria-label="Illustrative property value assessment">
@@ -815,15 +816,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img src="/assets/img/distressed-villa-illustrative.webp" alt="AI-generated illustration of a partially constructed modern tropical villa in Bali" width="688" height="295" loading="lazy" decoding="async">
       </div>
       <div class="investment-case-prices">
-        <div><span class="investment-label">SELLER’S ASKING PRICE</span><strong>US$620,000</strong></div>
-        <div><span class="investment-label">ESTIMATED VALUE AFTER TCG REVIEW</span><strong>US$395,000</strong></div>
-        <div class="investment-discount"><span class="investment-label">POTENTIAL PRICE DIFFERENCE</span><strong>36%</strong></div>
+        <div><span class="investment-label">SELLER’S ASKING PRICE</span><strong>US$625,000</strong></div>
+        <div><span class="investment-label">ESTIMATED VALUE AFTER TCG REVIEW</span><strong>US$550,000</strong></div>
+        <div class="investment-discount"><span class="investment-label">POTENTIAL PRICE REDUCTION</span><strong>12%</strong></div>
       </div>
+      <p class="investment-case-explanation">In this illustrative case, TCG identifies legal and permit issues. Those findings provide the basis to negotiate a 12% reduction — without them, the buyer would lack that evidence.</p>
       <div class="investment-case-facts">
         <div><span class="investment-fact-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20v-2c0-3.2 3-5 7-5s7 1.8 7 5v2"/></svg>Legal & Regulatory Review</span><span>Zoning, permits, ownership</span></div>
         <div><span class="investment-fact-name"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5zM3 14l9 5 9-5M3 18l9 5 9-5"/></svg>Market & Asset Assessment</span><span>Comparable values and risks</span></div>
       </div>
-      <p class="investment-case-disclaimer">Illustrative figures only. The estimated value and price difference are hypothetical, not an actual TCG valuation or guaranteed negotiation outcome. Property illustration is AI-generated.</p>
+      <p class="investment-case-disclaimer">Hypothetical scenario only. No actual TCG valuation, identified defects or negotiated discount is represented. Results depend on the property and seller. Illustration is AI-generated.</p>
     </article>
   </div>
 </section>
