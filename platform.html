@@ -589,6 +589,17 @@ main > section.hero h1{line-height:1.04 !important}
   #land-zoning h2,#technology h2,#governance h2,#portfolio-monitoring h2{overflow-wrap:break-word;hyphens:auto}
 }
 </style>
+
+<style id="platform-hero-metric-alignment">
+/* Shared inline baseline; retain original TCG diamond shape and brand colour. */
+.platform-page #top .hero-metric{display:flex;flex-direction:row;align-items:center;gap:12px;padding-left:0;min-width:0}
+.platform-page #top .hero-metric::before{content:"";position:static;display:block;flex:0 0 9px;width:9px;height:9px;margin:0 0 0 3px;background:#0E5A55;transform:rotate(45deg);border-radius:1px}
+.platform-page #top .hero-metric strong{display:block;min-width:0;line-height:1.4}
+@media(max-width:767px){
+.platform-page #top .hero-metric{gap:11px}
+.platform-page #top .hero-metric strong{font-size:clamp(10px,2.8vw,13px);white-space:nowrap}
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -627,7 +638,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap hero-grid">
     <div class="hero-txt">
       <h1>Making Bali’s Real Estate Market Transparent</h1>
-      <p class="desc">Foreign capital keeps flowing to the island, while confirming that a single villa is legal still takes weeks. TCG gives buyers, owners, investors and government one verified answer on any asset, with coverage expanding across Indonesia.</p>
+      <p class="desc">TCG is building the intelligence infrastructure to make property investment safer, development more responsible and real estate markets more transparent — starting in Bali, with plans to expand across Indonesia.</p>
       <div class="hero-metrics" aria-label="Platform at a glance">
         <div class="hero-metric"><strong>IDR 12.1T Bali property investment, 2026</strong></div>
         <div class="hero-metric"><strong>10,000+ Buildings screened against zoning</strong></div>
@@ -637,7 +648,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="platform-how" aria-labelledby="platform-how-title">
       <div class="platform-how-intro">
         <h2 class="h2" id="platform-how-title">One Intelligence Infrastructure for Bali</h2>
-        <p>TCG is building a unified property intelligence infrastructure that connects government records, spatial data and proprietary research. The platform is designed to support property verification, public-sector decision-making and investment intelligence.</p>
+        <p>Property intelligence begins by examining how zoning, site constraints and documentation relate to the same location. The concept below illustrates how those layers can be assessed together.</p>
       </div>
     <!-- Original animation shared by mobile and desktop. -->
 <figure class="ip">
@@ -703,6 +714,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </script>
 
   </div>
+</section>
+
+<!-- Market challenge informed by independent 2026 research -->
+<style>
+#market-gap{background:#F6F4EE;border-top:1px solid #E2E0D9}
+#market-gap .mg-head{max-width:860px}
+#market-gap .mg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+#market-gap .mg-card{padding:clamp(20px,2.3vw,30px);background:#FBFAF7;border:1px solid #DAD7CF;min-width:0}
+#market-gap .mg-card h3{font-size:clamp(18px,1.8vw,22px);font-weight:550;line-height:1.25;letter-spacing:-.025em;margin:0 0 12px;overflow-wrap:break-word}
+#market-gap .mg-card p{font-size:15px;line-height:1.65;color:#46514D;margin:0;overflow-wrap:break-word}
+#market-gap .mg-source{font-size:12px;color:#5B6461;line-height:1.7;margin:24px 0 0}
+#market-gap .mg-source a{color:#0E5A55;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:767px){#market-gap .mg-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:24px}#market-gap .mg-card{padding:20px}#market-gap .mg-card h3{font-size:19px}}
+</style>
+<section id="market-gap" class="sec" aria-labelledby="mg-title">
+<div class="wrap">
+  <div class="mg-head">
+    <h2 class="h2" id="mg-title">The Missing Layer in Bali’s Property Market</h2>
+    <p class="lead">Indonesia has digital systems for land, zoning, building permits and business licensing. Yet records and real-world development conditions are not consistently connected, making comprehensive property risk assessment difficult.</p>
+  </div>
+  <div class="mg-grid">
+    <article class="mg-card"><h3>Fragmented Information</h3><p>Property, company and regulatory records sit across separate systems, leaving buyers and authorities to assemble the picture manually.</p></article>
+    <article class="mg-card"><h3>Limited Spatial Intelligence</h3><p>Planning maps, permits and actual building conditions are not consistently assessed together to identify potential conflicts.</p></article>
+    <article class="mg-card"><h3>Local Context Overlooked</h3><p>Sacred places, customary boundaries and environmental restrictions are not always represented in digital permitting workflows.</p></article>
+  </div>
+  <p class="mg-source">Independent research: <a href="https://doi.org/10.59890/ijist.v4i8.45" target="_blank" rel="noopener noreferrer">Badung PBG/SLF study (2026)</a> · <a href="https://doi.org/10.59890/ijist.v4i3.304" target="_blank" rel="noopener noreferrer">Gianyar SIMBG study (2026)</a> · <a href="https://doi.org/10.1051/e3sconf/202668502002" target="_blank" rel="noopener noreferrer">Bali spatial planning study (2026)</a>. These papers inform the problem statement; they do not validate or endorse TCG.</p>
+</div>
 </section>
 
 <!-- 2 · MAP CHECK (new screen, inserted after the hero) -->
@@ -1111,9 +1149,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="col-h pr">Processing layer</span>
         <span class="col-h out">Output layer</span>
 
-        <div class="node i r1">BATARA + BPN / SIMBG<small>Zoning &middot; certificates &middot; PBG / SLF</small></div>
-        <div class="node i r2">AHU + OSS<small>Company records &middot; registrations &middot; licenses</small></div>
-        <div class="node i r3">TCG Market Data<small>Developers &middot; pricing &middot; construction history</small></div>
+        <div class="node i r1">Land &amp; Building Records<small>BPN &middot; SIMBG &middot; PBG / SLF</small></div>
+        <div class="node i r2">Spatial &amp; Licensing Data<small>RDTR &middot; GIS &middot; OSS &middot; cultural constraints</small></div>
+        <div class="node i r3">TCG Market Intelligence<small>Developers &middot; pricing &middot; construction activity</small></div>
 
         <span class="link a r1" aria-hidden="true"></span><span class="link a r2" aria-hidden="true"></span><span class="link a r3" aria-hidden="true"></span>
 
@@ -1121,25 +1159,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="en-s">Core</span>
           <span class="en-t">Property Intelligence Engine</span>
           <div class="mods">
-            <div class="mod">Data Integration<small>Connects property, company and regulatory records</small></div>
-            <div class="mod">Risk Intelligence<small>Identifies legal, development and commercial risks</small></div>
-            <div class="mod" style="grid-column: 1 / -1">Investment Screening<small>Detects distressed and undervalued assets</small></div>
+            <div class="mod">Data Integration<small>Matches records across authorized and public data sources</small></div>
+            <div class="mod">Risk Intelligence<small>Flags potential regulatory and development risks for review</small></div>
+            <div class="mod" style="grid-column: 1 / -1">Investment Screening<small>Screens market conditions and distressed opportunities</small></div>
           </div>
         </div>
 
         <span class="link b r1" aria-hidden="true"></span><span class="link b r2" aria-hidden="true"></span><span class="link b r3" aria-hidden="true"></span>
 
-        <div class="node o r1">Property Verification Reports<small>Paid screening and risk review</small></div>
-        <div class="node o r2">Investment Opportunities<small>Qualified acquisition candidates</small></div>
-        <div class="node o r3">Distressed Asset Pipeline<small>Further investment analysis</small></div>
+        <div class="node o r1">Property Intelligence<small>Verification and asset research</small></div>
+        <div class="node o r2">Government Intelligence<small>Spatial monitoring and compliance screening</small></div>
+        <div class="node o r3">Investment Intelligence<small>Valuation and distressed asset analysis</small></div>
       </div>
       <div class="arch-foot">
-        <div class="af"><b>Traceable Intelligence</b><span>Each finding is linked to available records and supporting evidence.</span></div>
-        <div class="af"><b>Risk Transparency</b><span>Verified facts, potential risks and unresolved issues are distinguished.</span></div>
-        <div class="af"><b>Investment Advantage</b><span>Property intelligence supports faster screening and capital allocation.</span></div>
+        <div class="af"><b>Traceable Intelligence</b><span>Findings can be traced to their source and review status.</span></div>
+        <div class="af"><b>Evidence-Based Decisions</b><span>Potential conflicts are flagged for human verification.</span></div>
+        <div class="af"><b>Responsible Data Integration</b><span>Access and use remain subject to applicable permissions and safeguards.</span></div>
       </div>
     </figure>
-    <p class="note" style="margin-top: 20px; color: #8A9491">One intelligence infrastructure supports two revenue streams: paid verification and property investments. Data access is in place and checks are run by analysts; API automation is being connected.</p>
+    <p class="note" style="margin-top: 20px; color: #8A9491">Target architecture for connected property intelligence. Existing analyst-led research will be complemented by automated integrations as access and development progress.</p>
   </div>
 </section>
 
@@ -1147,29 +1185,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrap split">
     <div class="txt">
       <h2 class="h2">The Bali Property Market, Asset by Asset</h2>
-      <p class="lead">A continuously evolving intelligence system combining government records, property histories, developer activity and market data into one platform.</p>
-      <p class="lead">See title status, construction dates, stalled projects, permitted development and rental use, and assets priced below market.</p>
+      <p class="lead">A continuously expanding database designed to connect property identities with their legal context, development progress and market activity.</p>
+      
     </div>
     <ul class="intelligence-grid">
       <li class="intelligence-card">
         <span class="intelligence-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="16" r="3"/><circle cx="26" cy="7" r="3"/><circle cx="26" cy="25" r="3"/><path d="M9 15l14-7M9 17l14 7"/></svg></span>
-        <strong>Government API Integration</strong>
-        <span>Direct connections to official data systems (in development)</span>
+        <strong>Unified Property Records</strong>
+        <span>Land titles, permit references and development history linked to individual assets</span>
       </li>
       <li class="intelligence-card">
         <span class="intelligence-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3l2.9 9.1L28 15l-9.1 2.9L16 27l-2.9-9.1L4 15l9.1-2.9L16 3z"/><path d="M26 23l1.2 2.8L30 27l-2.8 1.2L26 31l-1.2-2.8L22 27l2.8-1.2L26 23z"/></svg></span>
-        <strong>AI-Powered Intelligence</strong>
-        <span>Automated analysis, cross-referencing and continuous updates (in development)</span>
+        <strong>Developer Intelligence</strong>
+        <span>Connected companies, project histories and delivery risks</span>
       </li>
       <li class="intelligence-card">
         <span class="intelligence-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l12-7 12 7-12 7-12-7z"/><path d="M4 18l12 7 12-7M4 24l12 7 12-7"/></svg></span>
-        <strong>Property Records</strong>
-        <span>Title status, zoning, permits, developers and construction history</span>
+        <strong>Development Monitoring</strong>
+        <span>Construction progress, incomplete projects and changes in asset condition</span>
       </li>
       <li class="intelligence-card">
         <span class="intelligence-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="17" r="11"/><circle cx="15" cy="17" r="5"/><path d="M15 17l13-13m-7 0h7v7"/></svg></span>
-        <strong>Investment Opportunity Detection</strong>
-        <span>Identify distressed assets, pricing gaps and acquisition targets</span>
+        <strong>Investment Screening</strong>
+        <span>Market comparisons and potential distressed acquisition candidates</span>
       </li>
     </ul>
   </div>
@@ -1195,16 +1233,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="governance" class="sec" aria-labelledby="gov-title">
   <div class="wrap">
     <div class="gov-intro">
-      <h2 class="h2" id="gov-title">Supporting Better Governance in Bali</h2>
-      <p class="lead">By connecting property records, spatial planning regulations and real-world development data, TCG aims to help public institutions identify compliance risks, improve planning decisions and protect Bali’s cultural and environmental heritage.</p>
+      <h2 class="h2" id="gov-title">Protecting Bali Through Better Data</h2>
+      <p class="lead">Bali’s rapid development puts pressure on land, local communities and cultural heritage. TCG aims to help public institutions and communities evaluate these impacts with clearer, location-based evidence.</p>
     </div>
     <div class="gov-grid">
-      <article class="gov-card"><h3>Spatial Compliance</h3><p>Identify potential conflicts between land use, building activity and zoning regulations.</p></article>
-      <article class="gov-card"><h3>Public Sector Intelligence</h3><p>Give authorities a clearer picture of development patterns and regulatory risks.</p></article>
-      <article class="gov-card"><h3>Cultural Preservation</h3><p>Incorporate verified traditional spatial restrictions and protected areas into property assessments, with input from local communities.</p></article>
-      <article class="gov-card"><h3>Digital Integration</h3><p>Support government systems with connected data, automated screening and evidence-based insights.</p></article>
+      <article class="gov-card"><h3>Better Spatial Compliance</h3><p>Flag potential conflicts between permitted land use, building activity and applicable zoning restrictions.</p></article>
+      <article class="gov-card"><h3>Smarter Government Oversight</h3><p>Support risk-based monitoring and help authorities prioritize cases for expert review or inspection.</p></article>
+      <article class="gov-card"><h3>Protecting Balinese Heritage</h3><p>Include community-validated sacred areas, customary spatial rules and environmental constraints in location assessments.</p></article>
+      <article class="gov-card"><h3>Clearer Paths to Compliance</h3><p>Help property owners identify missing documentation and understand which requirements need professional or official review.</p></article>
     </div>
-    <p class="gov-note">TCG seeks collaboration with Indonesian public institutions, researchers and local communities to develop responsible, locally informed property intelligence infrastructure. Proposed capabilities are subject to data access agreements, validation and applicable regulations.</p>
+    <p class="gov-note">TCG proposes pilot projects with relevant government agencies, academic researchers and Desa Adat representatives. The goal is evidence-based spatial analysis that complements official systems; regulatory decisions remain with authorized institutions.</p>
   </div>
 </section>
 <section id="portfolio-monitoring" class="sec investment-showcase" aria-labelledby="investment-showcase-title">
@@ -1212,13 +1250,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="investment-showcase-copy">
       <h2 class="h2" id="investment-showcase-title">Know What a Property Is Really Worth</h2>
       <p class="lead investment-intro">The asking price rarely tells the whole story.</p>
-      <p class="lead">TCG checks zoning, permits, ownership and property records to uncover legal risks that can change what a property is worth.</p>
-      <p class="lead">When those issues are documented, buyers have evidence to challenge the asking price and negotiate on facts rather than assumptions.</p>
+      <p class="lead">Property intelligence can uncover regulatory issues, stalled development and market discrepancies that conventional listings do not reveal.</p>
+      <p class="lead">This enables more informed valuation, negotiation and evaluation of potential distressed acquisitions.</p>
       <div class="investment-profit">
         <span class="investment-profit-icon" aria-hidden="true">
           <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24l8-8 6 5 10-12"/><path d="M20 9h8v8"/></svg>
         </span>
-        <div><strong>FROM VERIFICATION TO NEGOTIATION</strong><span>Identifying legal issues can create a justified basis for a lower purchase price.</span></div>
+        <div><strong>FROM PROPERTY DATA TO INVESTMENT INSIGHT</strong><span>Connected records help distinguish asset value from asking price and reveal risks before committing capital.</span></div>
       </div>
     </div>
     <article class="investment-case" aria-label="Illustrative property value assessment">
@@ -1251,13 +1289,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="express-interest" class="ei" aria-labelledby="ei-title">
   <div class="wrap ei-grid">
     <div class="ei-copy">
-      <h2 class="h2" id="ei-title">Partnership and Investment Discussions</h2>
-      <p class="lead">TCG is seeking collaboration with public institutions on responsible data integration and pilot projects, technology partners on platform development, and investors on property intelligence and selected acquisitions. This page is not an offer of securities.</p>
+      <h2 class="h2" id="ei-title">Building the Future of Property Intelligence</h2>
+      <p class="lead">TCG invites government institutions to explore responsible data-sharing pilots, technology and research partners to advance the platform, and strategic investors to support expansion and selected acquisitions. This page is not an offer of securities.</p>
     </div>
     <div class="ei-panel">
       <div>
         <h3 id="ei-form-title">Start a Conversation</h3>
-        <p class="ei-note" id="ei-form-note">Tell us how you would like to work with TCG. Your message will open in WhatsApp for review before sending.</p>
+        <p class="ei-note" id="ei-form-note">Tell us which area of collaboration interests you. Your message will open in WhatsApp for review before sending.</p>
       </div>
       <form class="ei-form" id="ei-form" novalidate aria-labelledby="ei-form-title" aria-describedby="ei-form-note">
         <div class="fld">
@@ -1278,9 +1316,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <select id="ei-interest" name="interest" required aria-required="true" aria-describedby="ei-interest-err">
             <option value="">Select an area of interest</option>
             <option>Strategic Investment</option>
-            <option>Asset Co-investment</option>
-            <option>Distressed Property Acquisitions</option>
-            <option>Property Intelligence Partnership</option>
+            <option>Technology &amp; Research Partnership</option>
+            <option>Distressed Asset Investment</option>
+            
             <option>Government Data Integration &amp; Pilot Projects</option>
             <option>Other</option>
           </select>
