@@ -165,6 +165,12 @@ h1{font-size:36px !important;letter-spacing:-0.035em !important}
 </style>
 <style>.mobile-home{display:none}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
+<style id="tcg-hero-alignment">
+/* Consistent homepage heading scale and top offset across pages */
+@media (min-width:1024px){.pp-hero{padding-top:96px !important}.pp-h1{font-size:60px !important;line-height:1.04 !important}}
+@media (min-width:768px) and (max-width:1023px){.pp-hero{padding-top:clamp(64px,9vw,120px) !important}.pp-h1{font-size:36px !important;line-height:1.04 !important}}
+@media (max-width:767px){.pp-hero{padding-top:20px !important}.pp-h1{font-size:36px !important;line-height:1.04 !important;margin-top:0 !important}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -200,7 +206,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main id="top">
   <div class="wrap">
     <div class="pp-hero">
-      <p class="pp-eyebrow">Twins Consulting Group</p>
       <h1 class="pp-h1">Privacy Policy</h1>
       <p class="pp-date">Last updated: <time datetime="2026-10-26">26 October 2026</time></p>
     </div>
