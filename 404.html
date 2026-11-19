@@ -72,6 +72,13 @@ a:focus-visible{outline:2px solid var(--green);outline-offset:4px}
 </style>
 <style>.mobile-nav-item{display:none}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
+<style id="tcg-hero-alignment">
+/* Consistent homepage heading scale and top offset across pages */
+main#main{align-items:flex-start}
+@media (min-width:1024px){.error{padding-top:96px !important}.error h1{font-size:60px !important;line-height:1.04 !important}}
+@media (min-width:768px) and (max-width:1023px){.error{padding-top:clamp(64px,9vw,120px) !important}.error h1{font-size:36px !important;line-height:1.04 !important}}
+@media (max-width:767px){.error{padding-top:20px !important}.error h1{font-size:36px !important;line-height:1.04 !important;margin-top:0 !important}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -86,7 +93,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 <main id="main">
 <div class="wrap error">
-<p class="eyebrow">Error 404</p>
 <h1>Page not found</h1>
 <p class="description">The page you requested does not exist or has moved.</p>
 <div class="actions">
