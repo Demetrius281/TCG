@@ -663,13 +663,24 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #0E
   .mobile-editorial .ei-panel h3{font-size:22px !important}
   .mobile-editorial .pc-done h3{font-size:28px !important}
   .mobile-editorial #check .cell{padding:20px}
-  .hero:has(.pk){padding:40px 0 32px !important}
-  .hero-grid:has(.pk){gap:0 !important}
-  .pk{display:none !important}
-  .pk *{animation:none !important}
+  #top .hero-grid{
+    --compare-link-height:44px;
+    --compare-link-gap:12px;
+    min-height:calc(var(--hero-height) - 2 * var(--hero-inset) + var(--compare-link-height) + var(--compare-link-gap));
+    grid-template-rows:auto auto minmax(144px,1fr) auto;
+    align-items:stretch;
+    gap:12px;
+  }
+  #top .hero-grid > .hero-txt.mobile-hero-copy{display:contents}
+  #top .hero-h1{grid-row:1}
+  #top .hero-p{grid-row:2;font-size:16px}
+  #top .pk{grid-row:3;height:auto;min-height:0;overflow:hidden}
+  #top .pk-svg{position:absolute;inset:0}
+  #top .pk-tag{transform:translateY(52px)}
+  #top .pk :is(.pk-co,.lnk,.hd,.rule,.row,.nt){display:none}
   section.hero:has(.pk)+section{padding-top:32px !important}
-  .hero-act{flex-direction:column;align-items:stretch;gap:4px}
-  .hero-act .faq-link{align-self:center}
+  #top .hero-act{grid-row:4;flex-direction:column;align-items:stretch;gap:var(--compare-link-gap)}
+  #top .hero-act .faq-link{align-self:center;min-height:var(--compare-link-height)}
   a.cta[href="#order"]:not(.ghost){display:inline-flex;box-sizing:border-box;width:100% !important;max-width:none;height:52px;min-height:52px !important;padding:0 24px !important;justify-content:center;align-items:center;text-align:center;background:#0E5A55 !important;color:#FFFFFF !important;font-size:15px !important;font-weight:500 !important;border:0}
   a.cta.ghost[href="#order"]{width:100%;height:52px;min-height:52px}
   .final .rv-cta{align-items:stretch}
@@ -739,7 +750,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hero-txt mobile-hero-copy">
     
     <h1 class="hero-h1">Uncover Hidden Risks in a Bali Property Before the Deposit</h1>
-    <p class="hero-p">Direct access to government systems shows what can be built, who controls the sale and whether short-term letting is allowed.</p>
+    <p class="hero-p">Decide if the deal is worth your money. Check what the zoning allows, whether short-term rentals are legal, and whether the permits and the developer’s track record back up what you’ve been told.</p>
     
     <div class="hero-act mobile-hero-actions"><a class="btn cta" href="#order">Online Due Diligence</a><a class="faq-link" href="#pricing">Compare Plans&nbsp;&rarr;</a></div>
   </div>
@@ -781,6 +792,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var fig=document.querySelector('figure.pk');
   if(!fig||!fig.getAnimations)return;
   var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mobile=window.matchMedia('(max-width:767px)');
+  var svg=fig.querySelector('.pk-svg');
+  function updateViewBox(){
+    svg.setAttribute('viewBox',mobile.matches?'10 62 440 332':'0 0 460 512');
+  }
+  updateViewBox();
+  mobile.addEventListener('change',updateViewBox);
   var lat=document.getElementById('pk-lat'),lon=document.getElementById('pk-lon');
   var LAT='-8.6491',LON='115.1386',tick=null;
   function r(n){var s='';for(var i=0;i<n;i++)s+=Math.floor(Math.random()*10);return s;}
@@ -796,7 +814,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   function cycle(){
     fig.classList.remove('pk-out');
-    if(!mq.matches){restart();coords();}
+    if(!mq.matches){
+      restart();
+      if(!mobile.matches)coords();
+    }
     setTimeout(function(){if(!mq.matches)fig.classList.add('pk-out');},9550);
     setTimeout(cycle,10000);
   }
