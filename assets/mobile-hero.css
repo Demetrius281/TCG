@@ -1,8 +1,12 @@
 /* Match the homepage's mobile heading and section boundary. */
 @media (max-width:767px) {
+  main:has(.mobile-hero) {
+    container: mobile-hero / inline-size;
+  }
+
   main .mobile-hero:is(#top, .error, [aria-labelledby="page-title"]) {
     --hero-inset: 20px;
-    --hero-illustration-width: calc(100vw - 2 * clamp(20px, 4vw, 40px));
+    --hero-illustration-width: calc(100cqw - 2 * clamp(20px, 4vw, 40px));
     --hero-trust-height: calc(clamp(10px, 3vw, 12px) * 1.55);
     --hero-height: calc(317.094px + var(--hero-trust-height) + var(--hero-wrap-adjustment, 0px) + var(--hero-illustration-width) * 360 / 460);
     box-sizing: border-box;
@@ -54,18 +58,18 @@
     align-items: stretch;
     align-self: center;
   }
-}
 
-/* The homepage's heading and subtitle gain or lose lines at these widths. */
-@media (max-width:353.5px) {
-  .mobile-hero { --hero-wrap-adjustment: 25.594px; }
-}
-@media (max-width:351.5px) {
-  .mobile-hero { --hero-wrap-adjustment: 63.031px; }
-}
-@media (max-width:332.5px) {
-  .mobile-hero { --hero-wrap-adjustment: 88.625px; }
-}
-@media (min-width:486px) and (max-width:767px) {
-  .mobile-hero { --hero-wrap-adjustment: -37.438px; }
+  /* The homepage's heading and subtitle gain or lose lines at these content widths. */
+  @container mobile-hero (max-width:353.5px) {
+    .mobile-hero { --hero-wrap-adjustment: 25.594px; }
+  }
+  @container mobile-hero (max-width:351.5px) {
+    .mobile-hero { --hero-wrap-adjustment: 63.031px; }
+  }
+  @container mobile-hero (max-width:332.5px) {
+    .mobile-hero { --hero-wrap-adjustment: 88.625px; }
+  }
+  @container mobile-hero (min-width:485.5px) {
+    .mobile-hero { --hero-wrap-adjustment: -37.438px; }
+  }
 }
