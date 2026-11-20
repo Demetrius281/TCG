@@ -13,12 +13,10 @@
   header .dd-menu .t{white-space:normal}
   a:is(.btn,.btn-light)[href^="https://wa.me/"]{display:inline-flex;box-sizing:border-box;width:100% !important;max-width:none;height:52px;min-height:52px !important;padding:0 24px !important;flex-shrink:0;justify-content:center;align-items:center;text-align:center;background:#0E5A55 !important;color:#FFFFFF !important;font-family:'Geist',system-ui,sans-serif;font-size:15px !important;font-weight:500 !important;line-height:1.3;text-decoration:none;border:0}
   a:is(.btn,.btn-light)[href^="https://wa.me/"]:hover{background:#0F1413 !important}
-  #top:has(.lm){padding:40px 0 32px !important}
   .distressed-copy-desktop,.compliance-title-desktop{display:none}
   .distressed-copy-mobile,.compliance-title-mobile{display:inline}
-  .lm,.rg{display:none !important}
-  :is(.lm,.rg) *{animation:none !important}
-  #top:has(.lm)>div,#top:has(.lm)>div>div{gap:0 !important}
+  .rg{display:none !important}
+  .rg *{animation:none !important}
   /* Editorial pages use natural left alignment rather than legacy centering. */
   .mobile-editorial{
     --mobile-gutter:20px;
@@ -29,13 +27,13 @@
   }
   .mobile-editorial :is(h2,.base-h){font-size:30px !important;line-height:1.05;font-weight:500;letter-spacing:-.025em;text-wrap:balance}
   .mobile-editorial h3:not(.h3){font-size:18px !important;line-height:1.25;font-weight:500;letter-spacing:-.012em}
-  .mobile-editorial :is(.wrap,.faq-panel),.land-page>section>div{padding-inline:var(--mobile-gutter) !important;min-width:0}
+  .mobile-editorial :is(.wrap,.faq-panel),.land-page>section:not(.mobile-hero)>div{padding-inline:var(--mobile-gutter) !important;min-width:0}
   .mobile-editorial .sec,.land-page>section{padding-block:var(--mobile-section) !important}
   .mobile-editorial :is(.sec-head,.topics-head){gap:20px;margin-bottom:24px}
   .mobile-editorial .lead{margin-bottom:var(--mobile-gap);font-size:18px;line-height:1.6}
   .mobile-editorial :is(.split,.faq-panel,.src-intro){gap:var(--mobile-gap)}
   .mobile-editorial :is(.m-center,.sec-head,.topics-head,.stack-y){align-items:stretch}
-  .land-page>section>div{gap:var(--mobile-gap) !important}
+  .land-page>section:not(.mobile-hero)>div{gap:var(--mobile-gap) !important}
   .land-page :is(.cell,.side,.mcard,.dv-grid h3){padding:var(--mobile-card) !important}
   .land-page :is(.cell,.side,.mcard) p{font-size:16px !important;line-height:1.6 !important}
   .land-page .mcard.feat{border-top:1px solid #E2E0D9}
@@ -80,7 +78,6 @@
   #top.hero:has(.platform-how){padding-top:20px}
   #top:has(.platform-how) .hero-txt>.eyebrow{display:none}
   #top:has(.platform-how) h1{margin-top:0}
-  #top:has(.lm)>div>div>.m-center{gap:22px !important}
   section:has(>.hero-grid>.pcx)+section,section:has(>.hero-grid>.dp)+section,#top:has(.lm)+section{padding-top:32px !important}
   section[aria-labelledby="page-title"]{padding-bottom:32px !important}
   section[aria-labelledby="page-title"]>div{gap:0 !important}

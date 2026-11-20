@@ -311,29 +311,35 @@ h1{font-size:36px !important;letter-spacing:-0.035em !important}
 @media (min-width:1024px){h1{font-size:60px !important}}
 </style>
 
-<style id="tcg-desktop-consistency">
-/* Desktop-only shared Hero spacing; preserve mobile layouts */
-@media (min-width:1024px){
-main > section#top{padding-top:96px !important}
-
-main > section#top h1{line-height:1.04 !important}
-}
-</style>
 <style>.mobile-home{display:none}</style>
-<link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
-<style id="tcg-hero-alignment">
-@media (min-width:1024px){
-  /* Account for the 76px header and its 1px bottom border. */
-  main > #top{box-sizing:border-box;min-height:calc(100vh - 77px)}
-}
-/* Consistent homepage heading scale and top offset across pages */
-@media (min-width:1024px){main > #top{padding-top:96px !important}#top h1{font-size:60px !important;line-height:1.04 !important}}
-@media (min-width:768px) and (max-width:1023px){main > #top{padding-top:clamp(64px,9vw,120px) !important}#top h1{font-size:36px !important;line-height:1.04 !important}}
-@media (max-width:767px){main > #top{padding-top:20px !important}#top h1{font-size:36px !important;line-height:1.04 !important;margin-top:0 !important}}
-@media (min-width:768px){#top>div>div{align-items:start !important}}
-</style>
-<style>@media (min-width:768px){.track-title-mobile,.distressed-copy-mobile,.compliance-title-mobile{display:none}}</style>
+<link rel="stylesheet" href="/assets/mobile.css?v=5" media="(max-width:767px)">
 <link rel="stylesheet" href="/assets/mobile-hero.css" media="(max-width:767px)">
+<style id="tcg-hero-alignment">
+#top{padding:clamp(64px,9vw,120px) 0 clamp(56px,7vw,96px)}
+#top .hero-grid{max-width:1200px;margin:0 auto;padding:0 clamp(20px,4vw,40px);box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr);gap:48px;align-items:start}
+#top .mobile-hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0}
+#top h1{margin:0;line-height:1.04;font-weight:500;text-wrap:balance}
+#top .hero-p{margin:0;font-size:18px;line-height:1.6;color:#3E4744;max-width:500px}
+@media (min-width:1024px){
+  #top{box-sizing:border-box;min-height:calc(100vh - 77px);padding-top:96px}
+  #top .hero-grid{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:56px}
+}
+@media (max-width:767px){
+  #top .hero-grid{
+    min-height:calc(var(--hero-height) - 2 * var(--hero-inset));
+    grid-template-rows:auto auto minmax(144px,1fr) auto;
+    align-items:stretch;
+    gap:12px;
+  }
+  #top.mobile-hero .hero-grid > .mobile-hero-copy{display:contents}
+  #top h1{grid-row:1}
+  #top .hero-p{grid-row:2;font-size:16px}
+  #top .lm{grid-row:3;align-self:end;height:100%;max-height:calc(var(--hero-illustration-width) * .762);min-height:0;overflow:hidden}
+  #top .lm-svg{position:absolute;inset:0}
+  #top .lm-leg{display:none}
+  #top .mobile-hero-actions{grid-row:4}
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -368,13 +374,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <main class="mobile-editorial land-page">
 <!-- 01 HERO -->
-<section id="top" class="mobile-hero" style="padding: clamp(64px, 9vw, 120px) 0 clamp(64px, 8vw, 112px)">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); box-sizing: border-box; display: flex; flex-direction: column; gap: 56px">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 64px; align-items: center">
-      <div class="m-center mobile-hero-copy" style="display: flex; flex-direction: column; gap: 28px">
-        <h1 style="margin: 0; font-size: clamp(34px, 3.7vw, 54px); line-height: 1.05; font-weight: 500; letter-spacing: -0.035em; text-wrap: balance">Know Your Land&rsquo;s Value Before You Sell or Develop</h1>
-        <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3E4744; max-width: 560px">Strategic advisory for landowners. We assess the site, identify the strongest monetization path and prepare the land for buyers, developers or investors.</p>
-        <div class="m-center mobile-hero-actions" style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px">
+<section id="top" class="mobile-hero">
+  <div class="hero-grid">
+      <div class="mobile-hero-copy">
+        <h1>Know Your Land&rsquo;s Value Before You Sell or Develop</h1>
+        <p class="hero-p">Strategic advisory for landowners. We assess the site, identify the strongest monetization path and prepare the land for buyers, developers or investors.</p>
+        <div class="mobile-hero-actions">
           <a class="btn" href="https://wa.me/6281337973097?text=Hi%2C%20I%E2%80%99d%20like%20a%20free%20land%20assessment.%0A1.%20Location%3A%20%5BGoogle%20Maps%20link%5D%0A2.%20Land%20size%3A%20%5Bm%C2%B2%20%2F%20hectares%5D%0A3.%20Land%20document%3A%20%5Bcertificate%20type%20%2F%20attach%5D%0A4.%20Current%20status%3A%20%5Bvacant%20%2F%20partly%20developed%20%2F%20offer%20received%5D%0AGoal%3A%20%5Bsell%20%2F%20develop%20%2F%20attract%20investors%20%2F%20not%20sure%20yet%5D" data-cta="land_hero" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; background: #0E5A55; color: #FFFFFF; text-decoration: none; font-size: 15px; font-weight: 500">Get a Free Land Assessment</a>
         </div>
       </div>
@@ -445,7 +450,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 (function(){
   var fig=document.querySelector('figure.lm');
-  if(!fig||!fig.getAnimations)return;
+  if(!fig)return;
+  var mobile=window.matchMedia('(max-width:767px)');
+  var svg=fig.querySelector('.lm-svg');
+  function updateViewBox(){
+    svg.setAttribute('viewBox',mobile.matches?'10 10 440 398':'0 0 460 512');
+  }
+  updateViewBox();
+  mobile.addEventListener('change',updateViewBox);
+  if(!fig.getAnimations)return;
   var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
   function restart(){
     fig.getAnimations({subtree:true}).forEach(function(a){a.currentTime=0;a.play();});
@@ -460,7 +473,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 })();
 </script>
 
-    </div>
   </div>
 </section>
 
