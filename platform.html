@@ -496,7 +496,7 @@ main > section.hero h1{line-height:1.04 !important}
   .platform-page .eyebrow{font-size:11px;line-height:1.5}
   .platform-page section[id]{scroll-margin-top:64px}
   /* No decorative motion or oversized diagram in mobile Hero. */
-  .platform-page *, .platform-page *::before, .platform-page *::after{animation:none!important}
+  .platform-page :not(#map-check *),.platform-page :not(#map-check *)::before,.platform-page :not(#map-check *)::after{animation:none!important}
   #top.hero{padding:32px 0 48px!important}
   #top .hero-grid{display:block}
   #top .hero-txt{min-width:0}
@@ -808,9 +808,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 #map-check .ui-top{padding:10px var(--panel-inset)}
 #map-check .mc-map{width:100%;aspect-ratio:16/10;min-height:210px}
 #map-check .mc-rows{grid-auto-rows:auto}
-#map-check .mc-lyr{transition:none}
 #map-check .mc-rows li{grid-template-columns:minmax(0,1fr);gap:4px;padding-block:10px}
-#map-check .mc-readout,#map-check .mc-chip{display:none}
+#map-check .mc-chip{inset:10px 10px auto;align-items:flex-start}
+#map-check .mc-tag{display:none;padding:4px 6px;font-size:10px;white-space:normal}
+#map-check .mc-tag.mc-on{display:inline-flex}
+#map-check .mc-readout{left:10px;bottom:10px;font-size:10px}
 }
 @media (prefers-reduced-motion:reduce){#map-check *{transition:none !important;animation:none !important}}
 </style>
@@ -1120,12 +1122,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     at(10300,final);
   }
 
-  const still=matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)');
+  const still=matchMedia('(prefers-reduced-motion: reduce)');
   const io=new IntersectionObserver(entries=>{
     if(entries.some(entry=>entry.isIntersecting)&&!running&&!verdict.classList.contains('mc-on'))play();
   });
   function present(){
-    if(still.matches)final()
+    if(still.matches)final();
     else if(!verdict.classList.contains('mc-on'))io.observe(document.querySelector('#map-check .mc-demo'));
   }
   const ro=new ResizeObserver(()=>apply());ro.observe(mapBox);
