@@ -468,7 +468,9 @@ main > section.hero h1{line-height:1.04 !important}
 .platform-page #top .hero-metric::before{content:"";position:absolute;left:2px;top:10px;width:9px;height:9px;background:#0E5A55;transform:rotate(45deg);border-radius:1px}
 .platform-page #top .hero-cta{margin-top:23px}
 @media (max-width:767px){
-  .platform-page #top .hero-metrics{margin-top:23px;gap:17px}
+  /* The hero column already supplies 12px between items. */
+  .platform-page #top .mobile-hero-copy > .desc{margin-top:12px !important}
+  .platform-page #top .hero-metrics{margin-top:58px;gap:17px}
   .platform-page #top .hero-metric{padding-left:21px}
   .platform-page #top .hero-metric::before{top:10px}
   .platform-page #top .hero-cta{margin-top:26px}
