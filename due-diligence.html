@@ -867,7 +867,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- 03 PRICING -->
 <section class="sec" id="pricing"><div class="wrap"><div class="sec-head"><h2 class="h2">Choose the Depth of Your Check</h2><p class="lead2">Match the plan to the property: a land plot, a finished villa or an off-plan project.</p></div><div class="tiers"><article class="tier std"><div class="t-top"><h3 class="of-name">Standard</h3></div><div class="t-price"><div class="svc-price"><span class="v">US$200</span></div><span class="t-del"><span>Finished villas and sales by a company</span><span>Delivery within 12 hours</span></span></div><ul class="t-list"><li class="inh">Everything in Basic</li><li>Land certificate read from your copy and matched on the BHUMI land map</li><li>Shareholders and directors in AHU, including whether the signer is a registered director</li><li>NIB and KBLI verified by QR code and matched to your intended use</li><li>KKPR matched to the plot, when supplied</li></ul><div class="t-res"><span class="lab">Result</span><p class="body">Who is selling, what land they hold, and whether the company is licensed to rent the property out.</p></div><div class="t-cta"><a class="btn cta ghost" href="#order" data-plan="standard">Choose Standard</a></div></article>
 <article class="tier top"><div class="t-top"><h3 class="of-name">Comprehensive</h3><span class="tag tg">Most Complete</span></div><div class="t-price"><div class="svc-price"><span class="v">US$350</span></div><span class="t-del"><span>Off-plan projects and developer purchases</span><span>Timeline confirmed after we review the property</span></span></div><ul class="t-list"><li class="inh">Everything in Standard</li><li>Full company history in AHU</li><li>Developer track record from TCG market data</li><li>Zoning of neighbouring plots and temple sanctity areas</li><li>Construction activity nearby from satellite imagery</li><li>Short-term and long-term rental prospects</li></ul><div class="t-res"><span class="lab">Result</span><p class="body">Whether the project and its surroundings support the purchase, and which risks to settle before investing.</p></div><div class="t-cta"><a class="btn cta" href="#order" data-plan="comprehensive">Choose Comprehensive</a></div></article>
-<article class="tier"><div class="t-top"><h3 class="of-name">Basic</h3></div><div class="t-price"><div class="svc-price"><span class="v">US$90</span></div><span class="t-del"><span>Land plots and early screening</span><span>Delivery within 8 hours</span></span></div><ul class="t-list"><li>Zone and permitted activities under the local RDTR</li><li>Site coverage, floor ratio, height limits and setbacks</li><li>PBG and SLF authenticity by QR code, when supplied</li></ul><div class="t-res"><span class="lab">Result</span><p class="body">What you can build or operate on the plot, and whether the building permits are genuine.</p></div><div class="t-cta"><a class="btn cta ghost" href="#order" data-plan="basic">Choose Basic</a></div></article></div><div class="tiers-note"><p>All checks are carried out online in official Indonesian systems. Ownership is confirmed from the certificate copy you provide. Site inspection, title verification at the BPN land office and contract review are available as separate paid services.</p><p>Each plan covers one property and one company; checks involving more companies are quoted before work starts. Delivery time counts from payment confirmation or receipt of your documents, whichever comes later.</p></div></div></section>
+<article class="tier"><div class="t-top"><h3 class="of-name">Basic</h3></div><div class="t-price"><div class="svc-price"><span class="v">US$90</span></div><span class="t-del"><span>Land plots and early screening</span><span>Delivery within 8 hours</span></span></div><ul class="t-list"><li>Zone and permitted activities under the local RDTR</li><li>Site coverage, floor ratio, height limits and setbacks</li><li>PBG and SLF authenticity by QR code, when supplied</li></ul><div class="t-res"><span class="lab">Result</span><p class="body">What you can build or operate on the plot, and whether the building permits are genuine.</p></div><div class="t-cta"><a class="btn cta ghost" href="#order" data-plan="basic">Choose Basic</a></div></article></div><div class="tiers-note"><p>All checks are carried out online in official Indonesian systems. Ownership is confirmed from the certificate copy you provide. Site inspection, title verification at the BPN land office and contract review are available as separate paid services.</p><p>Each plan covers one property. Standard and Comprehensive include one company check. Additional company checks are quoted before work starts. Delivery time counts from payment confirmation or receipt of your documents, whichever comes later.</p></div></div></section>
 <!-- 05 ORDER -->
 <section id="order" class="ei" aria-labelledby="order-title"><div class="wrap ei-grid">
   <div class="ei-copy">
@@ -1007,12 +1007,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </form>
 
     <div class="pc-done" id="pc-done" hidden>
-      <h3 tabindex="-1" id="pc-d-heading"></h3>
+      <h3 tabindex="-1" id="pc-d-heading">Your WhatsApp draft is ready</h3>
       <div class="pc-done-rows">
         <p><span>Plan</span><b id="pc-d-plan"></b></p>
         <p><span>Delivery</span><b id="pc-d-time"></b></p>
       </div>
-      <p class="note">Send the prepared message in WhatsApp to confirm the order. TCG replies with an invoice in US dollars or rupiah, and the check starts once payment arrives. The report will be sent to <b id="pc-d-email"></b>.</p>
+      <p class="note">Send it to request the report. TCG will confirm your order and issue an invoice. Invoices are issued in US dollars or rupiah, and the check starts once payment arrives. The report will be sent to <b id="pc-d-email"></b>.</p>
       <p class="note">Send these documents in the chat:</p><ul class="pc-confirm-docs" id="pc-confirm-docs"></ul><p class="note">WhatsApp did not open? <a id="pc-wa-link" href="https://wa.me/6281337973097" target="_blank" rel="noopener">Open the message again</a>.</p>
     </div>
   </div>
@@ -1314,12 +1314,11 @@ document.querySelectorAll('.dd').forEach(function(d){
     if(window.dataLayer)window.dataLayer.push({event:'whatsapp_click',location:'due_diligence_order',plan:plan()});
     try{fetch('/api/order',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(order)}).catch(function(){});}catch(e){}
     var w=null;try{w=window.open(url,'_blank');if(w)w.opener=null;}catch(e){}
-    finish(id);
+    finish();
   });
 
-  function finish(id){
-    var p=PLANS[plan()],n=docCount();
-    $('pc-d-heading').textContent='Order '+id+' Received';
+  function finish(){
+    var p=PLANS[plan()];
     $('pc-d-plan').textContent=p.name;
     $('pc-d-time').textContent=p.hours===null?'Timeline to be confirmed':'Within '+p.hours+' hours';
     var ul=$('pc-confirm-docs');ul.textContent='';requiredDocs().forEach(function(d){var li=document.createElement('li');li.textContent=d;ul.appendChild(li);});
