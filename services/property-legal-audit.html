@@ -483,8 +483,26 @@ main > section.hero .hero-h1{line-height:1.04 !important}
 }
 </style>
 <style>.mobile-home{display:none}</style>
-<style>@media (max-width:767px){.hero-desktop-break{display:none}.mid-cta p{width:100%;text-align:center}}</style>
-<link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
+<style>
+@media (max-width:767px){
+  .mid-cta p{width:100%;text-align:center}
+  #top .hero-grid{
+    min-height:calc(var(--hero-height) - 2 * var(--hero-inset));
+    grid-template-rows:auto auto minmax(144px,1fr) auto;
+    align-items:stretch;
+    gap:12px;
+  }
+  #top .hero-grid > .hero-txt.mobile-hero-copy{display:contents}
+  #top .hero-h1{grid-row:1}
+  #top .hero-p{grid-row:2;font-size:16px}
+  #top .pcx{grid-row:3;height:auto;min-height:0;overflow:hidden}
+  #top .pcx-svg{position:absolute;inset:0}
+  #top .pcx-tag{transform:translateY(43px)}
+  #top .pcx-leg{display:none}
+  #top .mobile-hero-actions{grid-row:4}
+}
+</style>
+<link rel="stylesheet" href="/assets/mobile.css?v=3" media="(max-width:767px)">
 <style id="tcg-hero-alignment">
 /* Consistent homepage heading scale and top offset across pages */
 @media (min-width:1024px){main > #top.hero{padding-top:96px !important}#top .hero-h1{font-size:60px !important;line-height:1.04 !important}}
@@ -531,7 +549,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section id="top" class="hero mobile-hero"><div class="hero-grid">
   <div class="hero-txt mobile-hero-copy">
     
-    <h1 class="hero-h1">Protect Rental Income.<br class="hero-desktop-break"> Secure Property Sales.<br class="hero-desktop-break"> Take Control of Your Investment</h1>
+    <h1 class="hero-h1"><span class="compliance-title-desktop">Protect Rental Income.<br> Secure Property Sales.<br> Take Control of Your Investment</span><span class="compliance-title-mobile">Protect Rental Income and Secure Your Property Sale</span></h1>
     <p class="hero-p">Missing permits, licensing restrictions, government notices or management refusals? Our team identifies obstacles and delivers a clear, costed resolution plan within five days.</p>
     
     <div class="mobile-hero-actions"><a class="btn cta" href="#property-review">Confidential Case Review</a></div>
@@ -633,6 +651,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var fig=document.querySelector('figure.pcx');
   if(!fig||!fig.getAnimations)return;
   var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mobile=window.matchMedia('(max-width:767px)');
+  var svg=fig.querySelector('.pcx-svg');
+  function updateViewBox(){
+    svg.setAttribute('viewBox',mobile.matches?'10 51 440 356':'0 0 460 512');
+  }
+  updateViewBox();
+  mobile.addEventListener('change',updateViewBox);
   function restart(){
     fig.getAnimations({subtree:true}).forEach(function(a){a.currentTime=0;a.play();});
   }
