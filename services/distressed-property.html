@@ -471,7 +471,7 @@ main > section.hero .hero-h1{line-height:1.04 !important}
 }
 </style>
 <style>.mobile-home{display:none}</style>
-<link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
+<link rel="stylesheet" href="/assets/mobile.css?v=4" media="(max-width:767px)">
 <style id="tcg-hero-alignment">
 /* Consistent homepage heading scale and top offset across pages */
 @media (min-width:1024px){main > #top.hero{padding-top:96px !important}#top .hero-h1{font-size:60px !important;line-height:1.04 !important}}
@@ -479,7 +479,7 @@ main > section.hero .hero-h1{line-height:1.04 !important}
 @media (max-width:767px){main > #top.hero{padding-top:20px !important}#top .hero-h1{font-size:36px !important;line-height:1.04 !important;margin-top:0 !important}}
 @media (min-width:768px){#top .hero-grid{align-items:start !important}}
 </style>
-<style>@media (min-width:768px){.track-title-mobile,.distressed-copy-mobile,.compliance-title-mobile{display:none}}</style>
+<style>@media (min-width:768px){.track-title-mobile,.compliance-title-mobile{display:none}}</style>
 
 <style id="tcg-buyout-asset-grid-fix">
 @media(min-width:768px) and (max-width:1023px){#pricing .inc-grid li:last-child{grid-column:1/-1}}
@@ -487,6 +487,24 @@ main > section.hero .hero-h1{line-height:1.04 !important}
 @media(min-width:768px){#pricing .of-impl .strengths{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 <link rel="stylesheet" href="/assets/mobile-hero.css" media="(max-width:767px)">
+<style>
+@media (max-width:767px){
+  #top .hero-grid{
+    min-height:calc(var(--hero-height) - 2 * var(--hero-inset));
+    grid-template-rows:auto auto minmax(144px,1fr) auto;
+    align-items:stretch;
+    gap:12px;
+  }
+  #top .hero-grid > .hero-txt.mobile-hero-copy{display:contents}
+  #top .hero-h1{grid-row:1}
+  #top .hero-p{grid-row:2;font-size:16px}
+  #top .dp{grid-row:3;align-self:end;height:100%;max-height:calc(var(--hero-illustration-width) * .762);min-height:0;overflow:hidden}
+  #top .dp-svg{position:absolute;inset:0}
+  #top .dp-tag{transform:translateY(24px)}
+  #top .dp-leg{display:none}
+  #top .mobile-hero-actions{grid-row:4}
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -523,8 +541,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- HERO -->
 <section id="top" class="hero mobile-hero"><div class="hero-grid">
   <div class="hero-txt mobile-hero-copy">
-    <h1 class="hero-h1">Your Project Has Stalled. Recover Your Capital Through a Direct Buyout</h1>
-    <p class="hero-p"><span class="distressed-copy-desktop">Every month on hold adds cost and shortens the lease. We assess unfinished and permit-constrained villas for acquisition, with site visits within 48 hours of initial approval.</span><span class="distressed-copy-mobile">Every month on hold adds cost and shortens the lease. We assess unfinished and permit-constrained villas for acquisition, with site visits within 48 hours of initial approval.</span></p>
+    <h1 class="hero-h1">Sell Your Stalled Bali Project As It Stands</h1>
+    <p class="hero-p">If construction has stopped or permit issues are holding you back, TCG can assess your property for a direct buyout before you put more money into it.</p>
     
     <div class="mobile-hero-actions"><a class="btn cta" href="https://wa.me/6281337973097?text=Hi%2C%20I'd%20like%20to%20discuss%20a%20buyout%20of%20my%20property.%0ALocation%3A%20%5BGoogle%20Maps%20link%5D%0AStatus%3A%20%5Bunfinished%20villa%20%2F%20stalled%20complex%20%2F%20built%20without%20permits%5D%0AConstruction%20progress%3A%20%5Bapprox.%20%25%20complete%5D%0ALand%3A%20%5Bleasehold%2C%20years%20remaining%20%2F%20other%20ownership%20rights%5D%0ADocuments%20available%3A%20%5Bcertificate%20or%20lease%20%2F%20PBG%20or%20IMB%20%2F%20drawings%20%2F%20contracts%5D%0APrice%20expectation%3A%0ADeadline%20to%20sell%3A" target="_blank" rel="noopener">Request a Buyout Offer</a></div>
   </div>
@@ -690,6 +708,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var fig=document.querySelector('figure.dp');
   if(!fig||!fig.getAnimations)return;
   var mq=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mobile=window.matchMedia('(max-width:767px)');
+  var svg=fig.querySelector('.dp-svg');
+  function updateViewBox(){
+    svg.setAttribute('viewBox',mobile.matches?'10 38 440 376':'0 0 460 512');
+  }
+  updateViewBox();
+  mobile.addEventListener('change',updateViewBox);
   function restart(){
     fig.getAnimations({subtree:true}).forEach(function(a){a.currentTime=0;a.play();});
   }
