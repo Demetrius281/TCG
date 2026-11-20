@@ -322,6 +322,10 @@ main > section#top h1{line-height:1.04 !important}
 <style>.mobile-home{display:none}</style>
 <link rel="stylesheet" href="/assets/mobile.css?v=2" media="(max-width:767px)">
 <style id="tcg-hero-alignment">
+@media (min-width:1024px){
+  /* Account for the 76px header and its 1px bottom border. */
+  main > #top{box-sizing:border-box;min-height:calc(100vh - 77px)}
+}
 /* Consistent homepage heading scale and top offset across pages */
 @media (min-width:1024px){main > #top{padding-top:96px !important}#top h1{font-size:60px !important;line-height:1.04 !important}}
 @media (min-width:768px) and (max-width:1023px){main > #top{padding-top:clamp(64px,9vw,120px) !important}#top h1{font-size:36px !important;line-height:1.04 !important}}
@@ -456,16 +460,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </script>
 
     </div>
-
-    <aside class="m-center" aria-labelledby="offer-h" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px 48px; align-items: center; padding: 28px clamp(20px, 3vw, 32px); background: #FFFFFF; border: 1px solid #E2E0D9; border-left: 2px solid #0E5A55">
-      <div class="m-center" style="display: flex; flex-direction: column; gap: 8px">
-        <h2 id="offer-h" style="margin: 0; font-size: 22px; font-weight: 500; letter-spacing: -0.015em">Already Have an Offer or a Plan?</h2>
-        <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3E4744">We break down any proposal and pressure-test it from the owner&rsquo;s side before you commit.</p>
-      </div>
-      <div class="offer-cta">
-        <a class="ulink" href="https://wa.me/6281337973097?text=Hi%2C%20I%20have%20an%20offer%20or%20plan%20for%20my%20land%20and%20would%20like%20a%20second%20opinion.%0ALocation%3A%20%5BGoogle%20Maps%20link%5D%0AOffer%20or%20plan%3A%20%5Battach%20%2F%20describe%5D" data-cta="land_second_opinion" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; font-weight: 500; color: #0F1413; text-decoration: none">Get a Second Opinion</a>
-      </div>
-    </aside>
   </div>
 </section>
 
